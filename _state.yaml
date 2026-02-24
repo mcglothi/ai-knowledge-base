@@ -1,0 +1,44 @@
+# _state.yaml — Time-sensitive surface layer
+#
+# Agents read this immediately after _index.md to catch anything urgent.
+# Keep this file SHORT. Only put things here that are time-sensitive or
+# actively in-flight. When an incident resolves or a task completes, REMOVE it.
+#
+# Update this file in the same commit as the related project file change.
+
+last_updated: "YYYY-MM-DD"
+
+# ── SSL / TLS certificates ────────────────────────────────────────────────────
+# Add entries for any certs you manage manually. Remove when renewed.
+# ssl_certs:
+#   - domain: example.com
+#     expires: "YYYY-MM-DD"
+#     warn_after: "YYYY-MM-DD"      # date to start flagging this
+#     managed_by: Let's Encrypt / Cloudflare / manual
+#     notes: wildcard cert covering *.example.com
+
+ssl_certs: []
+
+# ── Open incidents ────────────────────────────────────────────────────────────
+# Remove when resolved. Use _templates/file-template.md to document post-mortems.
+# open_incidents:
+#   - title: "Service X is down"
+#     since: "YYYY-MM-DD"
+#     impact: Brief description
+#     file: projects/service-x.md
+
+open_incidents: []
+
+# ── Pending / blocked items ───────────────────────────────────────────────────
+# Items waiting on external input, client approval, etc.
+# Remove when unblocked or completed.
+# pending:
+#   - title: "Waiting for API access"
+#     blocked_by: "Client to provide credentials"
+#     file: projects/my-project.md
+
+pending: []
+
+# ── Recently changed files ────────────────────────────────────────────────────
+# Auto-maintained by agents. Keep last ~10. Drop oldest when adding new.
+recently_changed: []

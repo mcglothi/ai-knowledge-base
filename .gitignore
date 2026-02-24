@@ -1,0 +1,26 @@
+# Secrets — never commit these
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+credentials/
+.bw_session
+.op_session
+
+# Editor artifacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+
+# Backup files created by install.sh
+*.bak
+
+# OS artifacts
+__pycache__/
+*.pyc
