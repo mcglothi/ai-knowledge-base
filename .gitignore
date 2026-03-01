@@ -21,6 +21,9 @@ Thumbs.db
 # Backup files created by install.sh
 *.bak
 
+# Personal config saved by install.sh — used by sync.sh, never committed
+.aikb-config.d/
+
 # OS artifacts
 __pycache__/
 *.pyc

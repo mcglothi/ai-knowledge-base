@@ -89,6 +89,30 @@ Launch your AI tool. It will read AIKB and immediately know who you are, what ma
 
 ---
 
+## Staying Up to Date
+
+When improvements are made to the template (better agent instructions, new tool support, updated schemas), you can pull them without touching your personal content.
+
+`install.sh` automatically adds this repo as an `upstream` git remote and saves your personal config to a git-ignored `.aikb-config.d/` directory. When you want updates, run:
+
+```bash
+./sync.sh
+```
+
+`sync.sh` will:
+1. Fetch the latest changes from upstream
+2. Show you exactly what changed in the framework dirs (`_agents/`, `_templates/`, `docs/`)
+3. Ask for confirmation before applying anything
+4. Re-apply your personal values (username, repo name, paths, secrets manager) automatically
+5. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
+6. Commit the result
+
+**What gets updated:** `_agents/`, `_templates/`, `docs/`, `sync.sh`, `install.sh`, `.gitignore`
+
+**What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
+
+---
+
 ## How It Works
 
 ### Repository structure

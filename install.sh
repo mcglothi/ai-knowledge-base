@@ -144,6 +144,22 @@ if grep -q "{{GITHUB_USERNAME}}" "$SCRIPT_DIR/_index.md" 2>/dev/null; then
   success "Updated _index.md"
 fi
 
+# ── Save config for future syncs ─────────────────────────────────────────────
+header "Saving configuration..."
+mkdir -p "$SCRIPT_DIR/.aikb-config.d"
+printf '%s' "$GITHUB_USERNAME"   > "$SCRIPT_DIR/.aikb-config.d/GITHUB_USERNAME"
+printf '%s' "$REPO_NAME"         > "$SCRIPT_DIR/.aikb-config.d/REPO_NAME"
+printf '%s' "$LOCAL_PATH"        > "$SCRIPT_DIR/.aikb-config.d/LOCAL_PATH"
+printf '%s' "$PRIMARY_HOSTNAME"  > "$SCRIPT_DIR/.aikb-config.d/PRIMARY_HOSTNAME"
+printf '%s' "$SECRETS_MANAGER"   > "$SCRIPT_DIR/.aikb-config.d/SECRETS_MANAGER"
+printf '%s' "$SECRETS_RETRIEVE"  > "$SCRIPT_DIR/.aikb-config.d/SECRETS_RETRIEVE"
+success "Config saved to .aikb-config.d/ (git-ignored)"
+
+# ── Add upstream remote for future framework syncs ────────────────────────────
+git remote add upstream https://github.com/mcglothi/ai-knowledge-base.git 2>/dev/null \
+  && success "Added upstream remote → mcglothi/ai-knowledge-base" \
+  || info "Upstream remote already configured"
+
 # ── Initial git commit ────────────────────────────────────────────────────────
 header "Creating initial commit..."
 cd "$SCRIPT_DIR"
@@ -152,6 +168,7 @@ git commit -m "chore: personalize AIKB for $GITHUB_USERNAME" --allow-empty
 success "Initial commit created"
 
 # ── Claude Code integration (optional) ───────────────────────────────────────
+SETUP_CLAUDE="n"
 if command -v claude &>/dev/null; then
   echo ""
   read -rp "Claude Code detected. Copy agent instructions to ~/.claude/CLAUDE.md? [Y/n]: " SETUP_CLAUDE
@@ -162,8 +179,10 @@ if command -v claude &>/dev/null; then
     success "Copied to ~/.claude/CLAUDE.md"
   fi
 fi
+printf '%s' "$SETUP_CLAUDE" > "$SCRIPT_DIR/.aikb-config.d/SETUP_CLAUDE"
 
 # ── Gemini CLI integration (optional) ────────────────────────────────────────
+SETUP_GEMINI="n"
 if command -v gemini &>/dev/null; then
   echo ""
   read -rp "Gemini CLI detected. Copy agent instructions to ~/.gemini/GEMINI.md? [Y/n]: " SETUP_GEMINI
@@ -174,6 +193,7 @@ if command -v gemini &>/dev/null; then
     success "Copied to ~/.gemini/GEMINI.md"
   fi
 fi
+printf '%s' "$SETUP_GEMINI" > "$SCRIPT_DIR/.aikb-config.d/SETUP_GEMINI"
 
 # ── Next steps ────────────────────────────────────────────────────────────────
 header "Done! Next steps:"
@@ -196,5 +216,9 @@ echo ""
 echo "  5. Add a machine profile for $PRIMARY_HOSTNAME:"
 echo "     Copy _templates/machine-profile.md to personal/dev-environment/${PRIMARY_HOSTNAME}.md"
 echo "     and fill in your installed tools and paths."
+echo ""
+echo "  6. To get future framework updates from the template:"
+echo "     ./sync.sh"
+echo "     (Re-applies your personal config automatically)"
 echo ""
 success "AIKB is ready. Happy building!"
