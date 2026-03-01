@@ -24,6 +24,12 @@ Thumbs.db
 # Personal config saved by install.sh — used by sync.sh, never committed
 .aikb-config.d/
 
+# aikb-search tool artifacts
+_tools/aikb-search/.venv/
+_tools/aikb-search/aikb_index.db
+_tools/aikb-search/index.log
+_tools/aikb-search/__pycache__/
+
 # OS artifacts
 __pycache__/
 *.pyc

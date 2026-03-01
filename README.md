@@ -23,6 +23,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 - **Multi-agent, multi-tool** — one knowledge base, shared across Claude Code, Gemini CLI, ChatGPT, Cursor, and more
 - **Two access modes** — local clone (fast, offline-capable) or GitHub MCP (no clone needed, works from any machine)
+- **Semantic search** — optional `aikb_search` MCP tool for natural language queries across all your files ("what's broken?", "what SSL certs expire soon?")
 - **Layered loading** — agents read only what they need, protecting context window budget
 - **Checkpoint commits** — agents commit progress mid-session so nothing is lost if a session drops
 - **Secrets-safe** — credentials are referenced by name (in your secrets manager), never stored in the repo
@@ -86,7 +87,17 @@ Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
 
 The `example/` directory has annotated examples showing what good entries look like.
 
-### 5. Start a session
+### 5. (Optional) Set up semantic search
+
+Run one command to enable natural language queries across all your AIKB files:
+
+```bash
+bash _tools/aikb-search/setup.sh
+```
+
+After setup, your agent can answer questions like "what's currently broken?" or "what SSL certs expire soon?" without you having to know which file to load. See [`docs/search-setup.md`](docs/search-setup.md) for details.
+
+### 6. Start a session
 
 Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
 
@@ -114,7 +125,7 @@ When improvements are made to the template (better agent instructions, new tool 
 5. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
 6. Commit the result
 
-**What gets updated:** `_agents/`, `_templates/`, `docs/`, `sync.sh`, `install.sh`, `.gitignore`
+**What gets updated:** `_agents/`, `_templates/`, `_tools/`, `docs/`, `sync.sh`, `install.sh`, `.gitignore`
 
 **What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
 
