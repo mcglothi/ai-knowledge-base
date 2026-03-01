@@ -58,14 +58,22 @@ read_config() { cat "$CONFIG_DIR/$1" 2>/dev/null || echo ""; }
 
 GITHUB_USERNAME=$(read_config GITHUB_USERNAME)
 REPO_NAME=$(read_config REPO_NAME)
+REPO_URL=$(read_config REPO_URL)
+REPO_SSH=$(read_config REPO_SSH)
 LOCAL_PATH=$(read_config LOCAL_PATH)
+CODE_ROOT=$(read_config CODE_ROOT)
 PRIMARY_HOSTNAME=$(read_config PRIMARY_HOSTNAME)
+OS_FRIENDLY=$(read_config OS)
 SECRETS_MANAGER=$(read_config SECRETS_MANAGER)
 SECRETS_RETRIEVE=$(read_config SECRETS_RETRIEVE)
-REPO_URL="https://github.com/${GITHUB_USERNAME}/${REPO_NAME}"
-REPO_SSH="git@github.com:${GITHUB_USERNAME}/${REPO_NAME}.git"
-SETUP_CLAUDE=$(read_config SETUP_CLAUDE || echo "n")
-SETUP_GEMINI=$(read_config SETUP_GEMINI || echo "n")
+SETUP_CLAUDE=$(read_config SETUP_CLAUDE)
+SETUP_GEMINI=$(read_config SETUP_GEMINI)
+
+# Fall back to deriving values if config was saved by an older install.sh
+[[ -z "$REPO_URL" ]]    && REPO_URL="https://github.com/${GITHUB_USERNAME}/${REPO_NAME}"
+[[ -z "$REPO_SSH" ]]    && REPO_SSH="git@github.com:${GITHUB_USERNAME}/${REPO_NAME}.git"
+[[ -z "$CODE_ROOT" ]]   && CODE_ROOT="$(dirname "$LOCAL_PATH")/"
+[[ -z "$OS_FRIENDLY" ]] && { [[ "$(uname -s)" == "Darwin" ]] && OS_FRIENDLY="macOS" || OS_FRIENDLY="Linux"; }
 
 if [[ -z "$GITHUB_USERNAME" ]]; then
   error "Saved config is incomplete. Re-run install.sh to rebuild it."
@@ -152,7 +160,8 @@ apply_substitutions() {
 
   python3 - "$file" \
     "$GITHUB_USERNAME" "$REPO_NAME" "$REPO_URL" "$REPO_SSH" \
-    "$LOCAL_PATH" "$PRIMARY_HOSTNAME" "$SECRETS_MANAGER" "$SECRETS_RETRIEVE" \
+    "$LOCAL_PATH" "$CODE_ROOT" "$PRIMARY_HOSTNAME" "$OS_FRIENDLY" \
+    "$SECRETS_MANAGER" "$SECRETS_RETRIEVE" \
     <<'PYEOF'
 import sys, pathlib
 
@@ -161,7 +170,8 @@ text = f.read_text()
 
 keys = [
     'GITHUB_USERNAME', 'REPO_NAME', 'REPO_URL', 'REPO_SSH',
-    'LOCAL_PATH', 'PRIMARY_HOSTNAME', 'SECRETS_MANAGER', 'SECRETS_RETRIEVE',
+    'LOCAL_PATH', 'CODE_ROOT', 'PRIMARY_HOSTNAME', 'OS',
+    'SECRETS_MANAGER', 'SECRETS_RETRIEVE',
 ]
 
 for i, key in enumerate(keys):

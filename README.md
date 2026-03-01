@@ -54,7 +54,7 @@ Click **[Use this template](../../generate)** → name it `AIKB` → set it to *
 
 Or from the CLI:
 ```bash
-gh repo create AIKB --template mcglothi/aikb --private --clone
+gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
 cd AIKB
 ```
 
@@ -76,16 +76,23 @@ Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
 - **Cursor** — paste `_agents/cursor.md` into Settings → Cursor Settings → Rules → User Rules
 - **ChatGPT / Gemini / Grok** — paste the relevant file into Custom Instructions
 
-### 4. Personalize your knowledge base
+### 4. Fill in your personal files
 
-Edit these files to describe yourself and your environment:
+`install.sh` creates these files automatically — they just need your details:
 
-- [`example/personal/profile.md`](example/personal/profile.md) → move to `personal/profile.md` and fill in your background and skills
-- [`example/personal/dev-environment.md`](example/personal/dev-environment.md) → move to `personal/dev-environment/README.md` and describe your machines
+- `personal/profile.md` — your background, skills, and communication preferences
+- `personal/dev-environment/README.md` — your machine inventory (hostnames, OS, code roots)
+- `personal/dev-environment/<hostname>.md` — installed tools on your primary machine
+
+The `example/` directory has annotated examples showing what good entries look like.
 
 ### 5. Start a session
 
 Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
+
+### On a new machine
+
+Clone your private AIKB repo and run `install.sh` again. It detects the new hostname, scaffolds a machine profile for it, and sets up your AI tools — your existing personalization is already in the repo, no re-entering needed.
 
 ---
 

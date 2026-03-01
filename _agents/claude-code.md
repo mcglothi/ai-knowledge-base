@@ -28,7 +28,7 @@ Run `hostname`. Match it to the table below (edit this table when you add or rem
 
 | Hostname | OS | Code root | AIKB local path |
 |----------|----|-----------|-----------------|
-| {{PRIMARY_HOSTNAME}} | — | `~/Code/` | `{{LOCAL_PATH}}` |
+| {{PRIMARY_HOSTNAME}} | {{OS}} | `{{CODE_ROOT}}` | `{{LOCAL_PATH}}` |
 
 **Unrecognized hostname:**
 Run `uname -s` — Darwin = macOS, Linux = Linux. Probe for package manager: `which brew || which apt || which dnf || which pacman`. If the session will produce useful work, create a machine profile at `personal/dev-environment/<hostname>.md`.

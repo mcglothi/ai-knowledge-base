@@ -27,6 +27,12 @@ header()  { echo -e "\n${BOLD}$*${RESET}"; }
 OS=$(uname -s)
 SHELL_NAME=$(basename "${SHELL:-bash}")
 
+case "$OS" in
+  Darwin) OS_FRIENDLY="macOS" ;;
+  Linux)  OS_FRIENDLY="Linux" ;;
+  *)      OS_FRIENDLY="$OS" ;;
+esac
+
 # ── Prerequisites check ───────────────────────────────────────────────────────
 header "Checking prerequisites..."
 
@@ -90,6 +96,7 @@ esac
 # ── Derive values ─────────────────────────────────────────────────────────────
 REPO_URL="https://github.com/${GITHUB_USERNAME}/${REPO_NAME}"
 REPO_SSH="git@github.com:${GITHUB_USERNAME}/${REPO_NAME}.git"
+CODE_ROOT="$(dirname "$LOCAL_PATH")/"
 
 header "Configuration summary"
 echo "  GitHub username : $GITHUB_USERNAME"
@@ -126,7 +133,9 @@ for tmpl in "$AGENTS_DIR"/*.md; do
     -e "s|{{REPO_URL}}|$REPO_URL|g" \
     -e "s|{{REPO_SSH}}|$REPO_SSH|g" \
     -e "s|{{LOCAL_PATH}}|$LOCAL_PATH|g" \
+    -e "s|{{CODE_ROOT}}|$CODE_ROOT|g" \
     -e "s|{{PRIMARY_HOSTNAME}}|$PRIMARY_HOSTNAME|g" \
+    -e "s|{{OS}}|$OS_FRIENDLY|g" \
     -e "s|{{SECRETS_MANAGER}}|$SECRETS_MANAGER|g" \
     -e "s|{{SECRETS_RETRIEVE}}|$SECRETS_RETRIEVE|g" \
     "$tmpl" > "$out"
@@ -144,13 +153,40 @@ if grep -q "{{GITHUB_USERNAME}}" "$SCRIPT_DIR/_index.md" 2>/dev/null; then
   success "Updated _index.md"
 fi
 
+# ── Scaffold personal profile files ──────────────────────────────────────────
+header "Scaffolding personal files..."
+
+if [[ ! -f "$SCRIPT_DIR/personal/profile.md" ]]; then
+  cp "$SCRIPT_DIR/example/personal/profile.md" "$SCRIPT_DIR/personal/profile.md"
+  success "Created personal/profile.md  ← fill this in"
+fi
+
+mkdir -p "$SCRIPT_DIR/personal/dev-environment"
+if [[ ! -f "$SCRIPT_DIR/personal/dev-environment/README.md" ]]; then
+  sed "s/my-macbook/$PRIMARY_HOSTNAME/g" \
+    "$SCRIPT_DIR/example/personal/dev-environment.md" \
+    > "$SCRIPT_DIR/personal/dev-environment/README.md"
+  success "Created personal/dev-environment/README.md  ← fill this in"
+fi
+
+MACHINE_PROFILE="$SCRIPT_DIR/personal/dev-environment/${PRIMARY_HOSTNAME}.md"
+if [[ ! -f "$MACHINE_PROFILE" ]]; then
+  sed "s/\[hostname\]/$PRIMARY_HOSTNAME/g" \
+    "$SCRIPT_DIR/_templates/machine-profile.md" > "$MACHINE_PROFILE"
+  success "Created personal/dev-environment/${PRIMARY_HOSTNAME}.md  ← fill this in"
+fi
+
 # ── Save config for future syncs ─────────────────────────────────────────────
 header "Saving configuration..."
 mkdir -p "$SCRIPT_DIR/.aikb-config.d"
 printf '%s' "$GITHUB_USERNAME"   > "$SCRIPT_DIR/.aikb-config.d/GITHUB_USERNAME"
 printf '%s' "$REPO_NAME"         > "$SCRIPT_DIR/.aikb-config.d/REPO_NAME"
+printf '%s' "$REPO_URL"          > "$SCRIPT_DIR/.aikb-config.d/REPO_URL"
+printf '%s' "$REPO_SSH"          > "$SCRIPT_DIR/.aikb-config.d/REPO_SSH"
 printf '%s' "$LOCAL_PATH"        > "$SCRIPT_DIR/.aikb-config.d/LOCAL_PATH"
+printf '%s' "$CODE_ROOT"         > "$SCRIPT_DIR/.aikb-config.d/CODE_ROOT"
 printf '%s' "$PRIMARY_HOSTNAME"  > "$SCRIPT_DIR/.aikb-config.d/PRIMARY_HOSTNAME"
+printf '%s' "$OS_FRIENDLY"       > "$SCRIPT_DIR/.aikb-config.d/OS"
 printf '%s' "$SECRETS_MANAGER"   > "$SCRIPT_DIR/.aikb-config.d/SECRETS_MANAGER"
 printf '%s' "$SECRETS_RETRIEVE"  > "$SCRIPT_DIR/.aikb-config.d/SECRETS_RETRIEVE"
 success "Config saved to .aikb-config.d/ (git-ignored)"
@@ -210,15 +246,19 @@ echo ""
 echo "  3. (Optional) Set up the GitHub MCP server for remote access:"
 echo "     See docs/mcp-setup.md"
 echo ""
-echo "  4. Fill in your personal profile:"
-echo "     Edit personal/profile.md and personal/dev-environment/README.md"
+echo "  4. Fill in your personal profile (files are already created, just need your details):"
+echo "     • personal/profile.md — your background, skills, preferences"
+echo "     • personal/dev-environment/README.md — machine inventory"
+echo "     • personal/dev-environment/${PRIMARY_HOSTNAME}.md — installed tools on this machine"
 echo ""
-echo "  5. Add a machine profile for $PRIMARY_HOSTNAME:"
-echo "     Copy _templates/machine-profile.md to personal/dev-environment/${PRIMARY_HOSTNAME}.md"
-echo "     and fill in your installed tools and paths."
+echo "  5. (Optional) Set up the GitHub MCP server for remote AIKB access:"
+echo "     See docs/mcp-setup.md"
 echo ""
-echo "  6. To get future framework updates from the template:"
-echo "     ./sync.sh"
-echo "     (Re-applies your personal config automatically)"
+echo "  6. On a new machine, clone your private AIKB repo and run install.sh again."
+echo "     It will detect the new hostname and scaffold a machine profile for it."
+echo "     Your existing personalization is already committed — no re-entering needed."
+echo ""
+echo "  7. To pull future framework updates from the template:"
+echo "     ./sync.sh  (re-applies your personal config automatically)"
 echo ""
 success "AIKB is ready. Happy building!"
