@@ -262,3 +262,11 @@ echo "  7. To pull future framework updates from the template:"
 echo "     ./sync.sh  (re-applies your personal config automatically)"
 echo ""
 success "AIKB is ready. Happy building!"
+
+# ── Optional onboarding tutorial ──────────────────────────────────────────────
+echo ""
+echo -e "  ${BOLD}New to AI in the terminal?${RESET}"
+read -rp "  Run a 4-minute orientation? [y/N]: " RUN_TUTORIAL
+if [[ "$RUN_TUTORIAL" =~ ^[Yy] ]]; then
+  bash "$SCRIPT_DIR/_tools/tutorial.sh"
+fi

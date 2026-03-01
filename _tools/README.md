@@ -4,6 +4,17 @@ Optional tools that extend AIKB capabilities. None are required for basic use.
 
 ---
 
+## tutorial — Onboarding orientation
+
+A 4-minute, paginated terminal tutorial for anyone new to AI in the terminal. Covers the mental model shifts that matter: tool calls, approvals, AIKB memory, short prompts, and what to do when something goes wrong.
+
+Offered automatically at the end of `install.sh`. Can also be run any time:
+```bash
+bash _tools/tutorial.sh
+```
+
+---
+
 ## aikb-search — Semantic search MCP server
 
 Adds an `aikb_search` tool to Claude Code (and other MCP clients) that lets agents query your AIKB with natural language instead of keyword grep.
