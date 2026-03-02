@@ -6,7 +6,7 @@
 
 ## The Problem
 
-Every AI session starts from zero. You re-explain your projects, your stack, your preferences — every time. Context windows are finite, sessions end, and nothing carries over. If you use multiple AI tools (Claude, Gemini, ChatGPT, Cursor), you're explaining the same things repeatedly across all of them.
+Every AI session starts from zero. You re-explain your projects, your stack, your preferences — every time. Context windows are finite, sessions end, and nothing carries over. If you use multiple AI tools (Claude, Gemini, Codex, ChatGPT, Cursor), you're explaining the same things repeatedly across all of them.
 
 ## The Solution
 
@@ -38,6 +38,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 |------|-------------|-----------------|
 | Claude Code | `~/.claude/CLAUDE.md` auto-loaded | Local clone or GitHub MCP |
 | Gemini CLI | `~/.gemini/GEMINI.md` auto-loaded | Local clone or GitHub MCP |
+| Codex CLI | `AGENTS.md` in project root | Local clone (or MCP if configured) |
 | Cursor | User Rules (Settings UI) | Local clone |
 | ChatGPT | Custom Instructions (Settings UI) | Manual paste at session start |
 | Google Gemini | Custom Instructions (Settings UI) | Manual paste at session start |
@@ -74,6 +75,7 @@ Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
 
 - **Claude Code** — copy `_agents/claude-code.md` to `~/.claude/CLAUDE.md`
 - **Gemini CLI** — copy `_agents/gemini-cli.md` to `~/.gemini/GEMINI.md`
+- **Codex CLI** — copy `_agents/codex.md` to `AGENTS.md` in each Codex project repo
 - **Cursor** — paste `_agents/cursor.md` into Settings → Cursor Settings → Rules → User Rules
 - **ChatGPT / Gemini / Grok** — paste the relevant file into Custom Instructions
 
@@ -144,6 +146,7 @@ AIKB/
 │   ├── README.md              ← Setup steps and comparison table
 │   ├── claude-code.md         ← Source of truth for ~/.claude/CLAUDE.md
 │   ├── gemini-cli.md          ← Source of truth for ~/.gemini/GEMINI.md
+│   ├── codex.md               ← Source of truth for repo-level AGENTS.md
 │   ├── cursor.md              ← Paste into Cursor User Rules
 │   ├── chatgpt.md             ← Paste into ChatGPT Custom Instructions
 │   ├── gemini.md              ← Paste into Gemini Custom Instructions

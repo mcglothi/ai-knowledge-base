@@ -50,7 +50,7 @@ chmod +x install.sh
 The script will:
 - Ask for your GitHub username, repo name, and local path
 - Substitute those values into the agent instruction files
-- Optionally copy instructions to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md`
+- Optionally copy instructions to `~/.claude/CLAUDE.md`, `~/.gemini/GEMINI.md`, or project `AGENTS.md` for Codex
 
 This is the only time you need to run the script. After this, agent files are plain Markdown — edit them directly.
 
@@ -74,6 +74,13 @@ See docs/mcp-setup.md
 
 ```bash
 cp ~/Code/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md
+```
+
+### Codex CLI
+
+For each Codex workspace/project:
+```bash
+cp ~/Code/AIKB/_agents/codex.md /path/to/project/AGENTS.md
 ```
 
 ### Cursor
