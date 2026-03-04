@@ -1,0 +1,28 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagon background -->
+  <path d="M128 32L211.138 80V176L128 224L44.8615 176V80L128 32Z" fill="url(#paint0_linear)" />
+  
+  <!-- Network lines -->
+  <path d="M128 80V176" stroke="white" stroke-width="8" stroke-linecap="round" stroke-opacity="0.6" />
+  <path d="M128 128L80 156" stroke="white" stroke-width="8" stroke-linecap="round" stroke-opacity="0.6" />
+  <path d="M128 128L176 156" stroke="white" stroke-width="8" stroke-linecap="round" stroke-opacity="0.6" />
+  
+  <!-- Nodes -->
+  <circle cx="128" cy="80" r="12" fill="white" />
+  <circle cx="80" cy="156" r="12" fill="white" />
+  <circle cx="176" cy="156" r="12" fill="white" />
+  <circle cx="128" cy="128" r="16" fill="#00ff41" /> <!-- Highlighted center node -->
+
+  <!-- Glow for center node -->
+  <circle cx="128" cy="128" r="20" stroke="#00ff41" stroke-opacity="0.3" stroke-width="4" />
+
+  <!-- Typography -->
+  <text x="128" y="210" font-family="sans-serif" font-weight="900" font-size="32" text-anchor="middle" fill="white" style="letter-spacing: 2px;">AIKB</text>
+
+  <defs>
+    <linearGradient id="paint0_linear" x1="44.8615" y1="32" x2="211.138" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3a47d5" />
+      <stop offset="1" stop-color="#00d2ff" />
+    </linearGradient>
+  </defs>
+</svg>

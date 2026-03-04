@@ -1,4 +1,6 @@
-# AIKB — AI Knowledge Base
+<p align="center"><img src="docs/assets/logo.svg" width="128" /></p>
+<h1 align="center">AIKB — AI Knowledge Base</h1>
+<p align="center"><i>Unified memory for the agentic era.</i></p>
 
 > Give your AI agents persistent memory that survives between sessions, works across multiple AI tools, and stays in sync on any machine.
 

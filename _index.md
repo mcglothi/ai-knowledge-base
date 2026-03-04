@@ -1,15 +1,11 @@
-# AIKB: Master Index
-
-**Last Updated:** YYYY-MM-DD
-**Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
+<p align="center"><img src="docs/assets/logo.svg" width="64" /></p>
+<h1 align="center">AIKB — Master Index</h1>
+<p align="center"><i>Unified memory for the agentic era.</i></p>
 
 ---
 
-## How to read this file
-
-- **Status** — `🟢 Active`, `⬜ Pending`, `⚠️ Needs attention`, `✅ Complete`, `🔴 Incident`
-- **Tags** — keywords for grep-based retrieval; match these against the current task to decide which files to load
-- **Details** — load the file only if the tags suggest it's relevant
+**Last Updated:** 2026-03-04
+**Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
 
 ---
 
