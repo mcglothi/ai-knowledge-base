@@ -1,281 +1,108 @@
-<p align="center"><img src="docs/assets/logo.svg" width="128" /></p>
+<p align="center">
+  <img src="docs/assets/logo.svg" width="160" />
+</p>
+
 <h1 align="center">AIKB — AI Knowledge Base</h1>
-<p align="center"><i>Unified memory for the agentic era.</i></p>
 
-> Give your AI agents persistent memory that survives between sessions, works across multiple AI tools, and stays in sync on any machine.
+<p align="center">
+  <strong>Unified long-term memory for the agentic era.</strong>
+</p>
 
----
-
-## The Problem
-
-Every AI session starts from zero. You re-explain your projects, your stack, your preferences — every time. Context windows are finite, sessions end, and nothing carries over. If you use multiple AI tools (Claude, Gemini, Codex, ChatGPT, Cursor), you're explaining the same things repeatedly across all of them.
-
-## The Solution
-
-AIKB is a **structured Markdown knowledge base** stored in a private GitHub repo. Your AI agents read it at the start of each session to orient themselves, and write back to it as they learn new things. The result is an AI that already knows your environment, your projects, and your history — every time.
-
-```
-Session starts → Agent reads AIKB → Agent knows everything
-Session ends   → Agent writes updates → Next session picks up where this one left off
-```
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License" />
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" />
+  <img src="https://img.shields.io/badge/Maintenance-Active-green.svg" alt="Maintenance" />
+  <img src="https://img.shields.io/badge/Status-Public--Template-indigo.svg" alt="Status" />
+</p>
 
 ---
 
-## Key Features
+### Give your AI agents persistent memory that survives between sessions, works across multiple AI tools, and stays in sync on any machine.
 
-- **Multi-agent, multi-tool** — one knowledge base, shared across Claude Code, Gemini CLI, ChatGPT, Cursor, and more
-- **Two access modes** — local clone (fast, offline-capable) or GitHub MCP (no clone needed, works from any machine)
-- **Semantic search** — optional `aikb_search` MCP tool for natural language queries across all your files ("what's broken?", "what SSL certs expire soon?")
-- **Layered loading** — agents read only what they need, protecting context window budget
-- **Checkpoint commits** — agents commit progress mid-session so nothing is lost if a session drops
-- **Secrets-safe** — credentials are referenced by name (in your secrets manager), never stored in the repo
-- **Machine-aware** — each machine has a profile so the agent uses the right paths and tools
-- **Any secrets manager** — works with 1Password, Bitwarden, Vaultwarden, system keychain, or environment variables
+AIKB is a structured Markdown knowledge base designed to eliminate context loss. Your AI agents read it at the start of each session to orient themselves and write back as they learn, ensuring they always know your environment, projects, and history.
+
+[**Get Started**](#quick-start) • [**How It Works**](#how-it-works) • [**Tool Support**](#ai-tool-compatibility) • [**MCP Server**](#mcp-server-setup-optional)
 
 ---
 
-## AI Tool Compatibility
+## 🧠 Why AIKB?
 
-| Tool | Integration | AIKB Access Mode |
-|------|-------------|-----------------|
-| Claude Code | `~/.claude/CLAUDE.md` auto-loaded | Local clone or GitHub MCP |
-| Gemini CLI | `~/.gemini/GEMINI.md` auto-loaded | Local clone or GitHub MCP |
-| Codex CLI | `AGENTS.md` in project root | Local clone (or MCP if configured) |
-| Cursor | User Rules (Settings UI) | Local clone |
-| ChatGPT | Custom Instructions (Settings UI) | Manual paste at session start |
-| Google Gemini | Custom Instructions (Settings UI) | Manual paste at session start |
-| Grok | Customise Grok (Settings UI) | Manual paste at session start |
+| Problem | AIKB Solution |
+| :--- | :--- |
+| **Amnesia** | Persistent memory across sessions. |
+| **Fragmentation** | Shared context between Claude, Gemini, ChatGPT, etc. |
+| **Blindness** | Machine-aware profiles (paths, tools, env). |
+| **Exposure** | Secrets-safe reference system (never store keys). |
+| **Bloat** | Layered loading protects your context window. |
 
 ---
 
-## Quick Start
+## 🛠️ AI Tool Compatibility
 
-**Prerequisites:** Git, a GitHub account, and at least one AI tool.
+AIKB is designed to be the "source of truth" for all your AI assistants.
 
-### 1. Create your private AIKB repo
+| Tool | Integration | Mode |
+| :--- | :--- | :--- |
+| **Claude Code** | `~/.claude/CLAUDE.md` | Local / MCP |
+| **Gemini CLI** | `~/.gemini/GEMINI.md` | Local / MCP |
+| **Codex CLI** | `AGENTS.md` | Local |
+| **Cursor** | User Rules | Local |
+| **ChatGPT** | Custom Instructions | Manual |
 
-Click **[Use this template](../../generate)** → name it `AIKB` → set it to **Private**.
+---
 
-Or from the CLI:
+## 🚀 Quick Start
+
+### 1. Create your repo
+Click **[Use this template](../../generate)** to create your own private `AIKB` repository.
+
+### 2. Install
 ```bash
 gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
 cd AIKB
+chmod +x install.sh && ./install.sh
 ```
 
-### 2. Run the setup script
-
-```bash
-chmod +x install.sh
-./install.sh
-```
-
-The script will ask for your GitHub username, repo name, and preferred local path, then generate personalized agent instruction files.
-
-### 3. Configure your primary AI tool
-
-Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
-
-- **Claude Code** — copy `_agents/claude-code.md` to `~/.claude/CLAUDE.md`
-- **Gemini CLI** — copy `_agents/gemini-cli.md` to `~/.gemini/GEMINI.md`
-- **Codex CLI** — copy `_agents/codex.md` to `AGENTS.md` in each Codex project repo
-- **Cursor** — paste `_agents/cursor.md` into Settings → Cursor Settings → Rules → User Rules
-- **ChatGPT / Gemini / Grok** — paste the relevant file into Custom Instructions
-
-### 4. Fill in your personal files
-
-`install.sh` creates these files automatically — they just need your details:
-
-- `personal/profile.md` — your background, skills, and communication preferences
-- `personal/dev-environment/README.md` — your machine inventory (hostnames, OS, code roots)
-- `personal/dev-environment/<hostname>.md` — installed tools on your primary machine
-
-The `example/` directory has annotated examples showing what good entries look like.
-
-### 5. (Optional) Set up semantic search
-
-Run one command to enable natural language queries across all your AIKB files:
-
-```bash
-bash _tools/aikb-search/setup.sh
-```
-
-After setup, your agent can answer questions like "what's currently broken?" or "what SSL certs expire soon?" without you having to know which file to load. See [`docs/search-setup.md`](docs/search-setup.md) for details.
-
-### 6. Start a session
-
-Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
-
-### On a new machine
-
-Clone your private AIKB repo and run `install.sh` again. It detects the new hostname, scaffolds a machine profile for it, and sets up your AI tools — your existing personalization is already in the repo, no re-entering needed.
+### 3. Configure
+Follow the guide in [`_agents/README.md`](_agents/README.md) to link your AIKB to your favorite tools.
 
 ---
 
-## Staying Up to Date
+## 🏗️ Repository Architecture
 
-When improvements are made to the template (better agent instructions, new tool support, updated schemas), you can pull them without touching your personal content.
+```text
+AIKB/
+├── 🗂️ _agents/       # Instruction files for every AI tool
+├── 🗂️ personal/      # Your profile, machines, and environments
+├── 🗂️ projects/      # Your coding projects & technical context
+├── 🗂️ work/          # Professional context (non-sensitive)
+├── 📄 _index.md      # High-level system orientation (read first)
+└── 📄 _state.yaml    # Real-time surface (SSL, incidents, status)
+```
 
-`install.sh` automatically adds this repo as an `upstream` git remote and saves your personal config to a git-ignored `.aikb-config.d/` directory. When you want updates, run:
+---
+
+## 🔄 Staying in Sync
+
+The framework evolves. Stay updated without touching your personal content:
 
 ```bash
 ./sync.sh
 ```
-
-`sync.sh` will:
-1. Fetch the latest changes from upstream
-2. Show you exactly what changed in the framework dirs (`_agents/`, `_templates/`, `docs/`)
-3. Ask for confirmation before applying anything
-4. Re-apply your personal values (username, repo name, paths, secrets manager) automatically
-5. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
-6. Commit the result
-
-**What gets updated:** `_agents/`, `_templates/`, `_tools/`, `docs/`, `sync.sh`, `install.sh`, `.gitignore`
-
-**What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
+*This fetches upstream improvements and safely applies them to your private repo.*
 
 ---
 
-## How It Works
+## 🔒 Secrets Management
 
-### Repository structure
+**AIKB never stores credentials.** It uses a reference system:
 
-```
-AIKB/
-├── README.md                  ← Human-readable overview (you're reading it)
-├── _index.md                  ← One-line status for every project (agents read this first)
-├── _state.yaml                ← Time-sensitive surface: SSL expiry, incidents, recent changes
-├── _agents/                   ← Instruction files for every AI tool
-│   ├── README.md              ← Setup steps and comparison table
-│   ├── claude-code.md         ← Source of truth for ~/.claude/CLAUDE.md
-│   ├── gemini-cli.md          ← Source of truth for ~/.gemini/GEMINI.md
-│   ├── codex.md               ← Source of truth for repo-level AGENTS.md
-│   ├── cursor.md              ← Paste into Cursor User Rules
-│   ├── chatgpt.md             ← Paste into ChatGPT Custom Instructions
-│   ├── gemini.md              ← Paste into Gemini Custom Instructions
-│   ├── grok.md                ← Paste into Grok Customise Grok
-│   ├── active.md              ← Live session presence (agents register here)
-│   └── registry.md            ← Per-tool capability notes for multi-agent sessions
-├── _templates/                ← Blank templates for new files
-├── personal/                  ← Your profile, machines, and dev environments
-├── projects/                  ← Your coding projects
-├── work/                      ← Work context (non-sensitive)
-└── [your-domain]/             ← Add folders for home lab, clients, etc.
-```
+`[Stored in Vaultwarden: PAT/GitHub/AIKB Token]`
 
-### The reading protocol (what agents do)
-
-Agents follow a layered loading strategy to avoid blowing the context window:
-
-1. **Read `_index.md`** — one row per project/system, quick orientation
-2. **Read `_state.yaml`** — time-sensitive items (SSL expiry, open incidents, pending tasks)
-3. **Load specific files** only when the task requires them
-
-This means a session about Project A never loads Project B's files. Context budget is preserved for actual work.
-
-### The writing protocol (how agents update AIKB)
-
-Agents update AIKB when they learn something useful for future sessions:
-- A system's state changed
-- A decision was made (and the rationale should be preserved)
-- A gotcha or pitfall was discovered
-- A task was completed or a new one identified
-
-Updates go directly into the relevant file (no append-only corrections), followed by a commit and push. Mid-session checkpoint commits are encouraged.
+Works with **1Password**, **Bitwarden**, **Vaultwarden**, and more. See [Secrets Management](docs/secrets-management.md).
 
 ---
 
-## Secrets Management
-
-**AIKB never stores credentials.** API keys, passwords, and tokens belong in your secrets manager. AIKB stores only the reference:
-
-```markdown
-[Stored in 1Password: Work/AWS Access Key]
-[Stored in Vaultwarden: PAT/GitHub/AIKB Token]
-[Stored in environment: $ANTHROPIC_API_KEY]
-```
-
-AIKB works with any secrets manager. See [`docs/secrets-management.md`](docs/secrets-management.md) for integration patterns with 1Password, Bitwarden, Vaultwarden, system keychain, and environment variables.
-
----
-
-## Adding New Domains
-
-Create a folder for any area of your life you want to track:
-
-```bash
-mkdir -p AIKB/home-lab
-cp AIKB/_templates/domain-readme.md AIKB/home-lab/README.md
-```
-
-Common domains people use:
-- `personal/` — profile, skills, dev environments
-- `projects/` — personal coding projects
-- `work/` — professional context
-- `home-lab/` — self-hosted services, infrastructure
-- `clients/` — freelance or consulting work
-
-After adding a domain, update `_index.md` so agents know it exists, and re-sync your agent instruction files.
-
----
-
-## MCP Server Setup (Optional)
-
-The GitHub MCP server lets agents access AIKB without a local clone — useful when working from a new machine, a cloud IDE, or anywhere you don't have a local checkout.
-
-See [`docs/mcp-setup.md`](docs/mcp-setup.md) for setup instructions.
-
-Short version for Claude Code:
-```bash
-claude mcp add github-aikb \
-  -e GITHUB_TOKEN=$(cat ~/.aikb_token) \
-  -- npx -y @modelcontextprotocol/server-github
-```
-
----
-
-## File Standards
-
-Every file in AIKB follows a consistent format so agents can orient quickly:
-
-```markdown
-# Title
-
-**Last Updated:** YYYY-MM-DD
-**Summary:** One or two sentences — what this covers and whether it's still active.
-
----
-
-[content]
-```
-
-See [`_templates/file-template.md`](_templates/file-template.md) for the full template.
-
-Key rules:
-- One topic per file — don't mix concerns that are never needed at the same time
-- Keep files under 300 lines — split when they grow larger
-- Fix stale info in place — never append corrections below wrong content
-- Use status indicators: `✅` done, `⬜` pending, `⚠️` needs attention
-
----
-
-## Security Considerations
-
-- **Private repo** — your AIKB repo should be private. It will contain system details, architecture notes, and references to sensitive resources.
-- **No credentials** — never commit API keys, passwords, or tokens. Reference them by name in your secrets manager.
-- **Review before pasting** — when configuring UI-based tools (ChatGPT, etc.), review the content before pasting to ensure no sensitive data was added.
-- **Rotate on exposure** — if a credential is accidentally committed, rotate it immediately and remove it from git history.
-
----
-
-## Contributing
-
-Found a bug or have an idea? Open an issue or submit a PR. The most valuable contributions are:
-- Agent instruction templates for tools not yet covered
-- Secrets manager integration patterns
-- Example domain structures (with all personal info removed)
-
----
-
-## License
-
-MIT — use freely, adapt it to your workflow.
+<p align="center">
+  <i>"Context is the new currency."</i>
+</p>

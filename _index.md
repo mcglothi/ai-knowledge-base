@@ -4,12 +4,12 @@
 
 ---
 
-**Last Updated:** 2026-03-04
+**Last Updated:** 2026-03-05
 **Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
 
 ---
 
-## Personal
+## 👤 Personal
 
 | Topic | Status | Tags | Details |
 |-------|--------|------|---------|
@@ -18,7 +18,7 @@
 
 ---
 
-## Projects
+## 🏗️ Projects
 
 | Project | Status | Tags | Details |
 |---------|--------|------|---------|
@@ -26,7 +26,7 @@
 
 ---
 
-## Work
+## 💼 Work
 
 | Topic | Status | Tags | Details |
 |-------|--------|------|---------|
@@ -34,7 +34,7 @@
 
 ---
 
-## Open Items Across All Projects
+## 📋 Open Items Across All Projects
 
 | Item | Project | File |
 |------|---------|------|
