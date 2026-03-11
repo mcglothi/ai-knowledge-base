@@ -1,6 +1,6 @@
 # Agent Instructions
 
-**Last Updated:** YYYY-MM-DD
+**Last Updated:** 2026-03-11
 **Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
@@ -56,6 +56,8 @@ cp /path/to/your/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md
 ```bash
 cp /path/to/your/AIKB/_agents/codex.md /path/to/your/project/AGENTS.md
 ```
+
+`install.sh` does not copy the Codex file automatically because Codex instructions are project-scoped. Copy it into each repository where you want AIKB-enabled Codex sessions.
 
 ### Cursor
 Cursor Settings → Rules → User Rules → paste the content of `cursor.md`.

@@ -28,13 +28,13 @@ The last step is the most important: AIKB grows as you use it. You don't need to
 4. Click **Create repository**
 5. Clone it:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/AIKB.git ~/Code/AIKB
-   cd ~/Code/AIKB
+   git clone https://github.com/YOUR_USERNAME/AIKB.git ~/code/AIKB
+   cd ~/code/AIKB
    ```
 
 **Option B: GitHub CLI**
 ```bash
-gh repo create AIKB --template mcglothi/aikb --private --clone
+gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
 cd AIKB
 ```
 
@@ -50,7 +50,9 @@ chmod +x install.sh
 The script will:
 - Ask for your GitHub username, repo name, and local path
 - Substitute those values into the agent instruction files
-- Optionally copy instructions to `~/.claude/CLAUDE.md`, `~/.gemini/GEMINI.md`, or project `AGENTS.md` for Codex
+- Optionally copy instructions to `~/.claude/CLAUDE.md` and `~/.gemini/GEMINI.md`
+
+If you cloned from your GitHub repo first, `install.sh` pre-fills the GitHub username and repo name from `origin` so most people can just press Enter through the defaults.
 
 This is the only time you need to run the script. After this, agent files are plain Markdown — edit them directly.
 
@@ -62,7 +64,7 @@ This is the only time you need to run the script. After this, agent files are pl
 
 The script handles this if you accepted the prompt. To do it manually:
 ```bash
-cp ~/Code/AIKB/_agents/claude-code.md ~/.claude/CLAUDE.md
+cp ~/code/AIKB/_agents/claude-code.md ~/.claude/CLAUDE.md
 ```
 
 Optional — set up the GitHub MCP server for remote access (skip for now if you'll always have a local clone):
@@ -73,14 +75,14 @@ See docs/mcp-setup.md
 ### Gemini CLI
 
 ```bash
-cp ~/Code/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md
+cp ~/code/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md
 ```
 
 ### Codex CLI
 
 For each Codex workspace/project:
 ```bash
-cp ~/Code/AIKB/_agents/codex.md /path/to/project/AGENTS.md
+cp ~/code/AIKB/_agents/codex.md /path/to/project/AGENTS.md
 ```
 
 ### Cursor
@@ -122,7 +124,7 @@ When you start a new project or start using AIKB on an existing one:
 
 1. Create a file for it:
    ```bash
-   cp ~/Code/AIKB/_templates/file-template.md ~/Code/AIKB/projects/my-project.md
+   cp ~/code/AIKB/_templates/file-template.md ~/code/AIKB/projects/my-project.md
    ```
 
 2. Fill in the template — at minimum:
@@ -166,8 +168,8 @@ You can also ask explicitly: "Update AIKB with what we learned today."
 When you have a coherent set of related projects (e.g. home lab, a client, a side project), give them a folder:
 
 ```bash
-mkdir -p ~/Code/AIKB/home-lab
-cp ~/Code/AIKB/_templates/domain-readme.md ~/Code/AIKB/home-lab/README.md
+mkdir -p ~/code/AIKB/home-lab
+cp ~/code/AIKB/_templates/domain-readme.md ~/code/AIKB/home-lab/README.md
 ```
 
 Common domains:
@@ -198,7 +200,7 @@ After adding a domain, update `_index.md` and re-sync your agent instruction fil
 → Check `personal/profile.md` and `personal/dev-environment/README.md` — are they filled in? Agents load these early in sessions.
 
 **Changes not persisting across sessions**
-→ Check that the agent's commit went through: `git -C ~/Code/AIKB log --oneline -5`. If commits aren't appearing, the agent may not have write access or the MCP server may not be configured.
+→ Check that the agent's commit went through: `git -C ~/code/AIKB log --oneline -5`. If commits aren't appearing, the agent may not have write access or the MCP server may not be configured.
 
 **Two agents wrote conflicting updates**
-→ Check `_agents/active.md` — it's designed to prevent this. If conflicts occur, resolve them manually: `git -C ~/Code/AIKB pull` then resolve any merge conflicts.
+→ Check `_agents/active.md` — it's designed to prevent this. If conflicts occur, resolve them manually: `git -C ~/code/AIKB pull` then resolve any merge conflicts.

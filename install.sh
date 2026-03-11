@@ -26,12 +26,21 @@ header()  { echo -e "\n${BOLD}$*${RESET}"; }
 # ── Detect OS and shell ───────────────────────────────────────────────────────
 OS=$(uname -s)
 SHELL_NAME=$(basename "${SHELL:-bash}")
+ORIGIN_URL="$(git remote get-url origin 2>/dev/null || true)"
 
 case "$OS" in
   Darwin) OS_FRIENDLY="macOS" ;;
   Linux)  OS_FRIENDLY="Linux" ;;
   *)      OS_FRIENDLY="$OS" ;;
 esac
+
+DEFAULT_GITHUB_USERNAME=""
+DEFAULT_REPO_NAME="AIKB"
+
+if [[ -n "$ORIGIN_URL" && "$ORIGIN_URL" =~ github\.com[:/]([^/]+)/([^/.]+)(\.git)?$ ]]; then
+  DEFAULT_GITHUB_USERNAME="${BASH_REMATCH[1]}"
+  DEFAULT_REPO_NAME="${BASH_REMATCH[2]}"
+fi
 
 # ── Prerequisites check ───────────────────────────────────────────────────────
 header "Checking prerequisites..."
@@ -51,20 +60,27 @@ echo "No credentials will be collected or stored."
 echo ""
 
 # GitHub username
-read -rp "GitHub username: " GITHUB_USERNAME
+if [[ -n "$DEFAULT_GITHUB_USERNAME" ]]; then
+  read -rp "GitHub username [$DEFAULT_GITHUB_USERNAME]: " GITHUB_USERNAME
+  GITHUB_USERNAME="${GITHUB_USERNAME:-$DEFAULT_GITHUB_USERNAME}"
+else
+  read -rp "GitHub username: " GITHUB_USERNAME
+fi
 if [[ -z "$GITHUB_USERNAME" ]]; then
   error "GitHub username is required."
   exit 1
 fi
 
 # Repo name
-read -rp "AIKB repo name [AIKB]: " REPO_NAME
-REPO_NAME="${REPO_NAME:-AIKB}"
+read -rp "AIKB repo name [$DEFAULT_REPO_NAME]: " REPO_NAME
+REPO_NAME="${REPO_NAME:-$DEFAULT_REPO_NAME}"
 
 # Local clone path
 DEFAULT_PATH="$HOME/AIKB"
-if [[ "$OS" == "Darwin" ]]; then
-  DEFAULT_PATH="$HOME/Code/AIKB"
+if [[ -d "$HOME/code" ]]; then
+  DEFAULT_PATH="$HOME/code/$REPO_NAME"
+elif [[ -d "$HOME/Code" ]]; then
+  DEFAULT_PATH="$HOME/Code/$REPO_NAME"
 fi
 read -rp "Local clone path [$DEFAULT_PATH]: " LOCAL_PATH
 LOCAL_PATH="${LOCAL_PATH:-$DEFAULT_PATH}"
@@ -239,6 +255,7 @@ echo "     git push origin main"
 echo ""
 echo "  2. Configure your AI tools:"
 echo "     • Claude Code / Gemini CLI — done if you accepted above"
+echo "     • Codex CLI — copy _agents/codex.md into AGENTS.md in each project repo you want AIKB-aware"
 echo "     • Cursor — paste _agents/cursor.md into Settings → Rules → User Rules"
 echo "     • ChatGPT — paste _agents/chatgpt.md into Settings → Custom Instructions"
 echo "     • Gemini — paste _agents/gemini.md into Settings → Custom Instructions"
@@ -251,14 +268,11 @@ echo "     • personal/profile.md — your background, skills, preferences"
 echo "     • personal/dev-environment/README.md — machine inventory"
 echo "     • personal/dev-environment/${PRIMARY_HOSTNAME}.md — installed tools on this machine"
 echo ""
-echo "  5. (Optional) Set up the GitHub MCP server for remote AIKB access:"
-echo "     See docs/mcp-setup.md"
-echo ""
-echo "  6. On a new machine, clone your private AIKB repo and run install.sh again."
+echo "  5. On a new machine, clone your private AIKB repo and run install.sh again."
 echo "     It will detect the new hostname and scaffold a machine profile for it."
 echo "     Your existing personalization is already committed — no re-entering needed."
 echo ""
-echo "  7. To pull future framework updates from the template:"
+echo "  6. To pull future framework updates from the template:"
 echo "     ./sync.sh  (re-applies your personal config automatically)"
 echo ""
 success "AIKB is ready. Happy building!"
