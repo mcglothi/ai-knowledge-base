@@ -61,7 +61,7 @@ Files:
 - [`../preview/wordmark-exploration.html`](../preview/wordmark-exploration.html)
 
 Current wordmark choice:
-- Signal Relay editorial wordmark
+- Direction A editorial wordmark
 - serif-led `AIKB` lockup with a subtle accent on the `K`
 - chosen palette: Mineral cobalt, using a midnight base with a softened cobalt accent for a more authored feel
 - chosen posture: Balanced spacing, intended as the default lockup across README, docs, and previews

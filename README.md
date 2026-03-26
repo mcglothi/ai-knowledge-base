@@ -71,16 +71,6 @@ Session ends   → Agent writes updates → Next session picks up where this one
 | Structured updates | Capture decisions, gotchas, blockers, and state changes cleanly |
 | Optional dream consolidation | Turn noisy daily memory into bundled, reviewable nightly summaries |
 
-## Visual Preview
-
-Brand direction: `Signal Relay / Mineral Cobalt`
-
-<p align="center">
-  <img src="_branding/preview-home.png" alt="AIKB landing page preview" width="880" />
-</p>
-
-See [`_branding/identity.md`](_branding/identity.md) for the active brand system and [`preview/index.html`](preview/index.html) for the temporary landing mock.
-
 ---
 
 ## AI Tool Compatibility
