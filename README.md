@@ -73,7 +73,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ## Visual Preview
 
-Brand direction: `Direction A / Mineral Cobalt`
+Brand direction: `Signal Relay / Mineral Cobalt`
 
 <p align="center">
   <img src="_branding/preview-home.png" alt="AIKB landing page preview" width="880" />
@@ -205,7 +205,9 @@ AIKB/
 │   ├── grok.md                ← Paste into Grok Customise Grok
 │   ├── active.md              ← Live session presence (agents register here)
 │   └── registry.md            ← Per-tool capability notes for multi-agent sessions
+├── _runtime/                  ← Session event logs, memory candidates, and nightly artifacts
 ├── _templates/                ← Blank templates for new files
+├── _tools/                    ← Optional CLI helpers for search and memory pipeline
 ├── personal/                  ← Your profile, machines, and dev environments
 ├── projects/                  ← Your coding projects
 ├── work/                      ← Work context (non-sensitive)
