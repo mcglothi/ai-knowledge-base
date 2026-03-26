@@ -54,6 +54,8 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Local-first and Git-backed** — durable memory in files you can inspect, diff, sync, and own
 - **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
 - **Semantic search** — optional `aikb_search` MCP tool for natural-language queries across your knowledge base
+- **Runtime memory pipeline** — optional `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
+- **Nightly dream cycle** — optional bundle, quality, contradiction, and distilled-memory artifacts for higher-signal overnight memory synthesis
 - **Layered loading** — agents read only what they need, preserving context window budget
 - **Checkpoint commits** — agents can save progress during long sessions so memory survives interruptions
 - **Secrets-safe** — credentials stay in your secrets manager; AIKB stores references only
@@ -67,6 +69,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 | Inspectable storage | Trust the memory because it lives in Markdown + Git |
 | Cross-tool continuity | Switch tools without losing your working context |
 | Structured updates | Capture decisions, gotchas, blockers, and state changes cleanly |
+| Optional dream consolidation | Turn noisy daily memory into bundled, reviewable nightly summaries |
 
 ## Visual Preview
 

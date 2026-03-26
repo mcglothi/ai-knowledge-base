@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MemoryConflict",
+  "type": "object",
+  "required": ["id", "topic", "records", "reason", "status", "detected_at"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^conf_" },
+    "topic": { "type": "string" },
+    "records": { "type": "array", "items": { "type": "string" } },
+    "reason": { "type": "string" },
+    "status": { "type": "string", "enum": ["open", "resolved", "ignored"] },
+    "detected_at": { "type": "string" }
+  },
+  "additionalProperties": true
+}
