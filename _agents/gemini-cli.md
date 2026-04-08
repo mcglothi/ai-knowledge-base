@@ -74,3 +74,13 @@ Commit at logical checkpoints — don't wait until the end. Use in-progress mark
 `⚠️ IN PROGRESS — picked up by next session`
 
 Replace with `✅` when complete.
+
+### Wrap-up capture
+
+When the operator uses a closing phrase like `lets wrap up for now` or `let's shut down`, capture a structured runtime closeout event before ending the session when the runtime tools are available:
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"
+```
+
+This records the active task, repo state, branch/cwd context, queue counts, and any wrap-up note into `_runtime/events/YYYY-MM-DD.ndjson`.

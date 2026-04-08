@@ -123,3 +123,13 @@ Use checkpoint commits during long sessions:
 - Before context-heavy transitions
 
 Prefer small focused commits to reduce merge conflicts in multi-agent workflows.
+
+### Wrap-up capture
+
+When the operator says a closing phrase like `lets wrap up for now` or `let's shut down`, capture a structured runtime closeout event before ending the session when the runtime tools are available:
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"
+```
+
+This records the active task, repo state, branch/cwd context, queue counts, and any wrap-up note into `_runtime/events/YYYY-MM-DD.ndjson`.

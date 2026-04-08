@@ -56,6 +56,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Semantic search** — optional `aikb_search` MCP tool for natural-language queries across your knowledge base
 - **Runtime memory pipeline** — optional `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
 - **Operator HUD + approvals log** — optional `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
+- **Structured closeout capture** — optional `runtime_cli.py closeout` command for end-of-session memory capture when you wrap up work
 - **Nightly dream cycle** — optional bundle, quality, contradiction, and distilled-memory artifacts for higher-signal overnight memory synthesis
 - **Layered loading** — agents read only what they need, preserving context window budget
 - **Checkpoint commits** — agents can save progress during long sessions so memory survives interruptions
@@ -71,6 +72,37 @@ Session ends   → Agent writes updates → Next session picks up where this one
 | Cross-tool continuity | Switch tools without losing your working context |
 | Structured updates | Capture decisions, gotchas, blockers, and state changes cleanly |
 | Optional dream consolidation | Turn noisy daily memory into bundled, reviewable nightly summaries |
+
+---
+
+## What The Operator Loop Looks Like
+
+The core AIKB workflow is simple:
+
+```text
+Start session -> agent reads _index.md + _state.yaml
+Do work        -> capture decisions, blockers, and approvals as needed
+Wrap up        -> record a structured closeout event
+Next session   -> load the latest state instead of starting cold
+```
+
+If you enable the runtime helpers, that operator loop becomes tangible:
+
+```bash
+# See what AIKB thinks is active right now
+python3 _tools/memory-pipeline/runtime_cli.py hud
+
+# Keep a current objective visible during longer work
+python3 _tools/memory-pipeline/runtime_cli.py focus set \
+  --task "Ship dashboard cleanup" \
+  --verify "Run tests and confirm deploy status"
+
+# When you finish for now, capture the wrap-up state
+python3 _tools/memory-pipeline/runtime_cli.py closeout \
+  --phrase "lets wrap up for now"
+```
+
+That closeout event is stored in `_runtime/events/YYYY-MM-DD.ndjson`, so the next session can recover not just what exists in your docs, but how the current stretch of work ended.
 
 ---
 
@@ -142,7 +174,22 @@ bash _tools/aikb-search/setup.sh
 
 After setup, your agent can answer questions like "what's currently broken?" or "what SSL certs expire soon?" without you having to know which file to load. See [`docs/search-setup.md`](docs/search-setup.md) for details.
 
-### 6. Start a session
+### 6. (Optional) Enable runtime memory workflow
+
+If you want more than static docs, AIKB also supports an operator-facing runtime layer:
+
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py hud
+python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"
+python3 _tools/memory-pipeline/approvals_cli.py list
+```
+
+This gives you:
+- a compact session HUD
+- a structured wrap-up capture path
+- a visible sign-off queue for high-impact actions
+
+### 7. Start a session
 
 Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
 
@@ -225,3 +272,8 @@ Agents update AIKB when they learn something useful for future sessions:
 - A task was completed or a new one identified
 
 Updates go directly into the relevant file (no append-only corrections), followed by a commit and push. Mid-session checkpoint commits are encouraged.
+
+If you enable runtime memory, the writing protocol also gains a non-canonical staging layer:
+- `_runtime/events/` for session observations and closeout captures
+- `_pending_approvals.md` for human sign-off items
+- `_runtime/candidates/` and related tools for review-before-promotion workflows

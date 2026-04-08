@@ -62,6 +62,15 @@ def parse_args() -> argparse.Namespace:
     prompt = subparsers.add_parser("prompt", help="Render a compact one-line prompt/status segment.")
     prompt.add_argument("--max-task", type=int, default=24, help="Max task length in prompt output.")
 
+    closeout = subparsers.add_parser("closeout", help="Capture a structured session closeout event.")
+    closeout.add_argument("--agent", default="codex")
+    closeout.add_argument("--session-id", default="")
+    closeout.add_argument("--project", default="", help="Override project label/path for the closeout event.")
+    closeout.add_argument("--phrase", default="", help="Optional operator phrase that triggered closeout.")
+    closeout.add_argument("--note", default="", help="Optional freeform note for the closeout summary.")
+    closeout.add_argument("--limit", type=int, default=3, help="How many recent rows to sample for context.")
+    closeout.add_argument("--dry-run", action="store_true", help="Print the event payload without writing it.")
+
     focus = subparsers.add_parser("focus", help="Set or inspect the HUD focus state.")
     focus_subparsers = focus.add_subparsers(dest="focus_command", required=True)
 
@@ -344,6 +353,10 @@ def truncate(text: str, max_len: int) -> str:
     return value[: max_len - 3] + "..."
 
 
+def default_session_id(agent: str) -> str:
+    return f"{agent}-{socket.gethostname()}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
+
+
 def collect_hud_state() -> dict[str, object]:
     latest_events = latest_matching(EVENTS_DIR, "[0-9][0-9][0-9][0-9]-*.ndjson")
     latest_candidates = latest_matching(CANDIDATES_DIR, "[0-9][0-9][0-9][0-9]-*.yaml")
@@ -597,6 +610,105 @@ def print_prompt(max_task: int) -> int:
     return 0
 
 
+def default_closeout_project(state: dict[str, object]) -> str:
+    cwd_context = state["cwd_context"]
+    current = state["current"]
+    focus = state["focus"]
+    cwd_value = str(cwd_context.get("cwd", "")).strip()
+    if cwd_value:
+        return cwd_value
+    if focus.get("task"):
+        return str(focus["task"]).strip()
+    if current:
+        return str(current.get("task", "")).strip()
+    return "session-closeout"
+
+
+def build_closeout_event(args: argparse.Namespace) -> dict:
+    state = collect_hud_state()
+    git = state["git"]
+    focus = state["focus"]
+    current = state["current"]
+    queue_counts = state["queue_counts"]
+    approval_counts = state["approval_counts"]
+    latest_event_rows = state["latest_event_rows"]
+    latest_candidates = state["latest_candidates"]
+    cwd_context = state["cwd_context"]
+    current_age = state["current_age"]
+    queue_total = sum(queue_counts.values())
+    approvals_total = sum(approval_counts.values())
+    candidate_total = count_candidates(latest_candidates)
+    event_total = len(latest_event_rows)
+
+    default_task = f"work in {cwd_context.get('cwd') or 'current repo'}"
+    task = str(focus.get("task") or (current["task"] if current else default_task)).strip()
+    verify = str(focus.get("verify", "")).strip()
+    note = args.note.strip()
+    trigger = args.phrase.strip()
+    repo_state = "clean" if git["clean"] else f"dirty:{git['changed_count']}"
+    project = args.project.strip() or default_closeout_project(state)
+
+    summary_parts = [
+        f"Closeout captured for task '{task}'",
+        f"repo={repo_state}",
+        f"branch={cwd_context.get('branch') or '-'}",
+        f"cwd={cwd_context.get('cwd') or '-'}",
+        f"events={event_total}",
+        f"candidates={candidate_total}",
+        f"queue={queue_total}",
+        f"approvals={approvals_total}",
+        f"session_age={current_age}",
+    ]
+    if verify:
+        summary_parts.append(f"next_verify={verify}")
+    if trigger:
+        summary_parts.append(f"trigger='{trigger}'")
+    if note:
+        summary_parts.append(f"note='{note}'")
+    summary = "; ".join(summary_parts)
+
+    promote_hint = "candidate" if (note or trigger or not git["clean"] or queue_total or approvals_total) else "ignore"
+    evidence = [
+        f"git:{cwd_context.get('branch') or git['branch']}",
+        f"cwd:{cwd_context.get('cwd') or '-'}",
+    ]
+    if trigger:
+        evidence.append(f"trigger:{trigger}")
+    if verify:
+        evidence.append(f"verify:{verify}")
+    if current:
+        evidence.append(f"active-task:{current.get('task', '')}")
+
+    closeout_args = argparse.Namespace(
+        agent=args.agent,
+        session_id=args.session_id.strip() or default_session_id(args.agent),
+        type="observation",
+        project=project,
+        summary=summary,
+        evidence=evidence,
+        sensitivity="normal",
+        promote_hint=promote_hint,
+    )
+    return ingest_runtime.build_event(closeout_args)
+
+
+def run_closeout(args: argparse.Namespace) -> int:
+    event = build_closeout_event(args)
+    if args.dry_run:
+        print(json.dumps(event, indent=2, ensure_ascii=True))
+        return 0
+
+    date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    out_file = EVENTS_DIR / f"{date_str}.ndjson"
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    with out_file.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(event, ensure_ascii=True) + "\n")
+
+    print(f"[closeout] captured {event['id']} -> {out_file.relative_to(ROOT)}")
+    print(f"[closeout] summary: {event['summary']}")
+    return 0
+
+
 def run_focus_set(args: argparse.Namespace) -> int:
     path = save_hud_state(args.task, args.verify, args.note, args.session_key)
     print(f"[focus] saved -> {path.relative_to(ROOT)}")
@@ -649,6 +761,8 @@ def main() -> int:
     args = parse_args()
     if args.command == "capture":
         return run_capture(args)
+    if args.command == "closeout":
+        return run_closeout(args)
     if args.command == "focus":
         if args.focus_command == "set":
             return run_focus_set(args)

@@ -78,6 +78,7 @@ Optional fields:
 # Operator-facing runtime HUD
 python3 _tools/memory-pipeline/runtime_cli.py hud
 python3 _tools/memory-pipeline/runtime_cli.py prompt
+python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"
 python3 _tools/memory-pipeline/runtime_cli.py focus set --task "Review promotion queue" --verify "Run runtime_cli.py status"
 
 # Append one runtime event
