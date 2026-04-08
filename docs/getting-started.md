@@ -157,6 +157,10 @@ After the initial setup, agents take over most of the maintenance. At the end of
 - Update `_state.yaml` if anything time-sensitive changed
 - Commit and push
 
+Optional but helpful once you start using runtime memory:
+- Use `python3 _tools/memory-pipeline/runtime_cli.py hud` for a compact operator snapshot
+- Track human sign-off items in `_pending_approvals.md` or via `python3 _tools/memory-pipeline/approvals_cli.py`
+
 You can also ask explicitly: "Update AIKB with what we learned today."
 
 ---

@@ -55,6 +55,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
 - **Semantic search** — optional `aikb_search` MCP tool for natural-language queries across your knowledge base
 - **Runtime memory pipeline** — optional `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
+- **Operator HUD + approvals log** — optional `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
 - **Nightly dream cycle** — optional bundle, quality, contradiction, and distilled-memory artifacts for higher-signal overnight memory synthesis
 - **Layered loading** — agents read only what they need, preserving context window budget
 - **Checkpoint commits** — agents can save progress during long sessions so memory survives interruptions
@@ -163,13 +164,13 @@ When improvements are made to the template (better agent instructions, new tool 
 
 `sync.sh` will:
 1. Fetch the latest changes from upstream
-2. Show you exactly what changed in the framework dirs (`_agents/`, `_templates/`, `docs/`)
+2. Show you exactly what changed in the framework dirs (`_agents/`, `_templates/`, `_tools/`, `docs/`, and selected root framework files)
 3. Ask for confirmation before applying anything
 4. Re-apply your personal values (username, repo name, paths, secrets manager) automatically
 5. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
 6. Commit the result
 
-**What gets updated:** `_agents/`, `_templates/`, `_tools/`, `docs/`, `sync.sh`, `install.sh`, `.gitignore`
+**What gets updated:** `_agents/`, `_templates/`, `_tools/`, `docs/`, `_pending_approvals.md`, `sync.sh`, `install.sh`, `.gitignore`
 
 **What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
 
@@ -184,6 +185,7 @@ AIKB/
 ├── README.md                  ← Human-readable overview (you're reading it)
 ├── _index.md                  ← One-line status for every project (agents read this first)
 ├── _state.yaml                ← Time-sensitive surface: SSL expiry, incidents, recent changes
+├── _pending_approvals.md      ← Human sign-off queue for high-impact agent actions
 ├── _agents/                   ← Instruction files for every AI tool
 │   ├── README.md              ← Setup steps and comparison table
 │   ├── claude-code.md         ← Source of truth for ~/.claude/CLAUDE.md

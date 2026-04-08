@@ -7,7 +7,7 @@
 # Usage: chmod +x sync.sh && ./sync.sh
 #
 # What gets updated (framework dirs — safe to overwrite):
-#   _agents/  _templates/  docs/  sync.sh  install.sh  .gitignore
+#   _agents/  _templates/  _tools/  docs/  _pending_approvals.md  sync.sh  install.sh  .gitignore
 #
 # What is never touched (your personal content):
 #   _index.md  _state.yaml  personal/  projects/  work/  and any other dirs
@@ -35,7 +35,7 @@ UPSTREAM_REMOTE="upstream"
 UPSTREAM_URL="https://github.com/mcglothi/ai-knowledge-base.git"
 
 # Framework paths — these are pulled from upstream and re-personalized
-FRAMEWORK_PATHS=("_agents" "_templates" "_tools" "docs" "sync.sh" "install.sh" ".gitignore")
+FRAMEWORK_PATHS=("_agents" "_templates" "_tools" "docs" "_pending_approvals.md" "sync.sh" "install.sh" ".gitignore")
 
 # ── Check prerequisites ───────────────────────────────────────────────────────
 header "AIKB Framework Sync"

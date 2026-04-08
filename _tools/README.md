@@ -36,3 +36,22 @@ bash _tools/aikb-search/setup.sh
 This installs dependencies, builds the index, installs a git post-commit hook for automatic re-indexing, and registers the MCP server with Claude Code.
 
 See [`docs/search-setup.md`](../docs/search-setup.md) for full details, manual setup, and Gemini CLI registration.
+
+---
+
+## memory-pipeline — Runtime capture and promotion helpers
+
+Adds optional operator-facing tooling around `_runtime/`, including:
+- `runtime_cli.py` for `hud`, `status`, `prompt`, `focus`, and one-off `capture`
+- `approvals_cli.py` for managing `_pending_approvals.md`
+- opt-in zsh hooks for conservative high-signal command capture into runtime events
+
+Useful starter commands:
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py hud
+python3 _tools/memory-pipeline/runtime_cli.py focus set --task "Review queue health" --verify "Run hud again"
+python3 _tools/memory-pipeline/approvals_cli.py list
+bash _tools/memory-pipeline/install_zsh_hooks.sh
+```
+
+See [`_tools/memory-pipeline/README.md`](memory-pipeline/README.md) for the full command surface and guardrails.

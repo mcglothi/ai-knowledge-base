@@ -33,3 +33,6 @@ _tools/aikb-search/__pycache__/
 # OS artifacts
 __pycache__/
 *.pyc
+
+# Runtime maintenance logs
+_runtime/maintenance/*.log

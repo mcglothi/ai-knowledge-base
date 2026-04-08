@@ -75,12 +75,17 @@ Optional fields:
 ## Starter Commands
 
 ```bash
+# Operator-facing runtime HUD
+python3 _tools/memory-pipeline/runtime_cli.py hud
+python3 _tools/memory-pipeline/runtime_cli.py prompt
+python3 _tools/memory-pipeline/runtime_cli.py focus set --task "Review promotion queue" --verify "Run runtime_cli.py status"
+
 # Append one runtime event
 python3 _tools/memory-pipeline/ingest_runtime.py \
   --agent codex \
   --session-id codex-demo-001 \
   --type decision \
-  --project personal-projects/project-jarvis.md \
+  --project projects/my-project.md \
   --summary "Established runtime-memory staging architecture for AIKB." \
   --evidence "file:_runtime/README.md"
 
@@ -93,6 +98,14 @@ python3 _tools/memory-pipeline/review_candidates.py \
   --status merged \
   --reviewer tim \
   --notes "Merged into canonical file."
+
+# Track human sign-off items
+python3 _tools/memory-pipeline/approvals_cli.py add \
+  --agent "Codex CLI" \
+  --project "AIKB" \
+  --action "Apply queued canonical changes" \
+  --notes "Needs operator approval"
+python3 _tools/memory-pipeline/approvals_cli.py list
 
 # Create markdown patch proposals from queued candidates
 python3 _tools/memory-pipeline/propose_patches.py
@@ -113,3 +126,4 @@ python3 _tools/memory-pipeline/compact_events.py --older-than-days 21 --archive-
 4. Ensure no stale `queued` items remain without reviewer notes.
 5. Promote approved facts into canonical AIKB files and update `_state.yaml`.
 6. Run `conflict_scan.py` and review/resolve high-confidence contradictions.
+7. Use `_pending_approvals.md` for operator sign-off items instead of burying them in freeform notes.

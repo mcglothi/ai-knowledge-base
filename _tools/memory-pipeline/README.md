@@ -6,7 +6,18 @@
 ## Core Commands
 
 ```bash
-python3 _tools/memory-pipeline/ingest_runtime.py --agent codex --session-id demo --type decision --project personal-projects/project-jarvis.md --summary "example"
+python3 _tools/memory-pipeline/runtime_cli.py hud
+python3 _tools/memory-pipeline/runtime_cli.py prompt
+python3 _tools/memory-pipeline/runtime_cli.py status
+python3 _tools/memory-pipeline/runtime_cli.py focus set --task "Tighten retrieval policy" --verify "Run runtime_cli.py hud and confirm focus state appears"
+python3 _tools/memory-pipeline/runtime_cli.py focus show
+python3 _tools/memory-pipeline/runtime_cli.py focus clear
+python3 _tools/memory-pipeline/runtime_cli.py capture --agent codex --session-id demo --type decision --project projects/my-project.md --summary "example"
+python3 _tools/memory-pipeline/approvals_cli.py add --agent "Codex CLI" --project "AIKB" --action "Adopt new retrieval policy" --notes "Needs operator sign-off"
+python3 _tools/memory-pipeline/approvals_cli.py list
+python3 _tools/memory-pipeline/approvals_cli.py resolve --index 1 --status Approved --notes "Approved by operator"
+bash _tools/memory-pipeline/install_zsh_hooks.sh
+python3 _tools/memory-pipeline/ingest_runtime.py --agent codex --session-id demo --type decision --project projects/my-project.md --summary "example"
 python3 _tools/memory-pipeline/build_candidates.py --date 2026-03-06
 python3 _tools/memory-pipeline/review_candidates.py --id cand_20260306_001 --status approved --reviewer tim --notes "validated"
 python3 _tools/memory-pipeline/memory_search.py --query "promotion policy" --as-of 2026-03-01 --limit 8
@@ -72,6 +83,15 @@ systemctl status aikb-shutdown-finalize.service --no-pager
 
 ## Notes
 
+- `runtime_cli.py` is the operator-facing front door for runtime memory. `hud` provides a compact session view for daily use, `status` gives the fuller runtime breakdown, `focus` sets the current objective and next verification step for the HUD, and `capture` wraps one-off event logging behind a cleaner command surface.
+- `prompt` prints a compact one-line status segment suitable for shell prompts or tmux status bars.
+- `approvals_cli.py` manages `_pending_approvals.md` so the HUD approval count and recent approval rows are driven by a real operator workflow instead of manual markdown edits.
+- `hud` surfaces operator context including the current working directory, local branch, session age estimate, a simple context meter, and memory/activity breakdowns sourced from live AIKB runtime data.
+- `aikb-shell-hooks.zsh` is an opt-in zsh hook pack for high-signal command capture. It is intentionally conservative: successful high-signal commands are logged as `change` events with `promote_hint=ignore`, while failed high-signal commands are logged as `blocker` candidates.
+- Install shell hooks with `bash _tools/memory-pipeline/install_zsh_hooks.sh`.
+- To show the prompt segment in zsh after sourcing the hooks:
+  - `export AIKB_PROMPT_ENABLE=1`
+  - optional: `export AIKB_PROMPT_MODE=rprompt` or `export AIKB_PROMPT_MODE=prompt`
 - `build_candidates.py` now includes automated user preference fact extraction unless `--no-fact-extraction` is passed.
 - `dream_cycle.py` emits non-canonical nightly memory artifacts in `_runtime/dreams/`, including a markdown summary plus JSONL files for facts, procedures, preferences, and rejected/noisy items.
 - `dream_cycle.py` can ingest live Memory Core proposals by status, fall back to local proposal fixtures when the API is unavailable, and writes contradiction snapshots to `_runtime/conflicts/dream-YYYY-MM-DD.json`.
