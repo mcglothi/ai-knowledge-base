@@ -33,6 +33,8 @@
 
 ## Retention Policy (v1)
 
+- Raw `events/*.ndjson` files are local working memory by default and should not be auto-committed just because they exist.
+- Promote durable signal through candidates, approvals, compacted summaries, or canonical docs instead of treating every raw event as shared history.
 - Keep runtime event files for 30 days.
 - Keep candidate files for 90 days.
 - Keep dream artifacts for 30 days unless promoted into canonical docs or used for training datasets.
@@ -128,3 +130,4 @@ python3 _tools/memory-pipeline/compact_events.py --older-than-days 21 --archive-
 5. Promote approved facts into canonical AIKB files and update `_state.yaml`.
 6. Run `conflict_scan.py` and review/resolve high-confidence contradictions.
 7. Use `_pending_approvals.md` for operator sign-off items instead of burying them in freeform notes.
+8. Leave raw `events/*.ndjson` local unless there is a deliberate reason to share or archive them.

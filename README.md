@@ -104,6 +104,8 @@ python3 _tools/memory-pipeline/runtime_cli.py closeout \
 
 That closeout event is stored in `_runtime/events/YYYY-MM-DD.ndjson`, so the next session can recover not just what exists in your docs, but how the current stretch of work ended.
 
+By default, those raw runtime event files are local working memory. Promote durable signal into candidates, approvals, summaries, or canonical docs instead of auto-committing every event log.
+
 ---
 
 ## AI Tool Compatibility

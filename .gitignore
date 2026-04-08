@@ -36,3 +36,6 @@ __pycache__/
 
 # Runtime maintenance logs
 _runtime/maintenance/*.log
+
+# Raw runtime event logs are local working memory by default
+_runtime/events/*.ndjson
