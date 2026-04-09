@@ -217,6 +217,12 @@ python3 _tools/memory-pipeline/runtime_cli.py closeout \
 
 See [`docs/operator-loop.md`](docs/operator-loop.md) for the public-facing workflow, when to use approvals, and how operator intents fit into the loop.
 
+If you want a terminal walkthrough instead of reading docs, run:
+
+```bash
+bash _tools/feature-tour.sh
+```
+
 ### 8. Start a session
 
 Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.

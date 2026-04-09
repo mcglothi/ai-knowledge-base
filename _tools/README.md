@@ -15,6 +15,24 @@ bash _tools/tutorial.sh
 
 ---
 
+## feature-tour — Guided walkthrough of the AIKB power layer
+
+A paginated terminal walkthrough for people who already understand the basics but want to learn how to get real leverage from AIKB as it grows.
+
+Covers:
+- the operator loop (`hud`, `focus set`, `closeout`)
+- approvals as a trust surface
+- operator intents for shorthand workflows
+- semantic search as the first high-value addon
+- a realistic first-week adoption sequence
+
+Run it any time:
+```bash
+bash _tools/feature-tour.sh
+```
+
+---
+
 ## aikb-search — Semantic search MCP server
 
 Adds an `aikb_search` tool to Claude Code (and other MCP clients) that lets agents query your AIKB with natural language instead of keyword grep.

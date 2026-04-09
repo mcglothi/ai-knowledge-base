@@ -56,6 +56,10 @@ If you cloned from your GitHub repo first, `install.sh` pre-fills the GitHub use
 
 This is the only time you need to run the script. After this, agent files are plain Markdown — edit them directly.
 
+At the end of install, AIKB can offer two optional terminal walkthroughs:
+- `bash _tools/tutorial.sh` for the beginner mental model
+- `bash _tools/feature-tour.sh` for the practical feature walkthrough
+
 ---
 
 ## Step 3: Configure your primary AI tool
@@ -170,6 +174,7 @@ If you want the smallest useful habit stack, start here:
 4. End with `closeout`.
 
 See [`operator-loop.md`](operator-loop.md) for the fast path.
+If you prefer a terminal walkthrough, run `bash _tools/feature-tour.sh`.
 
 You can also ask explicitly: "Update AIKB with what we learned today."
 

@@ -284,3 +284,10 @@ read -rp "  Run a 4-minute orientation? [y/N]: " RUN_TUTORIAL
 if [[ "$RUN_TUTORIAL" =~ ^[Yy] ]]; then
   bash "$SCRIPT_DIR/_tools/tutorial.sh"
 fi
+
+echo ""
+echo -e "  ${BOLD}Want the feature walkthrough too?${RESET}"
+read -rp "  Run the AIKB feature tour? [y/N]: " RUN_FEATURE_TOUR
+if [[ "$RUN_FEATURE_TOUR" =~ ^[Yy] ]]; then
+  bash "$SCRIPT_DIR/_tools/feature-tour.sh"
+fi
