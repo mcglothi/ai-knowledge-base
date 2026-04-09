@@ -9,6 +9,8 @@
 python3 _tools/memory-pipeline/runtime_cli.py hud
 python3 _tools/memory-pipeline/runtime_cli.py prompt
 python3 _tools/memory-pipeline/runtime_cli.py status
+python3 _tools/memory-pipeline/runtime_cli.py claim-session --agent "Codex CLI" --repo AIKB --scope 'docs/*' --task "Refine onboarding"
+python3 _tools/memory-pipeline/runtime_cli.py release-session --agent "Codex CLI"
 python3 _tools/memory-pipeline/runtime_cli.py check-repo --path ~/code/ai-knowledge-base
 python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now" --note "Paused after review"
 python3 _tools/memory-pipeline/runtime_cli.py focus set --task "Tighten retrieval policy" --verify "Run runtime_cli.py hud and confirm focus state appears"
@@ -86,6 +88,7 @@ systemctl status aikb-shutdown-finalize.service --no-pager
 ## Notes
 
 - `runtime_cli.py` is the operator-facing front door for runtime memory. `hud` provides a compact session view for daily use, `status` gives the fuller runtime breakdown, `focus` sets the current objective and next verification step for the HUD, and `capture` wraps one-off event logging behind a cleaner command surface.
+- `claim-session` and `release-session` provide a mechanical way to register or clear `_agents/active.md` rows so repo/scope claims do not rely on hand-edited markdown.
 - `check-repo` compares a dirty repo against `_agents/active.md` claims and highlights possible in-flight or crash-recovery work before you edit over it.
 - `closeout` captures a structured end-of-session runtime event with repo cleanliness, queue/approval counts, branch/cwd context, and the active task/focus state. This is the preferred automatic path when the operator uses a wrap-up phrase.
 - `prompt` prints a compact one-line status segment suitable for shell prompts or tmux status bars.

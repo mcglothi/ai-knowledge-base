@@ -87,10 +87,14 @@ Read and update `_agents/active.md`:
 1. If another agent has a Last Write within ~2 hours, pull before each write
 2. Add/update row:
    `| Codex CLI | {hostname} | local/MCP | {timestamp} | {repo name or AIKB} | {scope/path glob} | {brief task description} |`
+   Preferred helper:
+   `python3 _tools/memory-pipeline/runtime_cli.py claim-session --agent "Codex CLI" --repo "<repo>" --scope '<scope>' --task "<task>"`
 3. For work outside AIKB itself, claim the external repo and the narrowest useful scope you can describe
 4. If you encounter unexpected modified/untracked files, or any other evidence of work you did not create, re-read `_agents/active.md` and run `python3 _tools/memory-pipeline/runtime_cli.py check-repo --path <repo-or-file>` before editing. Treat dirty unclaimed repos as possible crash-recovery work until proven otherwise.
 5. Commit as first AIKB write of the session
 6. Remove your row and commit as final session write
+   Preferred helper:
+   `python3 _tools/memory-pipeline/runtime_cli.py release-session --agent "Codex CLI"`
 
 Also read `_agents/registry.md` when collaborating across tools.
 

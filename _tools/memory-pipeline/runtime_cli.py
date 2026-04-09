@@ -65,6 +65,25 @@ def parse_args() -> argparse.Namespace:
     )
     check_repo.add_argument("--path", default=".", help="Path inside the repo to inspect.")
 
+    claim_session = subparsers.add_parser(
+        "claim-session",
+        help="Create or update this agent's active-session repo/scope claim.",
+    )
+    claim_session.add_argument("--agent", required=True)
+    claim_session.add_argument("--repo", required=True, help="Claimed repo name or AIKB.")
+    claim_session.add_argument("--scope", required=True, help="Claimed scope/path glob.")
+    claim_session.add_argument("--task", required=True, help="Brief task description.")
+    claim_session.add_argument("--mode", default="local")
+    claim_session.add_argument("--host", default=socket.gethostname())
+    claim_session.add_argument("--timestamp", default="")
+
+    release_session = subparsers.add_parser(
+        "release-session",
+        help="Remove this agent's active-session claim row.",
+    )
+    release_session.add_argument("--agent", required=True)
+    release_session.add_argument("--host", default=socket.gethostname())
+
     prompt = subparsers.add_parser("prompt", help="Render a compact one-line prompt/status segment.")
     prompt.add_argument("--max-task", type=int, default=24, help="Max task length in prompt output.")
 
@@ -226,6 +245,149 @@ def parse_active_session_rows() -> list[dict[str, str]]:
             }
         )
     return rows
+
+
+def current_timestamp_text() -> str:
+    return datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
+
+
+def active_table_header(lines: list[str]) -> tuple[int, str] | None:
+    for idx, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith("|") and "Agent" in stripped:
+            return idx, stripped
+    return None
+
+
+def active_table_separator_index(lines: list[str], header_index: int) -> int | None:
+    for idx in range(header_index + 1, len(lines)):
+        stripped = lines[idx].strip()
+        if SEPARATOR_RE.match(stripped):
+            return idx
+    return None
+
+
+def active_table_column_count(header_line: str) -> int:
+    return len([part for part in header_line.strip("|").split("|")])
+
+
+def active_placeholder_row(column_count: int) -> str:
+    if column_count <= 0:
+        column_count = 5
+    cells = ["*(no active sessions)*"] + ["—"] * (column_count - 1)
+    return "| " + " | ".join(cells) + " |"
+
+
+def update_active_last_updated(lines: list[str]) -> list[str]:
+    stamp = datetime.now().astimezone().strftime("%Y-%m-%d")
+    updated: list[str] = []
+    replaced = False
+    for line in lines:
+        if line.startswith("**Last Updated:**"):
+            updated.append(f"**Last Updated:** {stamp}")
+            replaced = True
+        else:
+            updated.append(line)
+    return updated if replaced else lines
+
+
+def active_row_matches(parts: list[str], agent: str, host: str) -> bool:
+    if not parts:
+        return False
+    return len(parts) >= 2 and parts[0] == agent and parts[1] == host
+
+
+def upsert_active_session(
+    agent: str,
+    host: str,
+    mode: str,
+    timestamp: str,
+    repo: str,
+    scope: str,
+    task: str,
+) -> None:
+    lines = ACTIVE_FILE.read_text(encoding="utf-8").splitlines()
+    header_info = active_table_header(lines)
+    if not header_info:
+        raise SystemExit(f"Could not find active-session table header in {ACTIVE_FILE}")
+    header_index, header_line = header_info
+    separator_index = active_table_separator_index(lines, header_index)
+    if separator_index is None:
+        raise SystemExit(f"Could not find active-session table separator in {ACTIVE_FILE}")
+    column_count = active_table_column_count(header_line)
+    row = f"| {agent} | {host} | {mode} | {timestamp} | {repo} | {scope} | {task} |"
+
+    start = separator_index + 1
+    end = start
+    while end < len(lines):
+        stripped = lines[end].strip()
+        if stripped.startswith("|"):
+            end += 1
+            continue
+        break
+
+    new_rows: list[str] = []
+    replaced = False
+    for line in lines[start:end]:
+        stripped = line.strip()
+        if not stripped.startswith("|"):
+            continue
+        parts = [part.strip() for part in stripped.strip("|").split("|")]
+        if parts and (parts[0].startswith("*(") or "no active sessions" in parts[0].lower()):
+            continue
+        if active_row_matches(parts, agent, host):
+            if not replaced:
+                new_rows.append(row)
+                replaced = True
+            continue
+        new_rows.append(line)
+    if not replaced:
+        new_rows.append(row)
+    if not new_rows:
+        new_rows.append(active_placeholder_row(column_count))
+
+    lines = lines[:start] + new_rows + lines[end:]
+    ACTIVE_FILE.write_text("\n".join(update_active_last_updated(lines)).rstrip() + "\n", encoding="utf-8")
+
+
+def release_active_session(agent: str, host: str) -> bool:
+    lines = ACTIVE_FILE.read_text(encoding="utf-8").splitlines()
+    header_info = active_table_header(lines)
+    if not header_info:
+        raise SystemExit(f"Could not find active-session table header in {ACTIVE_FILE}")
+    header_index, header_line = header_info
+    separator_index = active_table_separator_index(lines, header_index)
+    if separator_index is None:
+        raise SystemExit(f"Could not find active-session table separator in {ACTIVE_FILE}")
+    column_count = active_table_column_count(header_line)
+
+    start = separator_index + 1
+    end = start
+    while end < len(lines):
+        stripped = lines[end].strip()
+        if stripped.startswith("|"):
+            end += 1
+            continue
+        break
+
+    new_rows: list[str] = []
+    removed = False
+    for line in lines[start:end]:
+        stripped = line.strip()
+        if not stripped.startswith("|"):
+            continue
+        parts = [part.strip() for part in stripped.strip("|").split("|")]
+        if parts and (parts[0].startswith("*(") or "no active sessions" in parts[0].lower()):
+            continue
+        if active_row_matches(parts, agent, host):
+            removed = True
+            continue
+        new_rows.append(line)
+    if not new_rows:
+        new_rows.append(active_placeholder_row(column_count))
+    lines = lines[:start] + new_rows + lines[end:]
+    ACTIVE_FILE.write_text("\n".join(update_active_last_updated(lines)).rstrip() + "\n", encoding="utf-8")
+    return removed
 
 
 def parse_pending_approvals(limit: int) -> tuple[Counter[str], list[str]]:
@@ -719,6 +881,27 @@ def run_check_repo(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_claim_session(args: argparse.Namespace) -> int:
+    upsert_active_session(
+        agent=args.agent.strip(),
+        host=args.host.strip(),
+        mode=args.mode.strip(),
+        timestamp=args.timestamp.strip() or current_timestamp_text(),
+        repo=args.repo.strip(),
+        scope=args.scope.strip(),
+        task=args.task.strip(),
+    )
+    print(f"[runtime] claimed session: {args.agent} -> {args.repo} :: {args.scope}")
+    return 0
+
+
+def run_release_session(args: argparse.Namespace) -> int:
+    removed = release_active_session(args.agent.strip(), args.host.strip())
+    status = "released" if removed else "no matching row"
+    print(f"[runtime] release-session: {status}")
+    return 0
+
+
 def print_prompt(max_task: int) -> int:
     state = collect_hud_state()
     git = state["git"]
@@ -908,6 +1091,8 @@ def main() -> int:
         return run_capture(args)
     if args.command == "check-repo":
         return run_check_repo(args)
+    if args.command == "claim-session":
+        return run_claim_session(args)
     if args.command == "closeout":
         return run_closeout(args)
     if args.command == "focus":
@@ -922,6 +1107,8 @@ def main() -> int:
         return print_hud(args.limit)
     if args.command == "prompt":
         return print_prompt(args.max_task)
+    if args.command == "release-session":
+        return run_release_session(args)
     if args.command == "status":
         return print_status(args.limit)
     raise SystemExit(f"Unknown command: {args.command}")
