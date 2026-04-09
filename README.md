@@ -57,6 +57,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Runtime memory pipeline** — optional `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
 - **Operator HUD + approvals log** — optional `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
 - **Structured closeout capture** — optional `runtime_cli.py closeout` command for end-of-session memory capture when you wrap up work
+- **Operator intents** — optional runbooks that teach your agents how to execute your shorthand requests and recurring workflows
 - **Nightly dream cycle** — optional bundle, quality, contradiction, and distilled-memory artifacts for higher-signal overnight memory synthesis
 - **Layered loading** — agents read only what they need, preserving context window budget
 - **Checkpoint commits** — agents can save progress during long sessions so memory survives interruptions
@@ -190,6 +191,16 @@ This gives you:
 - a compact session HUD
 - a structured wrap-up capture path
 - a visible sign-off queue for high-impact actions
+
+You can also capture recurring shorthand requests in a runbook so future sessions do not need to rediscover them:
+
+```text
+"restart staging"
+"wrap up for now"
+"wake lab server"
+```
+
+See [`home-lab/runbooks/operator-intents.md`](home-lab/runbooks/operator-intents.md) and [`_templates/operator-intent-template.md`](_templates/operator-intent-template.md).
 
 ### 7. Start a session
 

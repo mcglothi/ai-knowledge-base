@@ -161,6 +161,7 @@ Optional but helpful once you start using runtime memory:
 - Use `python3 _tools/memory-pipeline/runtime_cli.py hud` for a compact operator snapshot
 - Use `python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"` when ending a session to capture a structured closeout event
 - Track human sign-off items in `_pending_approvals.md` or via `python3 _tools/memory-pipeline/approvals_cli.py`
+- Capture repeated shorthand requests in [`home-lab/runbooks/operator-intents.md`](../home-lab/runbooks/operator-intents.md) so future sessions can execute them without rediscovery
 
 You can also ask explicitly: "Update AIKB with what we learned today."
 

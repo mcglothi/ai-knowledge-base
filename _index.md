@@ -4,7 +4,7 @@
 
 ---
 
-**Last Updated:** 2026-03-05
+**Last Updated:** 2026-04-08
 **Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
 
 ---
@@ -23,6 +23,14 @@
 | Project | Status | Tags | Details |
 |---------|--------|------|---------|
 | *(no projects yet)* | — | — | — |
+
+---
+
+## 🏠 Home Lab
+
+| Topic | Status | Tags | Details |
+|-------|--------|------|---------|
+| Operator intents | ⬜ Optional | runbooks, operator-intents, shortcuts, automation, workflows | [`home-lab/runbooks/operator-intents.md`](home-lab/runbooks/operator-intents.md) |
 
 ---
 
