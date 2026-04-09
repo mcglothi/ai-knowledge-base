@@ -94,9 +94,11 @@ Apply the machine profile to all commands in the session. Use the machine's pack
 
 Read and update `_agents/active.md`:
 1. If another agent has a Last Write within ~2 hours, pull before every write this session.
-2. Add or update your row: `| Claude Code | <hostname> | local/MCP | <timestamp> | <brief task> |`
-3. Commit this as your first AIKB write of the session.
-4. At session end: remove your row and commit as the final write.
+2. Add or update your row: `| Claude Code | <hostname> | local/MCP | <timestamp> | <repo name or AIKB> | <scope/path glob> | <brief task> |`
+3. For work outside AIKB itself, claim the external repo and the narrowest useful scope you can describe.
+4. If you encounter unexpected modified/untracked files, or any other evidence of work you did not create, re-read `_agents/active.md` and run `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py check-repo --path <repo-or-file>` before editing. Treat dirty unclaimed repos as possible crash-recovery work until proven otherwise.
+5. Commit this as your first AIKB write of the session.
+6. At session end: remove your row and commit as the final write.
 
 ---
 

@@ -80,9 +80,11 @@ Load only files relevant to the current task. Do not bulk-load entire domains.
 Read and update `_agents/active.md`:
 1. If another agent wrote recently (~2 hours), pull before each write
 2. Add/update row:
-   `| Codex CLI | <hostname> | local/MCP | <timestamp> | <brief task> |`
-3. Commit this as first session write
-4. Remove your row and commit as final session write
+   `| Codex CLI | <hostname> | local/MCP | <timestamp> | <repo name or AIKB> | <scope/path glob> | <brief task> |`
+3. For work outside AIKB itself, claim the external repo and the narrowest useful scope you can describe
+4. If you encounter unexpected modified/untracked files, or any other evidence of work you did not create, re-read `_agents/active.md` and run `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py check-repo --path <repo-or-file>` before editing. Treat dirty unclaimed repos as possible crash-recovery work until proven otherwise.
+5. Commit this as first session write
+6. Remove your row and commit as final session write
 
 ---
 

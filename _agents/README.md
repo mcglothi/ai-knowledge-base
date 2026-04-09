@@ -1,6 +1,6 @@
 # Agent Instructions
 
-**Last Updated:** 2026-03-11
+**Last Updated:** 2026-04-08
 **Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
@@ -12,7 +12,7 @@
 | File | Purpose |
 |------|---------|
 | [`registry.md`](registry.md) | One entry per AI tool — capabilities, access mode, gotchas. Read this before working alongside another tool. |
-| [`active.md`](active.md) | Live session presence. Agents register at start, clear at end. Pull before writes if another agent is listed. |
+| [`active.md`](active.md) | Live session presence plus repo/scope claims. Agents register at start, clear at end, and should re-check it when unexpected repo dirt appears. |
 
 ### Per-tool instructions
 

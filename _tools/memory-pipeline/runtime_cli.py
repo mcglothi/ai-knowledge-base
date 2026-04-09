@@ -59,6 +59,12 @@ def parse_args() -> argparse.Namespace:
     hud = subparsers.add_parser("hud", help="Show the lightweight session HUD.")
     hud.add_argument("--limit", type=int, default=3, help="How many recent rows to show per section.")
 
+    check_repo = subparsers.add_parser(
+        "check-repo",
+        help="Check a git repo for active AIKB claims and crash-recovery signals.",
+    )
+    check_repo.add_argument("--path", default=".", help="Path inside the repo to inspect.")
+
     prompt = subparsers.add_parser("prompt", help="Render a compact one-line prompt/status segment.")
     prompt.add_argument("--max-task", type=int, default=24, help="Max task length in prompt output.")
 
@@ -154,15 +160,31 @@ def parse_active_sessions(limit: int) -> list[str]:
     if not ACTIVE_FILE.exists():
         return []
     rows: list[str] = []
+    in_comment = False
     for line in ACTIVE_FILE.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
+        if "<!--" in stripped:
+            in_comment = True
+        if in_comment:
+            if "-->" in stripped:
+                in_comment = False
+            continue
         if not stripped.startswith("|") or "Agent" in stripped or SEPARATOR_RE.match(stripped):
             continue
         parts = [part.strip() for part in stripped.strip("|").split("|")]
-        if len(parts) != 5:
+        if len(parts) == 5:
+            agent, host, mode, last_write, task = parts
+            repo = ""
+            scope = ""
+        elif len(parts) >= 7:
+            agent, host, mode, last_write, repo, scope, task = parts[:7]
+        else:
             continue
-        agent, host, mode, last_write, task = parts
-        rows.append(f"{agent} on {host} [{mode}] @ {last_write} :: {task}")
+        if agent.startswith("*(") or "no active sessions" in agent.lower():
+            continue
+        location = f" repo={repo}" if repo and repo != "—" else ""
+        scope_suffix = f" scope={scope}" if scope and scope != "—" else ""
+        rows.append(f"{agent} on {host} [{mode}] @ {last_write}{location}{scope_suffix} :: {task}")
     return rows[-limit:]
 
 
@@ -170,20 +192,36 @@ def parse_active_session_rows() -> list[dict[str, str]]:
     if not ACTIVE_FILE.exists():
         return []
     rows: list[dict[str, str]] = []
+    in_comment = False
     for line in ACTIVE_FILE.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
+        if "<!--" in stripped:
+            in_comment = True
+        if in_comment:
+            if "-->" in stripped:
+                in_comment = False
+            continue
         if not stripped.startswith("|") or "Agent" in stripped or SEPARATOR_RE.match(stripped):
             continue
         parts = [part.strip() for part in stripped.strip("|").split("|")]
-        if len(parts) != 5:
+        if len(parts) == 5:
+            agent, host, mode, last_write, task = parts
+            repo = ""
+            scope = ""
+        elif len(parts) >= 7:
+            agent, host, mode, last_write, repo, scope, task = parts[:7]
+        else:
             continue
-        agent, host, mode, last_write, task = parts
+        if agent.startswith("*(") or "no active sessions" in agent.lower():
+            continue
         rows.append(
             {
                 "agent": agent,
                 "host": host,
                 "mode": mode,
                 "last_write": last_write,
+                "repo": repo,
+                "scope": scope,
                 "task": task,
             }
         )
@@ -294,14 +332,70 @@ def relative_age_from_dt(value: datetime | None) -> str:
 
 
 def parse_last_write(value: str) -> datetime | None:
-    match = LAST_WRITE_RE.match(value.strip())
+    raw = value.strip()
+    if not raw:
+        return None
+    local_tz = datetime.now().astimezone().tzinfo
+    for candidate in (raw, re.sub(r"\s+[A-Z]{2,4}$", "", raw)):
+        for fmt in ("%Y-%m-%d %H:%M", "%Y-%m-%d %H:%M:%S"):
+            try:
+                return datetime.strptime(candidate, fmt).replace(tzinfo=local_tz)
+            except ValueError:
+                continue
+    match = LAST_WRITE_RE.match(raw)
     if not match:
         return None
     try:
-        local_tz = datetime.now().astimezone().tzinfo
         return datetime.strptime(match.group(1), "%Y-%m-%d %H:%M").replace(tzinfo=local_tz)
     except ValueError:
         return None
+
+
+def normalize_repo_claim(value: str) -> str:
+    return value.strip().rstrip("/").lower()
+
+
+def parse_git_status_paths(lines: list[str]) -> tuple[list[str], int]:
+    paths: list[str] = []
+    untracked = 0
+    for line in lines:
+        if len(line) < 4:
+            continue
+        status = line[:2]
+        path_part = line[3:]
+        if status == "??":
+            untracked += 1
+        if " -> " in path_part:
+            path_part = path_part.split(" -> ", 1)[1]
+        cleaned = path_part.strip()
+        if cleaned:
+            paths.append(cleaned)
+    return paths, untracked
+
+
+def latest_repo_change_time(repo_root: Path, rel_paths: list[str]) -> datetime | None:
+    latest: datetime | None = None
+    for rel_path in rel_paths:
+        abs_path = repo_root / rel_path
+        if not abs_path.exists():
+            continue
+        candidate = datetime.fromtimestamp(abs_path.stat().st_mtime, tz=timezone.utc)
+        if latest is None or candidate > latest:
+            latest = candidate
+    return latest
+
+
+def rows_matching_repo(repo_root: Path, sessions: list[dict[str, str]]) -> list[dict[str, str]]:
+    repo_name = normalize_repo_claim(repo_root.name)
+    repo_path = normalize_repo_claim(str(repo_root))
+    matches: list[dict[str, str]] = []
+    for row in sessions:
+        claimed = normalize_repo_claim(row.get("repo", ""))
+        if not claimed or claimed == "—":
+            continue
+        if claimed == repo_name or claimed == repo_path or repo_path.endswith("/" + claimed):
+            matches.append(row)
+    return matches
 
 
 def current_memory_source(latest_events: Path | None, latest_candidates: Path | None) -> str:
@@ -574,6 +668,57 @@ def print_hud(limit: int) -> int:
     return 0
 
 
+def run_check_repo(args: argparse.Namespace) -> int:
+    context = git_context_for_path(Path(args.path))
+    repo_root_value = context.get("repo_root", "")
+    if not repo_root_value:
+        print(f"[runtime] not a git repo: {Path(args.path).resolve()}")
+        return 1
+
+    repo_root = Path(repo_root_value)
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), "status", "--porcelain"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    status_lines = [line for line in result.stdout.splitlines() if line.strip()]
+    changed_paths, untracked_count = parse_git_status_paths(status_lines)
+    latest_change = latest_repo_change_time(repo_root, changed_paths)
+    sessions = parse_active_session_rows()
+    matching = rows_matching_repo(repo_root, sessions)
+
+    print(f"[runtime] Repo Check: {repo_root.name}")
+    print(f"  - path: {repo_root}")
+    print(f"  - branch: {context.get('branch') or 'unknown'}")
+    print(f"  - changed_files: {len(changed_paths)}")
+    print(f"  - untracked_files: {untracked_count}")
+    if latest_change:
+        print(f"  - latest_change_utc: {latest_change.strftime('%Y-%m-%d %H:%M:%SZ')}")
+
+    if matching:
+        print("  - matching_claims:")
+        for row in matching:
+            claim_age = parse_last_write(row.get("last_write", ""))
+            newer = latest_change and claim_age and latest_change > claim_age.astimezone(timezone.utc)
+            status = "possible recovery/in-flight work" if newer else "claimed"
+            print(
+                "    - "
+                f"{row.get('agent')} on {row.get('host')} @ {row.get('last_write')} "
+                f"[scope={row.get('scope') or 'n/a'}] :: {row.get('task')} ({status})"
+            )
+    else:
+        print("  - matching_claims: none")
+
+    if changed_paths and not matching:
+        print("  - heuristic: dirty repo without active claim; re-check _agents/active.md and treat as possible crash-recovery work before editing.")
+    elif changed_paths and matching:
+        print("  - heuristic: dirty repo with active claim(s); coordinate before editing files in the claimed scope.")
+    else:
+        print("  - heuristic: no local repo dirt detected.")
+    return 0
+
+
 def print_prompt(max_task: int) -> int:
     state = collect_hud_state()
     git = state["git"]
@@ -761,6 +906,8 @@ def main() -> int:
     args = parse_args()
     if args.command == "capture":
         return run_capture(args)
+    if args.command == "check-repo":
+        return run_check_repo(args)
     if args.command == "closeout":
         return run_closeout(args)
     if args.command == "focus":

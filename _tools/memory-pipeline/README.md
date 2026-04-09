@@ -1,6 +1,6 @@
 # Memory Pipeline CLI
 
-**Last Updated:** 2026-03-07
+**Last Updated:** 2026-04-08
 **Summary:** Runtime memory tooling for candidate generation, autonomous reorg, temporal graphing, retrieval evaluation, metadata validation, chunk-aware write previews, scratchpads, and nightly maintenance.
 
 ## Core Commands
@@ -9,6 +9,7 @@
 python3 _tools/memory-pipeline/runtime_cli.py hud
 python3 _tools/memory-pipeline/runtime_cli.py prompt
 python3 _tools/memory-pipeline/runtime_cli.py status
+python3 _tools/memory-pipeline/runtime_cli.py check-repo --path ~/code/ai-knowledge-base
 python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now" --note "Paused after review"
 python3 _tools/memory-pipeline/runtime_cli.py focus set --task "Tighten retrieval policy" --verify "Run runtime_cli.py hud and confirm focus state appears"
 python3 _tools/memory-pipeline/runtime_cli.py focus show
@@ -85,6 +86,7 @@ systemctl status aikb-shutdown-finalize.service --no-pager
 ## Notes
 
 - `runtime_cli.py` is the operator-facing front door for runtime memory. `hud` provides a compact session view for daily use, `status` gives the fuller runtime breakdown, `focus` sets the current objective and next verification step for the HUD, and `capture` wraps one-off event logging behind a cleaner command surface.
+- `check-repo` compares a dirty repo against `_agents/active.md` claims and highlights possible in-flight or crash-recovery work before you edit over it.
 - `closeout` captures a structured end-of-session runtime event with repo cleanliness, queue/approval counts, branch/cwd context, and the active task/focus state. This is the preferred automatic path when the operator uses a wrap-up phrase.
 - `prompt` prints a compact one-line status segment suitable for shell prompts or tmux status bars.
 - `approvals_cli.py` manages `_pending_approvals.md` so the HUD approval count and recent approval rows are driven by a real operator workflow instead of manual markdown edits.
