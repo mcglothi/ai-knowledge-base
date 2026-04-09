@@ -19,6 +19,15 @@ Results include the file path, section heading, and a text excerpt. The agent lo
 
 **How it works:** hybrid retrieval — BM25 keyword search (SQLite FTS5) merged with semantic similarity (fastembed / all-MiniLM-L6-v2, runs fully locally) via Reciprocal Rank Fusion. No API key required.
 
+This is usually the first "wow" addon after basic AIKB setup because it lets the agent ask useful questions without you remembering where everything lives.
+
+Good starter queries:
+- `"what changed since my last session?"`
+- `"what is currently blocked?"`
+- `"what approvals are still pending?"`
+- `"how do I usually wrap up work?"`
+- `"where is the runbook for staging deploys?"`
+
 ---
 
 ## Prerequisites
@@ -92,6 +101,20 @@ Files are split at H2 headings (`##`) so each section is independently retrievab
 - **Not a replacement for reading files.** Results give you file + section + excerpt. If the agent needs full detail, it should read the file directly.
 - **Not perfectly precise.** Semantic similarity finds conceptually related content, which is useful but not always exact. Verify important details by reading the source file.
 - **Not synced to GitHub.** The index is local only (`_tools/aikb-search/aikb_index.db`, git-ignored). Each machine builds its own.
+
+---
+
+## When to use search vs direct file loading
+
+Use search when:
+- you know the question but not the file
+- the answer might span multiple domains
+- you want the agent to gather candidates before reading deeper
+
+Load files directly when:
+- you already know the exact file you need
+- the task requires precise edits
+- you are checking a source of truth after search surfaced it
 
 ---
 

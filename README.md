@@ -202,7 +202,22 @@ You can also capture recurring shorthand requests in a runbook so future session
 
 See [`home-lab/runbooks/operator-intents.md`](home-lab/runbooks/operator-intents.md) and [`_templates/operator-intent-template.md`](_templates/operator-intent-template.md).
 
-### 7. Start a session
+### 7. Learn the operator loop
+
+If you want the fastest path from "installed" to "this feels useful," follow the lightweight operator loop:
+
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py hud
+python3 _tools/memory-pipeline/runtime_cli.py focus set \
+  --task "Your current task" \
+  --verify "What you will verify next"
+python3 _tools/memory-pipeline/runtime_cli.py closeout \
+  --phrase "lets wrap up for now"
+```
+
+See [`docs/operator-loop.md`](docs/operator-loop.md) for the public-facing workflow, when to use approvals, and how operator intents fit into the loop.
+
+### 8. Start a session
 
 Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
 

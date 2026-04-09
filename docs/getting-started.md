@@ -163,6 +163,14 @@ Optional but helpful once you start using runtime memory:
 - Track human sign-off items in `_pending_approvals.md` or via `python3 _tools/memory-pipeline/approvals_cli.py`
 - Capture repeated shorthand requests in [`home-lab/runbooks/operator-intents.md`](../home-lab/runbooks/operator-intents.md) so future sessions can execute them without rediscovery
 
+If you want the smallest useful habit stack, start here:
+1. Run `hud` once at the start of a longer session.
+2. Set a focus task when the work is likely to branch.
+3. Use approvals for high-impact or preference-sensitive decisions.
+4. End with `closeout`.
+
+See [`operator-loop.md`](operator-loop.md) for the fast path.
+
 You can also ask explicitly: "Update AIKB with what we learned today."
 
 ---
