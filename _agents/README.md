@@ -1,6 +1,6 @@
 # Agent Instructions
 
-**Last Updated:** YYYY-MM-DD
+**Last Updated:** 2026-04-08
 **Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
@@ -12,7 +12,7 @@
 | File | Purpose |
 |------|---------|
 | [`registry.md`](registry.md) | One entry per AI tool — capabilities, access mode, gotchas. Read this before working alongside another tool. |
-| [`active.md`](active.md) | Live session presence. Agents register at start, clear at end. Pull before writes if another agent is listed. |
+| [`active.md`](active.md) | Live session presence plus repo/scope claims. Agents register at start, clear at end, and should re-check it when unexpected repo dirt appears. |
 
 ### Per-tool instructions
 
@@ -20,6 +20,7 @@
 |------|------|-----------------|
 | [`claude-code.md`](claude-code.md) | Claude Code CLI | `~/.claude/CLAUDE.md` (auto-loaded) |
 | [`gemini-cli.md`](gemini-cli.md) | Gemini CLI | `~/.gemini/GEMINI.md` (auto-loaded) |
+| [`codex.md`](codex.md) | Codex CLI | `AGENTS.md` in repo root (project-scoped) |
 | [`cursor.md`](cursor.md) | Cursor IDE | Settings → Cursor Settings → Rules → User Rules |
 | [`chatgpt.md`](chatgpt.md) | ChatGPT | Settings → Personalization → Custom Instructions |
 | [`gemini.md`](gemini.md) | Google Gemini | Settings → Custom Instructions |
@@ -51,6 +52,13 @@ claude mcp add github-aikb \
 cp /path/to/your/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md
 ```
 
+### Codex CLI
+```bash
+cp /path/to/your/AIKB/_agents/codex.md /path/to/your/project/AGENTS.md
+```
+
+`install.sh` does not copy the Codex file automatically because Codex instructions are project-scoped. Copy it into each repository where you want AIKB-enabled Codex sessions.
+
 ### Cursor
 Cursor Settings → Rules → User Rules → paste the content of `cursor.md`.
 
@@ -74,6 +82,8 @@ Update the relevant agent file(s) — and re-sync to the tool — when:
 ## Key difference: file-based vs UI-based
 
 **Claude Code and Gemini CLI** read instruction files directly from disk and optionally support MCP servers. An agent can update AIKB programmatically via the GitHub MCP server or a local clone. After editing instruction files, commit here and copy to the config location.
+
+**Codex CLI** reads instructions from repo-level `AGENTS.md`. Keep `_agents/codex.md` as source of truth and copy it into each Codex project workspace.
 
 **Cursor** reads instruction files from disk but currently has no MCP-based AIKB write access without additional configuration.
 

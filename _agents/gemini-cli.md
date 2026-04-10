@@ -74,3 +74,29 @@ Commit at logical checkpoints — don't wait until the end. Use in-progress mark
 `⚠️ IN PROGRESS — picked up by next session`
 
 Replace with `✅` when complete.
+
+### Active session coordination
+
+Read and update `_agents/active.md`:
+1. If another agent has a recent Last Write (~2 hours), pull before every write this session.
+2. Add or update your row: `| Gemini CLI | <hostname> | local/MCP | <timestamp> | <repo name or AIKB> | <scope/path glob> | <brief task> |`
+   Preferred helper:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py claim-session --agent "Gemini CLI" --repo "<repo>" --scope '<scope>' --task "<task>"`
+3. For work outside AIKB itself, claim the external repo and the narrowest useful scope you can describe.
+4. If you encounter unexpected modified/untracked files, or any other evidence of work you did not create, re-read `_agents/active.md` and run `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py check-repo --path <repo-or-file>` before editing. Treat dirty unclaimed repos as possible crash-recovery work until proven otherwise.
+5. Commit this as your first AIKB write of the session.
+6. At session end: remove your row and commit as the final write.
+   Preferred helper:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py release-session --agent "Gemini CLI"`
+
+---
+
+### Wrap-up capture
+
+When the operator uses a closing phrase like `lets wrap up for now` or `let's shut down`, capture a structured runtime closeout event before ending the session when the runtime tools are available:
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"
+```
+
+This records the active task, repo state, branch/cwd context, queue counts, and any wrap-up note into `_runtime/events/YYYY-MM-DD.ndjson`.

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RuntimeEvent",
+  "type": "object",
+  "required": [
+    "id",
+    "ts_utc",
+    "session_id",
+    "agent",
+    "type",
+    "project",
+    "summary",
+    "sensitivity",
+    "promote_hint"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^evt_" },
+    "ts_utc": { "type": "string" },
+    "session_id": { "type": "string" },
+    "agent": { "type": "string" },
+    "type": { "type": "string", "enum": ["decision", "blocker", "change", "observation"] },
+    "project": { "type": "string" },
+    "summary": { "type": "string" },
+    "evidence": { "type": "array", "items": { "type": "string" } },
+    "sensitivity": { "type": "string", "enum": ["normal", "restricted"] },
+    "promote_hint": { "type": "string", "enum": ["candidate", "ignore"] }
+  },
+  "additionalProperties": true
+}

@@ -95,53 +95,55 @@ def main() -> int:
             )
 
     # Runtime event -> project edges
-    for ev_file in sorted((root / "_runtime" / "events").glob("*.ndjson")):
-        for line in ev_file.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                evt = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            event_id = evt.get("id") or f"event:{ev_file.stem}"
-            event_node = f"event:{event_id}"
-            nodes[event_node] = {
-                "id": event_node,
-                "kind": "event",
-                "title": evt.get("summary", "event"),
-                "last_updated": (evt.get("ts_utc", "")[:10] or ev_file.stem),
-                "event_type": evt.get("type", "unknown"),
-            }
-            project = evt.get("project", "").strip()
-            if project:
-                if project not in nodes:
-                    nodes[project] = {
-                        "id": project,
-                        "kind": "doc",
-                        "title": project,
-                        "last_updated": ev_file.stem,
-                    }
-                edges.append(
-                    {
-                        "source": event_node,
-                        "target": project,
-                        "relation": "mentions_project",
-                        "ts": (evt.get("ts_utc", "")[:10] or ev_file.stem),
-                    }
-                )
+    events_dir = root / "_runtime" / "events"
+    if events_dir.exists():
+        for ev_file in sorted(events_dir.glob("*.ndjson")):
+            for line in ev_file.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    evt = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                event_id = evt.get("id") or f"event:{ev_file.stem}"
+                event_node = f"event:{event_id}"
+                nodes[event_node] = {
+                    "id": event_node,
+                    "kind": "event",
+                    "title": evt.get("summary", "event"),
+                    "last_updated": (evt.get("ts_utc", "")[:10] or ev_file.stem),
+                    "event_type": evt.get("type", "unknown"),
+                }
+                project = evt.get("project", "").strip()
+                if project:
+                    if project not in nodes:
+                        nodes[project] = {
+                            "id": project,
+                            "kind": "doc",
+                            "title": project,
+                            "last_updated": ev_file.stem,
+                        }
+                    edges.append(
+                        {
+                            "source": event_node,
+                            "target": project,
+                            "relation": "mentions_project",
+                            "ts": (evt.get("ts_utc", "")[:10] or ev_file.stem),
+                        }
+                    )
 
-            # Extract entities from event summary
-            evt_entities = extract_entities(evt.get("summary", ""))
-            for ent in evt_entities:
-                if ent not in nodes:
-                    nodes[ent] = {"id": ent, "kind": "entity", "title": ent, "last_updated": ev_file.stem}
-                edges.append({
-                    "source": event_node,
-                    "target": ent,
-                    "relation": "mentions_entity",
-                    "ts": (evt.get("ts_utc", "")[:10] or ev_file.stem),
-                })
+                # Extract entities from event summary
+                evt_entities = extract_entities(evt.get("summary", ""))
+                for ent in evt_entities:
+                    if ent not in nodes:
+                        nodes[ent] = {"id": ent, "kind": "entity", "title": ent, "last_updated": ev_file.stem}
+                    edges.append({
+                        "source": event_node,
+                        "target": ent,
+                        "relation": "mentions_entity",
+                        "ts": (evt.get("ts_utc", "")[:10] or ev_file.stem),
+                    })
 
     out = Path(args.out) if args.out else (root / "_runtime" / "graphs" / "temporal-knowledge-graph.json")
     out.parent.mkdir(parents=True, exist_ok=True)

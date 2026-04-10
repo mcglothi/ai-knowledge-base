@@ -1,36 +1,73 @@
-# AIKB Intelligence Tools
+# Tools
 
-This directory contains optional scripts to automate the retrieval and structuring of your AI Knowledge Base.
+Optional tools that extend AIKB capabilities. None are required for basic use.
 
-## Tools Overview
+---
 
-### 1. Ambient Context Injection (`ambient_ask.sh`)
-This is a lightweight wrapper for your favorite AI CLI tool (e.g., `gemini`, `claude`). It intercept your prompt, scans your AIKB for the top 3 most relevant facts, and injects them silently as an `<ambient_context>` block before launching the agent.
+## Intelligence Tools
 
-**Usage:**
+Optional scripts to automate the retrieval and structuring of your AI Knowledge Base:
+
+- **Ambient Context Injection** (`_tools/memory-pipeline/ambient_ask.sh`) — A wrapper for your AI CLI that automatically injects relevant facts from your AIKB into your prompt *before* the agent starts.
+- **Temporal Knowledge Graph** (`_tools/memory-pipeline/build_temporal_graph.py`) — Generates a structured JSON graph of your knowledge, extracting entities like IPs and tools to track how they change over time.
+- **Semantic Search** (`_tools/memory-pipeline/memory_search.py`) — A hybrid keyword/semantic search tool to quickly locate specific memories across your entire repository.
+
+---
+
+## tutorial — Onboarding orientation
+
+A 4-minute, paginated terminal tutorial for anyone new to AI in the terminal. Covers the mental model shifts that matter: tool calls, approvals, AIKB memory, short prompts, and what to do when something goes wrong.
+
+Offered automatically at the end of `install.sh`. Can also be run any time:
 ```bash
-./_tools/memory-pipeline/ambient_ask.sh gemini "How do I connect to the production server?"
+bash _tools/tutorial.sh
 ```
 
-### 2. Temporal Knowledge Graph (`build_temporal_graph.py`)
-This script generates a JSON knowledge graph of your entire repository. It extracts entities like IP addresses, hostnames, and tool names, and tracks their relationship to specific files and dates.
+---
 
-**Usage:**
+## feature-tour — Guided walkthrough of the AIKB power layer
+
+A paginated terminal walkthrough for people who already understand the basics but want to learn how to get real leverage from AIKB as it grows.
+
+Covers:
+- the operator loop (`hud`, `focus set`, `closeout`)
+- approvals as a trust surface
+- operator intents for shorthand workflows
+- semantic search as the first high-value addon
+- a realistic first-week adoption sequence
+
+Run it any time:
 ```bash
-python3 ./_tools/memory-pipeline/build_temporal_graph.py --out ./_runtime/graphs/my-graph.json
+bash _tools/feature-tour.sh
 ```
 
-### 3. Semantic Search (`memory_search.py`)
-A fast, hybrid search tool that combines keyword matching with optional semantic reranking. It is used internally by `ambient_ask.sh` but can be run standalone to find specific sections of your AIKB.
+---
 
-**Usage:**
+## aikb-search — Semantic search MCP server
+
+Adds an `aikb_search` tool to Claude Code (and other MCP clients) that lets agents query your AIKB with natural language instead of keyword grep.
+
+**What it enables:**
+- `"what is currently broken?"` — finds open incidents across all files
+- `"what SSL certs expire soon?"` — surfaces time-sensitive state
+- `"what am I waiting on?"` — finds pending/blocked items
+- `"project X outstanding tasks"` — cross-file retrieval without knowing which file
+
+**How it works:**
+Hybrid retrieval — BM25 keyword search (SQLite FTS5) merged with semantic similarity (local embeddings via fastembed / all-MiniLM-L6-v2) using Reciprocal Rank Fusion. No API key required. The ~23 MB model downloads once and runs locally.
+
+**Setup (one command):**
 ```bash
-python3 ./_tools/memory-pipeline/memory_search.py --query "ssh keys" --limit 5
+bash _tools/aikb-search/setup.sh
 ```
 
-## Advanced Automation (Reference)
+---
 
-For more advanced automation (like LLM-powered triage and auto-merging of facts), see the reference implementation scripts in the internal AIKB repository or adapt the following logic:
+## memory-pipeline — Runtime capture and promotion helpers
 
-- **Auto-Triage:** Use a local model (via Ollama) to score new events and decide if they should be `approved` or `rejected`.
-- **Fact Supersession:** Before merging a new fact, search for existing context and determine if the new fact should `replace` or `append` to the existing knowledge.
+Adds optional operator-facing tooling around `_runtime/`, including:
+- `runtime_cli.py` for `hud`, `status`, `prompt`, `focus`, and one-off `capture`
+- `approvals_cli.py` for managing `_pending_approvals.md`
+- opt-in zsh hooks for conservative high-signal command capture into runtime events
+
+See [`_tools/memory-pipeline/README.md`](memory-pipeline/README.md) for the full command surface and guardrails.

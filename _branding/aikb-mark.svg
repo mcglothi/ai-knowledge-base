@@ -1,0 +1,17 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">AIKB mark</title>
+  <desc id="desc">A relay-inspired AIKB mark with routed teal and orange signal lines.</desc>
+  <rect width="256" height="256" rx="44" fill="#0F1720"/>
+  <path d="M72 66H91V118L137 66H160L113 118L165 190H141L100 134L91 144V190H72V66Z" fill="#F7F8FA"/>
+  <path d="M72 66H91V190H72V66Z" fill="#F7F8FA"/>
+  <path d="M91 128H136" stroke="#203143" stroke-width="4"/>
+  <path d="M156 76H192" stroke="#14B8A6" stroke-width="8" stroke-linecap="round"/>
+  <path d="M156 180H192" stroke="#F97316" stroke-width="8" stroke-linecap="round"/>
+  <path d="M128 128H156" stroke="#14B8A6" stroke-width="8" stroke-linecap="round"/>
+  <path d="M156 128L184 100" stroke="#14B8A6" stroke-width="8" stroke-linecap="round"/>
+  <path d="M156 128L184 156" stroke="#F97316" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="128" cy="128" r="10" fill="#14B8A6"/>
+  <circle cx="156" cy="128" r="10" fill="#14B8A6"/>
+  <circle cx="184" cy="100" r="10" fill="#14B8A6"/>
+  <circle cx="184" cy="156" r="10" fill="#F97316"/>
+</svg>

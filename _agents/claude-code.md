@@ -28,7 +28,7 @@ Run `hostname`. Match it to the table below (edit this table when you add or rem
 
 | Hostname | OS | Code root | AIKB local path |
 |----------|----|-----------|-----------------|
-| {{PRIMARY_HOSTNAME}} | — | `~/Code/` | `{{LOCAL_PATH}}` |
+| {{PRIMARY_HOSTNAME}} | {{OS}} | `{{CODE_ROOT}}` | `{{LOCAL_PATH}}` |
 
 **Unrecognized hostname:**
 Run `uname -s` — Darwin = macOS, Linux = Linux. Probe for package manager: `which brew || which apt || which dnf || which pacman`. If the session will produce useful work, create a machine profile at `personal/dev-environment/<hostname>.md`.
@@ -94,9 +94,15 @@ Apply the machine profile to all commands in the session. Use the machine's pack
 
 Read and update `_agents/active.md`:
 1. If another agent has a Last Write within ~2 hours, pull before every write this session.
-2. Add or update your row: `| Claude Code | <hostname> | local/MCP | <timestamp> | <brief task> |`
-3. Commit this as your first AIKB write of the session.
-4. At session end: remove your row and commit as the final write.
+2. Add or update your row: `| Claude Code | <hostname> | local/MCP | <timestamp> | <repo name or AIKB> | <scope/path glob> | <brief task> |`
+   Preferred helper:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py claim-session --agent "Claude Code" --repo "<repo>" --scope '<scope>' --task "<task>"`
+3. For work outside AIKB itself, claim the external repo and the narrowest useful scope you can describe.
+4. If you encounter unexpected modified/untracked files, or any other evidence of work you did not create, re-read `_agents/active.md` and run `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py check-repo --path <repo-or-file>` before editing. Treat dirty unclaimed repos as possible crash-recovery work until proven otherwise.
+5. Commit this as your first AIKB write of the session.
+6. At session end: remove your row and commit as the final write.
+   Preferred helper:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py release-session --agent "Claude Code"`
 
 ---
 
@@ -172,3 +178,13 @@ Commit at logical checkpoints, not just at the end:
 - The conversation has grown long — checkpoint what's been learned
 
 **In-progress marker:** add `⚠️ IN PROGRESS — picked up by next session` at the top of the relevant file. Replace with `✅` when complete.
+
+### Wrap-up capture
+
+When the operator uses a closing phrase like `lets wrap up for now`, `let's shut down`, or similar, capture a structured runtime closeout event before ending the session when the runtime tools are available:
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"
+```
+
+This records the active task, repo state, branch/cwd context, queue counts, and any wrap-up note into `_runtime/events/YYYY-MM-DD.ndjson`.

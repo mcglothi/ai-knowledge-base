@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MemoryCandidate",
+  "type": "object",
+  "required": [
+    "id",
+    "source_events",
+    "target_file",
+    "proposed_change",
+    "confidence",
+    "class",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^cand_" },
+    "source_events": { "type": "array", "items": { "type": "string" } },
+    "target_file": { "type": "string" },
+    "proposed_change": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "class": { "type": "string", "enum": ["auto-promote-safe", "needs-review", "never-promote"] },
+    "status": { "type": "string", "enum": ["queued", "approved", "rejected", "merged"] }
+  },
+  "additionalProperties": true
+}

@@ -1,18 +1,47 @@
-# AIKB — AI Knowledge Base
+<p align="center">
+  <img src="docs/assets/logo.svg" width="160" />
+</p>
 
-> Give your AI agents persistent memory that survives between sessions, works across multiple AI tools, and stays in sync on any machine.
+<h1 align="center">AIKB — AI Knowledge Base</h1>
+
+<p align="center">
+  <strong>Persistent memory for your AI tools.</strong>
+</p>
+
+<p align="center">
+  Shared context across sessions, tools, and machines.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License" />
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" />
+  <img src="https://img.shields.io/badge/Maintenance-Active-green.svg" alt="Maintenance" />
+  <img src="https://img.shields.io/badge/Status-Public--Template-indigo.svg" alt="Status" />
+</p>
 
 ---
 
-## The Problem
+### Persistent memory for your AI tools.
 
-Every AI session starts from zero. You re-explain your projects, your stack, your preferences — every time. Context windows are finite, sessions end, and nothing carries over. If you use multiple AI tools (Claude, Gemini, ChatGPT, Cursor), you're explaining the same things repeatedly across all of them.
+AIKB gives your agents shared context that survives across sessions, tools, and machines. It stays local-first, Git-backed, and fully inspectable, so your memory system feels like infrastructure you control instead of a black box you hope is right.
+
+> Your AI tools should not start from zero.
+
+[**Get Started**](#quick-start) • [**How It Works**](#how-it-works) • [**Tool Support**](#ai-tool-compatibility)
+
+---
+
+## Why AIKB
+
+Every AI session starts from zero. You re-explain your projects, your stack, your preferences, and your constraints every time. Context windows are finite, sessions end, and the useful working memory disappears with them.
+
+If you use multiple tools, the problem gets worse. Claude, Gemini, Codex, Cursor, ChatGPT, and web copilots all end up relearning the same context from scratch.
 
 ## The Solution
 
-AIKB is a **structured Markdown knowledge base** stored in a private GitHub repo. Your AI agents read it at the start of each session to orient themselves, and write back to it as they learn new things. The result is an AI that already knows your environment, your projects, and your history — every time.
+AIKB is a structured knowledge base stored in a private GitHub repo. Your agents read it at the start of a session to orient themselves, and write back to it when they learn something durable. The result is memory that stays inspectable, portable, and under your control.
 
-```
+```text
 Session starts → Agent reads AIKB → Agent knows everything
 Session ends   → Agent writes updates → Next session picks up where this one left off
 ```
@@ -21,13 +50,62 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ## Key Features
 
-- **Multi-agent, multi-tool** — one knowledge base, shared across Claude Code, Gemini CLI, ChatGPT, Cursor, and more
-- **Two access modes** — local clone (fast, offline-capable) or GitHub MCP (no clone needed, works from any machine)
-- **Layered loading** — agents read only what they need, protecting context window budget
-- **Checkpoint commits** — agents commit progress mid-session so nothing is lost if a session drops
-- **Secrets-safe** — credentials are referenced by name (in your secrets manager), never stored in the repo
-- **Machine-aware** — each machine has a profile so the agent uses the right paths and tools
-- **Any secrets manager** — works with 1Password, Bitwarden, Vaultwarden, system keychain, or environment variables
+- **Shared context across tools** — one memory layer for Claude Code, Gemini CLI, Codex, Cursor, ChatGPT, and more
+- **Local-first and Git-backed** — durable memory in files you can inspect, diff, sync, and own
+- **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
+- **Semantic search** — optional `aikb_search` MCP tool for natural-language queries across your knowledge base
+- **Runtime memory pipeline** — optional `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
+- **Operator HUD + approvals log** — optional `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
+- **Structured closeout capture** — optional `runtime_cli.py closeout` command for end-of-session memory capture when you wrap up work
+- **Operator intents** — optional runbooks that teach your agents how to execute your shorthand requests and recurring workflows
+- **Nightly dream cycle** — optional bundle, quality, contradiction, and distilled-memory artifacts for higher-signal overnight memory synthesis
+- **Layered loading** — agents read only what they need, preserving context window budget
+- **Checkpoint commits** — agents can save progress during long sessions so memory survives interruptions
+- **Secrets-safe** — credentials stay in your secrets manager; AIKB stores references only
+- **Machine-aware** — each machine gets a profile so the agent uses the right paths, tools, and conventions
+
+## Product Snapshot
+
+| What it gives you | Why it matters |
+|-------------------|----------------|
+| Persistent session memory | Stop repeating the same setup and project context |
+| Inspectable storage | Trust the memory because it lives in Markdown + Git |
+| Cross-tool continuity | Switch tools without losing your working context |
+| Structured updates | Capture decisions, gotchas, blockers, and state changes cleanly |
+| Optional dream consolidation | Turn noisy daily memory into bundled, reviewable nightly summaries |
+
+---
+
+## What The Operator Loop Looks Like
+
+The core AIKB workflow is simple:
+
+```text
+Start session -> agent reads _index.md + _state.yaml
+Do work        -> capture decisions, blockers, and approvals as needed
+Wrap up        -> record a structured closeout event
+Next session   -> load the latest state instead of starting cold
+```
+
+If you enable the runtime helpers, that operator loop becomes tangible:
+
+```bash
+# See what AIKB thinks is active right now
+python3 _tools/memory-pipeline/runtime_cli.py hud
+
+# Keep a current objective visible during longer work
+python3 _tools/memory-pipeline/runtime_cli.py focus set \
+  --task "Ship dashboard cleanup" \
+  --verify "Run tests and confirm deploy status"
+
+# When you finish for now, capture the wrap-up state
+python3 _tools/memory-pipeline/runtime_cli.py closeout \
+  --phrase "lets wrap up for now"
+```
+
+That closeout event is stored in `_runtime/events/YYYY-MM-DD.ndjson`, so the next session can recover not just what exists in your docs, but how the current stretch of work ended.
+
+By default, those raw runtime event files are local working memory. Promote durable signal into candidates, approvals, summaries, or canonical docs instead of auto-committing every event log.
 
 ---
 
@@ -47,6 +125,7 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 |------|-------------|-----------------|
 | Claude Code | `~/.claude/CLAUDE.md` auto-loaded | Local clone or GitHub MCP |
 | Gemini CLI | `~/.gemini/GEMINI.md` auto-loaded | Local clone or GitHub MCP |
+| Codex CLI | `AGENTS.md` in project root | Local clone (or MCP if configured) |
 | Cursor | User Rules (Settings UI) | Local clone |
 | ChatGPT | Custom Instructions (Settings UI) | Manual paste at session start |
 | Google Gemini | Custom Instructions (Settings UI) | Manual paste at session start |
@@ -64,7 +143,7 @@ Click **[Use this template](../../generate)** → name it `AIKB` → set it to *
 
 Or from the CLI:
 ```bash
-gh repo create AIKB --template mcglothi/aikb --private --clone
+gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
 cd AIKB
 ```
 
@@ -76,6 +155,7 @@ chmod +x install.sh
 ```
 
 The script will ask for your GitHub username, repo name, and preferred local path, then generate personalized agent instruction files.
+If you cloned from your own GitHub repo first, it auto-detects the GitHub username and repo name from `origin`, so most people can accept the defaults.
 
 ### 3. Configure your primary AI tool
 
@@ -83,19 +163,107 @@ Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
 
 - **Claude Code** — copy `_agents/claude-code.md` to `~/.claude/CLAUDE.md`
 - **Gemini CLI** — copy `_agents/gemini-cli.md` to `~/.gemini/GEMINI.md`
+- **Codex CLI** — copy `_agents/codex.md` to `AGENTS.md` in each Codex project repo
 - **Cursor** — paste `_agents/cursor.md` into Settings → Cursor Settings → Rules → User Rules
 - **ChatGPT / Gemini / Grok** — paste the relevant file into Custom Instructions
 
-### 4. Personalize your knowledge base
+### 4. Fill in your personal files
 
-Edit these files to describe yourself and your environment:
+`install.sh` creates these files automatically — they just need your details:
 
-- [`example/personal/profile.md`](example/personal/profile.md) → move to `personal/profile.md` and fill in your background and skills
-- [`example/personal/dev-environment.md`](example/personal/dev-environment.md) → move to `personal/dev-environment/README.md` and describe your machines
+- `personal/profile.md` — your background, skills, and communication preferences
+- `personal/dev-environment/README.md` — your machine inventory (hostnames, OS, code roots)
+- `personal/dev-environment/<hostname>.md` — installed tools on your primary machine
 
-### 5. Start a session
+The `example/` directory has annotated examples showing what good entries look like.
+
+### 5. (Optional) Set up semantic search
+
+Run one command to enable natural language queries across all your AIKB files:
+
+```bash
+bash _tools/aikb-search/setup.sh
+```
+
+After setup, your agent can answer questions like "what's currently broken?" or "what SSL certs expire soon?" without you having to know which file to load. See [`docs/search-setup.md`](docs/search-setup.md) for details.
+
+### 6. (Optional) Enable runtime memory workflow
+
+If you want more than static docs, AIKB also supports an operator-facing runtime layer:
+
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py hud
+python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"
+python3 _tools/memory-pipeline/approvals_cli.py list
+```
+
+This gives you:
+- a compact session HUD
+- a structured wrap-up capture path
+- a visible sign-off queue for high-impact actions
+
+You can also capture recurring shorthand requests in a runbook so future sessions do not need to rediscover them:
+
+```text
+"restart staging"
+"wrap up for now"
+"wake lab server"
+```
+
+See [`home-lab/runbooks/operator-intents.md`](home-lab/runbooks/operator-intents.md) and [`_templates/operator-intent-template.md`](_templates/operator-intent-template.md).
+
+### 7. Learn the operator loop
+
+If you want the fastest path from "installed" to "this feels useful," follow the lightweight operator loop:
+
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py hud
+python3 _tools/memory-pipeline/runtime_cli.py focus set \
+  --task "Your current task" \
+  --verify "What you will verify next"
+python3 _tools/memory-pipeline/runtime_cli.py closeout \
+  --phrase "lets wrap up for now"
+```
+
+See [`docs/operator-loop.md`](docs/operator-loop.md) for the public-facing workflow, when to use approvals, and how operator intents fit into the loop.
+
+If you want a terminal walkthrough instead of reading docs, run:
+
+```bash
+bash _tools/feature-tour.sh
+```
+
+### 8. Start a session
 
 Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
+
+### On a new machine
+
+Clone your private AIKB repo and run `install.sh` again. It detects the new hostname, scaffolds a machine profile for it, and sets up your AI tools — your existing personalization is already in the repo, no re-entering needed.
+
+---
+
+## Staying Up to Date
+
+When improvements are made to the template (better agent instructions, new tool support, updated schemas), you can pull them without touching your personal content.
+
+`install.sh` automatically adds this repo as an `upstream` git remote and saves your personal config to a git-ignored `.aikb-config.d/` directory. When you want updates, run:
+
+```bash
+./sync.sh
+```
+
+`sync.sh` will:
+1. Fetch the latest changes from upstream
+2. Show you exactly what changed in the framework dirs (`_agents/`, `_templates/`, `_tools/`, `docs/`, and selected root framework files)
+3. Ask for confirmation before applying anything
+4. Re-apply your personal values (username, repo name, paths, secrets manager) automatically
+5. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
+6. Commit the result
+
+**What gets updated:** `_agents/`, `_templates/`, `_tools/`, `docs/`, `_pending_approvals.md`, `sync.sh`, `install.sh`, `.gitignore`
+
+**What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
 
 ---
 
@@ -103,22 +271,26 @@ Launch your AI tool. It will read AIKB and immediately know who you are, what ma
 
 ### Repository structure
 
-```
+```text
 AIKB/
 ├── README.md                  ← Human-readable overview (you're reading it)
 ├── _index.md                  ← One-line status for every project (agents read this first)
 ├── _state.yaml                ← Time-sensitive surface: SSL expiry, incidents, recent changes
+├── _pending_approvals.md      ← Human sign-off queue for high-impact agent actions
 ├── _agents/                   ← Instruction files for every AI tool
 │   ├── README.md              ← Setup steps and comparison table
 │   ├── claude-code.md         ← Source of truth for ~/.claude/CLAUDE.md
 │   ├── gemini-cli.md          ← Source of truth for ~/.gemini/GEMINI.md
+│   ├── codex.md               ← Source of truth for repo-level AGENTS.md
 │   ├── cursor.md              ← Paste into Cursor User Rules
 │   ├── chatgpt.md             ← Paste into ChatGPT Custom Instructions
 │   ├── gemini.md              ← Paste into Gemini Custom Instructions
 │   ├── grok.md                ← Paste into Grok Customise Grok
 │   ├── active.md              ← Live session presence (agents register here)
 │   └── registry.md            ← Per-tool capability notes for multi-agent sessions
+├── _runtime/                  ← Session event logs, memory candidates, and nightly artifacts
 ├── _templates/                ← Blank templates for new files
+├── _tools/                    ← Optional CLI helpers for search and memory pipeline
 ├── personal/                  ← Your profile, machines, and dev environments
 ├── projects/                  ← Your coding projects
 ├── work/                      ← Work context (non-sensitive)
@@ -145,100 +317,7 @@ Agents update AIKB when they learn something useful for future sessions:
 
 Updates go directly into the relevant file (no append-only corrections), followed by a commit and push. Mid-session checkpoint commits are encouraged.
 
----
-
-## Secrets Management
-
-**AIKB never stores credentials.** API keys, passwords, and tokens belong in your secrets manager. AIKB stores only the reference:
-
-```markdown
-[Stored in 1Password: Work/AWS Access Key]
-[Stored in Vaultwarden: PAT/GitHub/AIKB Token]
-[Stored in environment: $ANTHROPIC_API_KEY]
-```
-
-AIKB works with any secrets manager. See [`docs/secrets-management.md`](docs/secrets-management.md) for integration patterns with 1Password, Bitwarden, Vaultwarden, system keychain, and environment variables.
-
----
-
-## Adding New Domains
-
-Create a folder for any area of your life you want to track:
-
-```bash
-mkdir -p AIKB/home-lab
-cp AIKB/_templates/domain-readme.md AIKB/home-lab/README.md
-```
-
-Common domains people use:
-- `personal/` — profile, skills, dev environments
-- `projects/` — personal coding projects
-- `work/` — professional context
-- `home-lab/` — self-hosted services, infrastructure
-- `clients/` — freelance or consulting work
-
-After adding a domain, update `_index.md` so agents know it exists, and re-sync your agent instruction files.
-
----
-
-## MCP Server Setup (Optional)
-
-The GitHub MCP server lets agents access AIKB without a local clone — useful when working from a new machine, a cloud IDE, or anywhere you don't have a local checkout.
-
-See [`docs/mcp-setup.md`](docs/mcp-setup.md) for setup instructions.
-
-Short version for Claude Code:
-```bash
-claude mcp add github-aikb \
-  -e GITHUB_TOKEN=$(cat ~/.aikb_token) \
-  -- npx -y @modelcontextprotocol/server-github
-```
-
----
-
-## File Standards
-
-Every file in AIKB follows a consistent format so agents can orient quickly:
-
-```markdown
-# Title
-
-**Last Updated:** YYYY-MM-DD
-**Summary:** One or two sentences — what this covers and whether it's still active.
-
----
-
-[content]
-```
-
-See [`_templates/file-template.md`](_templates/file-template.md) for the full template.
-
-Key rules:
-- One topic per file — don't mix concerns that are never needed at the same time
-- Keep files under 300 lines — split when they grow larger
-- Fix stale info in place — never append corrections below wrong content
-- Use status indicators: `✅` done, `⬜` pending, `⚠️` needs attention
-
----
-
-## Security Considerations
-
-- **Private repo** — your AIKB repo should be private. It will contain system details, architecture notes, and references to sensitive resources.
-- **No credentials** — never commit API keys, passwords, or tokens. Reference them by name in your secrets manager.
-- **Review before pasting** — when configuring UI-based tools (ChatGPT, etc.), review the content before pasting to ensure no sensitive data was added.
-- **Rotate on exposure** — if a credential is accidentally committed, rotate it immediately and remove it from git history.
-
----
-
-## Contributing
-
-Found a bug or have an idea? Open an issue or submit a PR. The most valuable contributions are:
-- Agent instruction templates for tools not yet covered
-- Secrets manager integration patterns
-- Example domain structures (with all personal info removed)
-
----
-
-## License
-
-MIT — use freely, adapt it to your workflow.
+If you enable runtime memory, the writing protocol also gains a non-canonical staging layer:
+- `_runtime/events/` for session observations and closeout captures
+- `_pending_approvals.md` for human sign-off items
+- `_runtime/candidates/` and related tools for review-before-promotion workflows

@@ -1,19 +1,15 @@
-# AIKB: Master Index
+<p align="center"><img src="docs/assets/logo.svg" width="64" /></p>
+<h1 align="center">AIKB — Master Index</h1>
+<p align="center"><i>Unified memory for the agentic era.</i></p>
 
-**Last Updated:** YYYY-MM-DD
+---
+
+**Last Updated:** 2026-04-08
 **Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
 
 ---
 
-## How to read this file
-
-- **Status** — `🟢 Active`, `⬜ Pending`, `⚠️ Needs attention`, `✅ Complete`, `🔴 Incident`
-- **Tags** — keywords for grep-based retrieval; match these against the current task to decide which files to load
-- **Details** — load the file only if the tags suggest it's relevant
-
----
-
-## Personal
+## 👤 Personal
 
 | Topic | Status | Tags | Details |
 |-------|--------|------|---------|
@@ -22,7 +18,7 @@
 
 ---
 
-## Projects
+## 🏗️ Projects
 
 | Project | Status | Tags | Details |
 |---------|--------|------|---------|
@@ -30,7 +26,15 @@
 
 ---
 
-## Work
+## 🏠 Home Lab
+
+| Topic | Status | Tags | Details |
+|-------|--------|------|---------|
+| Operator intents | ⬜ Optional | runbooks, operator-intents, shortcuts, automation, workflows | [`home-lab/runbooks/operator-intents.md`](home-lab/runbooks/operator-intents.md) |
+
+---
+
+## 💼 Work
 
 | Topic | Status | Tags | Details |
 |-------|--------|------|---------|
@@ -38,7 +42,7 @@
 
 ---
 
-## Open Items Across All Projects
+## 📋 Open Items Across All Projects
 
 | Item | Project | File |
 |------|---------|------|

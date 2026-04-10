@@ -10,6 +10,7 @@
 |------|-------------|-----------|-------------|---------------|----------|
 | Claude Code | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks, long sessions |
 | Gemini CLI | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks |
+| Codex CLI | Local clone (or MCP if configured) | Yes | Yes | Large | Code edits with repo-scoped instructions |
 | Cursor | Local clone | Yes (manual) | No (without config) | Large | IDE-integrated coding |
 | ChatGPT | Paste only | No (manual) | No | Medium | Ideation, writing, one-off questions |
 | Google Gemini | Paste only | No (manual) | No | Large | Research, writing |
@@ -29,6 +30,12 @@
 - Reads `~/.gemini/GEMINI.md` automatically at startup
 - Supports MCP servers
 - Similar capability profile to Claude Code
+
+### Codex CLI
+- Reads repository-level `AGENTS.md` instructions (project-scoped)
+- Can read/write local AIKB files when working in a repo with AIKB access
+- Supports MCP tools when configured in the runtime
+- Best for repository-specific coding workflows where instructions should travel with the project
 
 ### Cursor
 - Reads User Rules from settings — paste `_agents/cursor.md` there
