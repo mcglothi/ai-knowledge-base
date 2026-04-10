@@ -251,6 +251,7 @@ When improvements are made to the template (better agent instructions, new tool 
 
 ```bash
 python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check
+python3 _tools/memory-pipeline/runtime_cli.py template-sync --set-interval 7
 ./sync.sh
 ```
 
@@ -270,6 +271,7 @@ python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check
 
 Suggested habit:
 - Let agents run `python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check` during session setup or when you explicitly ask about updates.
+- Keep the default cadence at `7` days unless the public template is changing quickly; use `--set-interval 3` for active rollout periods or `--set-interval 14` for a quieter cadence.
 - Keep actual `./sync.sh` application operator-approved, since it changes tracked framework files.
 - After a framework sync, re-sync downstream Codex project repos with `./sync-agents.sh`.
 

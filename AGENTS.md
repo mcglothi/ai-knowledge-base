@@ -134,6 +134,7 @@ If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.jso
 3. Summarize first: if updates are available, tell the operator what framework paths changed.
 4. Apply only with approval: do not run `./sync.sh` automatically, because it updates tracked framework files.
 5. After a framework sync, re-sync downstream Codex project repos as needed with `./sync-agents.sh <project-path> [...]`.
+6. Weekly is the default cadence. If the public template is moving quickly, adjust the saved interval with `python3 _tools/memory-pipeline/runtime_cli.py template-sync --set-interval 3` or another operator-approved number of days.
 
 ### Maintenance & Distillation (Optional Advanced Closeout)
 

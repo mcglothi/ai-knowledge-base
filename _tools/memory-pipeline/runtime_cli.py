@@ -76,6 +76,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Run ./sync.sh --check immediately, even if the saved check window is still fresh.",
     )
+    template_sync.add_argument(
+        "--set-interval",
+        type=int,
+        metavar="DAYS",
+        help="Update the saved template-check cadence in days (for example: 3, 7, 14).",
+    )
 
     check_repo = subparsers.add_parser(
         "check-repo",
@@ -652,6 +658,39 @@ def short_sha(value: str) -> str:
     return text[:12]
 
 
+def load_template_sync_state() -> dict[str, object] | None:
+    if not TEMPLATE_SYNC_STATE_FILE.exists():
+        return None
+    try:
+        raw = json.loads(TEMPLATE_SYNC_STATE_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return raw if isinstance(raw, dict) else None
+
+
+def save_template_sync_state(state: dict[str, object]) -> None:
+    TEMPLATE_SYNC_STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    TEMPLATE_SYNC_STATE_FILE.write_text(
+        json.dumps(state, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def template_update_prompt(status: dict[str, object]) -> str:
+    last_seen = short_sha(str(status.get("last_seen_upstream_sha", ""))) or "unknown"
+    last_applied = short_sha(str(status.get("last_applied_upstream_sha", ""))) or "unknown"
+    interval_days = status.get("check_interval_days", 7)
+    return (
+        "The AIKB platform has an update available from the public template. "
+        "I can apply it for you if you want. "
+        "This only updates the shared framework layer, such as agent instructions and helper tools. "
+        "It does not touch your personal data, project notes, or customizations under personal/, projects/, work/, _index.md, or _state.yaml. "
+        f"The last applied template was {last_applied}, and the latest checked template is {last_seen}. "
+        f"Your current check cadence is every {interval_days} day(s). "
+        "If you'd like, I can show you the changed framework paths and then run the update with your approval."
+    )
+
+
 def collect_template_sync_status() -> dict[str, object]:
     status: dict[str, object] = {
         "available": TEMPLATE_SYNC_SCRIPT.exists() and TEMPLATE_SYNC_STATE_FILE.exists(),
@@ -667,6 +706,7 @@ def collect_template_sync_status() -> dict[str, object]:
         "last_applied_upstream_sha": "",
         "summary": "template sync not configured",
         "suggested_command": "python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check",
+        "operator_prompt": "",
     }
 
     if not status["script_exists"]:
@@ -676,12 +716,8 @@ def collect_template_sync_status() -> dict[str, object]:
         status["summary"] = "template sync state missing; run install.sh first"
         return status
 
-    try:
-        raw = json.loads(TEMPLATE_SYNC_STATE_FILE.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        status["summary"] = "template sync state unreadable"
-        return status
-    if not isinstance(raw, dict):
+    raw = load_template_sync_state()
+    if raw is None:
         status["summary"] = "template sync state unreadable"
         return status
 
@@ -728,6 +764,8 @@ def collect_template_sync_status() -> dict[str, object]:
             "summary": summary,
         }
     )
+    if pending:
+        status["operator_prompt"] = template_update_prompt(status)
     return status
 
 
@@ -1223,6 +1261,19 @@ def run_template_sync(args: argparse.Namespace) -> int:
         print("  - next: run install.sh to initialize personalization and sync state")
         return 1
 
+    if args.set_interval is not None:
+        if args.set_interval < 1:
+            print("  - error: check interval must be at least 1 day")
+            return 1
+        state = load_template_sync_state()
+        if state is None:
+            print("  - error: template sync state is unreadable")
+            return 1
+        state["check_interval_days"] = int(args.set_interval)
+        save_template_sync_state(state)
+        status = collect_template_sync_status()
+        print(f"  - action: saved check interval = {status['check_interval_days']} day(s)")
+
     print(f"  - last_checked_utc: {status['last_checked_utc'] or 'never'}")
     print(f"  - check_interval_days: {status['check_interval_days']}")
     print(
@@ -1231,6 +1282,9 @@ def run_template_sync(args: argparse.Namespace) -> int:
     print(
         f"  - last_seen_upstream_sha: {short_sha(str(status['last_seen_upstream_sha'])) or 'unknown'}"
     )
+    if status["updates_pending"] and status["operator_prompt"]:
+        print("  - operator_prompt:")
+        print(f"    {status['operator_prompt']}")
 
     should_run = args.force_check or (args.auto_check and bool(status["stale"]))
     if args.auto_check and not should_run:

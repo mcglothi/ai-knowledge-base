@@ -131,6 +131,7 @@ If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.jso
 That helper reads the saved check window and only runs `./sync.sh --check` when the template check is stale or missing, or when the operator asks about updates.
 
 - Use `--check` only for safe periodic nudges.
+- Weekly is the default cadence; if the operator wants a different rhythm, update it with `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --set-interval <days>`.
 - If updates are available, summarize the changed framework paths first.
 - Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
 - After a framework sync, re-copy Codex instructions into downstream project repos with `./sync-agents.sh <project-path> [...]` as needed.
