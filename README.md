@@ -31,6 +31,16 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ---
 
+## Intelligence Tools
+
+The AIKB includes a set of optional CLI tools to help automate knowledge curation and retrieval:
+
+- **Ambient Context Injection** (`_tools/memory-pipeline/ambient_ask.sh`) — A wrapper for your AI CLI that automatically injects relevant facts from your AIKB into your prompt *before* the agent starts.
+- **Temporal Knowledge Graph** (`_tools/memory-pipeline/build_temporal_graph.py`) — Generates a structured JSON graph of your knowledge, extracting entities like IPs and tools to track how they change over time.
+- **Semantic Search** (`_tools/memory-pipeline/memory_search.py`) — A hybrid keyword/semantic search tool to quickly locate specific memories across your entire repository.
+
+---
+
 ## AI Tool Compatibility
 
 | Tool | Integration | AIKB Access Mode |
