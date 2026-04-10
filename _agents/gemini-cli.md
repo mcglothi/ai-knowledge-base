@@ -91,12 +91,15 @@ Read and update `_agents/active.md`:
 
 ---
 
-### Wrap-up capture
+### Wrap-up workflow
 
-When the operator uses a closing phrase like `lets wrap up for now` or `let's shut down`, capture a structured runtime closeout event before ending the session when the runtime tools are available:
+When the operator uses a closing phrase like `lets wrap up for now` or `let's shut down`, perform these steps before ending the session:
 
-```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"
-```
-
-This records the active task, repo state, branch/cwd context, queue counts, and any wrap-up note into `_runtime/events/YYYY-MM-DD.ndjson`.
+1. **Capture Closeout:** If runtime tools are available, record a structured closeout event:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"`
+2. **Build Temporal Graph:** Update the entity graph:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/build_temporal_graph.py`
+3. **Run Dream Cycle:** Distill the session's memories:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/dream_cycle.py`
+4. **Final Sync:** Add, commit, and push all changes (including `_runtime/` updates) to the remote repository.
+5. **Release Session:** Remove your entry from `_agents/active.md`.

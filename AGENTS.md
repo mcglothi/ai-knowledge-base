@@ -123,6 +123,14 @@ Update AIKB before ending any session that produced reusable knowledge:
 
 For partial handoffs, add: `⚠️ IN PROGRESS`.
 
+### Maintenance & Distillation (Closeout Workflow)
+
+To keep the AIKB healthy and its knowledge graph accurate, you MUST perform these maintenance steps during the `lets wrap up` / `lets shut down` workflow:
+
+1. **Build Temporal Graph:** Run `python3 _tools/memory-pipeline/build_temporal_graph.py` to update the entity-centric knowledge graph.
+2. **Run Dream Cycle:** Run `python3 _tools/memory-pipeline/dream_cycle.py` to distill the day's events into high-level summaries.
+3. **Commit Artifacts:** Ensure the generated `_runtime/graphs/` and `_runtime/dreams/` files are committed alongside your notes.
+
 ### Runtime memory pipeline (recommended for long sessions)
 
 Use runtime staging to capture high-signal events before canonical merge.
