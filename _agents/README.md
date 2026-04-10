@@ -1,6 +1,6 @@
 # Agent Instructions
 
-**Last Updated:** 2026-04-08
+**Last Updated:** 2026-04-10
 **Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
@@ -59,6 +59,11 @@ cp /path/to/your/AIKB/_agents/codex.md /path/to/your/project/AGENTS.md
 
 `install.sh` does not copy the Codex file automatically because Codex instructions are project-scoped. Copy it into each repository where you want AIKB-enabled Codex sessions.
 
+Bulk helper:
+```bash
+./sync-agents.sh /path/to/project [/path/to/project...]
+```
+
 ### Cursor
 Cursor Settings → Rules → User Rules → paste the content of `cursor.md`.
 
@@ -76,6 +81,7 @@ Update the relevant agent file(s) — and re-sync to the tool — when:
 - A new top-level domain folder is added (e.g. `home-lab/`, `clients/`)
 - A new project is added that agents should know about by default
 - Machine hostnames or paths change
+- `./sync.sh --check` reports framework updates from the public template
 
 ---
 

@@ -163,7 +163,7 @@ Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
 
 - **Claude Code** — copy `_agents/claude-code.md` to `~/.claude/CLAUDE.md`
 - **Gemini CLI** — copy `_agents/gemini-cli.md` to `~/.gemini/GEMINI.md`
-- **Codex CLI** — copy `_agents/codex.md` to `AGENTS.md` in each Codex project repo
+- **Codex CLI** — copy `_agents/codex.md` to `AGENTS.md` in each Codex project repo, or use `./sync-agents.sh /path/to/project [...]`
 - **Cursor** — paste `_agents/cursor.md` into Settings → Cursor Settings → Rules → User Rules
 - **ChatGPT / Gemini / Grok** — paste the relevant file into Custom Instructions
 
@@ -250,20 +250,28 @@ When improvements are made to the template (better agent instructions, new tool 
 `install.sh` automatically adds this repo as an `upstream` git remote and saves your personal config to a git-ignored `.aikb-config.d/` directory. When you want updates, run:
 
 ```bash
+./sync.sh --check
 ./sync.sh
 ```
 
 `sync.sh` will:
 1. Fetch the latest changes from upstream
-2. Show you exactly what changed in the framework dirs (`_agents/`, `_templates/`, `_tools/`, `docs/`, and selected root framework files)
-3. Ask for confirmation before applying anything
-4. Re-apply your personal values (username, repo name, paths, secrets manager) automatically
-5. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
-6. Commit the result
+2. Use `.aikb-config.d/template-sync-state.json` to remember when you last checked and which upstream SHA you last applied
+3. In `--check` mode, show whether framework updates are waiting without touching tracked files
+4. In normal mode, show you exactly what changed in the framework dirs (`AGENTS.md`, `_agents/`, `_templates/`, `_tools/`, `docs/`, and selected root framework files)
+5. Ask for confirmation before applying anything
+6. Re-apply your personal values (username, repo name, paths, secrets manager) automatically
+7. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
+8. Commit the result
 
-**What gets updated:** `_agents/`, `_templates/`, `_tools/`, `docs/`, `_pending_approvals.md`, `sync.sh`, `install.sh`, `.gitignore`
+**What gets updated:** `AGENTS.md`, `_agents/`, `_templates/`, `_tools/`, `docs/`, `_pending_approvals.md`, `sync.sh`, `sync-agents.sh`, `install.sh`, `.gitignore`
 
 **What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
+
+Suggested habit:
+- Let agents run `./sync.sh --check` after about a week or when you explicitly ask about updates.
+- Keep actual `./sync.sh` application operator-approved, since it changes tracked framework files.
+- After a framework sync, re-sync downstream Codex project repos with `./sync-agents.sh`.
 
 ---
 

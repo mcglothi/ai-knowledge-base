@@ -75,6 +75,15 @@ Commit at logical checkpoints — don't wait until the end. Use in-progress mark
 
 Replace with `✅` when complete.
 
+### Template update hygiene
+
+If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, you may run `./sync.sh --check` when the last template check is stale (default: about 7 days) or when the operator asks about updates.
+
+- Use `--check` only for periodic nudges.
+- If updates are available, summarize the changed framework paths first.
+- Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
+- After a framework sync, remind the operator that downstream Codex project repos may also need `./sync-agents.sh`.
+
 ### Active session coordination
 
 Read and update `_agents/active.md`:
@@ -97,9 +106,8 @@ When the operator uses a closing phrase like `lets wrap up for now` or `let's sh
 
 1. **Capture Closeout:** If runtime tools are available, record a structured closeout event:
    `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"`
-2. **Build Temporal Graph:** Update the entity graph:
+2. **Optional advanced maintenance:** only if this repo intentionally tracks graph/dream artifacts, run:
    `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/build_temporal_graph.py`
-3. **Run Dream Cycle:** Distill the session's memories:
    `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/dream_cycle.py`
-4. **Final Sync:** Add, commit, and push all changes (including `_runtime/` updates) to the remote repository.
-5. **Release Session:** Remove your entry from `_agents/active.md`.
+3. **Final Sync:** Add, commit, and push all changes (including tracked `_runtime/` updates) to the remote repository.
+4. **Release Session:** Remove your entry from `_agents/active.md`.

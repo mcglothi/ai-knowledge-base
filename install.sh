@@ -139,9 +139,9 @@ AGENTS_DIR="$SCRIPT_DIR/_agents"
 TMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TMP_DIR"' EXIT
 
-for tmpl in "$AGENTS_DIR"/*.md; do
-  fname=$(basename "$tmpl")
-  out="$TMP_DIR/$fname"
+apply_substitutions() {
+  local src="$1"
+  local dest="$2"
 
   sed \
     -e "s|{{GITHUB_USERNAME}}|$GITHUB_USERNAME|g" \
@@ -154,11 +154,20 @@ for tmpl in "$AGENTS_DIR"/*.md; do
     -e "s|{{OS}}|$OS_FRIENDLY|g" \
     -e "s|{{SECRETS_MANAGER}}|$SECRETS_MANAGER|g" \
     -e "s|{{SECRETS_RETRIEVE}}|$SECRETS_RETRIEVE|g" \
-    "$tmpl" > "$out"
+    "$src" > "$dest"
+}
 
+for tmpl in "$AGENTS_DIR"/*.md; do
+  fname=$(basename "$tmpl")
+  out="$TMP_DIR/$fname"
+  apply_substitutions "$tmpl" "$out"
   cp "$out" "$tmpl"
   success "Updated _agents/$fname"
 done
+
+apply_substitutions "$SCRIPT_DIR/AGENTS.md" "$TMP_DIR/AGENTS.md"
+cp "$TMP_DIR/AGENTS.md" "$SCRIPT_DIR/AGENTS.md"
+success "Updated AGENTS.md"
 
 # ── Update _index.md placeholder ─────────────────────────────────────────────
 if grep -q "{{GITHUB_USERNAME}}" "$SCRIPT_DIR/_index.md" 2>/dev/null; then
@@ -207,10 +216,41 @@ printf '%s' "$SECRETS_MANAGER"   > "$SCRIPT_DIR/.aikb-config.d/SECRETS_MANAGER"
 printf '%s' "$SECRETS_RETRIEVE"  > "$SCRIPT_DIR/.aikb-config.d/SECRETS_RETRIEVE"
 success "Config saved to .aikb-config.d/ (git-ignored)"
 
+write_template_sync_state() {
+  local state_file="$SCRIPT_DIR/.aikb-config.d/template-sync-state.json"
+  local upstream_sha="$1"
+
+  python3 - "$state_file" "$upstream_sha" <<'PYEOF'
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+sha = sys.argv[2]
+stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+payload = {
+    "last_checked_utc": stamp,
+    "last_seen_upstream_sha": sha,
+    "last_applied_upstream_sha": sha,
+    "check_interval_days": 7,
+}
+path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+PYEOF
+}
+
 # ── Add upstream remote for future framework syncs ────────────────────────────
 git remote add upstream https://github.com/mcglothi/ai-knowledge-base.git 2>/dev/null \
   && success "Added upstream remote → mcglothi/ai-knowledge-base" \
   || info "Upstream remote already configured"
+
+if git fetch upstream --quiet 2>/dev/null; then
+  UPSTREAM_SHA=$(git rev-parse upstream/main 2>/dev/null || true)
+  if [[ -n "$UPSTREAM_SHA" ]]; then
+    write_template_sync_state "$UPSTREAM_SHA"
+    success "Initialized template sync state"
+  fi
+fi
 
 # ── Initial git commit ────────────────────────────────────────────────────────
 header "Creating initial commit..."

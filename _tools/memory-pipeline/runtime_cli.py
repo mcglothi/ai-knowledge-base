@@ -32,6 +32,7 @@ TABLE_ROW_RE = re.compile(r"^\|")
 SEPARATOR_RE = re.compile(r"^\|[-\s|]+\|$")
 ALIGNMENT_CELL_RE = re.compile(r"^:?-{3,}:?$")
 LAST_WRITE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\s+[A-Z]{2,4}$")
+OPEN_APPROVAL_STATUSES = {"pending", "requested", "needs-review", "awaiting-review", "awaiting-approval"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -409,6 +410,8 @@ def parse_pending_approvals(limit: int) -> tuple[Counter[str], list[str]]:
             continue
         date, agent, project, action, status, notes = parts
         normalized = status.lower() or "unknown"
+        if normalized not in OPEN_APPROVAL_STATUSES:
+            continue
         statuses[normalized] += 1
         rows.append(f"{date} {project}: {action} [{status}]")
     return statuses, rows[-limit:]

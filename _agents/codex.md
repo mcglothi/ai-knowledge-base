@@ -2,6 +2,7 @@
 
 **Config location:** `AGENTS.md` in the current repository root
 **Sync command:** `cp {{LOCAL_PATH}}/_agents/codex.md {project_root}/AGENTS.md`
+**Bulk sync helper:** `bash {{LOCAL_PATH}}/sync-agents.sh <project-path> [...]`
 
 > This file is the source of truth for Codex behavior in AIKB-enabled projects.
 
@@ -121,6 +122,17 @@ Rules:
 
 ---
 
+### Template update hygiene
+
+If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, you may run `./sync.sh --check` when the last template check is stale (default: about 7 days) or when the operator asks about updates.
+
+- Use `--check` only for periodic nudges.
+- If updates are available, summarize the changed framework paths first.
+- Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
+- After a framework sync, re-copy Codex instructions into downstream project repos with `./sync-agents.sh <project-path> [...]` as needed.
+
+---
+
 ### Session resilience
 
 Use checkpoint commits during long sessions:
@@ -139,3 +151,5 @@ python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "
 ```
 
 This records the active task, repo state, branch/cwd context, queue counts, and any wrap-up note into `_runtime/events/YYYY-MM-DD.ndjson`.
+
+If this repo also uses the optional graph/dream workflow, run those maintenance commands only when the operator or repo policy explicitly expects them.

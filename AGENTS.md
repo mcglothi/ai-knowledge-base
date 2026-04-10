@@ -1,10 +1,10 @@
 # Codex CLI — Global Agent Instructions
 
-**Last Updated:** 2026-04-08
+**Last Updated:** 2026-04-10
 **Summary:** Source-of-truth Codex instructions for loading, using, and updating AIKB across machines.
 **Config location:** `AGENTS.md` in the current repository root
-**Sync from local clone:** `cp {code_root}/AIKB/_agents/codex.md {project_root}/AGENTS.md`
-**Bulk sync helper:** `{code_root}/AIKB/sync-agents.sh`
+**Sync from local clone:** `cp {{LOCAL_PATH}}/_agents/codex.md {project_root}/AGENTS.md`
+**Bulk sync helper:** `bash {{LOCAL_PATH}}/sync-agents.sh <project-path> [...]`
 
 > This file is the source of truth for Codex AIKB behavior. Keep local `AGENTS.md` aligned when this file changes.
 
@@ -18,7 +18,7 @@
 
 ## AI Knowledge Base (AIKB)
 
-All personal projects, infrastructure, and client work are documented in the AIKB — a private GitHub repo (`mcglothi/AIKB`) that serves as persistent memory across sessions and machines.
+All personal projects, infrastructure, and client work are documented in the AIKB — a private GitHub repo (`{{GITHUB_USERNAME}}/{{REPO_NAME}}`) that serves as persistent memory across sessions and machines.
 
 AIKB is accessed in one of two modes depending on whether a local clone exists. Determine the mode at session start.
 
@@ -26,15 +26,17 @@ AIKB is accessed in one of two modes depending on whether a local clone exists. 
 
 ### Step 1 — Identify the machine
 
-Run `hostname`. Resolve the code root from this table:
+Run `hostname` and match it to `personal/dev-environment/README.md`.
 
-| Hostname | Code root | AIKB local path |
-|----------|-----------|-----------------|
-| feynman  | `~/code/` | `~/code/AIKB/`  |
-| tesla    | `~/Code/` | `~/Code/AIKB/`  |
-| mbp-i9   | `~/Code/` | `~/Code/AIKB/`  |
+Default AIKB path: `{{LOCAL_PATH}}`
 
-If unrecognized, run `uname -s` and infer likely code root (`~/Code/` on macOS, `~/code/` on Linux). Treat as MCP mode unless a local clone exists.
+If hostname is unknown, probe with:
+- `uname -s`
+- `uname -m`
+- `which brew || which apt || which dnf || which pacman`
+- `python3 --version`
+
+If the session is substantial, create `personal/dev-environment/<hostname>.md`.
 
 ---
 
@@ -57,7 +59,7 @@ git -C {AIKB path} add . && git -C {AIKB path} commit -m "AI Update: [file] — 
 
 #### MCP mode (no local clone) — online only
 
-Use the `github-aikb` MCP server against `mcglothi/AIKB` `main`.
+Use the `github-aikb` MCP server against `{{GITHUB_USERNAME}}/{{REPO_NAME}}` `main`.
 
 - Read: `get_file_contents`
 - Write: `create_or_update_file` (include SHA for updates)
@@ -123,13 +125,22 @@ Update AIKB before ending any session that produced reusable knowledge:
 
 For partial handoffs, add: `⚠️ IN PROGRESS`.
 
-### Maintenance & Distillation (Closeout Workflow)
+### Template Update Hygiene
 
-To keep the AIKB healthy and its knowledge graph accurate, you MUST perform these maintenance steps during the `lets wrap up` / `lets shut down` workflow:
+If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, use the template updater in two stages:
 
-1. **Build Temporal Graph:** Run `python3 _tools/memory-pipeline/build_temporal_graph.py` to update the entity-centric knowledge graph.
-2. **Run Dream Cycle:** Run `python3 _tools/memory-pipeline/dream_cycle.py` to distill the day's events into high-level summaries.
-3. **Commit Artifacts:** Ensure the generated `_runtime/graphs/` and `_runtime/dreams/` files are committed alongside your notes.
+1. Check only: run `./sync.sh --check` when the last check is stale (default: about 7 days) or when the operator explicitly asks about updates.
+2. Summarize first: if updates are available, tell the operator what framework paths changed.
+3. Apply only with approval: do not run `./sync.sh` automatically, because it updates tracked framework files.
+4. After a framework sync, re-sync downstream Codex project repos as needed with `./sync-agents.sh <project-path> [...]`.
+
+### Maintenance & Distillation (Optional Advanced Closeout)
+
+If this AIKB repo intentionally uses the runtime graph/dream workflow, you can extend closeout with:
+
+1. **Build Temporal Graph:** Run `python3 _tools/memory-pipeline/build_temporal_graph.py`.
+2. **Run Dream Cycle:** Run `python3 _tools/memory-pipeline/dream_cycle.py`.
+3. **Commit Artifacts:** Commit generated `_runtime/graphs/` / `_runtime/dreams/` outputs only if this repo treats them as tracked artifacts.
 
 ### Runtime memory pipeline (recommended for long sessions)
 
