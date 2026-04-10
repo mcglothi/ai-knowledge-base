@@ -250,7 +250,7 @@ When improvements are made to the template (better agent instructions, new tool 
 `install.sh` automatically adds this repo as an `upstream` git remote and saves your personal config to a git-ignored `.aikb-config.d/` directory. When you want updates, run:
 
 ```bash
-./sync.sh --check
+python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check
 ./sync.sh
 ```
 
@@ -269,7 +269,7 @@ When improvements are made to the template (better agent instructions, new tool 
 **What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
 
 Suggested habit:
-- Let agents run `./sync.sh --check` after about a week or when you explicitly ask about updates.
+- Let agents run `python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check` during session setup or when you explicitly ask about updates.
 - Keep actual `./sync.sh` application operator-approved, since it changes tracked framework files.
 - After a framework sync, re-sync downstream Codex project repos with `./sync-agents.sh`.
 

@@ -10,7 +10,7 @@ import socket
 import subprocess
 import sys
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -25,6 +25,8 @@ QUEUE_FILE = ROOT / "_runtime" / "promotion-queue.md"
 ACTIVE_FILE = ROOT / "_agents" / "active.md"
 PENDING_APPROVALS_FILE = ROOT / "_pending_approvals.md"
 HUD_STATE_DIR = ROOT / "_runtime" / "session-hud"
+TEMPLATE_SYNC_STATE_FILE = ROOT / ".aikb-config.d" / "template-sync-state.json"
+TEMPLATE_SYNC_SCRIPT = ROOT / "sync.sh"
 
 STATUS_RE = re.compile(r"\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|")
 CANDIDATE_ID_RE = re.compile(r"^\s*-\s+id:\s+(\S+)\s*$")
@@ -59,6 +61,21 @@ def parse_args() -> argparse.Namespace:
 
     hud = subparsers.add_parser("hud", help="Show the lightweight session HUD.")
     hud.add_argument("--limit", type=int, default=3, help="How many recent rows to show per section.")
+
+    template_sync = subparsers.add_parser(
+        "template-sync",
+        help="Show template update state and optionally run a safe check-only sync probe.",
+    )
+    template_sync.add_argument(
+        "--auto-check",
+        action="store_true",
+        help="Run ./sync.sh --check only when the saved check window is stale or missing.",
+    )
+    template_sync.add_argument(
+        "--force-check",
+        action="store_true",
+        help="Run ./sync.sh --check immediately, even if the saved check window is still fresh.",
+    )
 
     check_repo = subparsers.add_parser(
         "check-repo",
@@ -616,6 +633,104 @@ def default_session_id(agent: str) -> str:
     return f"{agent}-{socket.gethostname()}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
 
 
+def parse_utc_timestamp(value: str) -> datetime | None:
+    text = value.strip()
+    if not text:
+        return None
+    try:
+        if text.endswith("Z"):
+            return datetime.fromisoformat(text.replace("Z", "+00:00")).astimezone(timezone.utc)
+        return datetime.fromisoformat(text).astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
+def short_sha(value: str) -> str:
+    text = value.strip()
+    if not text:
+        return ""
+    return text[:12]
+
+
+def collect_template_sync_status() -> dict[str, object]:
+    status: dict[str, object] = {
+        "available": TEMPLATE_SYNC_SCRIPT.exists() and TEMPLATE_SYNC_STATE_FILE.exists(),
+        "script_exists": TEMPLATE_SYNC_SCRIPT.exists(),
+        "state_exists": TEMPLATE_SYNC_STATE_FILE.exists(),
+        "stale": False,
+        "updates_pending": False,
+        "last_checked_utc": "",
+        "last_checked_age": "",
+        "last_checked_days": None,
+        "check_interval_days": None,
+        "last_seen_upstream_sha": "",
+        "last_applied_upstream_sha": "",
+        "summary": "template sync not configured",
+        "suggested_command": "python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check",
+    }
+
+    if not status["script_exists"]:
+        status["summary"] = "sync.sh not present"
+        return status
+    if not status["state_exists"]:
+        status["summary"] = "template sync state missing; run install.sh first"
+        return status
+
+    try:
+        raw = json.loads(TEMPLATE_SYNC_STATE_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        status["summary"] = "template sync state unreadable"
+        return status
+    if not isinstance(raw, dict):
+        status["summary"] = "template sync state unreadable"
+        return status
+
+    last_checked = str(raw.get("last_checked_utc", "") or "").strip()
+    last_seen = str(raw.get("last_seen_upstream_sha", "") or "").strip()
+    last_applied = str(raw.get("last_applied_upstream_sha", "") or "").strip()
+
+    try:
+        interval_days = int(raw.get("check_interval_days", 7) or 7)
+    except (TypeError, ValueError):
+        interval_days = 7
+
+    checked_dt = parse_utc_timestamp(last_checked)
+    now = datetime.now(timezone.utc)
+    stale = checked_dt is None or checked_dt <= (now - timedelta(days=interval_days))
+    pending = bool(last_seen and last_applied and last_seen != last_applied)
+
+    if checked_dt is None:
+        checked_age = "never"
+        checked_days: int | None = None
+    else:
+        delta = now - checked_dt
+        checked_days = max(0, delta.days)
+        checked_age = relative_age_from_dt(checked_dt)
+
+    if pending:
+        summary = f"updates available from last check ({short_sha(last_seen)} vs applied {short_sha(last_applied)})"
+    elif stale:
+        summary = f"check due ({checked_age}, every {interval_days}d)"
+    else:
+        summary = f"current ({checked_age}, every {interval_days}d)"
+
+    status.update(
+        {
+            "available": True,
+            "stale": stale,
+            "updates_pending": pending,
+            "last_checked_utc": last_checked,
+            "last_checked_age": checked_age,
+            "last_checked_days": checked_days,
+            "check_interval_days": interval_days,
+            "last_seen_upstream_sha": last_seen,
+            "last_applied_upstream_sha": last_applied,
+            "summary": summary,
+        }
+    )
+    return status
+
+
 def collect_hud_state() -> dict[str, object]:
     latest_events = latest_matching(EVENTS_DIR, "[0-9][0-9][0-9][0-9]-*.ndjson")
     latest_candidates = latest_matching(CANDIDATES_DIR, "[0-9][0-9][0-9][0-9]-*.yaml")
@@ -628,6 +743,7 @@ def collect_hud_state() -> dict[str, object]:
     focus = load_hud_state()
     cwd_context = git_context_for_path(Path.cwd())
     event_types, event_agents = summarize_event_breakdown(latest_event_rows)
+    template_sync = collect_template_sync_status()
 
     current = next((row for row in reversed(sessions) if row["host"] == hostname), None)
     others = [row for row in sessions if row is not current]
@@ -662,6 +778,7 @@ def collect_hud_state() -> dict[str, object]:
         "event_agents": event_agents,
         "current_age": current_age,
         "context_points": context_points,
+        "template_sync": template_sync,
     }
 
 
@@ -767,6 +884,7 @@ def print_hud(limit: int) -> int:
     event_agents = state["event_agents"]
     current_age = state["current_age"]
     context_points = state["context_points"]
+    template_sync = state["template_sync"]
 
     print("[hud] Session")
     if focus.get("task"):
@@ -830,6 +948,19 @@ def print_hud(limit: int) -> int:
             print(f"  - approval_recent: {row}")
     else:
         print("  - approvals: none logged")
+    if template_sync["available"]:
+        print(f"  - template_sync: {template_sync['summary']}")
+        print(
+            f"  - template_last_checked: {template_sync['last_checked_utc'] or 'never'}"
+        )
+        if template_sync["updates_pending"]:
+            print(
+                "  - template_action: review update check and apply with operator approval"
+            )
+        elif template_sync["stale"]:
+            print(
+                f"  - template_action: run {template_sync['suggested_command']}"
+            )
     return 0
 
 
@@ -925,6 +1056,15 @@ def print_prompt(max_task: int) -> int:
     event_total = len(latest_event_rows)
     meter = f"{context_points}/5"
     age = current_age
+    template_sync = state["template_sync"]
+    template_state = "n/a"
+    if template_sync["available"]:
+        if template_sync["updates_pending"]:
+            template_state = "pending"
+        elif template_sync["stale"]:
+            template_state = "stale"
+        else:
+            template_state = "current"
 
     segments = [
         f"task={truncate(task, max_task)}",
@@ -932,6 +1072,7 @@ def print_prompt(max_task: int) -> int:
         f"events={event_total}",
         f"queue={queue_total}",
         f"approvals={approvals_total}",
+        f"tpl={template_state}",
         f"branch={branch}",
         f"state={dirty}",
         f"age={age}",
@@ -1070,6 +1211,44 @@ def run_focus_clear(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_template_sync(args: argparse.Namespace) -> int:
+    status = collect_template_sync_status()
+    print("[template-sync] Status")
+    print(f"  - summary: {status['summary']}")
+    if not status["script_exists"]:
+        print("  - detail: sync.sh is not present in this repo")
+        return 1
+    if not status["state_exists"]:
+        print("  - detail: .aikb-config.d/template-sync-state.json is missing")
+        print("  - next: run install.sh to initialize personalization and sync state")
+        return 1
+
+    print(f"  - last_checked_utc: {status['last_checked_utc'] or 'never'}")
+    print(f"  - check_interval_days: {status['check_interval_days']}")
+    print(
+        f"  - last_applied_upstream_sha: {short_sha(str(status['last_applied_upstream_sha'])) or 'unknown'}"
+    )
+    print(
+        f"  - last_seen_upstream_sha: {short_sha(str(status['last_seen_upstream_sha'])) or 'unknown'}"
+    )
+
+    should_run = args.force_check or (args.auto_check and bool(status["stale"]))
+    if args.auto_check and not should_run:
+        print("  - action: skipped check; saved window is still fresh")
+        return 0
+    if not args.auto_check and not args.force_check:
+        print(f"  - next: {status['suggested_command']}")
+        return 0
+
+    cmd = [str(TEMPLATE_SYNC_SCRIPT), "--check"]
+    print("[template-sync] Running: ./sync.sh --check")
+    result = subprocess.run(cmd, cwd=ROOT)
+    if result.returncode == 0:
+        refreshed = collect_template_sync_status()
+        print(f"[template-sync] Updated status: {refreshed['summary']}")
+    return result.returncode
+
+
 def run_capture(args: argparse.Namespace) -> int:
     if ingest_runtime.looks_sensitive(args.summary):
         raise SystemExit(
@@ -1108,6 +1287,8 @@ def main() -> int:
         raise SystemExit(f"Unknown focus command: {args.focus_command}")
     if args.command == "hud":
         return print_hud(args.limit)
+    if args.command == "template-sync":
+        return run_template_sync(args)
     if args.command == "prompt":
         return print_prompt(args.max_task)
     if args.command == "release-session":

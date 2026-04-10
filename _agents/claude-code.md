@@ -181,9 +181,13 @@ Commit at logical checkpoints, not just at the end:
 
 ### Template update hygiene
 
-If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, you may run `./sync.sh --check` when the last template check is stale (default: about 7 days) or when the operator asks about updates.
+If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, prefer:
 
-- Use `--check` only for periodic nudges.
+`python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --auto-check`
+
+That helper reads the saved check window and only runs `./sync.sh --check` when the template check is stale or missing, or when the operator asks about updates.
+
+- Use `--check` only for safe periodic nudges.
 - If updates are available, summarize the changed framework paths first.
 - Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
 - After a framework sync, remind the operator that downstream Codex project repos may also need `./sync-agents.sh`.

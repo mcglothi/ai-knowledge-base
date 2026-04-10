@@ -129,10 +129,11 @@ For partial handoffs, add: `⚠️ IN PROGRESS`.
 
 If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, use the template updater in two stages:
 
-1. Check only: run `./sync.sh --check` when the last check is stale (default: about 7 days) or when the operator explicitly asks about updates.
-2. Summarize first: if updates are available, tell the operator what framework paths changed.
-3. Apply only with approval: do not run `./sync.sh` automatically, because it updates tracked framework files.
-4. After a framework sync, re-sync downstream Codex project repos as needed with `./sync-agents.sh <project-path> [...]`.
+1. Preferred helper: run `python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check` during session setup or when the operator asks about updates. It reads the saved check window and only runs `./sync.sh --check` when the window is stale or missing.
+2. Check only: if you run the lower-level command directly, use `./sync.sh --check` only for safe periodic checks.
+3. Summarize first: if updates are available, tell the operator what framework paths changed.
+4. Apply only with approval: do not run `./sync.sh` automatically, because it updates tracked framework files.
+5. After a framework sync, re-sync downstream Codex project repos as needed with `./sync-agents.sh <project-path> [...]`.
 
 ### Maintenance & Distillation (Optional Advanced Closeout)
 

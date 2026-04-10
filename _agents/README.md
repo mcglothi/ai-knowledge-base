@@ -81,7 +81,7 @@ Update the relevant agent file(s) — and re-sync to the tool — when:
 - A new top-level domain folder is added (e.g. `home-lab/`, `clients/`)
 - A new project is added that agents should know about by default
 - Machine hostnames or paths change
-- `./sync.sh --check` reports framework updates from the public template
+- `python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check` reports framework updates from the public template
 
 ---
 
