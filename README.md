@@ -2,9 +2,6 @@
   <img src="_branding/hero-graphic.png" alt="AIKB" width="1000" />
 </p>
 
-<p align="center">
-  <img src="docs/assets/logo.svg" width="160" />
-</p>
 
 <h1 align="center">AIKB — AI Knowledge Base</h1>
 
