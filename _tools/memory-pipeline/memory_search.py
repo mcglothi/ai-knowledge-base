@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
-import math
 import re
+import sqlite3
+import sys
 from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -16,12 +18,18 @@ from typing import Iterable
 TOKEN_RE = re.compile(r"[a-zA-Z0-9_\-]{3,}")
 CANONICAL_SUFFIXES = {".md", ".yaml", ".yml", ".py", ".sh"}
 EXCLUDED_PARTS = {".git", "__pycache__", ".venv", "node_modules"}
-EXCLUDED_RUNTIME_DIRS = {"candidates", "dreams", "events", "graphs", "maintenance", "reorg-suggestions", "conflicts"}
+EXCLUDED_RUNTIME_DIRS = {"candidates", "dreams", "events", "graphs", "maintenance", "reorg-suggestions", "conflicts", "search-index"}
 AGENT_QUERY_TOKENS = {"agent", "agents", "codex", "claude", "gemini", "chatgpt", "cursor", "grok", "instruction", "instructions", "sync"}
 STRUCTURE_QUERY_TOKENS = {"structure", "structur", "template", "file", "files", "format"}
 OVERVIEW_QUERY_TOKENS = {"overview", "index", "summary", "summari", "list"}
 ENDPOINT_QUERY_TOKENS = {"endpoint", "endpoints", "api", "apis", "route", "routes", "heartbeat"}
 ARCHITECTURE_QUERY_TOKENS = {"architecture", "architectur", "workflow", "staging", "runtime"}
+SEMANTIC_MODEL_NAME = "all-MiniLM-L6-v2"
+SEMANTIC_RERANK_LIMIT = 30
+INDEX_DIRNAME = "_runtime/search-index"
+INDEX_FILENAME = "memory_search.sqlite3"
+
+_EMBEDDING_MODEL = None
 
 
 @dataclass
@@ -42,16 +50,21 @@ class Record:
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--query", required=True)
+    p.add_argument("--query", default="", help="Natural-language search query.")
     p.add_argument("--scope", default="all", choices=["all", "runtime", "events", "candidates", "canonical"])
     p.add_argument("--limit", type=int, default=10)
     p.add_argument("--include-rejected", action="store_true")
     p.add_argument("--as-of", dest="as_of", default="", help="Return memories on/before YYYY-MM-DD")
     p.add_argument("--before", default="", help="Return memories on/before YYYY-MM-DD")
     p.add_argument("--after", default="", help="Return memories on/after YYYY-MM-DD")
-    p.add_argument("--no-semantic", action="store_true", help="Disable embedding similarity reranking")
+    p.add_argument("--mode", default="", choices=["keyword", "semantic", "hybrid"])
+    p.add_argument("--rebuild-index", action="store_true", help="Rebuild the semantic embedding index.")
+    p.add_argument("--no-semantic", action="store_true", help="Force keyword-only behavior.")
     p.add_argument("--json", action="store_true", help="Output JSON records")
-    return p.parse_args()
+    args = p.parse_args()
+    if not args.query and not args.rebuild_index:
+        p.error("--query is required unless --rebuild-index is set.")
+    return args
 
 
 def now_utc() -> datetime:
@@ -233,35 +246,35 @@ def path_score(query_tokens: list[str], path: str) -> float:
     return score
 
 
-def score_record(r: Record, query_tokens: list[str]) -> float:
-    lowered = r.text.lower()
+def score_record(record: Record, query_tokens: list[str]) -> float:
+    lowered = record.text.lower()
     phrase = " ".join(query_tokens)
     query_set = set(query_tokens)
-    path_parts = [part.lower() for part in Path(r.path).parts]
+    path_parts = [part.lower() for part in Path(record.path).parts]
     in_benchmarks = "_runtime" in path_parts and "benchmarks" in path_parts
-    section_tokens = token_counter(r.section_title) if r.section_title else Counter()
-    s = 0.0
-    s += 1.3 * match_score(query_tokens, r.text)
-    s += 2.5 * coverage_score(query_tokens, r.text)
-    s += 3.0 * sum(section_tokens.get(tok, 0) for tok in query_tokens)
-    if r.section_title:
+    section_tokens = token_counter(record.section_title) if record.section_title else Counter()
+    score = 0.0
+    score += 1.3 * match_score(query_tokens, record.text)
+    score += 2.5 * coverage_score(query_tokens, record.text)
+    score += 3.0 * sum(section_tokens.get(tok, 0) for tok in query_tokens)
+    if record.section_title:
         section_present = sum(1 for tok in set(query_tokens) if section_tokens.get(tok, 0) > 0)
-        s += 2.0 * (section_present / max(1, len(set(query_tokens))))
-    s += path_score(query_tokens, r.path)
+        score += 2.0 * (section_present / max(1, len(set(query_tokens))))
+    score += path_score(query_tokens, record.path)
     if phrase and phrase in lowered:
-        s += 4.0
-    s += 3.0 * max(0.0, r.semantic)
-    s += status_boost(r.status)
-    s += recency_boost(r.date)
-    s += max(0.0, min(1.0, r.confidence))
-    s += source_boost(r.source)
+        score += 4.0
+    score += 3.0 * max(0.0, record.semantic)
+    score += status_boost(record.status)
+    score += recency_boost(record.date)
+    score += max(0.0, min(1.0, record.confidence))
+    score += source_boost(record.source)
     if in_benchmarks and not ({"benchmark", "harness", "eval"} & query_set):
-        s -= 35.0
-    return s
+        score -= 35.0
+    return score
 
 
-def within_dates(r: Record, before: datetime | None, after: datetime | None) -> bool:
-    dt = parse_date(r.date)
+def within_dates(record: Record, before: datetime | None, after: datetime | None) -> bool:
+    dt = parse_date(record.date)
     if not dt:
         return False
     if before and dt.date() > before.date():
@@ -273,51 +286,56 @@ def within_dates(r: Record, before: datetime | None, after: datetime | None) -> 
 
 def iter_events(root: Path) -> Iterable[Record]:
     events_dir = root / "_runtime" / "events"
-    for f in sorted(events_dir.glob("*.ndjson")):
-        for line in f.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
+    for path in sorted(events_dir.glob("*.ndjson")):
+        for raw_line in path.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
             if not line:
                 continue
             obj = json.loads(line)
+            text = f"{obj.get('project', '')} {obj.get('summary', '')}".strip()
             yield Record(
                 id=obj.get("id", ""),
                 source="event",
-                path=str(f.relative_to(root)),
-                text=obj.get("summary", ""),
+                path=str(path.relative_to(root)),
+                text=text,
                 status="",
-                date=obj.get("ts_utc", f.stem),
+                date=obj.get("ts_utc", path.stem),
                 confidence=0.0,
             )
 
 
-def parse_candidate_file(f: Path, root: Path) -> list[Record]:
+def parse_candidate_file(path: Path, root: Path) -> list[Record]:
     records: list[Record] = []
-    lines = f.read_text(encoding="utf-8").splitlines()
+    lines = path.read_text(encoding="utf-8").splitlines()
     current: dict[str, str] = {}
 
     def flush() -> None:
         if not current.get("id"):
             return
+        candidate_text = " ".join(
+            part for part in [current.get("target_file", ""), current.get("proposed_change", "")] if part
+        )
         records.append(
             Record(
                 id=current.get("id", ""),
                 source="candidate",
-                path=str(f.relative_to(root)),
-                text=current.get("proposed_change", ""),
+                path=str(path.relative_to(root)),
+                text=candidate_text,
                 status=current.get("status", ""),
-                date=f.stem,
+                date=path.stem,
                 confidence=float(current.get("confidence", "0") or 0),
             )
         )
 
     for raw in lines:
         line = raw.strip()
-        if line.startswith("- id:"):
+        if raw.startswith("  - id:"):
             flush()
             current = {"id": line.split(":", 1)[1].strip()}
+        elif line.startswith("target_file:"):
+            current["target_file"] = line.split(":", 1)[1].strip()
         elif line.startswith("proposed_change:"):
-            v = line.split(":", 1)[1].strip().strip('"')
-            current["proposed_change"] = v
+            current["proposed_change"] = line.split(":", 1)[1].strip().strip('"')
         elif line.startswith("confidence:"):
             current["confidence"] = line.split(":", 1)[1].strip()
         elif line.startswith("status:"):
@@ -328,40 +346,39 @@ def parse_candidate_file(f: Path, root: Path) -> list[Record]:
 
 def iter_candidates(root: Path) -> Iterable[Record]:
     cand_dir = root / "_runtime" / "candidates"
-    for f in sorted(cand_dir.glob("*.yaml")):
-        for rec in parse_candidate_file(f, root):
-            yield rec
+    for path in sorted(cand_dir.glob("*.yaml")):
+        if path.name == "README.md":
+            continue
+        for record in parse_candidate_file(path, root):
+            yield record
 
 
 def iter_canonical(root: Path) -> Iterable[Record]:
-    for f in sorted(root.rglob("*")):
-        if not f.is_file() or f.suffix.lower() not in CANONICAL_SUFFIXES:
+    for path in sorted(root.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in CANONICAL_SUFFIXES:
             continue
-        parts = set(f.parts)
+        parts = set(path.parts)
         if parts & EXCLUDED_PARTS:
             continue
         if "_runtime" in parts and parts & EXCLUDED_RUNTIME_DIRS:
             continue
-        rel = str(f.relative_to(root))
-        text = f.read_text(encoding="utf-8", errors="ignore")
-        date = extract_last_updated(text)
-        if f.suffix.lower() == ".md":
+        rel = str(path.relative_to(root))
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        updated = extract_last_updated(text)
+        if path.suffix.lower() == ".md":
             yielded = False
             sections = split_markdown_sections(text)
             for heading, section_level, section_text in sections:
                 excerpt = " ".join(section_text.splitlines()[:60])
                 heading_slug = slugify(heading)
-                search_text = (
-                    f"{rel} {f.stem.replace('-', ' ').replace('_', ' ')} "
-                    f"{heading} {excerpt}"
-                )
+                search_text = f"{rel} {path.stem.replace('-', ' ').replace('_', ' ')} {heading} {excerpt}"
                 yield Record(
                     id=f"canon:{rel}#{heading_slug}",
                     source="canonical",
                     path=rel,
                     text=search_text,
                     status="merged",
-                    date=date,
+                    date=updated,
                     chunk_id=f"{rel}#{heading_slug}",
                     section_title=heading,
                     section_level=section_level,
@@ -372,14 +389,14 @@ def iter_canonical(root: Path) -> Iterable[Record]:
                 continue
 
         excerpt = " ".join(text.splitlines()[:60])
-        search_text = f"{rel} {f.stem.replace('-', ' ').replace('_', ' ')} {excerpt}"
+        search_text = f"{rel} {path.stem.replace('-', ' ').replace('_', ' ')} {excerpt}"
         yield Record(
             id=f"canon:{rel}",
             source="canonical",
             path=rel,
             text=search_text,
             status="merged",
-            date=date,
+            date=updated,
             chunk_id=rel,
             section_title="document",
             section_level=0,
@@ -410,39 +427,298 @@ def split_markdown_sections(text: str) -> list[tuple[str, int, str]]:
     return [(heading, level, body) for heading, level, body in sections if body]
 
 
-def add_semantic_scores(query: str, records: list[Record]) -> bool:
-    if not records:
-        return False
+def collect_records(root: Path, scope: str) -> list[Record]:
+    records: list[Record] = []
+    if scope in ("all", "runtime", "events"):
+        records.extend(iter_events(root))
+    if scope in ("all", "runtime", "candidates"):
+        records.extend(iter_candidates(root))
+    if scope in ("all", "canonical"):
+        records.extend(iter_canonical(root))
+    return records
 
+
+def semantic_backend_available() -> bool:
     try:
-        from fastembed import TextEmbedding
+        import numpy  # noqa: F401
+        from sentence_transformers import SentenceTransformer  # noqa: F401
     except Exception:
         return False
-
-    embedder = TextEmbedding("sentence-transformers/all-MiniLM-L6-v2")
-    q_vec = list(embedder.embed([query]))[0]
-    rec_vecs = list(embedder.embed([r.text[:1800] for r in records]))
-
-    q_norm = math.sqrt(sum(float(x) * float(x) for x in q_vec))
-    if q_norm <= 0:
-        return False
-
-    for r, vec in zip(records, rec_vecs):
-        vec_norm = math.sqrt(sum(float(x) * float(x) for x in vec))
-        denom = vec_norm * q_norm
-        if denom <= 0:
-            sim = 0.0
-        else:
-            dot = sum(float(a) * float(b) for a, b in zip(vec, q_vec))
-            sim = float(dot / denom)
-        r.semantic = max(0.0, sim)
-
     return True
+
+
+def get_embedding_model():
+    global _EMBEDDING_MODEL
+    if _EMBEDDING_MODEL is None:
+        from sentence_transformers import SentenceTransformer
+
+        _EMBEDDING_MODEL = SentenceTransformer(SEMANTIC_MODEL_NAME)
+    return _EMBEDDING_MODEL
+
+
+def index_db_path(root: Path) -> Path:
+    return root / INDEX_DIRNAME / INDEX_FILENAME
+
+
+def ensure_index_schema(conn: sqlite3.Connection) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS embeddings (
+            record_id TEXT PRIMARY KEY,
+            source TEXT NOT NULL,
+            path TEXT NOT NULL,
+            chunk_id TEXT NOT NULL,
+            section_title TEXT NOT NULL,
+            status TEXT NOT NULL,
+            date TEXT NOT NULL,
+            confidence REAL NOT NULL,
+            text_hash TEXT NOT NULL,
+            vector_dim INTEGER NOT NULL,
+            vector_blob BLOB NOT NULL
+        )
+        """
+    )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS metadata (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        )
+        """
+    )
+    conn.commit()
+
+
+def record_hash(record: Record) -> str:
+    payload = "\n".join(
+        [
+            record.id,
+            record.source,
+            record.path,
+            record.chunk_id,
+            record.section_title,
+            record.status,
+            record.date,
+            f"{record.confidence:.6f}",
+            record.text,
+        ]
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def load_index_hashes(conn: sqlite3.Connection) -> dict[str, str]:
+    rows = conn.execute("SELECT record_id, text_hash FROM embeddings").fetchall()
+    return {str(record_id): str(text_hash) for record_id, text_hash in rows}
+
+
+def encode_texts(texts: list[str]):
+    import numpy as np
+
+    model = get_embedding_model()
+    vectors = model.encode(texts, convert_to_numpy=True, normalize_embeddings=True)
+    return np.asarray(vectors, dtype=np.float32)
+
+
+def upsert_embedding_batch(conn: sqlite3.Connection, records: list[Record]) -> None:
+    if not records:
+        return
+    vectors = encode_texts([record.text[:2000] for record in records])
+    rows = []
+    for record, vector in zip(records, vectors):
+        rows.append(
+            (
+                record.id,
+                record.source,
+                record.path,
+                record.chunk_id or record.path,
+                record.section_title,
+                record.status,
+                record.date,
+                float(record.confidence),
+                record_hash(record),
+                int(vector.shape[0]),
+                sqlite3.Binary(vector.tobytes()),
+            )
+        )
+    conn.executemany(
+        """
+        INSERT INTO embeddings (
+            record_id, source, path, chunk_id, section_title, status, date, confidence, text_hash, vector_dim, vector_blob
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(record_id) DO UPDATE SET
+            source=excluded.source,
+            path=excluded.path,
+            chunk_id=excluded.chunk_id,
+            section_title=excluded.section_title,
+            status=excluded.status,
+            date=excluded.date,
+            confidence=excluded.confidence,
+            text_hash=excluded.text_hash,
+            vector_dim=excluded.vector_dim,
+            vector_blob=excluded.vector_blob
+        """,
+        rows,
+    )
+    conn.commit()
+
+
+def sync_semantic_index(root: Path, records: list[Record], force_rebuild: bool) -> str:
+    if not semantic_backend_available():
+        return "semantic backend unavailable"
+
+    db_path = index_db_path(root)
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(db_path)
+    try:
+        ensure_index_schema(conn)
+        stored_model = conn.execute("SELECT value FROM metadata WHERE key='model_name'").fetchone()
+        if force_rebuild or (stored_model and stored_model[0] != SEMANTIC_MODEL_NAME):
+            conn.execute("DELETE FROM embeddings")
+            conn.execute("DELETE FROM metadata")
+            conn.commit()
+
+        current_hashes = load_index_hashes(conn)
+        wanted = {record.id: record_hash(record) for record in records}
+        stale_ids = sorted(set(current_hashes) - set(wanted))
+        if stale_ids:
+            conn.executemany("DELETE FROM embeddings WHERE record_id = ?", [(record_id,) for record_id in stale_ids])
+            conn.commit()
+
+        pending = [record for record in records if current_hashes.get(record.id) != wanted[record.id]]
+        for offset in range(0, len(pending), 64):
+            upsert_embedding_batch(conn, pending[offset : offset + 64])
+
+        conn.executemany(
+            "INSERT INTO metadata(key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+            [
+                ("model_name", SEMANTIC_MODEL_NAME),
+                ("updated_utc", now_utc().strftime("%Y-%m-%dT%H:%M:%SZ")),
+                ("record_count", str(len(records))),
+            ],
+        )
+        conn.commit()
+        if force_rebuild:
+            return f"rebuilt semantic index ({len(records)} records)"
+        if pending or stale_ids:
+            return f"synced semantic index ({len(pending)} updated, {len(stale_ids)} removed)"
+        return "semantic index already current"
+    finally:
+        conn.close()
+
+
+def fetch_vectors(root: Path, record_ids: list[str]):
+    import numpy as np
+
+    if not record_ids:
+        return {}
+
+    db_path = index_db_path(root)
+    if not db_path.exists():
+        return {}
+
+    conn = sqlite3.connect(db_path)
+    try:
+        placeholders = ",".join("?" for _ in record_ids)
+        query = (
+            "SELECT record_id, vector_dim, vector_blob FROM embeddings "
+            f"WHERE record_id IN ({placeholders})"
+        )
+        rows = conn.execute(query, record_ids).fetchall()
+    finally:
+        conn.close()
+
+    vectors = {}
+    for record_id, vector_dim, vector_blob in rows:
+        vec = np.frombuffer(vector_blob, dtype=np.float32, count=int(vector_dim))
+        vectors[str(record_id)] = vec
+    return vectors
+
+
+def semantic_scores(root: Path, query: str, target_records: list[Record]) -> dict[str, float]:
+    import numpy as np
+
+    if not target_records:
+        return {}
+
+    vectors = fetch_vectors(root, [record.id for record in target_records])
+    if not vectors:
+        return {}
+
+    query_vector = encode_texts([query])[0]
+    scores: dict[str, float] = {}
+    for record in target_records:
+        vector = vectors.get(record.id)
+        if vector is None:
+            continue
+        denom = float(np.linalg.norm(vector) * np.linalg.norm(query_vector))
+        if denom <= 0:
+            scores[record.id] = 0.0
+            continue
+        similarity = float(np.dot(vector, query_vector) / denom)
+        scores[record.id] = max(0.0, similarity)
+    return scores
+
+
+def resolve_mode(args: argparse.Namespace, embeddings_available: bool) -> tuple[str, str]:
+    if args.no_semantic:
+        return ("keyword", "")
+
+    requested = args.mode or ("hybrid" if embeddings_available else "keyword")
+    if requested in {"semantic", "hybrid"} and not embeddings_available:
+        return ("keyword", "sentence-transformers not available; using keyword mode")
+    return (requested, "")
+
+
+def apply_date_filters(records: list[Record], before: datetime | None, after: datetime | None) -> list[Record]:
+    if not before and not after:
+        return records
+    return [record for record in records if within_dates(record, before, after)]
+
+
+def score_keyword_candidates(records: list[Record], query_tokens: list[str], include_rejected: bool) -> list[Record]:
+    scored: list[Record] = []
+    for record in records:
+        if record.source == "candidate" and record.status == "rejected" and not include_rejected:
+            continue
+        lexical = match_score(query_tokens, record.text)
+        if lexical <= 0:
+            continue
+        record.semantic = 0.0
+        record.score = score_record(record, query_tokens)
+        scored.append(record)
+    return scored
+
+
+def choose_top(records: list[Record], limit: int) -> list[Record]:
+    ordered = sorted(records, key=lambda item: item.score, reverse=True)
+    top: list[Record] = []
+    seen_paths: set[str] = set()
+    for record in ordered:
+        if record.path in seen_paths:
+            continue
+        top.append(record)
+        seen_paths.add(record.path)
+        if len(top) >= max(1, limit):
+            break
+    return top
 
 
 def main() -> int:
     args = parse_args()
     root = Path(__file__).resolve().parents[2]
+    embeddings_available = semantic_backend_available()
+    effective_mode, mode_warning = resolve_mode(args, embeddings_available)
+
+    records = collect_records(root, args.scope)
+    index_message = ""
+    if args.rebuild_index:
+        index_message = sync_semantic_index(root, records, force_rebuild=True)
+        if not args.query:
+            print(index_message)
+            return 0
+    elif effective_mode in {"semantic", "hybrid"}:
+        index_message = sync_semantic_index(root, records, force_rebuild=False)
+
     q_tokens = tokenize(args.query)
     if not q_tokens:
         raise SystemExit("Query must include at least one token of length >= 3.")
@@ -455,74 +731,72 @@ def main() -> int:
     if (args.as_of and not parse_date(args.as_of)) or (args.before and not before) or (args.after and not after):
         raise SystemExit("Date filters must be valid YYYY-MM-DD values.")
 
-    records: list[Record] = []
+    records = apply_date_filters(records, before, after)
 
-    if args.scope in ("all", "runtime", "events"):
-        records.extend(iter_events(root))
-    if args.scope in ("all", "runtime", "candidates"):
-        records.extend(iter_candidates(root))
-    if args.scope in ("all", "canonical"):
-        records.extend(iter_canonical(root))
+    if effective_mode == "keyword":
+        scored = score_keyword_candidates(records, q_tokens, args.include_rejected)
+    elif effective_mode == "hybrid":
+        scored = score_keyword_candidates(records, q_tokens, args.include_rejected)
+        rerank = sorted(scored, key=lambda item: item.score, reverse=True)[:SEMANTIC_RERANK_LIMIT]
+        sims = semantic_scores(root, args.query, rerank)
+        for record in rerank:
+            record.semantic = sims.get(record.id, 0.0)
+            record.score = score_record(record, q_tokens)
+    else:
+        filtered = [
+            record
+            for record in records
+            if not (record.source == "candidate" and record.status == "rejected" and not args.include_rejected)
+        ]
+        sims = semantic_scores(root, args.query, filtered)
+        scored = []
+        for record in filtered:
+            record.semantic = sims.get(record.id, 0.0)
+            lexical = match_score(q_tokens, record.text)
+            if lexical <= 0 and record.semantic < 0.18:
+                continue
+            record.score = score_record(record, q_tokens)
+            scored.append(record)
 
-    if before or after:
-        records = [r for r in records if within_dates(r, before, after)]
-
-    semantic_enabled = (not args.no_semantic) and add_semantic_scores(args.query, records)
-
-    scored: list[Record] = []
-    for r in records:
-        if r.source == "candidate" and (r.status == "rejected" and not args.include_rejected):
-            continue
-
-        lexical = match_score(q_tokens, r.text)
-        # Keep semantically relevant results even when keyword overlap is poor.
-        if lexical <= 0 and r.semantic < 0.25:
-            continue
-
-        r.score = score_record(r, q_tokens)
-        scored.append(r)
-
-    scored.sort(key=lambda x: x.score, reverse=True)
-    top: list[Record] = []
-    seen_paths: set[str] = set()
-    for record in scored:
-        if record.path in seen_paths:
-            continue
-        top.append(record)
-        seen_paths.add(record.path)
-        if len(top) >= max(1, args.limit):
-            break
+    top = choose_top(scored, args.limit)
 
     if args.json:
         payload = [
             {
-                "id": r.id,
-                "source": r.source,
-                "path": r.path,
-                "status": r.status,
-                "date": r.date,
-                "chunk_id": r.chunk_id or r.path,
-                "section_title": r.section_title,
-                "section_level": r.section_level,
-                "score": round(r.score, 3),
-                "semantic": round(r.semantic, 3),
-                "excerpt": r.text[:240],
+                "id": record.id,
+                "source": record.source,
+                "path": record.path,
+                "status": record.status,
+                "date": record.date,
+                "chunk_id": record.chunk_id or record.path,
+                "section_title": record.section_title,
+                "section_level": record.section_level,
+                "score": round(record.score, 3),
+                "semantic": round(record.semantic, 3),
+                "excerpt": record.text[:240],
             }
-            for r in top
+            for record in top
         ]
         print(json.dumps(payload, indent=2))
         return 0
+
+    if mode_warning:
+        print(f"Note: {mode_warning}", file=sys.stderr)
+    if index_message:
+        print(f"Index: {index_message}")
 
     if not top:
         print("No matches.")
         return 0
 
-    mode = "keyword+semantic" if semantic_enabled else "keyword-only"
-    print(f"Mode: {mode}")
-    for i, r in enumerate(top, 1):
-        print(f"{i}. [{r.source}] {r.id} score={r.score:.3f} semantic={r.semantic:.3f} status={r.status or '-'} date={r.date}")
-        print(f"   path: {r.path}")
-        print(f"   excerpt: {r.text[:200]}")
+    print(f"Mode: {effective_mode}")
+    for index, record in enumerate(top, 1):
+        print(
+            f"{index}. [{record.source}] {record.id} score={record.score:.3f} "
+            f"semantic={record.semantic:.3f} status={record.status or '-'} date={record.date}"
+        )
+        print(f"   path: {record.path}")
+        print(f"   excerpt: {record.text[:200]}")
     return 0
 
 
