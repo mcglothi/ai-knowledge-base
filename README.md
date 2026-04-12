@@ -66,6 +66,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Operator intents** — runbooks that teach your agents how to execute your shorthand requests and recurring workflows
 - **Layered loading** — agents read only what they need, preserving context window budget
 - **Checkpoint commits** — agents save progress during long sessions so memory survives interruptions
+- **Mind Meld** — agents read the shared runtime event log to see what other agents are doing right now; no extra infrastructure required
 - **Secrets-safe** — credentials stay in your secrets manager; AIKB stores references only
 - **Machine-aware** — each machine gets a profile so the agent uses the right paths, tools, and conventions
 
@@ -103,6 +104,7 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 | Template sync / self-update | ✅ Built | `./sync.sh`, `runtime_cli.py template-sync` |
 | Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
 | Local model offload (sidecar) | ✅ Built | `hopper.py` + `AIKB_SIDECAR_URL` env var |
+| Mind Meld (cross-agent awareness) | ✅ Built | Read `_runtime/events/YYYY-MM-DD.ndjson`; see agent instruction files |
 | Dream cycle consolidation | 🔨 Prototype | `dream_cycle.py` (outputs not yet auto-promoted) |
 | Automatic conflict detection | 🔨 Prototype | `conflict_scan.py` (offline, not wired to writes) |
 | Hopper-enriched pipeline scoring | 🔨 In progress | `build_candidates.py` + `hopper.py` |
