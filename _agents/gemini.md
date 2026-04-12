@@ -57,6 +57,26 @@ Add `⚠️ IN PROGRESS` at top of in-flight files. Replace with `✅` when done
 
 ---
 
+## Git Workflow — Project Repos
+
+**Push directly to `main`:** small text fixes, typos, minor doc edits.
+**Use a branch:** new features, asset updates, public-facing doc rewrites, anything hard to reverse.
+
+```bash
+git checkout -b gemini/<short-description>
+# do the work, then:
+git push -u origin HEAD
+gh pr create --fill
+```
+
+**Binary assets — never overwrite in-place:**
+- Always use a new filename (e.g. `hero-v2.png`) and update the reference
+- Reason: GitHub CDN caches by URL — replacing a file at the same path serves stale content even after a correct push
+
+AIKB is exempt — always push `_runtime/` and canonical docs directly to `main`.
+
+---
+
 ## Credentials
 
 Use your secrets manager. Reference secrets as `[Stored in Vaultwarden: <Item Name>]`.
