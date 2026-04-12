@@ -1,6 +1,6 @@
 # Claude Code — Global Agent Instructions
 
-**Last Updated:** 2026-04-12
+**Last Updated:** 2026-04-12 (rev 11)
 **Summary:** Streamlined Claude Code instruction set. Wake-up command replaces the manual startup protocol. Stop hook handles session end automatically.
 **Config location:** `~/.claude/CLAUDE.md`
 **Sync:** `cp {{LOCAL_PATH}}/_agents/claude-code.md ~/.claude/CLAUDE.md`
@@ -29,7 +29,7 @@ python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py claim-session \
 ```
 
 **MCP mode** (no local clone): use the `github-aikb` MCP server, repo `{{GITHUB_USERNAME}}/AIKB`, branch `main`.
-Read via `get_file_contents`. Write via `create_or_update_file` (include current SHA). Note at session start: running in MCP mode — no offline access.
+Read via `get_file_contents`. Write via `create_or_update_file` (include current SHA).
 
 ---
 
@@ -46,19 +46,13 @@ Do not bulk-load domain folders.
 
 ## Writing to AIKB
 
-- Edit in place — never append corrections below stale content
-- Update `Last Updated` on every file you touch
+- Edit in place — update `Last Updated` on every file you touch
 - Update `_index.md` if project status changes
-- Update `_state.yaml` when: incident opens/resolves, SSL cert changes, new pending item, file modified
+- Update `_state.yaml` when: incident opens/resolves, SSL cert changes, new pending item
 
 Commit format:
 ```bash
 git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Update: [file] — [what changed]" && git -C {{LOCAL_PATH}} push origin main
-```
-
-Checkpoint format (mid-session):
-```bash
-git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Checkpoint: [file] — [done / in progress]" && git -C {{LOCAL_PATH}} push origin main
 ```
 
 Add `⚠️ IN PROGRESS` at top of in-flight files. Replace with `✅` when done.
@@ -75,7 +69,7 @@ BW_SESSION=$(cat ~/.bw_session)
 bw get password "PAT/<Service>/<Name>" --session "$BW_SESSION"
 ```
 - Never run `bw unlock` (hangs interactively)
-- Never run `bw status` without `--session` (always reports locked)
+- Never run `bw status` without `--session`
 
 ---
 
@@ -89,18 +83,11 @@ The Claude Code **Stop hook** handles session end automatically when configured:
 
 **Setup:** See `docs/stop-hook-setup.md` to configure `aikb-session-stop.sh` in `~/.claude/settings.json`.
 
-To manually capture a key decision before session ends:
-```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
-  --agent "Claude Code" --session-id <id> --type decision \
-  --project <file> --summary "<what was decided>"
-```
-
 ---
 
 ## Shutdown Phrases
 
-If the user says `lets wrap up` / `let's wrap up` / `lets shut down` / `let's shut down` → required closeout:
+`lets wrap up` / `let's wrap up` / `lets shut down` / `let's shut down` → **required closeout workflow:**
 1. Persist AIKB memory updates (project docs, `_index.md`, `_state.yaml`)
 2. `git add` → commit → push for all touched repos
 3. Report final sync state (ahead/behind, any uncommitted files)
@@ -109,7 +96,7 @@ If the user says `lets wrap up` / `let's wrap up` / `lets shut down` / `let's sh
 
 ## Efficiency Rules
 
-- Prefer `pgrep`/`ps`/`which` over directory listings for diagnostics
-- **Full Deployment** keyword → production workflow: DNS, Proxy, SSL, AIKB docs
-- **POC** keyword → speed-first: local-only, skip production standards
-- **Deep Trace** keyword → explicit permission for exhaustive diagnostics
+- Prefer `pgrep`/`ps`/`which` over `ls -R` for diagnostics
+- **Full Deployment** → production workflow (DNS, Proxy, SSL)
+- **POC** → speed-first (local-only, skip production standards)
+- **Deep Trace** → explicit permission for exhaustive diagnostics

@@ -1,10 +1,10 @@
 # Codex CLI — Global Agent Instructions
 
-**Last Updated:** 2026-04-10
+**Last Updated:** 2026-04-08
 **Summary:** Source-of-truth Codex instructions for loading, using, and updating AIKB across machines.
 **Config location:** `AGENTS.md` in the current repository root
-**Sync from local clone:** `cp {{LOCAL_PATH}}/_agents/codex.md {project_root}/AGENTS.md`
-**Bulk sync helper:** `bash {{LOCAL_PATH}}/sync-agents.sh <project-path> [...]`
+**Sync from local clone:** `cp {code_root}/AIKB/_agents/codex.md {project_root}/AGENTS.md`
+**Bulk sync helper:** `{code_root}/AIKB/sync-agents.sh`
 
 > This file is the source of truth for Codex AIKB behavior. Keep local `AGENTS.md` aligned when this file changes.
 
@@ -18,7 +18,7 @@
 
 ## AI Knowledge Base (AIKB)
 
-All personal projects, infrastructure, and client work are documented in the AIKB — a private GitHub repo (`{{GITHUB_USERNAME}}/{{REPO_NAME}}`) that serves as persistent memory across sessions and machines.
+All personal projects, infrastructure, and client work are documented in the AIKB — a private GitHub repo (`mcglothi/AIKB`) that serves as persistent memory across sessions and machines.
 
 AIKB is accessed in one of two modes depending on whether a local clone exists. Determine the mode at session start.
 
@@ -26,17 +26,15 @@ AIKB is accessed in one of two modes depending on whether a local clone exists. 
 
 ### Step 1 — Identify the machine
 
-Run `hostname` and match it to `personal/dev-environment/README.md`.
+Run `hostname`. Resolve the code root from this table:
 
-Default AIKB path: `{{LOCAL_PATH}}`
+| Hostname | Code root | AIKB local path |
+|----------|-----------|-----------------|
+| feynman  | `~/code/` | `~/code/AIKB/`  |
+| tesla    | `~/code/` | `~/code/AIKB/`  |
+| mbp-i9   | `~/code/` | `~/code/AIKB/`  |
 
-If hostname is unknown, probe with:
-- `uname -s`
-- `uname -m`
-- `which brew || which apt || which dnf || which pacman`
-- `python3 --version`
-
-If the session is substantial, create `personal/dev-environment/<hostname>.md`.
+If unrecognized, run `uname -s` and infer likely code root (`~/code/` on macOS, `~/code/` on Linux). Treat as MCP mode unless a local clone exists.
 
 ---
 
@@ -59,13 +57,28 @@ git -C {AIKB path} add . && git -C {AIKB path} commit -m "AI Update: [file] — 
 
 #### MCP mode (no local clone) — online only
 
-Use the `github-aikb` MCP server against `{{GITHUB_USERNAME}}/{{REPO_NAME}}` `main`.
+Use the `github-aikb` MCP server against `mcglothi/AIKB` `main`.
 
 - Read: `get_file_contents`
 - Write: `create_or_update_file` (include SHA for updates)
 - Use the same commit message format as local mode
 
 If this machine will be reused, clone AIKB at the end of the session.
+
+---
+
+### Efficiency & Diagnostic Rules
+
+- **High-Signal Diagnostics:** When troubleshooting services or installations, prioritize `pgrep`, `ps`, and `which` over exhaustive directory listings (`ls -R`). 
+- **macOS Service Heuristic:** If `brew services list` reports an error but `pgrep` confirms the process is running, trust `pgrep`. Inspect the process environment (`ps -wwfp <pid>`) to find configuration paths.
+- **Context Management & Token Economy:** Aggressively manage context to minimize token usage and latency.
+    - **Proactive Compaction:** Do not wait for auto-compaction. Manually invoke **`/compact`** (Codex) or **`/compress`** (Gemini) when a sub-task (Research, Strategy) is complete or after receiving high-volume tool output.
+    - **Thresholds:** Compact if context exceeds 50% of model limit or turns > 50.
+    - **Persistence Mandate:** Before compacting, you MUST persist all critical findings, decisions, and current state to AIKB (canonical docs, `_runtime/scratchpads/`, or a `session_state.md` checkpoint).
+    - **Monitor:** Use **`/stats model`** (Gemini) or equivalent to track token usage.
+- **Keyword: Full Deployment:** Triggers a production-ready workflow including DNS (Pi-hole), Proxy (NPM), SSL (Vaultwarden/Cloudflare), and AIKB documentation.
+- **Keyword: POC (Proof of Concept):** Triggers a "speed-first" workflow. Ignore production standards, use local-only networking, and minimize external dependency checks.
+- **Keyword: Deep Trace:** Explicit permission to perform exhaustive diagnostics and read many files. Use only when a root cause is elusive after initial high-signal checks.
 
 ---
 
@@ -79,6 +92,11 @@ Read in this order:
 4. `_state.yaml`
 
 Use `_index.md` tags or `aikb_search` before loading deeper files. Do not bulk-load unrelated domains.
+
+If the task mentions `Memory Core`, `aikb-memory-core`, or an AIKB runtime extension, also read:
+
+5. `_tools/extensions/registry.md`
+6. `_tools/extensions/<extension-id>/README.md`
 
 ---
 
@@ -125,25 +143,6 @@ Update AIKB before ending any session that produced reusable knowledge:
 
 For partial handoffs, add: `⚠️ IN PROGRESS`.
 
-### Template Update Hygiene
-
-If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, use the template updater in two stages:
-
-1. Preferred helper: run `python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check` during session setup or when the operator asks about updates. It reads the saved check window and only runs `./sync.sh --check` when the window is stale or missing.
-2. Check only: if you run the lower-level command directly, use `./sync.sh --check` only for safe periodic checks.
-3. Summarize first: if updates are available, tell the operator what framework paths changed.
-4. Apply only with approval: do not run `./sync.sh` automatically, because it updates tracked framework files.
-5. After a framework sync, re-sync downstream Codex project repos as needed with `./sync-agents.sh <project-path> [...]`.
-6. Weekly is the default cadence. If the public template is moving quickly, adjust the saved interval with `python3 _tools/memory-pipeline/runtime_cli.py template-sync --set-interval 3` or another operator-approved number of days.
-
-### Maintenance & Distillation (Optional Advanced Closeout)
-
-If this AIKB repo intentionally uses the runtime graph/dream workflow, you can extend closeout with:
-
-1. **Build Temporal Graph:** Run `python3 _tools/memory-pipeline/build_temporal_graph.py`.
-2. **Run Dream Cycle:** Run `python3 _tools/memory-pipeline/dream_cycle.py`.
-3. **Commit Artifacts:** Commit generated `_runtime/graphs/` / `_runtime/dreams/` outputs only if this repo treats them as tracked artifacts.
-
 ### Runtime memory pipeline (recommended for long sessions)
 
 Use runtime staging to capture high-signal events before canonical merge.
@@ -161,8 +160,15 @@ python3 _tools/memory-pipeline/build_candidates.py
 python3 _tools/memory-pipeline/review_candidates.py --id <cand_id> --status approved|rejected|merged --reviewer codex --notes "..."
 ```
 
+**Memory Hygiene:** When all items in a source candidate file reach a terminal state (`merged` or `rejected`), delete the `.yaml` file from `_runtime/candidates/` to prevent cruft.
+
 If in MCP mode (no local clone), skip script execution and write canonical updates directly.
 `_runtime/` is non-canonical staging only.
+
+### Extension discovery
+
+For extension work, treat `_tools/extensions/registry.md` as the source of truth for where runtime code lives.
+Do not assume a standalone sibling repo unless the registry or extension README explicitly says so.
 
 ---
 
@@ -196,6 +202,31 @@ Use checkpoint commits for multi-phase or long sessions:
 
 Prefer small focused commits to reduce merge conflicts with other active agents.
 
+### Operator shutdown semantics (must-follow)
+
+If the operator says phrases like:
+- `lets shut down`
+- `let's shut down`
+- `lets wrap up`
+- `let's wrap up`
+
+interpret this as a required **closeout workflow**, not just conversation end.
+
+Required closeout workflow:
+1. Persist AIKB memory updates for the session (relevant project docs, `_index.md`, `_state.yaml` when applicable).
+   - Capture a structured runtime closeout event first when possible:
+     `~/code/AIKB/_tools/home-lab/aikb closeout --phrase "<operator phrase>"`
+2. Ensure git is cleanly updated for the repo(s) touched:
+   - `git add` relevant files
+   - commit with clear message
+   - push to the tracked remote branch
+3. Verify and report final sync status:
+   - branch vs upstream (`ahead/behind`)
+   - any intentionally uncommitted files and why
+4. Only then conclude the session.
+
+If push fails (network/auth/conflict), report it explicitly and provide exact next action.
+
 ---
 
 ### Benchmark Shortcut Rule
@@ -209,7 +240,7 @@ then run the benchmark workflow below.
 
 #### Required workflow
 
-1. Parse `<PRODUCT>` and map it to the local repo/docs in `~/Code` or `~/code`.
+1. Parse `<PRODUCT>` and map it to the local repo/docs in `~/code` or `~/code`.
 2. Build a current-state snapshot from local sources first (architecture, deployment state, tooling, known caveats).
 3. Perform deep online research on comparable open-source projects and recent changes.
 4. **Confer with Gemini** as a second-opinion reviewer before final recommendations.
@@ -242,3 +273,64 @@ then run the benchmark workflow below.
 - Be opinionated and practical, not generic.
 - Prefer self-hosted/open-source paths.
 - Explicitly call out what changed since the last benchmark if prior benchmark files exist.
+
+### Memory Calibration Shortcut Rule
+
+If the user writes either:
+
+- `cmd: calibrate memory`
+- `calibrate memory`
+
+then run the memory calibration workflow below.
+
+#### Required workflow
+
+1. Review the live AIKB Memory Core proposal queue first.
+2. Group proposals into patterns instead of treating every item as unique.
+3. Recommend default actions by pattern:
+   - `reject`
+   - `approve`
+   - `apply`
+   - `keep for follow-up`
+4. Surface only the smallest ambiguous set for user review.
+5. Learn from the user's decisions during the pass and apply that policy consistently to the rest of the queue.
+6. Promote durable product backlog, runbook knowledge, workflow intent, and already-documented facts into canonical AIKB docs/state when appropriate.
+7. Reject transient chatter, speculative advice, implementation progress blurts, duplicate fact/task copies, and stale debugging noise.
+8. End with a short summary:
+   - decision patterns learned
+   - what was auto-rejected / auto-applied / approved / kept for follow-up
+   - which upstream harvest/hygiene rules should be tightened so future review is faster
+
+#### Default policy
+
+- Keep domain behavior and real workflow/automation intent.
+- Auto-apply things that are already documented or should clearly become canonical backlog/docs.
+- Reject speculative, partial-progress, advisory, and transient operational chatter.
+- Only turn confirmations into tasks when they contain meaningful feature/detail text.
+- If something looks important but is not yet verified in-repo, keep it as follow-up instead of overstating it.
+
+### Shutdown Wrap Shortcut Rule
+
+If the user writes something like:
+
+- `lets shut down for now`
+- `let's shut down for now`
+- `lets shut down for the day`
+- `let's shut down for the day`
+- `wrap up for the day`
+
+then run the shutdown-wrap workflow below before ending the session.
+
+#### Required workflow
+
+1. Check AIKB git status and call out any uncommitted or untracked changes.
+2. Distinguish meaningful repo changes from transient artifacts like `__pycache__`, `.pyc`, journals, and scratch outputs.
+3. Check whether the Memory Core proposal queue still has `new` items.
+4. Check `_agents/active.md` so no stale active-session entry is left behind.
+5. Summarize whether there is any obvious commit, push, cleanup, or review work still pending before shutdown.
+6. If the repo is still dirty, do not imply shutdown is clean; explicitly say what is still open.
+
+#### Output requirement
+
+- End with a concise “safe to stop” vs “loose ends remain” summary.
+- If cleanup/commit/push is still needed, say so directly instead of implying the session is fully wrapped.

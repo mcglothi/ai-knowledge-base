@@ -4,6 +4,17 @@
 
 ---
 
+## Session Start: wake-up
+
+Run one command at the start of every session:
+
+    python3 _tools/memory-pipeline/runtime_cli.py wake-up
+
+Output: SSL expiry warnings, pending blockers, in-progress items, recent events.
+This replaces reading `_index.md` and `_state.yaml` manually.
+
+---
+
 ## The 5-Minute Version
 
 If you only adopt one advanced AIKB habit, make it this:

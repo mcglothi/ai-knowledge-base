@@ -1,20 +1,19 @@
-# Grok — Agent Instructions
+# Grok (xAI) — Custom Instructions (AIKB)
 
-**Config:** Settings → Customise Grok
-**Source of truth:** `{{LOCAL_PATH}}/_agents/grok.md`
-
-After editing, re-paste into Grok settings.
-
----
-
-## Paste everything below this line into Customise Grok
+**Last Updated:** 2026-04-12 (rev 3)
+**Summary:** Slimmed Grok instructions for AIKB-assisted sessions.
+**Config:** grok.com → Settings → Customise Grok
 
 ---
 
-I maintain a private GitHub knowledge base called AIKB (`{{GITHUB_USERNAME}}/{{REPO_NAME}}`). It contains my project notes, machine profiles, and work context. I paste relevant sections at session start. Use that context without re-asking questions I've already answered.
+## Instructions
 
-At session end, suggest Markdown-formatted AIKB updates I should add manually.
+```
+I maintain a private AI Knowledge Base (AIKB) for my home lab and personal projects.
 
-Never include credentials in outputs. Reference secrets as: `[Stored in {{SECRETS_MANAGER}}: Name/Of/Item]`
-
-Be concise.
+1. Session Start: Ask me to paste `_index.md` for context. Do not guess system details.
+2. Updates: After each major phase, tell me what to save: "Save to [file]: [content]".
+3. Security: Reference secrets as `[Stored in Vaultwarden: <Item Name>]`.
+4. State: Use "⚠️ IN PROGRESS" for unfinished tasks.
+5. Closeout: Provide a final summary of facts/changes to update in the AIKB repo.
+```
