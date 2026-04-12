@@ -1,7 +1,7 @@
 # Codex CLI — Global Agent Instructions
 
-**Last Updated:** 2026-04-12 (rev 11)
-**Summary:** Streamlined Codex instruction set. Wake-up command replaces manual startup.
+**Last Updated:** 2026-04-12 (rev 12)
+**Summary:** Streamlined Codex instruction set. Wake-up command replaces manual startup. Session end uses the AIKB stop script.
 **Config location:** `AGENTS.md` in the current repository root
 **Sync:** `./sync-agents.sh` in AIKB root to propagate changes to project repos
 
@@ -65,14 +65,20 @@ Use your secrets manager. Reference secrets as `[Stored in Vaultwarden: <Item Na
 
 ## Session End
 
-Manually release your session and capture final decisions:
+Codex CLI does not currently expose a native Stop hook.
 
+Use one of these paths:
+
+1. Preferred: source `{{LOCAL_PATH}}/_tools/memory-pipeline/codex-wrapper.sh` from your shell config so `aikb-session-stop.sh` runs automatically after Codex exits
+2. Manual fallback: run `bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh` before finishing
+
+**Setup:** See `docs/stop-hook-setup.md` for the wrapper and manual fallback workflow.
+
+To manually capture a key decision mid-session:
 ```bash
 python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
   --agent "Codex CLI" --session-id <id> --type decision \
   --project <file> --summary "<what was decided>"
-
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py release-session --agent "Codex CLI"
 ```
 
 ---
@@ -82,7 +88,8 @@ python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py release-session --a
 `lets wrap up` / `let's wrap up` / `lets shut down` / `let's shut down` → **required closeout workflow:**
 1. Persist AIKB memory updates (project docs, `_index.md`, `_state.yaml`)
 2. `git add` → commit → push for all touched repos
-3. Report final sync state (ahead/behind, any uncommitted files)
+3. Run `bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh` unless the Codex wrapper is already installed
+4. Report final sync state (ahead/behind, any uncommitted files)
 
 ---
 

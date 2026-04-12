@@ -56,7 +56,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
 - **Semantic + keyword search** — `aikb_search` MCP tool for natural-language queries; hybrid BM25 + vector retrieval across your knowledge base
 - **In-session memory writes** — `aikb_remember` MCP tool lets agents write durable memories from within a session, without editing files directly; routed through the governed review pipeline
-- **Automatic session closeout** — Claude Code Stop hook captures a structured memory event and runs the pipeline automatically when any session ends
+- **Session-end automation** — Claude Code and Gemini CLI can run the AIKB Stop hook automatically; Codex can use the shipped wrapper or manual fallback
 - **Session-start briefing** — `runtime_cli.py wake-up` synthesizes a compact briefing from recent events and current state so agents orient in seconds, not minutes
 - **Interactive candidate review** — `aikb_review.py` presents queued memory candidates one-by-one for approve/reject/skip with source event drill-down
 - **Retention enforcement** — `retention_check.py` flags stale docs, forgotten pending items, and terminal candidate bundles for cleanup
@@ -93,6 +93,8 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 | Interactive candidate review | ✅ Built | `aikb_review.py` |
 | Session closeout capture | ✅ Built | `runtime_cli.py closeout` |
 | Claude Code Stop hook | ✅ Built | `aikb-session-stop.sh` + `docs/stop-hook-setup.md` |
+| Gemini CLI Stop hook | ✅ Built | `aikb-session-stop.sh` + `docs/stop-hook-setup.md` |
+| Codex closeout workaround | ✅ Built | `codex-wrapper.sh` or manual `aikb-session-stop.sh` |
 | Keyword search | ✅ Built | `memory_search.py --mode keyword` |
 | Semantic / hybrid search | ✅ Built | `memory_search.py --mode hybrid` (requires `sentence-transformers`) |
 | MCP search tool | ✅ Built | `aikb_search` via `_tools/aikb-search/` |
@@ -115,7 +117,7 @@ The core AIKB workflow is simple:
 ```text
 Start session -> agent runs wake-up, reads recent state
 Do work        -> capture decisions, blockers, and approvals as needed
-Wrap up        -> Stop hook fires automatically, records closeout event
+Wrap up        -> Stop hook, wrapper, or manual closeout records the end state
 Next session   -> wake-up synthesizes what changed, agent starts informed
 ```
 
@@ -138,7 +140,7 @@ python3 _tools/memory-pipeline/runtime_cli.py closeout \
   --phrase "lets wrap up for now"
 ```
 
-The Stop hook (configured once in `~/.claude/settings.json`) fires automatically when your Claude Code session ends — no manual action needed. It captures a closeout event, runs the candidate pipeline, and commits `_runtime/` changes.
+Claude Code and Gemini CLI can both call the Stop hook from their settings JSON files. Codex does not expose a native Stop hook today, so AIKB includes a small wrapper script plus a manual fallback. All three routes converge on `aikb-session-stop.sh`, which captures a closeout event, runs the candidate pipeline, releases the active claim, and commits tracked `_runtime/` changes.
 
 During a session, agents can write durable memories directly via the `aikb_remember` MCP tool, without touching files:
 
@@ -243,13 +245,14 @@ This registers two MCP tools with Claude Code:
 
 See [`docs/search-setup.md`](docs/search-setup.md) for details and Gemini CLI setup.
 
-### 6. (Optional) Enable the automatic Stop hook
+### 6. (Optional) Enable session-end automation
 
-Configure the Stop hook so session closeout and candidate pipeline run automatically when you end any Claude Code session:
+Configure the Stop hook so session closeout and candidate pipeline run automatically when you end Claude Code or Gemini CLI sessions, or wire the Codex wrapper if Codex is your main tool:
 
 ```bash
 # Follow the guide at docs/stop-hook-setup.md
-# One-time edit to ~/.claude/settings.json
+# One-time edit to ~/.claude/settings.json or ~/.gemini/settings.json
+# Or source _tools/memory-pipeline/codex-wrapper.sh for Codex CLI
 ```
 
 See [`docs/stop-hook-setup.md`](docs/stop-hook-setup.md).

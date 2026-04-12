@@ -1,6 +1,6 @@
 # Agent Instructions
 
-**Last Updated:** 2026-04-10
+**Last Updated:** 2026-04-12
 **Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
@@ -47,10 +47,16 @@ claude mcp add github-aikb \
   -- npx -y @modelcontextprotocol/server-github
 ```
 
+Optional session-end automation:
+See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md) to wire `aikb-session-stop.sh` into `~/.claude/settings.json`.
+
 ### Gemini CLI
 ```bash
 cp /path/to/your/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md
 ```
+
+Optional session-end automation:
+See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md) to wire the same Stop hook into `~/.gemini/settings.json`.
 
 ### Codex CLI
 ```bash
@@ -63,6 +69,9 @@ Bulk helper:
 ```bash
 ./sync-agents.sh /path/to/project [/path/to/project...]
 ```
+
+Optional session-end workaround:
+Source `_tools/memory-pipeline/codex-wrapper.sh` from your shell config, or run `aikb-session-stop.sh` manually at session end. See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md).
 
 ### Cursor
 Cursor Settings → Rules → User Rules → paste the content of `cursor.md`.
