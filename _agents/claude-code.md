@@ -1,206 +1,115 @@
 # Claude Code — Global Agent Instructions
 
+**Last Updated:** 2026-04-12
+**Summary:** Streamlined Claude Code instruction set. Wake-up command replaces the manual startup protocol. Stop hook handles session end automatically.
 **Config location:** `~/.claude/CLAUDE.md`
-**Sync command:** `cp {{LOCAL_PATH}}/_agents/claude-code.md ~/.claude/CLAUDE.md`
-
-> This file is the source of truth. The live config at `~/.claude/CLAUDE.md` should always match it.
-> After editing here, run the sync command above and commit the change.
+**Sync:** `cp {{LOCAL_PATH}}/_agents/claude-code.md ~/.claude/CLAUDE.md`
 
 ---
-
-## File content (copy everything below this line)
-
----
-
-# Global Agent Instructions
 
 ## AI Knowledge Base (AIKB)
 
-All personal projects, infrastructure, and work context are documented in the AIKB — a private GitHub repo (`{{GITHUB_USERNAME}}/{{REPO_NAME}}`) that serves as persistent memory across sessions and machines.
+Private repo at `{{GITHUB_USERNAME}}/AIKB`. Local clone: `{{LOCAL_PATH}}/` (set during `install.sh`).
 
-AIKB is accessed in one of two modes depending on whether a local clone exists. Determine the mode at the start of each session.
-
----
-
-### Step 1 — Identify the machine
-
-Run `hostname`. Match it to the table below (edit this table when you add or remove machines):
-
-| Hostname | OS | Code root | AIKB local path |
-|----------|----|-----------|-----------------|
-| {{PRIMARY_HOSTNAME}} | {{OS}} | `{{CODE_ROOT}}` | `{{LOCAL_PATH}}` |
-
-**Unrecognized hostname:**
-Run `uname -s` — Darwin = macOS, Linux = Linux. Probe for package manager: `which brew || which apt || which dnf || which pacman`. If the session will produce useful work, create a machine profile at `personal/dev-environment/<hostname>.md`.
+Add your machines to `personal/dev-environment/README.md`.
 
 ---
 
-### Step 2 — Check for local AIKB clone
+## Session Start
 
 ```bash
-ls {{LOCAL_PATH}}
+git -C {{LOCAL_PATH}} pull && python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up
 ```
+
+Then register your session:
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py claim-session \
+  --agent "Claude Code" --repo "AIKB" --scope "<scope>" --task "<brief task>"
+```
+
+**MCP mode** (no local clone): use the `github-aikb` MCP server, repo `{{GITHUB_USERNAME}}/AIKB`, branch `main`.
+Read via `get_file_contents`. Write via `create_or_update_file` (include current SHA). Note at session start: running in MCP mode — no offline access.
 
 ---
 
-#### Local mode (clone exists) — preferred
+## Loading Files
 
-1. Pull to ensure fresh: `git -C {{LOCAL_PATH}} pull`
-2. Read files directly from the filesystem
-3. Write updates directly to files, commit, and push
+1. `wake-up` output covers 90% of session-start context needs
+2. Load `_index.md` + `_state.yaml` only if you need the full picture
+3. Load specific project files only when the task requires them
+4. Use `aikb_search` MCP tool for freeform/diagnostic queries
 
-**Commit format:**
+Do not bulk-load domain folders.
+
+---
+
+## Writing to AIKB
+
+- Edit in place — never append corrections below stale content
+- Update `Last Updated` on every file you touch
+- Update `_index.md` if project status changes
+- Update `_state.yaml` when: incident opens/resolves, SSL cert changes, new pending item, file modified
+
+Commit format:
 ```bash
 git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Update: [file] — [what changed]" && git -C {{LOCAL_PATH}} push origin main
 ```
 
-**Checkpoint commit (mid-session):**
+Checkpoint format (mid-session):
 ```bash
-git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Checkpoint: [file] — [done so far / still in progress]" && git -C {{LOCAL_PATH}} push origin main
+git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Checkpoint: [file] — [done / in progress]" && git -C {{LOCAL_PATH}} push origin main
 ```
+
+Add `⚠️ IN PROGRESS` at top of in-flight files. Replace with `✅` when done.
 
 ---
 
-#### MCP mode (no local clone) — online only
+## Credentials
 
-Use the `github-aikb` MCP server. Repo: `{{GITHUB_USERNAME}}/{{REPO_NAME}}`, branch: `main`.
+Use your secrets manager (configure in `personal/dev-environment/<hostname>.md`).
 
-Note at session start: running in MCP mode — online only. Writes go directly to GitHub as commits.
-
-**Reading:** `get_file_contents` tool with repo `{{GITHUB_USERNAME}}/{{REPO_NAME}}` and the file path.
-
-**Writing:** `create_or_update_file` tool. Each write creates a commit. Include the current file SHA when updating existing files (retrieve it with `get_file_contents` first).
-
-**After a substantial MCP session:** clone the repo so future sessions use local mode:
+**Bitwarden / Vaultwarden pattern:**
 ```bash
-git clone https://github.com/{{GITHUB_USERNAME}}/{{REPO_NAME}}.git {{LOCAL_PATH}}
+BW_SESSION=$(cat ~/.bw_session)
+bw get password "PAT/<Service>/<Name>" --session "$BW_SESSION"
 ```
+- Never run `bw unlock` (hangs interactively)
+- Never run `bw status` without `--session` (always reports locked)
 
 ---
 
-### Step 3 — Load orientation files
+## Session End
 
-Whether in local or MCP mode, read in this order:
-1. `_index.md` — one-row-per-project orientation
-2. `_state.yaml` — time-sensitive surface (SSL expiry, incidents, pending items)
-3. `personal/dev-environment/README.md` — machine table, confirm code root and tools
-4. `personal/dev-environment/<hostname>.md` — machine profile (package manager, installed tools, paths)
+The Claude Code **Stop hook** handles session end automatically when configured:
+- Captures a closeout event to `_runtime/events/`
+- Runs `build_candidates.py`
+- Releases `active.md` claim
+- Auto-commits `_runtime/` changes
 
-Apply the machine profile to all commands in the session. Use the machine's package manager, paths, and Python version. Do not assume a tool is available unless it's listed in the Installed Tools section.
+**Setup:** See `docs/stop-hook-setup.md` to configure `aikb-session-stop.sh` in `~/.claude/settings.json`.
 
----
-
-### Step 3b — Register in active sessions
-
-Read and update `_agents/active.md`:
-1. If another agent has a Last Write within ~2 hours, pull before every write this session.
-2. Add or update your row: `| Claude Code | <hostname> | local/MCP | <timestamp> | <repo name or AIKB> | <scope/path glob> | <brief task> |`
-   Preferred helper:
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py claim-session --agent "Claude Code" --repo "<repo>" --scope '<scope>' --task "<task>"`
-3. For work outside AIKB itself, claim the external repo and the narrowest useful scope you can describe.
-4. If you encounter unexpected modified/untracked files, or any other evidence of work you did not create, re-read `_agents/active.md` and run `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py check-repo --path <repo-or-file>` before editing. Treat dirty unclaimed repos as possible crash-recovery work until proven otherwise.
-5. Commit this as your first AIKB write of the session.
-6. At session end: remove your row and commit as the final write.
-   Preferred helper:
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py release-session --agent "Claude Code"`
-
----
-
-### Step 4 — Load project context (when needed)
-
-**Trigger topics that warrant loading AIKB project files:**
-- Personal background, skills, dev environment, local paths
-- Any project listed in `_index.md` that's relevant to the current task
-- Infrastructure, client work, self-hosted services
-
-**For unrelated tasks** (general coding questions, throwaway scripts) — skip AIKB loading.
-
-**Before loading any project file — choose a retrieval strategy:**
-
-| Query type | Strategy |
-|------------|----------|
-| You know the domain | Grep `_index.md` tags, load matched file |
-| Freeform / diagnostic | Use `aikb_search` MCP tool if available |
-| Cross-system queries | Grep `hosts:` frontmatter across files |
-
-Load only files whose tags match the current task. Do not bulk-load entire domain folders.
-
----
-
-### Credentials
-
-All API tokens and service keys are stored in {{SECRETS_MANAGER}}.
-
-**Retrieve a credential:**
+To manually capture a key decision before session ends:
 ```bash
-{{SECRETS_RETRIEVE}}
-```
-
-**Naming convention:** use a consistent hierarchical name like `Service/Project/KeyName` so agents can reference them unambiguously.
-
-**Never store credentials in AIKB.** Reference them by name only:
-```markdown
-[Stored in {{SECRETS_MANAGER}}: Service/Project/KeyName]
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
+  --agent "Claude Code" --session-id <id> --type decision \
+  --project <file> --summary "<what was decided>"
 ```
 
 ---
 
-### When to update the AIKB
+## Shutdown Phrases
 
-Update before finishing any session that produced information a future agent would need:
-- Changed system state, completed tasks, discovered pitfalls, resolved incidents
-- **Security:** never save clear-text passwords or keys — use `[Stored in {{SECRETS_MANAGER}}: <Name>]`
-- Edit in place — never append corrections below stale content
-- Update `Last Updated` on every file you touch
-- Update `_index.md` if a project's status changes
-- Update `_state.yaml` when SSL certs, incidents, or pending items change
-
-**`_state.yaml` maintenance rules:**
-
-| Event | Action |
-|-------|--------|
-| New incident or blocker | Add to `open_incidents` or `pending` |
-| Incident resolved | Remove the entry entirely |
-| SSL cert renewed | Update `expires` and `warn_after` dates |
-| Any file modified this session | Add/update in `recently_changed` (keep last ~10) |
-
-Update `_state.yaml` in the same commit as the related file — never let them drift apart.
+If the user says `lets wrap up` / `let's wrap up` / `lets shut down` / `let's shut down` → required closeout:
+1. Persist AIKB memory updates (project docs, `_index.md`, `_state.yaml`)
+2. `git add` → commit → push for all touched repos
+3. Report final sync state (ahead/behind, any uncommitted files)
 
 ---
 
-### Session resilience — checkpoint commits
+## Efficiency Rules
 
-Commit at logical checkpoints, not just at the end:
-- A discrete phase of work completes
-- A significant decision is made worth preserving
-- A long-running background process is started
-- Before any risky or hard-to-reverse operation
-- The conversation has grown long — checkpoint what's been learned
-
-**In-progress marker:** add `⚠️ IN PROGRESS — picked up by next session` at the top of the relevant file. Replace with `✅` when complete.
-
-### Template update hygiene
-
-If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, prefer:
-
-`python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --auto-check`
-
-That helper reads the saved check window and only runs `./sync.sh --check` when the template check is stale or missing, or when the operator asks about updates.
-
-- Use `--check` only for safe periodic nudges.
-- Weekly is the default cadence; if the operator wants a different rhythm, update it with `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --set-interval <days>`.
-- If updates are available, summarize the changed framework paths first.
-- Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
-- After a framework sync, remind the operator that downstream Codex project repos may also need `./sync-agents.sh`.
-
-### Wrap-up workflow
-
-When the operator uses a closing phrase like `lets wrap up for now` or `let's shut down`, perform these steps before ending the session:
-
-1. **Capture Closeout:** If runtime tools are available, record a structured closeout event:
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"`
-2. **Optional advanced maintenance:** only if this repo intentionally tracks graph/dream artifacts, run:
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/build_temporal_graph.py`
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/dream_cycle.py`
-3. **Final Sync:** Add, commit, and push all changes (including tracked `_runtime/` updates) to the remote repository.
-4. **Release Session:** Remove your entry from `_agents/active.md`.
+- Prefer `pgrep`/`ps`/`which` over directory listings for diagnostics
+- **Full Deployment** keyword → production workflow: DNS, Proxy, SSL, AIKB docs
+- **POC** keyword → speed-first: local-only, skip production standards
+- **Deep Trace** keyword → explicit permission for exhaustive diagnostics

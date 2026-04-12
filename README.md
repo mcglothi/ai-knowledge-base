@@ -75,6 +75,29 @@ Session ends   → Agent writes updates → Next session picks up where this one
 | Structured updates | Capture decisions, gotchas, blockers, and state changes cleanly |
 | Optional dream consolidation | Turn noisy daily memory into bundled, reviewable nightly summaries |
 
+## Feature Status
+
+What's built, what's a prototype, and what's planned. No vague "coming soon."
+
+| Feature | Status | How to use |
+|---------|--------|------------|
+| Session start briefing | ✅ Built | `runtime_cli.py wake-up` |
+| Manual memory capture | ✅ Built | `runtime_cli.py capture` |
+| Session HUD | ✅ Built | `runtime_cli.py hud` |
+| Candidate pipeline | ✅ Built | `build_candidates.py` → `review_candidates.py` |
+| Session closeout capture | ✅ Built | `runtime_cli.py closeout` |
+| Operator intents / runbooks | ✅ Built | `_templates/operator-intent-template.md` |
+| Claude Code Stop hook | ✅ Built | `aikb-session-stop.sh` + `docs/stop-hook-setup.md` |
+| Template sync / self-update | ✅ Built | `./sync.sh`, `runtime_cli.py template-sync` |
+| Keyword search | ✅ Built | `memory_search.py` |
+| Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
+| Dream cycle consolidation | 🔨 Prototype | `dream_cycle.py` (outputs not yet auto-promoted) |
+| Semantic / vector search | 🔨 Planned | Coming: `memory_search.py --mode hybrid` |
+| Interactive candidate review | 🔨 Planned | Coming: `aikb_review.py` |
+| Automatic conflict detection | 🔨 Prototype | `conflict_scan.py` (offline, not wired to writes) |
+| Retention policy enforcement | 🔨 Planned | Coming: `retention_check.py` |
+| LoRA fine-tuning from memory | 🔬 Research | Future roadmap |
+
 ---
 
 ## What The Operator Loop Looks Like

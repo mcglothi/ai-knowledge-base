@@ -135,6 +135,13 @@ def parse_args() -> argparse.Namespace:
     focus_clear = focus_subparsers.add_parser("clear", help="Clear the current focus state.")
     focus_clear.add_argument("--session-key", default="", help="Override HUD state key (defaults to hostname).")
 
+    wakeup = subparsers.add_parser(
+        "wake-up",
+        help="Print a compact session-start briefing from _state.yaml + _index.md + recent events.",
+    )
+    wakeup.add_argument("--max-pending", type=int, default=6, help="Max pending items to show.")
+    wakeup.add_argument("--max-inprogress", type=int, default=5, help="Max in-progress index rows to show.")
+
     return parser.parse_args()
 
 
@@ -1321,6 +1328,155 @@ def run_capture(args: argparse.Namespace) -> int:
     return 0
 
 
+def _parse_state_yaml(path: Path) -> dict:
+    """Minimal YAML parser for _state.yaml — no PyYAML dependency."""
+    try:
+        import yaml  # type: ignore
+        with path.open(encoding="utf-8") as f:
+            return yaml.safe_load(f) or {}
+    except ImportError:
+        pass
+    result: dict = {"ssl_certs": [], "pending": [], "open_incidents": []}
+    if not path.exists():
+        return result
+    text = path.read_text(encoding="utf-8")
+    in_pending = False
+    current: dict = {}
+    for line in text.splitlines():
+        if line.startswith("pending:"):
+            in_pending = True
+            continue
+        if in_pending:
+            if line.startswith("  - item:"):
+                if current:
+                    result["pending"].append(current)
+                current = {"item": line.split("item:", 1)[-1].strip().strip('"')}
+            elif line.startswith("    blocked_by:") and current:
+                current["blocked_by"] = line.split("blocked_by:", 1)[-1].strip().strip('"')
+            elif line.startswith("    priority:") and current:
+                current["priority"] = line.split("priority:", 1)[-1].strip().strip('"')
+            elif line and not line.startswith(" ") and not line.startswith("#"):
+                if current:
+                    result["pending"].append(current)
+                    current = {}
+                in_pending = False
+    if current:
+        result["pending"].append(current)
+    return result
+
+
+def _parse_index_inprogress(path: Path, max_rows: int) -> list[str]:
+    """Extract in-progress rows from _index.md table."""
+    rows = []
+    if not path.exists():
+        return rows
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        if "---" in line:
+            continue
+        lower = line.lower()
+        if any(m in lower for m in ["🔨 in progress", "⚠️", "🔨 building", "🔨 designing"]):
+            parts = [p.strip() for p in line.split("|") if p.strip()]
+            if parts:
+                import re as _re
+                topic = _re.sub(r"\[([^\]]+)\]\([^\)]+\)", r"\1", parts[0].replace("**", ""))
+                status = parts[1] if len(parts) > 1 else ""
+                rows.append(f"{topic} — {status}")
+        if len(rows) >= max_rows:
+            break
+    return rows
+
+
+def run_wakeup(args: argparse.Namespace) -> int:
+    """Print a compact session-start briefing."""
+    today = datetime.now(timezone.utc).date()
+    host = socket.gethostname()
+    width = 60
+
+    print(f"AIKB Wake-Up — {today} ({host})")
+    print("═" * width)
+
+    state = _parse_state_yaml(ROOT / "_state.yaml")
+    ssl_warnings = []
+    for cert in state.get("ssl_certs", []) or []:
+        expires_str = str(cert.get("expires", ""))
+        warn_str = str(cert.get("warn_after", ""))
+        if not expires_str:
+            continue
+        try:
+            from datetime import date as _date
+            exp = _date.fromisoformat(expires_str)
+            warn = _date.fromisoformat(warn_str) if warn_str else exp
+            if today >= warn:
+                ssl_warnings.append(
+                    f"⚠️  SSL: {cert.get('name', '?')} expires {expires_str} ({(exp - today).days}d)"
+                )
+        except ValueError:
+            pass
+    if ssl_warnings:
+        for w in ssl_warnings:
+            print(w)
+        print()
+
+    incidents = state.get("open_incidents", []) or []
+    if incidents:
+        print(f"OPEN INCIDENTS ({len(incidents)}):")
+        for inc in incidents[:3]:
+            print(f"  🔴 {inc.get('name') or inc.get('item') or str(inc)}")
+        print()
+
+    pending = state.get("pending", []) or []
+    high = [p for p in pending if str(p.get("priority", "")).lower() == "high"]
+    others = [p for p in pending if p not in high]
+    shown = (high + others)[: args.max_pending]
+    if shown:
+        print(f"PENDING ({len(pending)} total, showing {len(shown)}):")
+        for item in shown:
+            label = item.get("item", str(item))
+            blocked = item.get("blocked_by", "")
+            flag = "🔴" if str(item.get("priority", "")).lower() == "high" else "⬜"
+            line = f"  {flag} {truncate(label, 52)}"
+            if blocked and blocked not in ("none", "None", "—"):
+                line += f" [{truncate(blocked, 30)}]"
+            print(line)
+        print()
+
+    inprogress = _parse_index_inprogress(ROOT / "_index.md", args.max_inprogress)
+    if inprogress:
+        print(f"IN PROGRESS ({len(inprogress)} shown):")
+        for row in inprogress:
+            print(f"  🔨 {truncate(row, 56)}")
+        print()
+
+    latest_events = latest_matching(EVENTS_DIR, "[0-9][0-9][0-9][0-9]-*.ndjson")
+    event_count = count_events(latest_events)
+    if event_count:
+        summaries = recent_event_summaries(latest_events, 3)
+        print(f"RECENT EVENTS ({event_count} total, last {relative_age_text(latest_events)}):")
+        for s in summaries:
+            print(f"  · {truncate(s, 56)}")
+        print()
+
+    focus = load_hud_state()
+    if focus.get("task"):
+        print(f"FOCUS: {focus['task']}")
+        if focus.get("verify"):
+            print(f"VERIFY: {focus['verify']}")
+        print()
+
+    queue_counts, _ = parse_queue()
+    queued = queue_counts.get("queued", 0)
+    if queued:
+        print(f"REVIEW QUEUE: {queued} candidate(s) awaiting review")
+        print("  → python3 _tools/memory-pipeline/review_candidates.py")
+        print()
+
+    print("─" * width)
+    print("Load _index.md / _state.yaml for full detail. Use aikb_search for freeform queries.")
+    return 0
+
+
 def main() -> int:
     args = parse_args()
     if args.command == "capture":
@@ -1349,6 +1505,8 @@ def main() -> int:
         return run_release_session(args)
     if args.command == "status":
         return print_status(args.limit)
+    if args.command == "wake-up":
+        return run_wakeup(args)
     raise SystemExit(f"Unknown command: {args.command}")
 
 
