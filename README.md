@@ -54,14 +54,18 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Shared context across tools** — one memory layer for Claude Code, Gemini CLI, Codex, Cursor, ChatGPT, and more
 - **Local-first and Git-backed** — durable memory in files you can inspect, diff, sync, and own
 - **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
-- **Semantic search** — optional `aikb_search` MCP tool for natural-language queries across your knowledge base
-- **Runtime memory pipeline** — optional `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
-- **Operator HUD + approvals log** — optional `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
-- **Structured closeout capture** — optional `runtime_cli.py closeout` command for end-of-session memory capture when you wrap up work
-- **Operator intents** — optional runbooks that teach your agents how to execute your shorthand requests and recurring workflows
-- **Nightly dream cycle** — optional bundle, quality, contradiction, and distilled-memory artifacts for higher-signal overnight memory synthesis
+- **Semantic + keyword search** — `aikb_search` MCP tool for natural-language queries; hybrid BM25 + vector retrieval across your knowledge base
+- **In-session memory writes** — `aikb_remember` MCP tool lets agents write durable memories from within a session, without editing files directly; routed through the governed review pipeline
+- **Automatic session closeout** — Claude Code Stop hook captures a structured memory event and runs the pipeline automatically when any session ends
+- **Session-start briefing** — `runtime_cli.py wake-up` synthesizes a compact briefing from recent events and current state so agents orient in seconds, not minutes
+- **Interactive candidate review** — `aikb_review.py` presents queued memory candidates one-by-one for approve/reject/skip with source event drill-down
+- **Retention enforcement** — `retention_check.py` flags stale docs, forgotten pending items, and terminal candidate bundles for cleanup
+- **Local model offload** — `hopper.py` sidecar helper routes scoring, briefing synthesis, and patch drafting to a local Ollama instance; configurable via env vars, falls back silently when unavailable
+- **Runtime memory pipeline** — `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
+- **Operator HUD + approvals log** — `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
+- **Operator intents** — runbooks that teach your agents how to execute your shorthand requests and recurring workflows
 - **Layered loading** — agents read only what they need, preserving context window budget
-- **Checkpoint commits** — agents can save progress during long sessions so memory survives interruptions
+- **Checkpoint commits** — agents save progress during long sessions so memory survives interruptions
 - **Secrets-safe** — credentials stay in your secrets manager; AIKB stores references only
 - **Machine-aware** — each machine gets a profile so the agent uses the right paths, tools, and conventions
 
@@ -83,19 +87,23 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 |---------|--------|------------|
 | Session start briefing | ✅ Built | `runtime_cli.py wake-up` |
 | Manual memory capture | ✅ Built | `runtime_cli.py capture` |
+| In-session memory writes (MCP) | ✅ Built | `aikb_remember` MCP tool |
 | Session HUD | ✅ Built | `runtime_cli.py hud` |
 | Candidate pipeline | ✅ Built | `build_candidates.py` → `review_candidates.py` |
+| Interactive candidate review | ✅ Built | `aikb_review.py` |
 | Session closeout capture | ✅ Built | `runtime_cli.py closeout` |
-| Operator intents / runbooks | ✅ Built | `_templates/operator-intent-template.md` |
 | Claude Code Stop hook | ✅ Built | `aikb-session-stop.sh` + `docs/stop-hook-setup.md` |
+| Keyword search | ✅ Built | `memory_search.py --mode keyword` |
+| Semantic / hybrid search | ✅ Built | `memory_search.py --mode hybrid` (requires `sentence-transformers`) |
+| MCP search tool | ✅ Built | `aikb_search` via `_tools/aikb-search/` |
+| Retention policy enforcement | ✅ Built | `retention_check.py` |
+| Operator intents / runbooks | ✅ Built | `_templates/operator-intent-template.md` |
 | Template sync / self-update | ✅ Built | `./sync.sh`, `runtime_cli.py template-sync` |
-| Keyword search | ✅ Built | `memory_search.py` |
 | Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
+| Local model offload (sidecar) | ✅ Built | `hopper.py` + `AIKB_SIDECAR_URL` env var |
 | Dream cycle consolidation | 🔨 Prototype | `dream_cycle.py` (outputs not yet auto-promoted) |
-| Semantic / vector search | 🔨 Planned | Coming: `memory_search.py --mode hybrid` |
-| Interactive candidate review | 🔨 Planned | Coming: `aikb_review.py` |
 | Automatic conflict detection | 🔨 Prototype | `conflict_scan.py` (offline, not wired to writes) |
-| Retention policy enforcement | 🔨 Planned | Coming: `retention_check.py` |
+| Hopper-enriched pipeline scoring | 🔨 In progress | `build_candidates.py` + `hopper.py` |
 | LoRA fine-tuning from memory | 🔬 Research | Future roadmap |
 
 ---
@@ -105,15 +113,18 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 The core AIKB workflow is simple:
 
 ```text
-Start session -> agent reads _index.md + _state.yaml
+Start session -> agent runs wake-up, reads recent state
 Do work        -> capture decisions, blockers, and approvals as needed
-Wrap up        -> record a structured closeout event
-Next session   -> load the latest state instead of starting cold
+Wrap up        -> Stop hook fires automatically, records closeout event
+Next session   -> wake-up synthesizes what changed, agent starts informed
 ```
 
 If you enable the runtime helpers, that operator loop becomes tangible:
 
 ```bash
+# Synthesize a compact briefing from recent events and current state
+python3 _tools/memory-pipeline/runtime_cli.py wake-up
+
 # See what AIKB thinks is active right now
 python3 _tools/memory-pipeline/runtime_cli.py hud
 
@@ -127,9 +138,20 @@ python3 _tools/memory-pipeline/runtime_cli.py closeout \
   --phrase "lets wrap up for now"
 ```
 
-That closeout event is stored in `_runtime/events/YYYY-MM-DD.ndjson`, so the next session can recover not just what exists in your docs, but how the current stretch of work ended.
+The Stop hook (configured once in `~/.claude/settings.json`) fires automatically when your Claude Code session ends — no manual action needed. It captures a closeout event, runs the candidate pipeline, and commits `_runtime/` changes.
 
-By default, those raw runtime event files are local working memory. Promote durable signal into candidates, approvals, summaries, or canonical docs instead of auto-committing every event log.
+During a session, agents can write durable memories directly via the `aikb_remember` MCP tool, without touching files:
+
+```
+aikb_remember(
+  summary="Decided to use Postgres instead of SQLite for scale",
+  project="projects/my-api.md",
+  type="decision"
+)
+# → writes to _runtime/events/, queued for review pipeline
+```
+
+By default, raw runtime event files are local working memory. Promote durable signal into candidates, approvals, summaries, or canonical docs instead of auto-committing every event log.
 
 ---
 
@@ -137,9 +159,14 @@ By default, those raw runtime event files are local working memory. Promote dura
 
 The AIKB includes a set of optional CLI tools to help automate knowledge curation and retrieval:
 
-- **Ambient Context Injection** (`_tools/memory-pipeline/ambient_ask.sh`) — A wrapper for your AI CLI that automatically injects relevant facts from your AIKB into your prompt *before* the agent starts.
-- **Temporal Knowledge Graph** (`_tools/memory-pipeline/build_temporal_graph.py`) — Generates a structured JSON graph of your knowledge, extracting entities like IPs and tools to track how they change over time.
-- **Semantic Search** (`_tools/memory-pipeline/memory_search.py`) — A hybrid keyword/semantic search tool to quickly locate specific memories across your entire repository.
+- **Session Briefing** (`runtime_cli.py wake-up`) — Synthesizes a compact session-start briefing from recent events and current state. Agents orient in seconds instead of reading through full docs.
+- **Interactive Candidate Review** (`aikb_review.py`) — Presents queued memory candidates one-by-one with `[a]pprove / [r]eject / [s]kip / [?]events` prompts. Shows source events on demand, tracks progress, offers to run `propose_patches.py` at the end.
+- **Retention Enforcer** (`retention_check.py`) — Scans for stale docs (>90 days), forgotten `_state.yaml` pending items without priority, complete/decommissioned index entries linked to old docs, and fully-terminal candidate bundles ready for deletion. Run with `--delete-terminal-candidates` to clean up automatically.
+- **Hybrid Search** (`memory_search.py`) — Keyword, semantic (requires `sentence-transformers`), or hybrid mode. Run `memory_search.py --rebuild-index` to build the vector index after install.
+- **MCP Search + Memory** (`_tools/aikb-search/server.py`) — Registers `aikb_search` and `aikb_remember` as MCP tools. Agents can query or write to AIKB from within a session without editing files directly.
+- **Local Model Offload** (`hopper.py`) — Routes scoring, briefing synthesis, and patch drafting to a local Ollama instance. Set `AIKB_SIDECAR_URL` to your Ollama endpoint (default: `http://localhost:11434`). Falls back silently to rule-based behavior when unreachable. Keeps frontier model context budget for reasoning, not document processing.
+- **Ambient Context Injection** (`ambient_ask.sh`) — A wrapper for your AI CLI that automatically injects relevant facts from your AIKB into your prompt *before* the agent starts.
+- **Temporal Knowledge Graph** (`build_temporal_graph.py`) — Generates a structured JSON graph of your knowledge, extracting entities like IPs and tools to track how they change over time.
 
 ---
 
@@ -201,30 +228,52 @@ Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
 
 The `example/` directory has annotated examples showing what good entries look like.
 
-### 5. (Optional) Set up semantic search
+### 5. (Optional) Set up MCP search and memory
 
-Run one command to enable natural language queries across all your AIKB files:
+Run one command to enable natural language queries and in-session memory writes:
 
 ```bash
 bash _tools/aikb-search/setup.sh
 ```
 
-After setup, your agent can answer questions like "what's currently broken?" or "what SSL certs expire soon?" without you having to know which file to load. See [`docs/search-setup.md`](docs/search-setup.md) for details.
+This registers two MCP tools with Claude Code:
 
-### 6. (Optional) Enable runtime memory workflow
+- **`aikb_search`** — ask "what's currently broken?" or "what SSL certs expire soon?" without knowing which file to load
+- **`aikb_remember`** — write a durable memory from within a session: `aikb_remember(summary="...", project="projects/my-project.md", type="decision")`
+
+See [`docs/search-setup.md`](docs/search-setup.md) for details and Gemini CLI setup.
+
+### 6. (Optional) Enable the automatic Stop hook
+
+Configure the Stop hook so session closeout and candidate pipeline run automatically when you end any Claude Code session:
+
+```bash
+# Follow the guide at docs/stop-hook-setup.md
+# One-time edit to ~/.claude/settings.json
+```
+
+See [`docs/stop-hook-setup.md`](docs/stop-hook-setup.md).
+
+### 7. (Optional) Enable the runtime memory workflow
 
 If you want more than static docs, AIKB also supports an operator-facing runtime layer:
 
 ```bash
-python3 _tools/memory-pipeline/runtime_cli.py hud
-python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"
-python3 _tools/memory-pipeline/approvals_cli.py list
-```
+# Get a compact briefing from recent events and current state
+python3 _tools/memory-pipeline/runtime_cli.py wake-up
 
-This gives you:
-- a compact session HUD
-- a structured wrap-up capture path
-- a visible sign-off queue for high-impact actions
+# See active session state
+python3 _tools/memory-pipeline/runtime_cli.py hud
+
+# Capture a wrap-up event manually (or let the Stop hook do it)
+python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"
+
+# Review queued memory candidates interactively
+python3 _tools/memory-pipeline/aikb_review.py
+
+# Check for stale docs and forgotten pending items
+python3 _tools/memory-pipeline/retention_check.py
+```
 
 You can also capture recurring shorthand requests in a runbook so future sessions do not need to rediscover them:
 
@@ -234,13 +283,26 @@ You can also capture recurring shorthand requests in a runbook so future session
 "wake lab server"
 ```
 
-See [`home-lab/runbooks/operator-intents.md`](home-lab/runbooks/operator-intents.md) and [`_templates/operator-intent-template.md`](_templates/operator-intent-template.md).
+See [`_templates/operator-intent-template.md`](_templates/operator-intent-template.md).
 
-### 7. Learn the operator loop
+### 8. (Optional) Wire in a local model sidecar
+
+If you have a local Ollama instance, point the pipeline at it to offload scoring, briefing synthesis, and patch drafting from frontier models:
+
+```bash
+export AIKB_SIDECAR_URL="http://localhost:11434"         # or your LAN sidecar
+export AIKB_SIDECAR_SCORING_MODEL="gemma3:4b"            # fast, stays warm
+export AIKB_SIDECAR_DRAFTING_MODEL="qwen2.5-coder:7b"    # async drafting only
+```
+
+The sidecar calls are non-blocking — pipeline scripts fall back silently to rule-based behavior when the sidecar is unreachable (e.g. when you're off-LAN on a laptop). See `_tools/memory-pipeline/hopper.py` for the full API.
+
+### 9. Learn the operator loop
 
 If you want the fastest path from "installed" to "this feels useful," follow the lightweight operator loop:
 
 ```bash
+python3 _tools/memory-pipeline/runtime_cli.py wake-up
 python3 _tools/memory-pipeline/runtime_cli.py hud
 python3 _tools/memory-pipeline/runtime_cli.py focus set \
   --task "Your current task" \
@@ -257,7 +319,7 @@ If you want a terminal walkthrough instead of reading docs, run:
 bash _tools/feature-tour.sh
 ```
 
-### 8. Start a session
+### 10. Start a session
 
 Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
 
