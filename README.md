@@ -60,7 +60,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Session-start briefing** — `runtime_cli.py wake-up` synthesizes a compact briefing from recent events and current state so agents orient in seconds, not minutes
 - **Interactive candidate review** — `aikb_review.py` presents queued memory candidates one-by-one for approve/reject/skip with source event drill-down
 - **Retention enforcement** — `retention_check.py` flags stale docs, forgotten pending items, and terminal candidate bundles for cleanup
-- **Local model offload** — `hopper.py` sidecar helper routes scoring, briefing synthesis, and patch drafting to a local Ollama instance; configurable via env vars, falls back silently when unavailable
+- **Local model offload** — `sidecar.py` optional helper routes scoring, briefing synthesis, and patch drafting to a local Ollama instance; configurable via env vars, falls back silently when unavailable
 - **Runtime memory pipeline** — `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
 - **Operator HUD + approvals log** — `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
 - **Operator intents** — runbooks that teach your agents how to execute your shorthand requests and recurring workflows
@@ -103,11 +103,11 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 | Operator intents / runbooks | ✅ Built | `_templates/operator-intent-template.md` |
 | Template sync / self-update | ✅ Built | `./sync.sh`, `runtime_cli.py template-sync` |
 | Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
-| Local model offload (sidecar) | ✅ Built | `hopper.py` + `AIKB_SIDECAR_URL` env var |
+| Local model offload (sidecar) | ✅ Built | `sidecar.py` + `AIKB_SIDECAR_URL` env var |
 | Mind Meld (cross-agent awareness) | ✅ Built | Read `_runtime/events/YYYY-MM-DD.ndjson`; see agent instruction files |
 | Dream cycle consolidation | 🔨 Prototype | `dream_cycle.py` (outputs not yet auto-promoted) |
 | Automatic conflict detection | 🔨 Prototype | `conflict_scan.py` (offline, not wired to writes) |
-| Hopper-enriched pipeline scoring | 🔨 In progress | `build_candidates.py` + `hopper.py` |
+| Sidecar-enriched pipeline scoring | 🔨 In progress | `build_candidates.py` + `sidecar.py` |
 | LoRA fine-tuning from memory | 🔬 Research | Future roadmap |
 
 ---
@@ -168,7 +168,7 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 - **Retention Enforcer** (`retention_check.py`) — Scans for stale docs (>90 days), forgotten `_state.yaml` pending items without priority, complete/decommissioned index entries linked to old docs, and fully-terminal candidate bundles ready for deletion. Run with `--delete-terminal-candidates` to clean up automatically.
 - **Hybrid Search** (`memory_search.py`) — Keyword, semantic (requires `sentence-transformers`), or hybrid mode. Run `memory_search.py --rebuild-index` to build the vector index after install.
 - **MCP Search + Memory** (`_tools/aikb-search/server.py`) — Registers `aikb_search` and `aikb_remember` as MCP tools. Agents can query or write to AIKB from within a session without editing files directly.
-- **Local Model Offload** (`hopper.py`) — Routes scoring, briefing synthesis, and patch drafting to a local Ollama instance. Set `AIKB_SIDECAR_URL` to your Ollama endpoint (default: `http://localhost:11434`). Falls back silently to rule-based behavior when unreachable. Keeps frontier model context budget for reasoning, not document processing.
+- **Local Model Offload** (`sidecar.py`) — Optional helper that routes scoring, briefing synthesis, and patch drafting to a local Ollama instance. Set `AIKB_SIDECAR_URL` to your Ollama endpoint (default: `http://localhost:11434`). Falls back silently to rule-based behavior when unreachable. Keeps frontier model context budget for reasoning, not document processing.
 - **Ambient Context Injection** (`ambient_ask.sh`) — A wrapper for your AI CLI that automatically injects relevant facts from your AIKB into your prompt *before* the agent starts.
 - **Temporal Knowledge Graph** (`build_temporal_graph.py`) — Generates a structured JSON graph of your knowledge, extracting entities like IPs and tools to track how they change over time.
 
@@ -300,7 +300,7 @@ export AIKB_SIDECAR_SCORING_MODEL="gemma3:4b"            # fast, stays warm
 export AIKB_SIDECAR_DRAFTING_MODEL="qwen2.5-coder:7b"    # async drafting only
 ```
 
-The sidecar calls are non-blocking — pipeline scripts fall back silently to rule-based behavior when the sidecar is unreachable (e.g. when you're off-LAN on a laptop). See `_tools/memory-pipeline/hopper.py` for the full API.
+The sidecar calls are non-blocking — pipeline scripts fall back silently to rule-based behavior when the sidecar is unreachable (e.g. when you're off-LAN on a laptop). See `_tools/memory-pipeline/sidecar.py` for the full API.
 
 ### 9. Learn the operator loop
 

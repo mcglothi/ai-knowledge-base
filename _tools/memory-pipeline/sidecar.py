@@ -19,7 +19,7 @@ Falls back gracefully to None when the sidecar is unreachable,
 allowing callers to fall back to rule-based behavior without crashing.
 
 Usage:
-    from hopper import ask, available, score_event, draft_patch
+    from sidecar import ask, available, score_event, draft_patch
 
     result = ask("Summarise this...", model=BRIEFING_MODEL)
     if result is None:
