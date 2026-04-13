@@ -287,6 +287,41 @@ if command -v gemini &>/dev/null; then
 fi
 printf '%s' "$SETUP_GEMINI" > "$SCRIPT_DIR/.aikb-config.d/SETUP_GEMINI"
 
+# ── OpenCode integration (optional) ──────────────────────────────────────────
+SETUP_OPENCODE="n"
+if command -v opencode &>/dev/null; then
+  echo ""
+  OPENCODE_CONFIG="$HOME/.config/opencode/opencode.json"
+  AIKB_INSTRUCTIONS_PATH="$SCRIPT_DIR/_agents/opencode.md"
+  read -rp "OpenCode detected. Add AIKB instructions to $OPENCODE_CONFIG? [Y/n]: " SETUP_OPENCODE
+  SETUP_OPENCODE="${SETUP_OPENCODE:-Y}"
+  if [[ "$SETUP_OPENCODE" =~ ^[Yy] ]]; then
+    mkdir -p "$HOME/.config/opencode"
+    if [[ -f "$OPENCODE_CONFIG" ]] && command -v jq &>/dev/null; then
+      # Config exists and jq is available — add/merge instructions key
+      ALREADY_SET=$(jq --arg p "$AIKB_INSTRUCTIONS_PATH" \
+        '.instructions // [] | map(select(. == $p)) | length' "$OPENCODE_CONFIG" 2>/dev/null || echo "0")
+      if [[ "$ALREADY_SET" == "0" ]]; then
+        jq --arg p "$AIKB_INSTRUCTIONS_PATH" \
+          'if .instructions then .instructions += [$p] else .instructions = [$p] end' \
+          "$OPENCODE_CONFIG" > "$OPENCODE_CONFIG.tmp" && mv "$OPENCODE_CONFIG.tmp" "$OPENCODE_CONFIG"
+        success "Added AIKB instructions path to $OPENCODE_CONFIG"
+      else
+        success "AIKB instructions path already present in $OPENCODE_CONFIG — skipped"
+      fi
+    elif [[ ! -f "$OPENCODE_CONFIG" ]] && command -v jq &>/dev/null; then
+      # No config yet — create a minimal one
+      jq -n --arg p "$AIKB_INSTRUCTIONS_PATH" '{"instructions": [$p]}' > "$OPENCODE_CONFIG"
+      success "Created $OPENCODE_CONFIG with AIKB instructions path"
+    else
+      # No jq — print manual instructions
+      warn "jq not found. Add this manually to $OPENCODE_CONFIG:"
+      echo '  "instructions": ["'"$AIKB_INSTRUCTIONS_PATH"'"]'
+    fi
+  fi
+fi
+printf '%s' "$SETUP_OPENCODE" > "$SCRIPT_DIR/.aikb-config.d/SETUP_OPENCODE"
+
 # ── Next steps ────────────────────────────────────────────────────────────────
 header "Done! Next steps:"
 echo ""
@@ -295,6 +330,7 @@ echo "     git push origin main"
 echo ""
 echo "  2. Configure your AI tools:"
 echo "     • Claude Code / Gemini CLI — done if you accepted above"
+echo "     • OpenCode — done if you accepted above (or see _agents/README.md for manual steps)"
 echo "     • Codex CLI — copy _agents/codex.md into AGENTS.md in each project repo you want AIKB-aware"
 echo "     • Cursor — paste _agents/cursor.md into Settings → Rules → User Rules"
 echo "     • ChatGPT — paste _agents/chatgpt.md into Settings → Custom Instructions"
