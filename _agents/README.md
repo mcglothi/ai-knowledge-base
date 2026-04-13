@@ -109,8 +109,12 @@ Also add your `GITHUB_TOKEN` to the `github-aikb` MCP env block so the MCP serve
 
 See [`../docs/mcp-setup.md`](../docs/mcp-setup.md) for full MCP setup instructions.
 
-Optional session-end workaround (same as Codex):
-Source `_tools/memory-pipeline/codex-wrapper.sh` from your shell config, or run `aikb-session-stop.sh` manually at session end. See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md).
+Optional session-end stop hook (same pattern as Codex):
+```bash
+# Add to ~/.zshrc — runs aikb-session-stop.sh after every opencode session
+source /path/to/your/AIKB/_tools/memory-pipeline/opencode-wrapper.sh
+```
+Or run `aikb-session-stop.sh` manually at session end. See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md).
 
 **Important:** A project-level `opencode.json` overrides the global config. If you open OpenCode inside a project that has its own `opencode.json`, verify that AIKB instructions are also referenced there (or add a local `instructions` entry).
 

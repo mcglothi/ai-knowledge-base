@@ -86,14 +86,20 @@ Use your secrets manager. Reference secrets as `[Stored in Vaultwarden: <Item Na
 
 ## Session End
 
-OpenCode does not currently expose a native Stop hook.
+OpenCode does not expose a native Stop hook. AIKB ships a wrapper that fires `aikb-session-stop.sh` on exit — same approach as the Codex workaround.
 
 Use one of these paths:
 
-1. **Preferred:** source `{{LOCAL_PATH}}/_tools/memory-pipeline/codex-wrapper.sh` from your shell config so `aikb-session-stop.sh` runs automatically after OpenCode exits
+1. **Preferred:** add to `~/.zshrc` (or `~/.bashrc`):
+   ```bash
+   source {{LOCAL_PATH}}/_tools/memory-pipeline/opencode-wrapper.sh
+   ```
+   This shadows the `opencode` binary and runs the stop hook in the background after every session.
 2. **Manual fallback:** run `bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh` before finishing
 
-**Setup:** See `docs/stop-hook-setup.md` for the wrapper and manual fallback workflow.
+`install.sh` does not currently add this line automatically — add it once after running install.
+
+**Setup:** See `docs/stop-hook-setup.md` for full context on what the stop hook does.
 
 To manually capture a key decision mid-session:
 ```bash
