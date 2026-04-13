@@ -1,6 +1,6 @@
 # Agent Instructions
 
-**Last Updated:** 2026-04-12
+**Last Updated:** 2026-04-13
 **Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
@@ -21,6 +21,7 @@
 | [`claude-code.md`](claude-code.md) | Claude Code CLI | `~/.claude/CLAUDE.md` (auto-loaded) |
 | [`gemini-cli.md`](gemini-cli.md) | Gemini CLI | `~/.gemini/GEMINI.md` (auto-loaded) |
 | [`codex.md`](codex.md) | Codex CLI | `AGENTS.md` in repo root (project-scoped) |
+| [`opencode.md`](opencode.md) | OpenCode TUI/CLI | `~/.config/opencode/opencode.json` → `instructions` array (explicit path) |
 | [`cursor.md`](cursor.md) | Cursor IDE | Settings → Cursor Settings → Rules → User Rules |
 | [`chatgpt.md`](chatgpt.md) | ChatGPT | Settings → Personalization → Custom Instructions |
 | [`gemini.md`](gemini.md) | Google Gemini | Settings → Custom Instructions |
@@ -73,6 +74,46 @@ Bulk helper:
 Optional session-end workaround:
 Source `_tools/memory-pipeline/codex-wrapper.sh` from your shell config, or run `aikb-session-stop.sh` manually at session end. See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md).
 
+### OpenCode
+
+OpenCode does not auto-discover a global instruction file. You must explicitly add your AIKB instructions file to the `instructions` array in `~/.config/opencode/opencode.json`.
+
+```bash
+# If opencode.json already exists — add the instructions key:
+# Open ~/.config/opencode/opencode.json and add (or merge):
+# "instructions": ["/path/to/your/AIKB/_agents/opencode.md"]
+
+# If you have jq installed, you can do it non-interactively:
+AIKB_PATH="/path/to/your/AIKB"
+CONFIG="$HOME/.config/opencode/opencode.json"
+jq --arg p "$AIKB_PATH/_agents/opencode.md" \
+  'if .instructions then .instructions += [$p] else .instructions = [$p] end' \
+  "$CONFIG" > "$CONFIG.tmp" && mv "$CONFIG.tmp" "$CONFIG"
+
+# No file copy needed — OpenCode loads the AIKB file directly from its path.
+```
+
+`install.sh` handles this automatically when OpenCode is detected and `jq` is available.
+
+Also add your `GITHUB_TOKEN` to the `github-aikb` MCP env block so the MCP server can authenticate:
+```json
+"mcp": {
+  "github-aikb": {
+    "type": "local",
+    "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+    "enabled": true,
+    "env": { "GITHUB_TOKEN": "your-token-here" }
+  }
+}
+```
+
+See [`../docs/mcp-setup.md`](../docs/mcp-setup.md) for full MCP setup instructions.
+
+Optional session-end workaround (same as Codex):
+Source `_tools/memory-pipeline/codex-wrapper.sh` from your shell config, or run `aikb-session-stop.sh` manually at session end. See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md).
+
+**Important:** A project-level `opencode.json` overrides the global config. If you open OpenCode inside a project that has its own `opencode.json`, verify that AIKB instructions are also referenced there (or add a local `instructions` entry).
+
 ### Cursor
 Cursor Settings → Rules → User Rules → paste the content of `cursor.md`.
 
@@ -99,6 +140,8 @@ Update the relevant agent file(s) — and re-sync to the tool — when:
 **Claude Code and Gemini CLI** read instruction files directly from disk and optionally support MCP servers. An agent can update AIKB programmatically via the GitHub MCP server or a local clone. After editing instruction files, commit here and copy to the config location.
 
 **Codex CLI** reads instructions from repo-level `AGENTS.md`. Keep `_agents/codex.md` as source of truth and copy it into each Codex project workspace.
+
+**OpenCode** does not auto-discover a global instruction file. The `instructions` array in `~/.config/opencode/opencode.json` must explicitly list file paths. Point it directly at `_agents/opencode.md` — no copy step needed. Note: a project-level `opencode.json` overrides the global one, so verify AIKB instructions are referenced in each project context you care about.
 
 **Cursor** reads instruction files from disk but currently has no MCP-based AIKB write access without additional configuration.
 

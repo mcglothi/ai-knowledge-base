@@ -51,7 +51,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ## Key Features
 
-- **Shared context across tools** — one memory layer for Claude Code, Gemini CLI, Codex, Cursor, ChatGPT, and more
+- **Shared context across tools** — one memory layer for Claude Code, Gemini CLI, Codex, OpenCode, Cursor, ChatGPT, and more
 - **Local-first and Git-backed** — durable memory in files you can inspect, diff, sync, and own
 - **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
 - **Semantic + keyword search** — `aikb_search` MCP tool for natural-language queries; hybrid BM25 + vector retrieval across your knowledge base
@@ -181,6 +181,7 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 | Claude Code | `~/.claude/CLAUDE.md` auto-loaded | Local clone or GitHub MCP |
 | Gemini CLI | `~/.gemini/GEMINI.md` auto-loaded | Local clone or GitHub MCP |
 | Codex CLI | `AGENTS.md` in project root | Local clone (or MCP if configured) |
+| OpenCode | `instructions` array in `~/.config/opencode/opencode.json` | Local clone or GitHub MCP |
 | Cursor | User Rules (Settings UI) | Local clone |
 | ChatGPT | Custom Instructions (Settings UI) | Manual paste at session start |
 | Google Gemini | Custom Instructions (Settings UI) | Manual paste at session start |
@@ -219,6 +220,7 @@ Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
 - **Claude Code** — copy `_agents/claude-code.md` to `~/.claude/CLAUDE.md`
 - **Gemini CLI** — copy `_agents/gemini-cli.md` to `~/.gemini/GEMINI.md`
 - **Codex CLI** — copy `_agents/codex.md` to `AGENTS.md` in each Codex project repo, or use `./sync-agents.sh /path/to/project [...]`
+- **OpenCode** — add your AIKB path to the `instructions` array in `~/.config/opencode/opencode.json`; `install.sh` does this automatically if OpenCode is detected
 - **Cursor** — paste `_agents/cursor.md` into Settings → Cursor Settings → Rules → User Rules
 - **ChatGPT / Gemini / Grok** — paste the relevant file into Custom Instructions
 
@@ -383,6 +385,7 @@ AIKB/
 │   ├── claude-code.md         ← Source of truth for ~/.claude/CLAUDE.md
 │   ├── gemini-cli.md          ← Source of truth for ~/.gemini/GEMINI.md
 │   ├── codex.md               ← Source of truth for repo-level AGENTS.md
+│   ├── opencode.md            ← Referenced via instructions array in opencode.json
 │   ├── cursor.md              ← Paste into Cursor User Rules
 │   ├── chatgpt.md             ← Paste into ChatGPT Custom Instructions
 │   ├── gemini.md              ← Paste into Gemini Custom Instructions
