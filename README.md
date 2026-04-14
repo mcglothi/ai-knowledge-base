@@ -7,7 +7,7 @@
 <h1 align="center">AIKB — AI Knowledge Base</h1>
 
 <p align="center">
-  <img src="_branding/demo-installer.gif" alt="AIKB installer" width="800" />
+  <img src="_branding/demo-installer-v2.gif" alt="AIKB installer" width="800" />
 </p>
 
 
@@ -51,7 +51,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 ```
 
 <p align="center">
-  <img src="_branding/demo-wakeup.gif" alt="AIKB session wake-up" width="800" />
+  <img src="_branding/demo-wakeup-v2.gif" alt="AIKB session wake-up" width="800" />
   <br><em>What your agent sees at the start of every session.</em>
 </p>
 
