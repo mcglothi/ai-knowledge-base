@@ -2,9 +2,7 @@
 
 <h1 align="center">AIKB — AI Knowledge Base</h1>
 
-<p align="center">
-  <strong>Persistent memory for your AI tools.</strong>
-</p>
+
 
 <p align="center">
   Shared context across sessions, tools, and machines.
