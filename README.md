@@ -42,10 +42,6 @@ Session starts → Agent reads AIKB → Agent knows everything
 Session ends   → Agent writes updates → Next session picks up where this one left off
 ```
 
-<p align="center">
-  <img src="_branding/demo-wakeup.gif" alt="AIKB session wake-up" width="800" />
-  <br><em>What your agent sees at the start of every session.</em>
-</p>
 
 ---
 
