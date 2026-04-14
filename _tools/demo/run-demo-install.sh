@@ -114,36 +114,22 @@ sleep 0.5
 
 # ── Progress ──────────────────────────────────────────────────────────────────
 printf "  Setting up AIKB...\n\n"
-sleep 0.2
+sleep 0.3
 
-printf "  ${DIM}⠸${NC} [1/7] Substituting placeholders in agent files\n"
-sleep 0.6
-printf "\033[1A\033[2K  ${GREEN}✓${NC} [1/7] Substituting placeholders in agent files\n"
-
-printf "  ${DIM}⠸${NC} [2/7] Updating _index.md\n"
+printf "  ${GREEN}✓${NC} [1/7] Substituting placeholders in agent files\n"
 sleep 0.4
-printf "\033[1A\033[2K  ${GREEN}✓${NC} [2/7] Updating _index.md\n"
-
-printf "  ${DIM}⠸${NC} [3/7] Scaffolding personal profile files\n"
+printf "  ${GREEN}✓${NC} [2/7] Updating _index.md\n"
+sleep 0.3
+printf "  ${GREEN}✓${NC} [3/7] Scaffolding personal profile files\n"
+sleep 0.4
+printf "  ${GREEN}✓${NC} [4/7] Saving configuration to .aikb-config.d/\n"
+sleep 0.3
+printf "  ${GREEN}✓${NC} [5/7] Adding upstream remote\n"
 sleep 0.5
-printf "\033[1A\033[2K  ${GREEN}✓${NC} [3/7] Scaffolding personal profile files\n"
-
-printf "  ${DIM}⠸${NC} [4/7] Saving configuration to .aikb-config.d/\n"
+printf "  ${GREEN}✓${NC} [6/7] Creating initial commit\n"
 sleep 0.4
-printf "\033[1A\033[2K  ${GREEN}✓${NC} [4/7] Saving configuration to .aikb-config.d/\n"
-
-printf "  ${DIM}⠸${NC} [5/7] Adding upstream remote\n"
-sleep 0.5
-printf "\033[1A\033[2K  ${GREEN}✓${NC} [5/7] Adding upstream remote\n"
-
-printf "  ${DIM}⠸${NC} [6/7] Creating initial commit\n"
+printf "  ${GREEN}✓${NC} [7/7] Configuring AI tools\n"
 sleep 0.6
-printf "\033[1A\033[2K  ${GREEN}✓${NC} [6/7] Creating initial commit\n"
-
-printf "  ${DIM}⠸${NC} [7/7] Configuring AI tools\n"
-sleep 0.8
-printf "\033[1A\033[2K  ${GREEN}✓${NC} [7/7] Configuring AI tools\n"
-sleep 0.4
 
 # ── Next steps ────────────────────────────────────────────────────────────────
 printf "\n─── ${BOLD}Setup Complete${NC} ─────────────────────────────────────────\n\n"
