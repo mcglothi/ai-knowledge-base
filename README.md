@@ -2,10 +2,6 @@
   <img src="_branding/hero-graphic.png" alt="AIKB" width="1000" />
 </p>
 
-<p align="center">
-  <img src="_branding/demo-installer.gif" alt="AIKB installer" width="800" />
-</p>
-
 
 <h1 align="center">AIKB — AI Knowledge Base</h1>
 
