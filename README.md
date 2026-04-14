@@ -7,7 +7,7 @@
 <h1 align="center">AIKB — AI Knowledge Base</h1>
 
 <p align="center">
-  <img src="_branding/demo-installer-v2.gif" alt="AIKB installer" width="800" />
+  <img src="_branding/demo-installer-v3.gif" alt="AIKB installer" width="800" />
 </p>
 
 
