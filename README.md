@@ -2,6 +2,10 @@
   <img src="_branding/hero-graphic.png" alt="AIKB" width="1000" />
 </p>
 
+<p align="center">
+  <img src="_branding/demo-installer.gif" alt="AIKB installer" width="800" />
+</p>
+
 
 <h1 align="center">AIKB — AI Knowledge Base</h1>
 
@@ -46,6 +50,11 @@ AIKB is a structured knowledge base stored in a private GitHub repo. Your agents
 Session starts → Agent reads AIKB → Agent knows everything
 Session ends   → Agent writes updates → Next session picks up where this one left off
 ```
+
+<p align="center">
+  <img src="_branding/demo-wakeup.gif" alt="AIKB session wake-up" width="800" />
+  <br><em>What your agent sees at the start of every session.</em>
+</p>
 
 ---
 
