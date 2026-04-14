@@ -10,7 +10,7 @@ Set Height 560
 Set Padding 20
 Set TypingSpeed 50ms
 
-Type "python3 _tools/demo/run-demo-wakeup.sh"
+Type "bash _tools/demo/run-demo-wakeup.sh"
 Sleep 500ms
 Enter
 Sleep 8s
