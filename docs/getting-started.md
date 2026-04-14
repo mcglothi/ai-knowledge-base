@@ -4,6 +4,17 @@ This guide walks through setting up AIKB from scratch, filling in your first fil
 
 ---
 
+## Pick your path
+
+| I use... | My setup is... |
+|----------|----------------|
+| Claude Code or Gemini CLI | Follow this guide top to bottom — the installer handles most of it |
+| Cursor or OpenCode | Follow Step 1–3, then see the Cursor/OpenCode section in Step 3 |
+| ChatGPT, Gemini (web), or Grok | You only need Steps 1–2 + a 2-minute paste. [Jump to web tools →](#web-tools) |
+| Windows | [Read the WSL guide first →](windows-wsl.md) |
+
+---
+
 ## Overview of the workflow
 
 ```
@@ -38,6 +49,9 @@ gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
 cd AIKB
 ```
 
+> **Windows users:** AIKB requires WSL. See [docs/windows-wsl.md](windows-wsl.md) for
+> the full guide. The short version: install WSL, open Ubuntu, clone the repo *inside
+> WSL's filesystem* (not /mnt/c/...), and run install.sh from the WSL terminal.
 ---
 
 ## Step 2: Run the setup script
@@ -97,6 +111,19 @@ Cursor Settings → Cursor Settings → Rules → User Rules → paste the conte
 
 Open the tool's settings and paste the relevant agent file into Custom Instructions.
 Note: These tools require you to paste `_index.md` at the start of sessions for best results.
+
+### Web tools (ChatGPT / Gemini / Grok) {#web-tools}
+
+These tools can't be configured from a script — they require a one-time paste into settings.
+
+**ChatGPT:** Settings → Customize ChatGPT → Custom Instructions  
+**Gemini:** Settings → Custom Instructions  
+**Grok:** Customize Grok → System Prompt  
+
+Paste the contents of the matching file from `_agents/`.
+
+Each session, you'll also need to paste `_index.md` at the start of your conversation —
+web tools can't read your repo directly, so this gives them the context they need.
 
 ---
 

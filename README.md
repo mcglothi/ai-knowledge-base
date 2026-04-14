@@ -192,150 +192,53 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 
 ## Quick Start
 
-**Prerequisites:** Git, a GitHub account, and at least one AI tool.
+### Step 1: Create your private repo
 
-### 1. Create your private AIKB repo
-
-Click **[Use this template](../../generate)** → name it `AIKB` → set it to **Private**.
-
-Or from the CLI:
+**GitHub CLI (fastest):**
 ```bash
 gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
 cd AIKB
 ```
 
-### 2. Run the setup script
+**Or manually:** click **Use this template** → name it `AIKB` → set Private → clone it.
+
+### Step 2: Run the installer
 
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-The script will ask for your GitHub username, repo name, and preferred local path, then generate personalized agent instruction files.
-If you cloned from your own GitHub repo first, it auto-detects the GitHub username and repo name from `origin`, so most people can accept the defaults.
+The installer will ask a few questions (most are pre-filled) and configure whichever
+AI tools you use. Takes about 3 minutes.
 
-### 3. Configure your primary AI tool
+**Windows users:** see [docs/windows-wsl.md](docs/windows-wsl.md) first.
 
-Follow the guide for your tool in [`_agents/README.md`](_agents/README.md):
-
-- **Claude Code** — copy `_agents/claude-code.md` to `~/.claude/CLAUDE.md`
-- **Gemini CLI** — copy `_agents/gemini-cli.md` to `~/.gemini/GEMINI.md`
-- **Codex CLI** — copy `_agents/codex.md` to `AGENTS.md` in each Codex project repo, or use `./sync-agents.sh /path/to/project [...]`
-- **OpenCode** — add your AIKB path to the `instructions` array in `~/.config/opencode/opencode.json`; `install.sh` does this automatically if OpenCode is detected
-- **Cursor** — paste `_agents/cursor.md` into Settings → Cursor Settings → Rules → User Rules
-- **ChatGPT / Gemini / Grok** — paste the relevant file into Custom Instructions
-
-### 4. Fill in your personal files
-
-`install.sh` creates these files automatically — they just need your details:
-
-- `personal/profile.md` — your background, skills, and communication preferences
-- `personal/dev-environment/README.md` — your machine inventory (hostnames, OS, code roots)
-- `personal/dev-environment/<hostname>.md` — installed tools on your primary machine
-
-The `example/` directory has annotated examples showing what good entries look like.
-
-### 5. (Optional) Set up MCP search and memory
-
-Run one command to enable natural language queries and in-session memory writes:
+### Step 3: Push and fill in your profile
 
 ```bash
-bash _tools/aikb-search/setup.sh
+git push origin main
 ```
 
-This registers two MCP tools with Claude Code:
+Then open these two files and fill in the `[TODO]` sections:
+- `personal/profile.md` — your background, skills, stack
+- `personal/dev-environment/[hostname].md` — tools on this machine
 
-- **`aikb_search`** — ask "what's currently broken?" or "what SSL certs expire soon?" without knowing which file to load
-- **`aikb_remember`** — write a durable memory from within a session: `aikb_remember(summary="...", project="projects/my-project.md", type="decision")`
-
-See [`docs/search-setup.md`](docs/search-setup.md) for details and Gemini CLI setup.
-
-### 6. (Optional) Enable session-end automation
-
-Configure the Stop hook so session closeout and candidate pipeline run automatically when you end Claude Code or Gemini CLI sessions, or wire the Codex wrapper if Codex is your main tool:
-
-```bash
-# Follow the guide at docs/stop-hook-setup.md
-# One-time edit to ~/.claude/settings.json or ~/.gemini/settings.json
-# Or source _tools/memory-pipeline/codex-wrapper.sh for Codex CLI
-```
-
-See [`docs/stop-hook-setup.md`](docs/stop-hook-setup.md).
-
-### 7. (Optional) Enable the runtime memory workflow
-
-If you want more than static docs, AIKB also supports an operator-facing runtime layer:
-
-```bash
-# Get a compact briefing from recent events and current state
-python3 _tools/memory-pipeline/runtime_cli.py wake-up
-
-# See active session state
-python3 _tools/memory-pipeline/runtime_cli.py hud
-
-# Capture a wrap-up event manually (or let the Stop hook do it)
-python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"
-
-# Review queued memory candidates interactively
-python3 _tools/memory-pipeline/aikb_review.py
-
-# Check for stale docs and forgotten pending items
-python3 _tools/memory-pipeline/retention_check.py
-```
-
-You can also capture recurring shorthand requests in a runbook so future sessions do not need to rediscover them:
-
-```text
-"restart staging"
-"wrap up for now"
-"wake lab server"
-```
-
-See [`_templates/operator-intent-template.md`](_templates/operator-intent-template.md).
-
-### 8. (Optional) Wire in a local model sidecar
-
-If you have a local Ollama instance, point the pipeline at it to offload scoring, briefing synthesis, and patch drafting from frontier models:
-
-```bash
-export AIKB_SIDECAR_URL="http://localhost:11434"         # or your LAN sidecar
-export AIKB_SIDECAR_SCORING_MODEL="gemma3:4b"            # fast, stays warm
-export AIKB_SIDECAR_DRAFTING_MODEL="qwen2.5-coder:7b"    # async drafting only
-```
-
-The sidecar calls are non-blocking — pipeline scripts fall back silently to rule-based behavior when the sidecar is unreachable (e.g. when you're off-LAN on a laptop). See `_tools/memory-pipeline/sidecar.py` for the full API.
-
-### 9. Learn the operator loop
-
-If you want the fastest path from "installed" to "this feels useful," follow the lightweight operator loop:
-
-```bash
-python3 _tools/memory-pipeline/runtime_cli.py wake-up
-python3 _tools/memory-pipeline/runtime_cli.py hud
-python3 _tools/memory-pipeline/runtime_cli.py focus set \
-  --task "Your current task" \
-  --verify "What you will verify next"
-python3 _tools/memory-pipeline/runtime_cli.py closeout \
-  --phrase "lets wrap up for now"
-```
-
-See [`docs/operator-loop.md`](docs/operator-loop.md) for the public-facing workflow, when to use approvals, and how operator intents fit into the loop.
-
-If you want a terminal walkthrough instead of reading docs, run:
-
-```bash
-bash _tools/feature-tour.sh
-```
-
-### 10. Start a session
-
-Launch your AI tool. It will read AIKB and immediately know who you are, what machines you use, and what you're working on.
-
-### On a new machine
-
-Clone your private AIKB repo and run `install.sh` again. It detects the new hostname, scaffolds a machine profile for it, and sets up your AI tools — your existing personalization is already in the repo, no re-entering needed.
+Once filled, agents won't ask "what's your stack?" or "what machine are you on?" again.
 
 ---
+
+### Go deeper
+
+| Goal | Where to look |
+|------|--------------|
+| Full setup walkthrough | [docs/getting-started.md](docs/getting-started.md) |
+| Add MCP search + in-session memory | [docs/mcp-setup.md](docs/mcp-setup.md) |
+| Set up session-end automation | [docs/stop-hook-setup.md](docs/stop-hook-setup.md) |
+| Configure the runtime memory workflow | [docs/search-setup.md](docs/search-setup.md) |
+| Connect a local model sidecar | [docs/getting-started.md#local-model](docs/getting-started.md) |
+| Learn the operator loop | [docs/operator-loop.md](docs/operator-loop.md) |
+| Windows / WSL setup | [docs/windows-wsl.md](docs/windows-wsl.md) |
 
 ## Staying Up to Date
 
