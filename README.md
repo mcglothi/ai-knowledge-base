@@ -1,6 +1,3 @@
-<p align="center">
-  <img src="_branding/hero-graphic.png" alt="AIKB" width="1000" />
-</p>
 
 
 <h1 align="center">AIKB — AI Knowledge Base</h1>
