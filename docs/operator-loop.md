@@ -95,6 +95,38 @@ This makes the next session easier to resume.
 
 ---
 
+## Capture quality
+
+Good capture makes the compact-and-recall loop work. A one-line capture preserves the decision but loses the *shape* of reasoning around unfinished work.
+
+The four-field capture model adds high-fidelity context:
+
+- **Rejected:** what was tried or considered and ruled out, and why. Prevents future agents from re-litigating solved questions.
+- **Assumptions:** things true right now that won't be obvious from the code later.
+- **Invariants:** temporary states: things intentionally broken or incomplete until X happens.
+- **Next Step:** the single most important action when this work resumes.
+
+### Example: Weak vs. Rich Capture
+
+**Weak capture (preserves the decision, loses the context):**
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py capture \
+  --type decision --summary "switched to PostgreSQL"
+```
+
+**Rich capture (a future agent can actually resume from this):**
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py capture \
+  --type decision \
+  --summary "switched from SQLite to PostgreSQL for multi-user support" \
+  --rejected "SQLite WAL mode doesn't handle concurrent writes from multiple agents; tested and confirmed deadlocks under load" \
+  --assumptions "DB schema is read-only until migration 004 runs — do not write to users table yet" \
+  --invariants "user.role column exists but is always NULL until seeder is written" \
+  --next-step "write migration 004, then update UserService.getRole() to read from DB instead of hardcoded default"
+```
+
+---
+
 ## Repeated Shorthand Requests
 
 When you notice you keep saying the same short thing:

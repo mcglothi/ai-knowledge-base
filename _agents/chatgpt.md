@@ -25,6 +25,14 @@ At the start of any session, ask me to paste the AIKB `_index.md` for context.
 - Use `[Stored in Vaultwarden: <Item Name>]` for secrets.
 - Flag unfinished tasks with "⚠️ IN PROGRESS".
 
+### Capture Quality
+Before ending a session or major transition, capture reasoning to your AIKB manually:
+- **Decision:** what was decided.
+- **Rejected:** alternatives ruled out + reason.
+- **Assumptions:** context not obvious from code.
+- **Invariants:** intentionally incomplete states.
+- **Next Step:** exact resumption point.
+
 ### Maintenance
 At session end, provide a concise summary of updates for me to commit to my AIKB repo manually.
 ```

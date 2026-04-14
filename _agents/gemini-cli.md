@@ -70,11 +70,20 @@ Stop hook fires automatically (`~/.gemini/settings.json`). No manual action need
 **Setup:** See `docs/stop-hook-setup.md` to configure `aikb-session-stop.sh` in `~/.gemini/settings.json`.
 
 To manually capture a key decision mid-session:
+
 ```bash
 python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
-  --agent "Gemini CLI" --session-id <id> --type decision \
-  --project <file> --summary "<what was decided>"
+  --agent "Gemini CLI" --session-id <id> \
+  --type decision \
+  --project <target-file> \
+  --summary "what was decided or found" \
+  --rejected "what was tried/considered and ruled out, and why" \
+  --assumptions "things true right now that won't be obvious from the code" \
+  --invariants "things intentionally incomplete or broken until X happens" \
+  --next-step "exact next action when this work resumes"
 ```
+
+The goal is that a future agent reading this capture can continue without asking "why didn't you just...?" or "wait, is X done yet?" Only `--summary` is required.
 
 ---
 
@@ -114,8 +123,40 @@ Every turn resends the full context. A 100-turn session costs ~25× a 20-turn se
 **AIKB is your memory buffer.** Anything written via `runtime_cli.py capture` survives `/compress` and is recallable with `aikb_search`. Compress freely once it's captured.
 
 **Sequence before compressing:**
-1. New decision not yet in AIKB? → `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture --type decision --summary "..."`. Already captured? Skip.
-2. Cross-agent handoff needed? → write `session_state.md`. Not a handoff? Skip.
+
+**Before compressing, capture what a fresh agent would need to continue without re-reading the whole session:**
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
+  --agent "Gemini CLI" --session-id <id> \
+  --type decision \
+  --project <target-file> \
+  --summary "what was decided or found" \
+  --rejected "what was tried/considered and ruled out, and why" \
+  --assumptions "things true right now that won't be obvious from the code" \
+  --invariants "things intentionally incomplete or broken until X happens" \
+  --next-step "exact next action when this work resumes"
+```
+
+Only `--summary` is required. Add the others when mid-implementation or when the session involved ruling out alternatives.
+
+**What each field is for:**
+
+| Field | Captures | Example |
+|-------|----------|---------|
+| `--summary` | The decision or finding | "switched auth to JWT" |
+| `--rejected` | Ruled-out alternatives + reason | "session tokens rejected: don't work across services" |
+| `--assumptions` | Currently-true context not in code | "API gateway not yet enforcing token expiry" |
+| `--invariants` | Intentionally incomplete states | "refresh token table exists but seeder not written yet" |
+| `--next-step` | Exact resumption point | "write token refresh endpoint, then update middleware" |
+
+**Pre-compact checklist — run through this before compacting:**
+- [ ] Is there unfinished implementation in flight? → use `--invariants` and `--next-step`
+- [ ] Were alternatives considered and rejected this session? → use `--rejected`  
+- [ ] Are there assumptions a fresh agent could easily get wrong? → use `--assumptions`
+- [ ] Is `session_state.md` needed? (another agent might pick this up) → write it now
+- Already captured? Skip directly to compact — don't duplicate.
+
 3. Run `/compress`
 
 **After compressing:** use `aikb_search "what was decided about X"` to recall — faster than re-reading files.
