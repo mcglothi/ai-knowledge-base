@@ -230,6 +230,29 @@ def index_events(conn: sqlite3.Connection, force: bool = False, verbose: bool = 
                         agent   = event.get("agent", "unknown")
                         etype   = event.get("type", "event")
                         project = event.get("project", "")
+                        rejected = event.get("rejected", "")
+                        assumptions = event.get("assumptions", "")
+                        invariants = event.get("invariants", "")
+                        next_step = event.get("next_step", "")
+
+                        content_parts = [f"[{agent}] {summary}"]
+                        embed_parts = [f"Event {etype} by {agent} for {project}: {summary}"]
+
+                        if rejected:
+                            content_parts.append(f"Rejected: {rejected}")
+                            embed_parts.append(f"Rejected: {rejected}")
+                        if assumptions:
+                            content_parts.append(f"Assumptions: {assumptions}")
+                            embed_parts.append(f"Assumptions: {assumptions}")
+                        if invariants:
+                            content_parts.append(f"Invariants: {invariants}")
+                            embed_parts.append(f"Invariants: {invariants}")
+                        if next_step:
+                            content_parts.append(f"Next step: {next_step}")
+                            embed_parts.append(f"Next step: {next_step}")
+
+                        content_full = "\n".join(content_parts)
+                        embed_full = "\n".join(embed_parts)
 
                         # Parse ts_utc to unix timestamp
                         try:
@@ -243,8 +266,8 @@ def index_events(conn: sqlite3.Connection, force: bool = False, verbose: bool = 
                         chunks.append({
                             "file_path":  rel,
                             "section":    f"{etype} @ {ts_utc}",
-                            "content":    f"[{agent}] {summary}",
-                            "embed_text": f"Event {etype} by {agent} for {project}: {summary}",
+                            "content":    content_full[:800],
+                            "embed_text": embed_full[:2000],
                             "tags":       f"event {etype} {agent} memory {project}",
                             "mtime":      mtime,
                         })
