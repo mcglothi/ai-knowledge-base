@@ -47,6 +47,10 @@ def parse_args() -> argparse.Namespace:
     capture.add_argument("--type", required=True, choices=sorted(ingest_runtime.EVENT_TYPES))
     capture.add_argument("--project", required=True)
     capture.add_argument("--summary", required=True)
+    capture.add_argument("--rejected", help="What was tried or considered and ruled out, and why")
+    capture.add_argument("--assumptions", help="Things true right now that won't be obvious from the code")
+    capture.add_argument("--invariants", help="Temporary states: things intentionally broken/incomplete until X")
+    capture.add_argument("--next-step", help="The exact next action when this work resumes")
     capture.add_argument("--evidence", action="append", default=[])
     capture.add_argument(
         "--sensitivity", default="normal", choices=sorted(ingest_runtime.SENSITIVITY)

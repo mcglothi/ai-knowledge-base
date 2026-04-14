@@ -20,3 +20,15 @@ All projects documented in your AIKB repo. Use `@file` to reference specific doc
 4. **State:** Use `⚠️ IN PROGRESS` for partial tasks; `✅` when complete.
 5. **Security:** Secrets → `[Stored in Vaultwarden: <Item Name>]`.
 6. **Maintenance:** Update AIKB files in place.
+7. **Capture Quality:** Before context-heavy transitions or ending a phase, capture reasoning:
+   ```bash
+   python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
+     --agent "Cursor" --session-id <id> \
+     --type decision \
+     --project <file> \
+     --summary "what was decided" \
+     --rejected "alternatives considered/ruled out" \
+     --assumptions "things true but not obvious from code" \
+     --invariants "intentionally broken/incomplete states" \
+     --next-step "exact resumption point"
+   ```

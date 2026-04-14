@@ -22,6 +22,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--type", required=True, choices=sorted(EVENT_TYPES))
     parser.add_argument("--project", required=True)
     parser.add_argument("--summary", required=True)
+    parser.add_argument("--rejected", help="What was tried or considered and ruled out, and why")
+    parser.add_argument("--assumptions", help="Things true right now that won't be obvious from the code")
+    parser.add_argument("--invariants", help="Temporary states: things intentionally broken/incomplete until X")
+    parser.add_argument("--next-step", help="The exact next action when this work resumes")
     parser.add_argument("--evidence", action="append", default=[])
     parser.add_argument("--sensitivity", default="normal", choices=sorted(SENSITIVITY))
     parser.add_argument("--promote-hint", default="candidate", choices=sorted(PROMOTE_HINT))
@@ -50,6 +54,14 @@ def build_event(args: argparse.Namespace) -> dict:
         "sensitivity": args.sensitivity,
         "promote_hint": args.promote_hint,
     }
+    if getattr(args, "rejected", None):
+        event["rejected"] = args.rejected.strip()
+    if getattr(args, "assumptions", None):
+        event["assumptions"] = args.assumptions.strip()
+    if getattr(args, "invariants", None):
+        event["invariants"] = args.invariants.strip()
+    if getattr(args, "next_step", None):
+        event["next_step"] = args.next_step.strip()
     return event
 
 
