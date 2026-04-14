@@ -17,7 +17,16 @@ aikb_search("project X deployment steps")
 
 Results include the file path, section heading, and a text excerpt. The agent loads the specific file only if it needs full detail.
 
-**How it works:** hybrid retrieval — BM25 keyword search (SQLite FTS5) merged with semantic similarity (fastembed / all-MiniLM-L6-v2, runs fully locally) via Reciprocal Rank Fusion. No API key required.
+**How it works:** hybrid retrieval — BM25 keyword search (SQLite FTS5) merged with semantic similarity (fastembed / all-MiniLM-L6-v2, runs fully locally) and **Graph-RAG relationship expansion**.
+
+Advanced Features:
+- **Recency Decay:** Fresh decisions and recent updates are automatically boosted in rankings.
+- **Graph Expansion:** Surfaces related context across projects by identifying shared tokens (hostnames, error codes, project IDs).
+- **Temporal Filters:** Agents can query historical snapshots using `before`, `after`, or `as_of` filters.
+- **Memory Indexing:** Automatically indexes runtime event logs (`_runtime/events/*.ndjson`), making memories captured via `aikb_remember` searchable instantly.
+- **Result Diversification:** Automatically limits results to a maximum of 2 sections per file to ensure a broader context spread.
+
+No API key required.
 
 This is usually the first "wow" addon after basic AIKB setup because it lets the agent ask useful questions without you remembering where everything lives.
 

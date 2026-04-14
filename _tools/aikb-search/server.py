@@ -49,56 +49,51 @@ mcp = FastMCP(
 def aikb_search(
     query: str,
     top_k: int = 5,
+    include_related: bool = True,
     as_of: str = "",
     before: str = "",
     after: str = "",
 ) -> str:
     """
-    Search the AIKB knowledge base using hybrid BM25 + semantic retrieval.
-
-    Returns the top matching file sections with excerpts and file paths.
-    Use this for any question where you don't know which AIKB file to load,
-    or for cross-cutting queries that might span multiple files.
+    Search the AIKB knowledge base using hybrid BM25 + semantic retrieval,
+    with optional relationship expansion and temporal filtering.
 
     Args:
-        query:  Natural language query. Examples:
+        query: Natural language query. Examples:
                   "what SSL certs expire soon?"
                   "what is currently broken?"
                   "what am I waiting on?"
                   "project X pending tasks"
-        top_k:  Number of results to return (default 5, max 10).
-        as_of:  Filter results to as they existed on this date (YYYY-MM-DD).
-        before: Exclude results modified after this date (YYYY-MM-DD).
-        after:  Exclude results modified before this date (YYYY-MM-DD).
+        top_k: Number of results to return (default 5, max 10).
+        include_related: Include graph-linked chunks from related files/sections.
+        as_of: Snapshot cutoff date (YYYY-MM-DD), equivalent to "as of" queries.
+        before: Return chunks dated on/before this date (YYYY-MM-DD).
+        after: Return chunks dated on/after this date (YYYY-MM-DD).
     """
     top_k = min(max(1, top_k), 10)
 
-    def parse_date(ds: str) -> float | None:
-        if not ds:
-            return None
-        try:
-            # Treat YYYY-MM-DD as midnight UTC
-            dt = datetime.fromisoformat(ds).replace(tzinfo=timezone.utc)
-            return dt.timestamp()
-        except ValueError:
-            print(f"Warning: Invalid date format '{ds}'. Expected YYYY-MM-DD.", file=sys.stderr)
-            return None
-
-    # as_of is equivalent to before
-    d_before = parse_date(before) or parse_date(as_of)
-    d_after  = parse_date(after)
+    as_of = as_of.strip() or None
+    before = before.strip() or None
+    after = after.strip() or None
 
     if not DB_PATH.exists():
         return (
             "Index not built yet — building now (downloads ~23 MB model on first run)...\n"
-            + _build_and_search(query, top_k, d_before, d_after)
+            + _build_and_search(query, top_k, include_related, as_of, before, after)
         )
 
     try:
-        results = search(query, top_k=top_k, before=d_before, after=d_after)
+        results = search(
+            query,
+            top_k=top_k,
+            include_related=include_related,
+            as_of=as_of,
+            before=before,
+            after=after,
+        )
         return format_results(results)
     except FileNotFoundError:
-        return _build_and_search(query, top_k, d_before, d_after)
+        return _build_and_search(query, top_k, include_related, as_of, before, after)
 
 
 @mcp.tool()
@@ -197,10 +192,24 @@ def aikb_remember(
     )
 
 
-def _build_and_search(query: str, top_k: int, before: float | None, after: float | None) -> str:
+def _build_and_search(
+    query: str,
+    top_k: int,
+    include_related: bool,
+    as_of: str | None,
+    before: str | None,
+    after: str | None,
+) -> str:
     try:
         build_index(verbose=False)
-        results = search(query, top_k=top_k, before=before, after=after)
+        results = search(
+            query,
+            top_k=top_k,
+            include_related=include_related,
+            as_of=as_of,
+            before=before,
+            after=after,
+        )
         return format_results(results)
     except Exception as e:
         return f"Error building index or searching: {e}"

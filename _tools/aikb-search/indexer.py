@@ -354,8 +354,9 @@ def build_index(force: bool = False, verbose: bool = True):
             files_to_index.append(None)  # sentinel for state yaml
 
     if not files_to_index:
-        if verbose:
-            print("Index up to date — nothing to do.")
+        # Check for events even if md files are up to date
+        index_events(conn, force=force, verbose=verbose)
+        conn.commit()
         conn.close()
         return
 
