@@ -13,9 +13,11 @@ Run directly to rebuild the index:
 The git post-commit hook calls this automatically when .md files change.
 """
 
+import json
 import re
 import sqlite3
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
@@ -178,6 +180,97 @@ def insert_chunks(conn: sqlite3.Connection, chunks: list[dict], embeddings: list
             (chunks[0]["file_path"], chunks[0]["mtime"]),
         )
 
+
+def index_events(conn: sqlite3.Connection, force: bool = False, verbose: bool = True):
+    """
+    Index _runtime/events/YYYY-MM-DD.ndjson files.
+    Each event becomes a chunk.
+    """
+    events_dir = AIKB_ROOT / "_runtime" / "events"
+    if not events_dir.exists():
+        return
+
+    cached_mtimes = dict(
+        conn.execute(
+            "SELECT file_path, mtime FROM file_mtimes WHERE file_path LIKE '_runtime/events/%'"
+        ).fetchall()
+    )
+
+    ndjson_files = sorted(events_dir.glob("*.ndjson"))
+
+    files_to_index = []
+    for f in ndjson_files:
+        rel = str(f.relative_to(AIKB_ROOT))
+        current_mtime = f.stat().st_mtime
+        if not force and cached_mtimes.get(rel) == current_mtime:
+            continue
+        files_to_index.append(f)
+
+    if not files_to_index:
+        return
+
+    if verbose:
+        print(f"Indexing {len(files_to_index)} event log(s)...")
+
+    for f in files_to_index:
+        rel = str(f.relative_to(AIKB_ROOT))
+        delete_file(conn, rel)
+
+        chunks = []
+        try:
+            with f.open("r", encoding="utf-8") as file:
+                for line in file:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        event = json.loads(line)
+                        ts_utc  = event.get("ts_utc", "")
+                        summary = event.get("summary", "")
+                        agent   = event.get("agent", "unknown")
+                        etype   = event.get("type", "event")
+                        project = event.get("project", "")
+
+                        # Parse ts_utc to unix timestamp
+                        try:
+                            # 2026-04-13T12:34:56Z -> iso format
+                            ds = ts_utc.replace("Z", "+00:00")
+                            dt = datetime.fromisoformat(ds)
+                            mtime = dt.timestamp()
+                        except:
+                            mtime = f.stat().st_mtime
+
+                        chunks.append({
+                            "file_path":  rel,
+                            "section":    f"{etype} @ {ts_utc}",
+                            "content":    f"[{agent}] {summary}",
+                            "embed_text": f"Event {etype} by {agent} for {project}: {summary}",
+                            "tags":       f"event {etype} {agent} memory {project}",
+                            "mtime":      mtime,
+                        })
+                    except json.JSONDecodeError:
+                        continue
+        except Exception as e:
+            if verbose:
+                print(f"  Error reading {rel}: {e}")
+            continue
+
+        if not chunks:
+            # Still record the mtime so we don't re-scan an empty/broken file
+            conn.execute(
+                "INSERT OR REPLACE INTO file_mtimes (file_path, mtime) VALUES (?, ?)",
+                (rel, f.stat().st_mtime),
+            )
+            continue
+
+        texts      = [c["embed_text"] for c in chunks]
+        embeddings = embed(texts)
+
+        insert_chunks(conn, chunks, embeddings)
+
+        if verbose:
+            print(f"  {rel} → {len(chunks)} event(s)")
+
 # ── Index builder ──────────────────────────────────────────────────────────────
 
 def chunk_state_yaml() -> list[dict]:
@@ -291,6 +384,9 @@ def build_index(force: bool = False, verbose: bool = True):
 
         if verbose:
             print(f"  {rel} → {len(chunks)} chunk(s)")
+
+    # ── 3. Events ─────────────────────────────────────────────────────────────
+    index_events(conn, force=force, verbose=verbose)
 
     conn.commit()
     conn.close()

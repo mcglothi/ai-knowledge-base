@@ -12,6 +12,7 @@ semantic matches; RRF merges both without tuning weights.
 
 import re
 import sqlite3
+import time
 from pathlib import Path
 
 import numpy as np
@@ -19,6 +20,14 @@ import numpy as np
 from indexer import DB_PATH, embed
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
+
+def recency_boost(mtime: float) -> float:
+    """Return a score boost in [0, 2.0] that decays linearly over 14 days."""
+    age_days = (time.time() - mtime) / 86400
+    if age_days >= 14:
+        return 0.0
+    return round(2.0 * (1.0 - age_days / 14), 3)
+
 
 _STOPWORDS = {
     "a", "an", "the", "is", "are", "was", "were", "be", "been", "being",
@@ -68,7 +77,13 @@ def rrf(rankings: list[dict[int, int]], k: int = 60) -> dict[int, float]:
 
 # ── Search ─────────────────────────────────────────────────────────────────────
 
-def search(query: str, top_k: int = 5, db_path: Path = DB_PATH) -> list[dict]:
+def search(
+    query: str,
+    top_k: int = 5,
+    db_path: Path = DB_PATH,
+    before: float | None = None,
+    after: float | None = None,
+) -> list[dict]:
     """
     Search AIKB for content relevant to query.
 
@@ -76,7 +91,7 @@ def search(query: str, top_k: int = 5, db_path: Path = DB_PATH) -> list[dict]:
         file     — relative path from AIKB root
         section  — H2 heading (or "overview")
         excerpt  — first ~300 chars of section body
-        score    — RRF score (higher = more relevant, not bounded to [0,1])
+        score    — RRF score + recency_boost (higher = more relevant)
         sources  — which retrieval methods matched ("bm25", "vector", or "both")
     """
     if not db_path.exists():
@@ -101,7 +116,6 @@ def search(query: str, top_k: int = 5, db_path: Path = DB_PATH) -> list[dict]:
 
     # ── 2. Vector cosine similarity ───────────────────────────────────────────
     rows = conn.execute("SELECT id, embedding FROM chunks").fetchall()
-    conn.close()
 
     vec_ranks: dict[int, int] = {}
     if rows:
@@ -125,15 +139,47 @@ def search(query: str, top_k: int = 5, db_path: Path = DB_PATH) -> list[dict]:
         top_idx  = np.argsort(sims)[::-1][:60]
         vec_ranks = {ids[i]: rank + 1 for rank, i in enumerate(top_idx)}
 
-    # ── 3. RRF merge ──────────────────────────────────────────────────────────
+    # ── 3. RRF merge + Recency Boost + Temporal Filters ───────────────────────
     combined = rrf([bm25_ranks, vec_ranks])
-    top_ids  = sorted(combined, key=combined.__getitem__, reverse=True)[:top_k]
+    
+    if not combined:
+        conn.close()
+        return []
+
+    # Fetch metadata for all candidates to apply filters and boost
+    candidate_ids = list(combined.keys())
+    placeholders  = ",".join(["?"] * len(candidate_ids))
+    meta_rows     = conn.execute(
+        f"SELECT id, mtime, file_path FROM chunks WHERE id IN ({placeholders})",
+        candidate_ids
+    ).fetchall()
+    metadata = {r[0]: (r[1], r[2]) for r in meta_rows}
+
+    # Filter by date and apply recency_boost
+    final_scores: dict[int, float] = {}
+    for cid, rrf_score in combined.items():
+        mtime, fpath = metadata.get(cid, (None, None))
+        if mtime is None:
+            continue
+
+        if before is not None and mtime > before:
+            continue
+        if after is not None and mtime < after:
+            continue
+
+        boost = recency_boost(mtime)
+        if fpath.startswith("_runtime/events/"):
+            boost *= 0.6
+
+        final_scores[cid] = rrf_score + boost
+
+    top_ids = sorted(final_scores, key=final_scores.__getitem__, reverse=True)[:top_k]
 
     if not top_ids:
+        conn.close()
         return []
 
     # ── 4. Fetch results ──────────────────────────────────────────────────────
-    conn = sqlite3.connect(db_path)
     results = []
     for chunk_id in top_ids:
         row = conn.execute(
@@ -151,7 +197,7 @@ def search(query: str, top_k: int = 5, db_path: Path = DB_PATH) -> list[dict]:
             "file":    row[0],
             "section": row[1],
             "excerpt": row[2][:350].replace("\n", " ").strip(),
-            "score":   round(combined[chunk_id], 4),
+            "score":   round(final_scores[chunk_id], 4),
             "sources": sources,
         })
 

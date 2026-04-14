@@ -46,7 +46,13 @@ mcp = FastMCP(
 
 
 @mcp.tool()
-def aikb_search(query: str, top_k: int = 5) -> str:
+def aikb_search(
+    query: str,
+    top_k: int = 5,
+    as_of: str = "",
+    before: str = "",
+    after: str = "",
+) -> str:
     """
     Search the AIKB knowledge base using hybrid BM25 + semantic retrieval.
 
@@ -61,20 +67,38 @@ def aikb_search(query: str, top_k: int = 5) -> str:
                   "what am I waiting on?"
                   "project X pending tasks"
         top_k:  Number of results to return (default 5, max 10).
+        as_of:  Filter results to as they existed on this date (YYYY-MM-DD).
+        before: Exclude results modified after this date (YYYY-MM-DD).
+        after:  Exclude results modified before this date (YYYY-MM-DD).
     """
     top_k = min(max(1, top_k), 10)
+
+    def parse_date(ds: str) -> float | None:
+        if not ds:
+            return None
+        try:
+            # Treat YYYY-MM-DD as midnight UTC
+            dt = datetime.fromisoformat(ds).replace(tzinfo=timezone.utc)
+            return dt.timestamp()
+        except ValueError:
+            print(f"Warning: Invalid date format '{ds}'. Expected YYYY-MM-DD.", file=sys.stderr)
+            return None
+
+    # as_of is equivalent to before
+    d_before = parse_date(before) or parse_date(as_of)
+    d_after  = parse_date(after)
 
     if not DB_PATH.exists():
         return (
             "Index not built yet — building now (downloads ~23 MB model on first run)...\n"
-            + _build_and_search(query, top_k)
+            + _build_and_search(query, top_k, d_before, d_after)
         )
 
     try:
-        results = search(query, top_k=top_k)
+        results = search(query, top_k=top_k, before=d_before, after=d_after)
         return format_results(results)
     except FileNotFoundError:
-        return _build_and_search(query, top_k)
+        return _build_and_search(query, top_k, d_before, d_after)
 
 
 @mcp.tool()
@@ -173,10 +197,10 @@ def aikb_remember(
     )
 
 
-def _build_and_search(query: str, top_k: int) -> str:
+def _build_and_search(query: str, top_k: int, before: float | None, after: float | None) -> str:
     try:
         build_index(verbose=False)
-        results = search(query, top_k=top_k)
+        results = search(query, top_k=top_k, before=before, after=after)
         return format_results(results)
     except Exception as e:
         return f"Error building index or searching: {e}"
