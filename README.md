@@ -67,6 +67,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Layered loading** — agents read only what they need, preserving context window budget
 - **Checkpoint commits** — agents save progress during long sessions so memory survives interruptions
 - **Mind Meld** — agents read the shared runtime event log to see what other agents are doing right now; no extra infrastructure required
+- **Token economy** — compact triggers, AIKB-as-memory-buffer pattern, and bash output discipline keep API costs under control across long sessions; see `docs/token-economy.md`
 - **Secrets-safe** — credentials stay in your secrets manager; AIKB stores references only
 - **Machine-aware** — each machine gets a profile so the agent uses the right paths, tools, and conventions
 

@@ -84,3 +84,57 @@ python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
 - **Full Deployment** → production workflow (DNS, Proxy, SSL)
 - **POC** → speed-first (local-only, skip production standards)
 - **Deep Trace** → explicit permission for exhaustive diagnostics
+
+---
+
+### Template update hygiene
+
+If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, prefer:
+
+`python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --auto-check`
+
+That helper reads the saved check window and only runs `./sync.sh --check` when the template check is stale or missing, or when the operator asks about updates.
+
+- Use `--check` only for safe periodic nudges.
+- Weekly is the default cadence; if the operator wants a different rhythm, update it with `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --set-interval <days>`.
+- If updates are available, summarize the changed framework paths first.
+- Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
+- After a framework sync, remind the operator that downstream Codex project repos may also need `./sync-agents.sh`.
+
+### Token Economy
+
+Every turn resends the full context. A 100-turn session costs ~25× a 20-turn session. See `docs/token-economy.md` for the full strategy.
+
+**Compact triggers — run `/compress` when ANY of these occur:**
+- A discrete sub-task finishes (PR created, doc written, research phase done)
+- Any single tool output exceeds ~50 lines — compress before continuing
+- 3+ consecutive file reads completed
+- ~40 turns with no prior compress this session
+
+**AIKB is your memory buffer.** Anything written via `runtime_cli.py capture` survives `/compress` and is recallable with `aikb_search`. Compress freely once it's captured.
+
+**Sequence before compressing:**
+1. New decision not yet in AIKB? → `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture --type decision --summary "..."`. Already captured? Skip.
+2. Cross-agent handoff needed? → write `session_state.md`. Not a handoff? Skip.
+3. Run `/compress`
+
+**After compressing:** use `aikb_search "what was decided about X"` to recall — faster than re-reading files.
+
+**Bash output:** cap everything that could be large — it stays in context all session:
+```bash
+command | head -50 && command 2>&1 | tail -20 && command | grep -c pattern
+```
+
+---
+
+### Wrap-up workflow
+
+When the operator uses a closing phrase like `lets wrap up for now` or `let's shut down`, perform these steps before ending the session:
+
+1. **Capture Closeout:** If runtime tools are available, record a structured closeout event:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"`
+2. **Optional advanced maintenance:** only if this repo intentionally tracks graph/dream artifacts, run:
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/build_temporal_graph.py`
+   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/dream_cycle.py`
+3. **Final Sync:** Add, commit, and push all changes (including tracked `_runtime/` updates) to the remote repository.
+4. **Release Session:** Remove your entry from `_agents/active.md`.
