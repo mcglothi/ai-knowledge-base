@@ -50,3 +50,14 @@ No more copied Python scripts, shell hooks, or template markdown files.
 2.  **Path Updates:** Update all Python scripts in `_tools/` to read `os.environ.get("AIKB_ROOT")` instead of hardcoding `Path(__file__).parents[2]`.
 3.  **Indexer Update:** Update `indexer.py`'s `rglob` logic to respect `.aikb-root` boundaries, and add the `--recursive` flag for the Parent union view.
 4.  **Agent Context:** Update the `wake-up` scripts and `GEMINI.md` instructions to inform the agent of its current bounded scope.
+
+## 6. Enterprise Vision: Scoped Access & RBAC
+
+While the current goal is local modularity, this architecture provides a natural path toward enterprise-scale deployments.
+
+*   **Division-Level Stores:** Organizations can deploy independent AIKB stores for different divisions (e.g., `/corp/engineering/`, `/corp/sales/`, `/corp/security/`).
+*   **Role-Based Access Control (RBAC):** Access to these stores can be governed by user/agent identity. 
+    *   **Single-Scope Access:** An engineer's agent might only be granted access to the `/engineering/` store and its children.
+    *   **Multi-Domain Aggregation:** Senior managers or cross-functional teams (e.g., SREs) could have an `aikb` configuration that allows them to perform a **Union View** search across multiple authorized domains (e.g., Engineering + Security).
+*   **Scoped Search & Indexing:** The "Parent Sees All" logic would be extended to check a user's permissions before recursing into child AIKB directories or including their indexes in a search result.
+*   **Infrastructure:** In an enterprise setting, the semantic indexer would likely push to a centralized or distributed vector database (e.g., Pinecone, Milvus, or a hosted SQLite/FTS server) while maintaining the logical file-based hierarchy for ease of audit and local-first editing.
