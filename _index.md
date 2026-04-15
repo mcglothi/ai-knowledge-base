@@ -46,7 +46,7 @@
 
 | Item | Project | File |
 |------|---------|------|
-| *(none)* | — | — |
+| Hierarchical AIKB Design implementation | AIKB | [`docs/hierarchical-aikb-design.md`](docs/hierarchical-aikb-design.md) |
 
 ---
 

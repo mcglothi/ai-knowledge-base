@@ -6,7 +6,7 @@
 #
 # Update this file in the same commit as the related project file change.
 
-last_updated: "YYYY-MM-DD"
+last_updated: "2026-04-14"
 
 # ── SSL / TLS certificates ────────────────────────────────────────────────────
 # Add entries for any certs you manage manually. Remove when renewed.
@@ -37,7 +37,10 @@ open_incidents: []
 #     blocked_by: "Client to provide credentials"
 #     file: projects/my-project.md
 
-pending: []
+pending:
+  - title: "Hierarchical AIKB Design implementation"
+    blocked_by: "Future roadmap prioritization"
+    file: "docs/hierarchical-aikb-design.md"
 
 # ── Recently changed files ────────────────────────────────────────────────────
 # Auto-maintained by agents. Keep last ~10. Drop oldest when adding new.
