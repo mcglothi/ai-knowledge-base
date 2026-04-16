@@ -6,7 +6,7 @@
 #
 # Update this file in the same commit as the related project file change.
 
-last_updated: "2026-04-14"
+last_updated: "2026-04-16"
 
 # ── SSL / TLS certificates ────────────────────────────────────────────────────
 # Add entries for any certs you manage manually. Remove when renewed.
@@ -41,6 +41,11 @@ pending:
   - title: "Hierarchical AIKB Design implementation"
     blocked_by: "Future roadmap prioritization"
     file: "docs/hierarchical-aikb-design.md"
+
+  - title: "Dedicated agent service accounts on LLBean infrastructure"
+    blocked_by: "Management approval pending"
+    notes: "svc-ansible key works technically but is not approved for agentic use. Plan is dedicated per-agent accounts (modeled on svc-ansible pattern). Until then, agents must SSH as tmcglothin with password, or have Tim do remote steps manually."
+    file: "work/llbean-infrastructure.md"
 
 # ── Recently changed files ────────────────────────────────────────────────────
 # Auto-maintained by agents. Keep last ~10. Drop oldest when adding new.

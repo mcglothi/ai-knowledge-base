@@ -194,15 +194,17 @@ Vault-encrypted secrets: `group_vars/vault.yml`
 
 ## Agentic SSH Access
 
-**Problem:** Personal SSH keys (`tmcglothin`) are disabled on managed hosts. AD accounts go through Centrify PAM (`pam_centrifydc.so`), which enforces MFA for human logins. CrowdStrike is kernel-level EDR only — it does not have a PAM module; the MFA is Centrify-driven.
+**Current state — blocked, pending approval.**
 
-**Solution:** SSH as `svc-ansible` using `~/.ssh/svc-ansible_id_rsa`. `svc-ansible` is a local (non-AD) account on all managed hosts — it takes the `pam_localuser.so` → `pam_unix.so` path and bypasses Centrify MFA entirely. It also has `(ALL) NOPASSWD: ALL` sudo on managed hosts.
+Personal SSH keys (`tmcglothin`) are disabled on all managed hosts. AD accounts go through Centrify PAM (`pam_centrifydc.so`), which requires interactive password entry. CrowdStrike is kernel-level EDR only — the MFA/auth gate is Centrify, not Falcon.
 
-**SSH config** (`~/.ssh/config`) handles this transparently:
-- All `*.llbean.com` and `inf-* ans-* ntx-* llb-*` hosts default to `svc-ansible` + `svc-ansible_id_rsa`
-- Agents can just `ssh <hostname>` without specifying user or key
+`svc-ansible` key (`~/.ssh/svc-ansible_id_rsa`) technically works for non-interactive access — it's a local account that bypasses Centrify entirely and has NOPASSWD sudo. But it is **not approved for agentic use** without explicit management sign-off.
 
-**Rule for agents:** Always SSH as `svc-ansible`. Never attempt to SSH as `tmcglothin` or any AD account — it will block on MFA.
+**Plan:** Once approved, dedicated per-agent service accounts will be created (same pattern as `svc-ansible`). Agents will get their own named accounts, not share the Ansible service account.
+
+**Until then:** Agents cannot SSH non-interactively to LLBean servers as a general capability. Steps requiring remote access must either be done by Tim manually or deferred.
+
+`~/.ssh/config` sets `tmcglothin` as the default user for all LLBean hosts.
 
 ---
 
