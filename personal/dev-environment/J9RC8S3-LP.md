@@ -52,3 +52,4 @@
 - Running WSL2 on a Windows work laptop — kernel is `6.6.87.2-microsoft-standard-WSL2`
 - Bitwarden pattern: `BW_SESSION=$(cat ~/.bw_session)` — never run `bw unlock` (hangs interactively)
 - AAP/Tower runs production Ansible; local `ansible-playbook` is for dev/testing only
+- SSH to LLBean servers: always use `svc-ansible` — `~/.ssh/config` handles this automatically for `*.llbean.com` and common host prefixes. Personal AD account requires Centrify MFA and will block.

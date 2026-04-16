@@ -192,6 +192,20 @@ Vault-encrypted secrets: `group_vars/vault.yml`
 
 ---
 
+## Agentic SSH Access
+
+**Problem:** Personal SSH keys (`tmcglothin`) are disabled on managed hosts. AD accounts go through Centrify PAM (`pam_centrifydc.so`), which enforces MFA for human logins. CrowdStrike is kernel-level EDR only — it does not have a PAM module; the MFA is Centrify-driven.
+
+**Solution:** SSH as `svc-ansible` using `~/.ssh/svc-ansible_id_rsa`. `svc-ansible` is a local (non-AD) account on all managed hosts — it takes the `pam_localuser.so` → `pam_unix.so` path and bypasses Centrify MFA entirely. It also has `(ALL) NOPASSWD: ALL` sudo on managed hosts.
+
+**SSH config** (`~/.ssh/config`) handles this transparently:
+- All `*.llbean.com` and `inf-* ans-* ntx-* llb-*` hosts default to `svc-ansible` + `svc-ansible_id_rsa`
+- Agents can just `ssh <hostname>` without specifying user or key
+
+**Rule for agents:** Always SSH as `svc-ansible`. Never attempt to SSH as `tmcglothin` or any AD account — it will block on MFA.
+
+---
+
 ## AAP Workflow IDs (for reference)
 
 | Workflow | ID |
