@@ -9,7 +9,7 @@
 
 ## AI Knowledge Base (AIKB)
 
-Private repo at `{{GITHUB_USERNAME}}/AIKB`. Local clone: `{{LOCAL_PATH}}/` (set during `install.sh`).
+Private repo at `tmcglothin_llbean/AIKB`. Local clone: `/home/tmcglothin/code/AIKB/` (set during `install.sh`).
 
 Add your machines to `personal/dev-environment/README.md`.
 
@@ -18,17 +18,17 @@ Add your machines to `personal/dev-environment/README.md`.
 ## Session Start
 
 ```bash
-git -C {{LOCAL_PATH}} pull && python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up
+git -C /home/tmcglothin/code/AIKB pull && python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py wake-up
 ```
 
 Then register your session:
 
 ```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py claim-session \
+python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py claim-session \
   --agent "Codex CLI" --repo "AIKB" --scope "<scope>" --task "<brief task>"
 ```
 
-**MCP mode** (no local clone): use the `github-aikb` MCP server, repo `{{GITHUB_USERNAME}}/AIKB`, branch `main`.
+**MCP mode** (no local clone): use the `github-aikb` MCP server, repo `tmcglothin_llbean/AIKB`, branch `main`.
 
 ---
 
@@ -50,7 +50,7 @@ Do not bulk-load domain folders.
 
 Commit format:
 ```bash
-git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Update: [file] — [what changed]" && git -C {{LOCAL_PATH}} push origin main
+git -C /home/tmcglothin/code/AIKB add . && git -C /home/tmcglothin/code/AIKB commit -m "AI Update: [file] — [what changed]" && git -C /home/tmcglothin/code/AIKB push origin main
 ```
 
 Add `⚠️ IN PROGRESS` at top of in-flight files. Replace with `✅` when done.
@@ -89,15 +89,15 @@ Codex CLI does not currently expose a native Stop hook.
 
 Use one of these paths:
 
-1. Preferred: source `{{LOCAL_PATH}}/_tools/memory-pipeline/codex-wrapper.sh` from your shell config so `aikb-session-stop.sh` runs automatically after Codex exits
-2. Manual fallback: run `bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh` before finishing
+1. Preferred: source `/home/tmcglothin/code/AIKB/_tools/memory-pipeline/codex-wrapper.sh` from your shell config so `aikb-session-stop.sh` runs automatically after Codex exits
+2. Manual fallback: run `bash /home/tmcglothin/code/AIKB/_tools/memory-pipeline/aikb-session-stop.sh` before finishing
 
 **Setup:** See `docs/stop-hook-setup.md` for the wrapper and manual fallback workflow.
 
 To manually capture a key decision mid-session:
 
 ```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
+python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py capture \
   --agent "Codex CLI" --session-id <id> \
   --type decision \
   --project <target-file> \
@@ -117,7 +117,7 @@ The goal is that a future agent reading this capture can continue without asking
 `lets wrap up` / `let's wrap up` / `lets shut down` / `let's shut down` → **required closeout workflow:**
 1. Persist AIKB memory updates (project docs, `_index.md`, `_state.yaml`)
 2. `git add` → commit → push for all touched repos
-3. Run `bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh` unless the Codex wrapper is already installed
+3. Run `bash /home/tmcglothin/code/AIKB/_tools/memory-pipeline/aikb-session-stop.sh` unless the Codex wrapper is already installed
 4. Report final sync state (ahead/behind, any uncommitted files)
 
 ---
@@ -133,7 +133,7 @@ Read what other agents are currently doing without any extra infrastructure.
 python3 -c "
 import json
 from datetime import date
-path = '{{LOCAL_PATH}}/_runtime/events/' + str(date.today()) + '.ndjson'
+path = '/home/tmcglothin/code/AIKB/_runtime/events/' + str(date.today()) + '.ndjson'
 events = [json.loads(l) for l in open(path) if l.strip()]
 others = [e for e in events if 'Codex' not in e.get('agent','')]
 for e in others[-10:]:
@@ -175,12 +175,12 @@ Prefer small focused commits to reduce merge conflicts in multi-agent workflows.
 
 If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, prefer:
 
-`python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --auto-check`
+`python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py template-sync --auto-check`
 
 That helper reads the saved check window and only runs `./sync.sh --check` when the template check is stale or missing, or when the operator asks about updates.
 
 - Use `--check` only for safe periodic nudges.
-- Weekly is the default cadence; if the operator wants a different rhythm, update it with `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --set-interval <days>`.
+- Weekly is the default cadence; if the operator wants a different rhythm, update it with `python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py template-sync --set-interval <days>`.
 - If updates are available, summarize the changed framework paths first.
 - Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
 - After a framework sync, re-copy Codex instructions into downstream project repos with `./sync-agents.sh <project-path> [...]` as needed.
@@ -202,7 +202,7 @@ Every turn resends the full context. A 100-turn session costs ~25× a 20-turn se
 **Before compacting, capture what a fresh agent would need to continue without re-reading the whole session:**
 
 ```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
+python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py capture \
   --agent "Codex CLI" --session-id <id> \
   --type decision \
   --project <target-file> \
@@ -248,5 +248,5 @@ command | head -50 && command 2>&1 | tail -20 && command | grep -c pattern
 When the operator says a closing phrase like `lets wrap up for now` or `let's shut down`, capture a structured runtime closeout event before ending the session when the runtime tools are available:
 
 ```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"
+python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"
 ```

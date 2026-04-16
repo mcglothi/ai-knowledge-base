@@ -3,13 +3,13 @@
 **Last Updated:** 2026-04-12 (rev 12)
 **Summary:** Streamlined Gemini instruction set. Wake-up command replaces manual startup. Stop hook handles session end automatically.
 **Config location:** `~/.gemini/GEMINI.md`
-**Sync:** `cp {{LOCAL_PATH}}/_agents/gemini-cli.md ~/.gemini/GEMINI.md`
+**Sync:** `cp /home/tmcglothin/code/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md`
 
 ---
 
 ## AI Knowledge Base (AIKB)
 
-Private repo at `{{GITHUB_USERNAME}}/AIKB`. Local clone: `{{LOCAL_PATH}}/` (set during `install.sh`).
+Private repo at `tmcglothin_llbean/AIKB`. Local clone: `/home/tmcglothin/code/AIKB/` (set during `install.sh`).
 
 Add your machines to `personal/dev-environment/README.md`.
 
@@ -18,17 +18,17 @@ Add your machines to `personal/dev-environment/README.md`.
 ## Session Start
 
 ```bash
-git -C {{LOCAL_PATH}} pull && python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up
+git -C /home/tmcglothin/code/AIKB pull && python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py wake-up
 ```
 
 Then register your session:
 
 ```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py claim-session \
+python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py claim-session \
   --agent "Gemini CLI" --repo "AIKB" --scope "<scope>" --task "<brief task>"
 ```
 
-**MCP mode** (no local clone): use the `github-aikb` MCP server, repo `{{GITHUB_USERNAME}}/AIKB`, branch `main`.
+**MCP mode** (no local clone): use the `github-aikb` MCP server, repo `tmcglothin_llbean/AIKB`, branch `main`.
 
 ---
 
@@ -50,7 +50,7 @@ Do not bulk-load domain folders.
 
 Commit format:
 ```bash
-git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Update: [file] — [what changed]" && git -C {{LOCAL_PATH}} push origin main
+git -C /home/tmcglothin/code/AIKB add . && git -C /home/tmcglothin/code/AIKB commit -m "AI Update: [file] — [what changed]" && git -C /home/tmcglothin/code/AIKB push origin main
 ```
 
 Add `⚠️ IN PROGRESS` at top of in-flight files. Replace with `✅` when done.
@@ -72,7 +72,7 @@ Stop hook fires automatically (`~/.gemini/settings.json`). No manual action need
 To manually capture a key decision mid-session:
 
 ```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
+python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py capture \
   --agent "Gemini CLI" --session-id <id> \
   --type decision \
   --project <target-file> \
@@ -100,12 +100,12 @@ The goal is that a future agent reading this capture can continue without asking
 
 If this AIKB repo includes `sync.sh` and `.aikb-config.d/template-sync-state.json`, prefer:
 
-`python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --auto-check`
+`python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py template-sync --auto-check`
 
 That helper reads the saved check window and only runs `./sync.sh --check` when the template check is stale or missing, or when the operator asks about updates.
 
 - Use `--check` only for safe periodic nudges.
-- Weekly is the default cadence; if the operator wants a different rhythm, update it with `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py template-sync --set-interval <days>`.
+- Weekly is the default cadence; if the operator wants a different rhythm, update it with `python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py template-sync --set-interval <days>`.
 - If updates are available, summarize the changed framework paths first.
 - Do not run `./sync.sh` without operator approval, because it updates tracked framework files.
 - After a framework sync, remind the operator that downstream Codex project repos may also need `./sync-agents.sh`.
@@ -127,7 +127,7 @@ Every turn resends the full context. A 100-turn session costs ~25× a 20-turn se
 **Before compressing, capture what a fresh agent would need to continue without re-reading the whole session:**
 
 ```bash
-python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
+python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py capture \
   --agent "Gemini CLI" --session-id <id> \
   --type decision \
   --project <target-file> \
@@ -173,9 +173,9 @@ command | head -50 && command 2>&1 | tail -20 && command | grep -c pattern
 When the operator uses a closing phrase like `lets wrap up for now` or `let's shut down`, perform these steps before ending the session:
 
 1. **Capture Closeout:** If runtime tools are available, record a structured closeout event:
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"`
+   `python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/runtime_cli.py closeout --phrase "<operator phrase>"`
 2. **Optional advanced maintenance:** only if this repo intentionally tracks graph/dream artifacts, run:
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/build_temporal_graph.py`
-   `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/dream_cycle.py`
+   `python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/build_temporal_graph.py`
+   `python3 /home/tmcglothin/code/AIKB/_tools/memory-pipeline/dream_cycle.py`
 3. **Final Sync:** Add, commit, and push all changes (including tracked `_runtime/` updates) to the remote repository.
 4. **Release Session:** Remove your entry from `_agents/active.md`.
