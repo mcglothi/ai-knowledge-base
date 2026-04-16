@@ -1,7 +1,7 @@
 # Machine Profile: J9RC8S3-LP
 
-**Last Updated:** YYYY-MM-DD
-**Summary:** [OS, role, primary location — e.g. "Arch Linux desktop, primary workstation, always on."]
+**Last Updated:** 2026-04-16
+**Summary:** Work laptop running Ubuntu 24.04 LTS under WSL2 on Windows. Primary machine for L.L. Bean infrastructure work.
 
 ---
 
@@ -10,49 +10,45 @@
 | Field | Value |
 |-------|-------|
 | Hostname | `J9RC8S3-LP` |
-| OS | [e.g. macOS 14.5 / Arch Linux / Ubuntu 24.04] |
-| Architecture | [e.g. arm64 / x86_64] |
-| Role | [e.g. primary workstation / travel laptop / home server] |
-| Code root | `[e.g. ~/Code/ or ~/code/]` |
-| AIKB path | `[e.g. ~/Code/AIKB/]` |
-| Shell | [e.g. zsh / bash] |
-| Python command | [e.g. python3 / python] |
+| OS | Ubuntu 24.04.3 LTS (WSL2 — Windows host) |
+| Architecture | `x86_64` |
+| Role | Work laptop — primary daily driver for LLBean engineering |
+| Code root | `~/code/` |
+| AIKB path | `~/code/AIKB/` |
+| Shell | `zsh` |
+| Python command | `python3` (3.12.3) |
 
 ---
 
 ## Package Manager
 
-[e.g. Homebrew (`brew`), pacman + yay, apt, dnf]
+`apt` (Ubuntu)
 
 ---
 
 ## Installed Tools
 
-Tools confirmed to be available on this machine:
-
-- [ ] `git`
-- [ ] `gh` (GitHub CLI)
-- [ ] `node` / `npm`
-- [ ] `python3`
-- [ ] `docker`
-- [ ] `ansible`
-- [Add others as needed]
-
-**Absent / not yet installed:**
-- [List tools that are NOT installed so agents don't try to use them]
+- [x] `git`
+- [x] `gh` (GitHub CLI)
+- [x] `python3` (3.12.3)
+- [x] `ansible` + `ansible-playbook`
+- [ ] `docker` (not confirmed)
+- [ ] `node` / `npm` (not confirmed)
 
 ---
 
-## Environment Variables
+## Key Paths
 
-[List any relevant env vars that are always set on this machine — no values, just names and what they're for.]
-
-| Variable | Purpose |
-|----------|---------|
-| `MY_VAR` | [what it's for] |
+| Path | Purpose |
+|------|---------|
+| `~/code/AIKB/` | AI Knowledge Base |
+| `~/code/APP_Ansible_Prod_ESGUnix/` | Primary LLBean Ansible repo (ESG Unix) |
+| `~/.bw_session` | Bitwarden session token (secrets manager) |
 
 ---
 
 ## Notes
 
-[Anything else agents need to know about this machine — SSH configs, special paths, quirks.]
+- Running WSL2 on a Windows work laptop — kernel is `6.6.87.2-microsoft-standard-WSL2`
+- Bitwarden pattern: `BW_SESSION=$(cat ~/.bw_session)` — never run `bw unlock` (hangs interactively)
+- AAP/Tower runs production Ansible; local `ansible-playbook` is for dev/testing only

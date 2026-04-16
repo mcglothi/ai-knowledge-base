@@ -1,65 +1,52 @@
 # Personal Profile
 
-**Last Updated:** YYYY-MM-DD
-**Summary:** Background, skills, and context for AI agents. Agents read this to understand who they're working with without re-asking.
-
-> **This is an example file.** Copy it to `personal/profile.md` and replace with your own details.
-> Delete this callout once you've filled it in.
+**Last Updated:** 2026-04-16
+**Summary:** Tim McGlothin — Unix engineer at L.L. Bean. Deep Linux background, heavy Ansible/infrastructure automation focus.
 
 ---
 
 ## Background
 
-[Brief background — 2–4 sentences. What's your professional background? What do you mainly work on?]
-
-Example:
-> Software engineer with 8 years of experience, primarily in backend systems and infrastructure. Currently working full-time at a SaaS company while running a small freelance practice on the side. I maintain a home lab for self-hosted services and personal projects.
+Tim McGlothin is a Unix engineer at L.L. Bean (Freeport, ME). He has been using Linux since 1997 — it is his primary platform both at home and at work. His day-to-day centers on enterprise infrastructure automation: writing Ansible playbooks, roles, and templates that run on Ansible Automation Platform (AAP) and are source-controlled in GitHub. He works across a multi-team environment, supporting other teams (DBA, Distribution, EDW, E-commerce) as well as owning core ESG Unix infrastructure.
 
 ---
 
 ## Skills
 
-[What agents can assume you know. Be specific — "Python" is less useful than "Python 3, FastAPI, SQLAlchemy, pytest".]
-
-**Languages:** [e.g. Python, TypeScript, Bash]
-**Frameworks:** [e.g. FastAPI, React, Ansible]
-**Infrastructure:** [e.g. Docker, Nginx, Cloudflare, AWS EC2]
-**Databases:** [e.g. PostgreSQL, SQLite, Redis]
-**Tools:** [e.g. git, GitHub Actions, Terraform]
+**Languages:** Bash, Python, YAML/Jinja2, some PowerShell
+**Automation:** Ansible (playbooks, roles, collections, EDA), Ansible Automation Platform (AAP/Tower)
+**Infrastructure:** Nutanix AHV (Prism), Red Hat Satellite, Infoblox, CrowdStrike Falcon, Nessus, CommVault, Control-M
+**OS:** RHEL 6/7/8/9 (primary), AIX, Windows Server (supporting)
+**Identity:** Centrify, Active Directory (llbean.com)
+**Tools:** git, GitHub, GitHub Actions, ansible-builder, Podman
+**Compliance:** CIS Benchmarks (RHEL 8/9), RHEL hardening
 
 ---
 
 ## Current Focus
 
-[What are you primarily working on right now? This helps agents prioritize context.]
-
-- ⬜ [Current project or goal]
-- ⬜ [Current project or goal]
+- Infrastructure automation via Ansible / AAP at L.L. Bean
+- AIKB onboarding — building persistent memory for AI-assisted work
+- RHEL 8/9 CIS compliance hardening
 
 ---
 
 ## Communication Preferences
 
-[How do you want agents to communicate with you?]
-
-- Concise responses preferred; skip preamble
+- Concise responses; skip preamble
+- Direct answers — no over-validation
 - Show code, not just descriptions
-- Point out security issues proactively
-- Ask before making large changes
-
----
-
-## Freelance / Consulting Context
-
-[If relevant — rates, how you bill, typical clients. Helps agents with invoicing and client-facing writing.]
-
-*(Remove this section if not applicable)*
+- Unix-native mindset: prefer shell/bash solutions where appropriate
+- No emojis unless asked
 
 ---
 
 ## Notes for Agents
 
-[Anything else useful — quirks, preferences, things that have come up before.]
-
-- [e.g. I use `mise` for runtime version management, not `nvm` or `pyenv`]
-- [e.g. I prefer Postgres over MySQL for new projects]
+- Linux since 1997 — assume strong Unix fundamentals; no need to explain basic shell concepts
+- Primary work repos live in `~/code/` (e.g. `~/code/APP_Ansible_Prod_ESGUnix`)
+- Ansible playbooks follow naming convention: `PREFIX_Descriptive_Name.yml` (see CLAUDE.md)
+- Variable prefixes: `cli_` for CLI vars, `g_` for global, 3+ char prefix for role vars
+- Service account for Ansible runs is `svc-ansible`
+- Vault-encrypted secrets live in `group_vars/vault.yml`
+- Production runs go through AAP (Ansible Tower), not direct CLI

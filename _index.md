@@ -4,7 +4,7 @@
 
 ---
 
-**Last Updated:** 2026-04-08
+**Last Updated:** 2026-04-16
 **Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
 
 ---
@@ -13,8 +13,9 @@
 
 | Topic | Status | Tags | Details |
 |-------|--------|------|---------|
-| Profile | ⬜ Fill in | profile, skills, background, bio, pricing | [`personal/profile.md`](personal/profile.md) |
-| Dev environments | ⬜ Fill in | machines, paths, tools, homebrew, python, shell | [`personal/dev-environment/README.md`](personal/dev-environment/README.md) |
+| Profile | 🟢 Active | profile, skills, background, unix, ansible, llbean | [`personal/profile.md`](personal/profile.md) |
+| Dev environments | 🟢 Active | machines, paths, tools, python, shell, wsl2 | [`personal/dev-environment/README.md`](personal/dev-environment/README.md) |
+| J9RC8S3-LP | 🟢 Active | work-laptop, ubuntu, wsl2, ansible | [`personal/dev-environment/J9RC8S3-LP.md`](personal/dev-environment/J9RC8S3-LP.md) |
 
 ---
 
@@ -38,7 +39,7 @@
 
 | Topic | Status | Tags | Details |
 |-------|--------|------|---------|
-| *(no entries yet)* | — | — | — |
+| LLBean Infrastructure | 🟢 Active | llbean, ansible, nutanix, rhel, aap, infoblox, satellite, crowdstrike | [`work/llbean-infrastructure.md`](work/llbean-infrastructure.md) |
 
 ---
 
