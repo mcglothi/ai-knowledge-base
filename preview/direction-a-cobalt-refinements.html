@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIKB Direction A Cobalt Refinements</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: #e7eef7;
+        background:
+          radial-gradient(circle at top left, rgba(96, 165, 250, 0.14), transparent 30%),
+          radial-gradient(circle at 85% 10%, rgba(148, 163, 184, 0.12), transparent 24%),
+          linear-gradient(180deg, #0b1321 0%, #070d17 100%);
+      }
+
+      .shell {
+        width: min(1380px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 42px 0 64px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 9px 13px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 10px;
+        font-size: clamp(3rem, 5vw, 4.9rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+      }
+
+      .lede {
+        max-width: 70ch;
+        margin: 0 0 30px;
+        color: #c4d0dd;
+        line-height: 1.75;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        padding: 24px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
+      }
+
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 1.24rem;
+      }
+
+      .card p,
+      .card li {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.65;
+      }
+
+      .stage {
+        margin: 34px 0 28px;
+        padding: 32px 24px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .wordmark {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-size: 4.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .wordmark .k {
+        position: relative;
+        display: inline-block;
+      }
+
+      .wordmark .k::after {
+        content: "";
+        position: absolute;
+        left: 0.08em;
+        right: 0.02em;
+        bottom: 0.08em;
+        height: 0.07em;
+        border-radius: 999px;
+      }
+
+      .meta {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .caption {
+        display: block;
+        margin-top: 14px;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .variant-1 {
+        background: linear-gradient(180deg, rgba(11, 21, 39, 0.92), rgba(8, 14, 25, 0.98));
+      }
+
+      .variant-1 .stage {
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .variant-1 .wordmark {
+        color: #f4f7fb;
+      }
+
+      .variant-1 .wordmark .k::after {
+        background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+      }
+
+      .variant-1 .caption {
+        color: #9ac7ff;
+      }
+
+      .variant-2 {
+        background: linear-gradient(180deg, rgba(17, 27, 46, 0.94), rgba(10, 16, 28, 0.98));
+      }
+
+      .variant-2 .stage {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      }
+
+      .variant-2 .wordmark {
+        color: #f6f1e9;
+      }
+
+      .variant-2 .wordmark .k::after {
+        background: linear-gradient(90deg, transparent, #7dd3fc, transparent);
+      }
+
+      .variant-2 .caption {
+        color: #ace0ff;
+      }
+
+      .variant-3 {
+        background: linear-gradient(180deg, rgba(8, 15, 27, 0.96), rgba(6, 10, 19, 1));
+      }
+
+      .variant-3 .stage {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .variant-3 .wordmark {
+        color: #eef4fb;
+      }
+
+      .variant-3 .wordmark .k::after {
+        background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+      }
+
+      .variant-3 .caption {
+        color: #7cb7ff;
+      }
+
+      .footer {
+        margin-top: 24px;
+        padding: 18px 20px;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        color: #cad7e4;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 1100px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="eyebrow">Cobalt refinement pass</div>
+      <h1>Direction A, narrowed into three cobalt-led finals.</h1>
+      <p class="lede">
+        We’re keeping the editorial wordmark and only tuning the temperature and restraint of the cobalt system. The
+        choice now is whether AIKB should feel neutral and crisp, slightly warmer and more human, or darker and more
+        operator-grade.
+      </p>
+
+      <section class="grid">
+        <article class="card variant-1">
+          <h2>Soft cobalt</h2>
+          <p>The cleanest and most balanced option. Premium, quiet, and easy to extend across docs and product UI.</p>
+          <div class="stage">
+            <div class="wordmark">AI<span class="k">K</span>B</div>
+            <span class="caption">Balanced, modern, durable</span>
+          </div>
+          <ul class="meta">
+            <li>Accent: `#60A5FA`</li>
+            <li>Best for: broadest flexibility</li>
+            <li>Risk: slightly safer than the other two</li>
+          </ul>
+        </article>
+
+        <article class="card variant-2">
+          <h2>Mineral cobalt</h2>
+          <p>A touch warmer in the lettering, which makes the brand feel more authored without losing its technical edge.</p>
+          <div class="stage">
+            <div class="wordmark">AI<span class="k">K</span>B</div>
+            <span class="caption">Editorial, premium, less clinical</span>
+          </div>
+          <ul class="meta">
+            <li>Accent: `#7DD3FC`</li>
+            <li>Best for: a slightly more human, more designed presence</li>
+            <li>Risk: needs care so the warmth stays subtle</li>
+          </ul>
+        </article>
+
+        <article class="card variant-3">
+          <h2>Deep signal</h2>
+          <p>The most operator-grade version. Higher contrast and a sharper blue that feels closest to infrastructure tooling.</p>
+          <div class="stage">
+            <div class="wordmark">AI<span class="k">K</span>B</div>
+            <span class="caption">Sharper, darker, more technical</span>
+          </div>
+          <ul class="meta">
+            <li>Accent: `#3B82F6`</li>
+            <li>Best for: a stricter systems-software feel</li>
+            <li>Risk: can drift a little conventional if overused</li>
+          </ul>
+        </article>
+      </section>
+
+      <div class="footer">
+        <strong>Current recommendation:</strong> <strong>Mineral cobalt</strong> feels the most considered. It keeps
+        the confidence of cobalt but adds just enough warmth to feel like a branded product rather than a default dev
+        tool.
+      </div>
+    </main>
+  </body>
+</html>

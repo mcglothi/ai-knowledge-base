@@ -1,0 +1,39 @@
+<svg width="720" height="180" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">AIKB wordmark</title>
+  <desc id="desc">AIKB wordmark built from custom letterforms tied together by a routed circuit path.</desc>
+  <rect width="720" height="180" rx="28" fill="#0F1720"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <path d="M58 98H544" stroke="#223345" stroke-width="2"/>
+    <path d="M58 98H124" stroke="#14B8A6" stroke-width="5"/>
+    <path d="M124 98H182" stroke="#14B8A6" stroke-opacity="0.72" stroke-width="5"/>
+    <path d="M182 98H288" stroke="#14B8A6" stroke-width="5"/>
+    <path d="M288 98H402" stroke="#14B8A6" stroke-width="5"/>
+    <path d="M402 98H455" stroke="#14B8A6" stroke-opacity="0.72" stroke-width="5"/>
+    <path d="M455 98H520" stroke="#F97316" stroke-opacity="0.68" stroke-width="5"/>
+    <path d="M288 98V62H338" stroke="#14B8A6" stroke-opacity="0.7" stroke-width="5"/>
+    <path d="M402 98V138H454" stroke="#F97316" stroke-opacity="0.68" stroke-width="5"/>
+
+    <path d="M82 126L110 56L138 126" stroke="#F7F8FA" stroke-width="8"/>
+    <path d="M96 98H124" stroke="#F7F8FA" stroke-width="8"/>
+
+    <path d="M182 60V126" stroke="#F7F8FA" stroke-width="8"/>
+
+    <path d="M252 56V126" stroke="#F7F8FA" stroke-width="8"/>
+    <path d="M252 98H288" stroke="#F7F8FA" stroke-width="8"/>
+    <path d="M252 98L302 56" stroke="#F7F8FA" stroke-width="8"/>
+    <path d="M252 98L304 126" stroke="#F7F8FA" stroke-width="8"/>
+
+    <path d="M402 56V144" stroke="#F7F8FA" stroke-width="8"/>
+    <path d="M402 56H448C468 56 480 64 480 78C480 91 468 98 448 98H402" stroke="#F7F8FA" stroke-width="8"/>
+    <path d="M402 98H454C478 98 492 108 492 124C492 139 478 148 450 148H402" stroke="#F7F8FA" stroke-width="8"/>
+  </g>
+
+  <circle cx="58" cy="98" r="6" fill="#14B8A6"/>
+  <circle cx="124" cy="98" r="6" fill="#14B8A6"/>
+  <circle cx="182" cy="98" r="6" fill="#14B8A6" fill-opacity="0.84"/>
+  <circle cx="288" cy="98" r="7" fill="#14B8A6"/>
+  <circle cx="338" cy="62" r="6" fill="#14B8A6" fill-opacity="0.72"/>
+  <circle cx="402" cy="98" r="7" fill="#14B8A6"/>
+  <circle cx="454" cy="138" r="6" fill="#F97316" fill-opacity="0.76"/>
+  <circle cx="520" cy="98" r="6" fill="#F97316" fill-opacity="0.82"/>
+</svg>

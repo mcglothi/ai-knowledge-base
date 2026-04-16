@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIKB Preview</title>
+    <style>
+      :root {
+        --ink: #0c1522;
+        --cloud: #f6f1e9;
+        --cobalt: #7dd3fc;
+        --steel: #94a3b8;
+        --panel: rgba(12, 21, 34, 0.78);
+        --line: rgba(148, 163, 184, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--cloud);
+        background:
+          radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 32%),
+          radial-gradient(circle at 82% 12%, rgba(148, 163, 184, 0.1), transparent 24%),
+          linear-gradient(180deg, #0c1522 0%, #070d16 100%);
+        min-height: 100vh;
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 28px 0 64px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(8, 13, 20, 0.56);
+        backdrop-filter: blur(12px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+      }
+
+      .brand strong {
+        display: block;
+        font-size: 0.95rem;
+        letter-spacing: 0.14em;
+      }
+
+      .brand span {
+        color: #b8c2cf;
+        font-size: 0.88rem;
+      }
+
+      .navlinks {
+        display: flex;
+        gap: 18px;
+        color: #b8c2cf;
+        font-size: 0.94rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 36px;
+        padding: 56px 0 40px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border: 1px solid rgba(125, 211, 252, 0.22);
+        border-radius: 999px;
+        color: #d5efff;
+        font-size: 0.84rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: rgba(125, 211, 252, 0.1);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--cobalt);
+        box-shadow: 0 0 18px rgba(125, 211, 252, 0.56);
+      }
+
+      h1 {
+        margin: 18px 0 14px;
+        font-size: clamp(3rem, 7vw, 5.7rem);
+        line-height: 0.94;
+        letter-spacing: -0.05em;
+      }
+
+      .lede {
+        margin: 0 0 18px;
+        font-size: 1.3rem;
+        color: #e6edf6;
+        max-width: 18ch;
+      }
+
+      .subcopy {
+        margin: 0 0 28px;
+        color: #b5c0ce;
+        line-height: 1.7;
+        max-width: 58ch;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 168px;
+        padding: 14px 18px;
+        border-radius: 14px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        color: inherit;
+        font-weight: 600;
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--cobalt), #c7ebff);
+        color: #082033;
+      }
+
+      .button.secondary {
+        border-color: rgba(100, 116, 139, 0.3);
+        background: rgba(15, 23, 32, 0.42);
+      }
+
+      .panel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 100%),
+          rgba(8, 13, 20, 0.74);
+        padding: 24px;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      }
+
+      .panel::after {
+        content: "";
+        position: absolute;
+        inset: auto -20% -30% auto;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(125, 211, 252, 0.18), transparent 68%);
+      }
+
+      .terminal {
+        border-radius: 18px;
+        border: 1px solid rgba(100, 116, 139, 0.2);
+        background: rgba(6, 10, 16, 0.94);
+        overflow: hidden;
+      }
+
+      .terminal-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(100, 116, 139, 0.18);
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: #314253;
+      }
+
+      .terminal-body {
+        padding: 20px;
+        font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 0.92rem;
+        line-height: 1.65;
+        color: #d4dce7;
+      }
+
+      .terminal-body .accent {
+        color: #9fdcff;
+      }
+
+      .terminal-body .warm {
+        color: #d6e0ec;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .stat {
+        padding: 16px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: rgba(12, 19, 27, 0.68);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+
+      .section {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        padding: 22px;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(10, 16, 24, 0.74);
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 1.08rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: #b5c0ce;
+        line-height: 1.65;
+      }
+
+      .footer {
+        margin-top: 34px;
+        padding-top: 20px;
+        color: #91a0b3;
+        border-top: 1px solid rgba(100, 116, 139, 0.14);
+        font-size: 0.94rem;
+      }
+
+      @media (max-width: 940px) {
+        .hero,
+        .section {
+          grid-template-columns: 1fr;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .navlinks {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="nav">
+        <div class="brand">
+          <img src="../_branding/aikb-mark.svg" alt="AIKB mark" />
+          <div>
+            <strong>AIKB</strong>
+            <span>Persistent memory for your AI tools</span>
+          </div>
+        </div>
+        <div class="navlinks">
+          <span>Local-first</span>
+          <span>Git-backed</span>
+          <span>Multi-agent</span>
+          <span>Inspectable</span>
+        </div>
+      </section>
+
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Direction A / Mineral Cobalt</div>
+          <h1>AIKB</h1>
+          <p class="lede">Persistent memory for your AI tools.</p>
+          <p class="subcopy">
+            Give your agents shared context that survives across sessions, tools, and machines.
+            AIKB stays local-first, Git-backed, and fully inspectable so your memory system feels like
+            infrastructure you control instead of a black box you hope is right.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#">Use this template</a>
+            <a class="button secondary" href="#">Read the docs</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="terminal">
+            <div class="terminal-top">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+            <div class="terminal-body">
+              <div><span class="accent">$</span> ask "what changed since last session?"</div>
+              <div>reading <span class="warm">_index.md</span> and <span class="warm">_state.yaml</span> ...</div>
+              <div>found:</div>
+              <div>  <span class="accent">-</span> open SSL renewal due in 18 days</div>
+              <div>  <span class="accent">-</span> pending client approval on AWS simplification</div>
+              <div>  <span class="accent">-</span> AIKB public launch checklist in progress</div>
+              <div style="margin-top: 10px;"><span class="accent">$</span> ask "what should I do next?"</div>
+              <div>loaded decision context from prior sessions</div>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>1 repo</strong>
+              <span>shared memory substrate</span>
+            </div>
+            <div class="stat">
+              <strong>Any tool</strong>
+              <span>Claude, Gemini, Codex, Cursor, more</span>
+            </div>
+            <div class="stat">
+              <strong>No black box</strong>
+              <span>Markdown + Git + inspectable structure</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <article class="card">
+          <h3>Shared context</h3>
+          <p>Stop re-explaining your machines, projects, and decisions whenever you switch sessions or tools.</p>
+        </article>
+        <article class="card">
+          <h3>Local-first trust</h3>
+          <p>Keep memory in a repo you control, with explicit files, history, diffs, and reviewable changes.</p>
+        </article>
+        <article class="card">
+          <h3>Operator-grade flow</h3>
+          <p>Start with Markdown and Git. Add semantic search, MCP access, and richer workflows only when you want them.</p>
+        </article>
+      </section>
+
+      <div class="footer">
+        Temporary branding preview for AIKB. Direction: editorial wordmark / mineral cobalt.
+      </div>
+    </main>
+  </body>
+</html>

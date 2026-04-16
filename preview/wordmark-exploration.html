@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIKB Wordmark Exploration</title>
+    <style>
+      :root {
+        --ink: #0f1720;
+        --cloud: #f7f8fa;
+        --teal: #14b8a6;
+        --orange: #f97316;
+        --steel: #64748b;
+        --panel: rgba(9, 15, 22, 0.78);
+        --line: rgba(122, 141, 161, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: var(--cloud);
+        background:
+          radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 28%),
+          radial-gradient(circle at 84% 0%, rgba(249, 115, 22, 0.12), transparent 24%),
+          linear-gradient(180deg, #101923 0%, #0b1118 100%);
+      }
+
+      .shell {
+        width: min(1320px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 42px 0 56px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 13px;
+        border: 1px solid rgba(20, 184, 166, 0.28);
+        border-radius: 999px;
+        color: #b9fff3;
+        background: rgba(20, 184, 166, 0.1);
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--teal);
+      }
+
+      h1 {
+        margin: 18px 0 10px;
+        font-size: clamp(2.9rem, 6vw, 5.2rem);
+        line-height: 0.94;
+        letter-spacing: -0.05em;
+      }
+
+      .lede {
+        max-width: 64ch;
+        margin: 0 0 28px;
+        color: #c7d1dc;
+        font-size: 1.08rem;
+        line-height: 1.75;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        min-height: 560px;
+        padding: 24px;
+        border-radius: 30px;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 100%),
+          var(--panel);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.26);
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        right: -70px;
+        bottom: -90px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(20, 184, 166, 0.18), transparent 70%);
+      }
+
+      .label {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 104px;
+        padding: 8px 11px;
+        border-radius: 999px;
+        font-size: 0.77rem;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: #d7dee7;
+        background: rgba(100, 116, 139, 0.14);
+        border: 1px solid rgba(100, 116, 139, 0.28);
+      }
+
+      .card h2 {
+        margin: 18px 0 10px;
+        font-size: 1.3rem;
+      }
+
+      .card p,
+      .meta li {
+        color: #bac5d2;
+        line-height: 1.65;
+      }
+
+      .wordmark {
+        margin: 42px 0 34px;
+        padding: 24px 0;
+        border-top: 1px solid rgba(100, 116, 139, 0.2);
+        border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+      }
+
+      .meta {
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .meta li + li {
+        margin-top: 10px;
+      }
+
+      .option-a {
+        font-family: "Times New Roman", Georgia, serif;
+        font-size: 4.5rem;
+        letter-spacing: 0.16em;
+        color: #f3f6f9;
+      }
+
+      .option-a .k {
+        position: relative;
+        display: inline-block;
+        margin-left: 0.05em;
+      }
+
+      .option-a .k::after {
+        content: "";
+        position: absolute;
+        left: 0.12em;
+        right: 0.03em;
+        bottom: 0.08em;
+        height: 0.08em;
+        background: linear-gradient(90deg, transparent, var(--teal), transparent);
+      }
+
+      .option-b {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.18em;
+        font-family: "Arial Narrow", "Avenir Next Condensed", sans-serif;
+        font-size: 4.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #f4f7fb;
+      }
+
+      .option-b .k-wrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.08em;
+        height: 1.08em;
+        margin-left: 0.05em;
+        border: 2px solid rgba(20, 184, 166, 0.3);
+        border-radius: 0.14em;
+      }
+
+      .option-b .k-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 0.18em;
+        border: 1px solid rgba(249, 115, 22, 0.34);
+        border-radius: 0.08em;
+      }
+
+      .option-b .k {
+        color: var(--teal);
+        transform: translateY(-0.02em);
+      }
+
+      .option-c {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.18em;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        font-size: 4rem;
+        font-weight: 650;
+        letter-spacing: 0.08em;
+        color: #f4f7fb;
+        text-transform: uppercase;
+      }
+
+      .option-c .letter {
+        position: relative;
+        z-index: 2;
+      }
+
+      .option-c .path {
+        position: absolute;
+        left: -0.1em;
+        right: -0.22em;
+        top: 50%;
+        height: 0.12em;
+        transform: translateY(-50%);
+        background: linear-gradient(90deg, rgba(20, 184, 166, 1), rgba(20, 184, 166, 0.95) 72%, rgba(249, 115, 22, 0.76));
+        border-radius: 999px;
+        z-index: 1;
+      }
+
+      .option-c .path::before,
+      .option-c .path::after {
+        content: "";
+        position: absolute;
+        width: 0.16em;
+        height: 0.16em;
+        border-radius: 999px;
+      }
+
+      .option-c .path::before {
+        left: -0.02em;
+        top: -0.02em;
+        background: var(--teal);
+        box-shadow: 2.1em 0 0 var(--teal), 4.82em 0 0 var(--teal), 7.78em 0 0 var(--orange);
+      }
+
+      .option-c .path::after {
+        left: 4.8em;
+        top: -0.86em;
+        width: 0.12em;
+        height: 0.86em;
+        border-radius: 0;
+        background: linear-gradient(180deg, rgba(20, 184, 166, 0.95), rgba(20, 184, 166, 0.15));
+        box-shadow: 2.98em 0.88em 0 0 rgba(249, 115, 22, 0.76);
+      }
+
+      .caption {
+        display: block;
+        margin-top: 16px;
+        color: #7fe8dc;
+        font-size: 0.84rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        margin-top: 24px;
+        padding: 18px 20px;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(10, 16, 24, 0.7);
+        color: #c9d2dd;
+        line-height: 1.7;
+      }
+
+      strong {
+        color: #f6fafc;
+      }
+
+      @media (max-width: 1100px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          min-height: auto;
+        }
+      }
+    </style>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="eyebrow">AIKB brand study</div>
+      <h1>Wordmark exploration for a calmer, sharper AIKB.</h1>
+      <p class="lede">
+        The existing repo direction is structurally right but still feels hand-constructed. These directions push the
+        brand toward premium typography, a more intentional `K`, and a cleaner signal-relay cue without falling into
+        generic AI visuals.
+      </p>
+
+      <section class="grid">
+        <article class="card">
+          <span class="label">Direction A</span>
+          <h2>Editorial precision</h2>
+          <p>
+            Treat `AIKB` like a serious software imprint. Wider spacing and serif tension make the acronym feel
+            deliberate instead of merely abbreviated.
+          </p>
+          <div class="wordmark">
+            <div class="option-a">AI<span class="k">K</span>B</div>
+            <span class="caption">Premium typographic wordmark</span>
+          </div>
+          <ul class="meta">
+            <li><strong>Signal:</strong> Trust, permanence, documentation-grade confidence.</li>
+            <li><strong>Best use:</strong> README hero, launch lockups, editorial product page.</li>
+            <li><strong>Risk:</strong> Can skew too literary if the supporting UI is not crisp enough.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="label">Direction B</span>
+          <h2>Framed custom K</h2>
+          <p>
+            Build the identity around a distinct `K` so the acronym feels ownable. The framing device hints at tabs,
+            records, and durable structure rather than futuristic spectacle.
+          </p>
+          <div class="wordmark">
+            <div class="option-b">
+              <span>AI</span>
+              <span class="k-wrap"><span class="k">K</span></span>
+              <span>B</span>
+            </div>
+            <span class="caption">Custom K wordmark</span>
+          </div>
+          <ul class="meta">
+            <li><strong>Signal:</strong> Productized, branded, memorable.</li>
+            <li><strong>Best use:</strong> App header, favicon family, icon system.</li>
+            <li><strong>Risk:</strong> The box can feel a little forced if it gets too decorative.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="label">Direction C</span>
+          <h2>Relay line accent</h2>
+          <p>
+            Keep the letterforms restrained, but make the relay path structural. The goal is a routed spine that
+            feels closer to a Git tree or circuit path tying the system together, without becoming a loud diagram.
+          </p>
+          <div class="wordmark">
+            <div class="option-c">
+              <span class="path"></span>
+              <span class="letter">A</span>
+              <span class="letter">I</span>
+              <span class="letter">K</span>
+              <span class="letter">B</span>
+            </div>
+            <span class="caption">Wordmark with subtle relay motif</span>
+          </div>
+          <ul class="meta">
+            <li><strong>Signal:</strong> Flow, handoff, continuity across sessions and tools.</li>
+            <li><strong>Best use:</strong> Docs site masthead, motion-ready logo lockup.</li>
+            <li><strong>Risk:</strong> The routed spine must stay spare or it starts reading as network art.</li>
+          </ul>
+        </article>
+      </section>
+
+      <div class="footer">
+        <strong>Current recommendation:</strong> Start from <strong>Direction C</strong> for the production repo
+        update, but push it further into a routed, Git-tree-like spine that literally connects the acronym. Direction
+        A is still the strongest alternate if the brand should feel more editorial than infrastructural.
+      </div>
+    </main>
+  </body>
+</html>

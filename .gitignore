@@ -1,0 +1,41 @@
+# Secrets — never commit these
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+credentials/
+.bw_session
+.op_session
+
+# Editor artifacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+
+# Backup files created by install.sh
+*.bak
+
+# Personal config saved by install.sh — used by sync.sh, never committed
+.aikb-config.d/
+
+# aikb-search tool artifacts
+_tools/aikb-search/.venv/
+_tools/aikb-search/aikb_index.db
+_tools/aikb-search/index.log
+_tools/aikb-search/__pycache__/
+
+# OS artifacts
+__pycache__/
+*.pyc
+
+# Runtime maintenance logs
+_runtime/maintenance/*.log
+
+# Raw runtime event logs are local working memory by default
+_runtime/events/*.ndjson
