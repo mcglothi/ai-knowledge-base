@@ -83,8 +83,16 @@ Vault at `vault.home.timmcg.net`. Session file: `~/.bw_session`.
 
 ---
 
-## Session End (Copilot CLI has no Stop hook — run this before finishing)
+## Session End (Copilot CLI has no Stop hook — wrapper handles it automatically)
 
+A shell wrapper runs `aikb-session-stop.sh` automatically when the `copilot` command exits.
+It is sourced from `~/.zshrc` via:
+
+```bash
+source /home/tmcglothin/code/AIKB/_tools/memory-pipeline/copilot-wrapper.sh
+```
+
+Manual fallback if needed:
 ```bash
 bash /home/tmcglothin/code/AIKB/_tools/memory-pipeline/aikb-session-stop.sh
 ```

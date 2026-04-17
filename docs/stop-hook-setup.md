@@ -86,6 +86,18 @@ The wrapper defines a `codex()` shell function that runs the real Codex binary f
 
 If you prefer not to shadow `codex`, use the manual fallback below instead.
 
+## GitHub Copilot CLI
+
+Copilot CLI does not expose a native Stop hook. AIKB ships a wrapper at `_tools/memory-pipeline/copilot-wrapper.sh`.
+
+Add this line to your shell startup file (`~/.zshrc` or `~/.bashrc`):
+
+```bash
+source {{LOCAL_PATH}}/_tools/memory-pipeline/copilot-wrapper.sh
+```
+
+The wrapper defines a `copilot()` shell function that runs the real Copilot binary, then launches `aikb-session-stop.sh` on exit. Open a new shell after adding it.
+
 ## Verification
 
 End a Claude, Gemini, or Codex session, then check:
