@@ -4,7 +4,7 @@
 
 ---
 
-**Last Updated:** 2026-04-08
+**Last Updated:** 2026-04-16
 **Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
 
 ---
@@ -22,7 +22,7 @@
 
 | Project | Status | Tags | Details |
 |---------|--------|------|---------|
-| *(no projects yet)* | — | — | — |
+| Windows Agent Integration | 🟢 Active | aikb, windows, claude-desktop, chatgpt, copilot-studio, mcp, desktop-apps | [`projects/windows-agent-integration.md`](projects/windows-agent-integration.md) |
 
 ---
 
@@ -47,6 +47,7 @@
 | Item | Project | File |
 |------|---------|------|
 | Hierarchical AIKB Design implementation | AIKB | [`docs/hierarchical-aikb-design.md`](docs/hierarchical-aikb-design.md) |
+| Windows AI app integration roadmap | AIKB | [`projects/windows-agent-integration.md`](projects/windows-agent-integration.md) |
 
 ---
 

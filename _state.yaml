@@ -6,7 +6,7 @@
 #
 # Update this file in the same commit as the related project file change.
 
-last_updated: "2026-04-14"
+last_updated: "2026-04-16"
 
 # ── SSL / TLS certificates ────────────────────────────────────────────────────
 # Add entries for any certs you manage manually. Remove when renewed.
@@ -41,6 +41,9 @@ pending:
   - title: "Hierarchical AIKB Design implementation"
     blocked_by: "Future roadmap prioritization"
     file: "docs/hierarchical-aikb-design.md"
+  - title: "Windows AI app integration roadmap"
+    blocked_by: "Implementation not yet started; needs MCP/API design prioritization"
+    file: "projects/windows-agent-integration.md"
 
 # ── Recently changed files ────────────────────────────────────────────────────
 # Auto-maintained by agents. Keep last ~10. Drop oldest when adding new.
