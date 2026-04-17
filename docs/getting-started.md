@@ -1,6 +1,9 @@
 # Getting Started with AIKB
+**Last Updated:** 2026-04-16
 
 This guide walks through setting up AIKB from scratch, filling in your first files, and getting an AI agent to use it effectively.
+
+Already have a private AIKB and just need to bring a new machine online? Use the shorter [new machine onboarding workflow](new-machine-onboarding.md).
 
 ---
 
