@@ -1,5 +1,6 @@
 # Secrets Management
 
+**Last Updated:** 2026-04-19
 **Summary:** How to integrate AIKB with your secrets manager. AIKB never stores credentials — only references to them.
 
 ---
@@ -80,6 +81,36 @@ bw login
 ```
 [Stored in Vaultwarden: PAT/Service/Item Name]
 ```
+
+---
+
+### Delinea Secret Server (formerly Thycotic)
+
+**One-time setup** — run once per machine, creates an encrypted credentials config:
+```bash
+tss init --url https://your-server/SecretServer/ -r YourRuleName -k <onboarding-key>
+```
+The rule name and onboarding key come from Secret Server's SDK Client Management page. After init, `tss` uses the stored credentials automatically.
+
+**Retrieve a secret:**
+```bash
+tss secret --secret 123 --field password
+tss secret --secret 123 --field username
+```
+
+Secrets are identified by numeric ID, not by name. Look up the ID in the Secret Server UI or ask your admin.
+
+**In AIKB files, reference as:**
+```
+[Stored in Delinea Secret Server: Secret #123 / password field]
+```
+
+Include a human-readable label alongside the ID so the reference stays meaningful:
+```
+[Stored in Delinea Secret Server: AWS Root Key (#123) / access-key-id]
+```
+
+**Tip:** The `tss` CLI is available from the Delinea Downloads portal (search "Secret Server SDK for DevOps"). There is no Homebrew formula — download and install manually. A Python SDK is also available: `pip install python-tss-sdk`.
 
 ---
 
