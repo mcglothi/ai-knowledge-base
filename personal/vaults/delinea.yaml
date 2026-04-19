@@ -1,0 +1,43 @@
+# personal/vaults/delinea.yaml
+# Delinea Secret Server — ID to friendly name registry
+#
+# Agents load this file to resolve secret names to numeric IDs before calling tss.
+# Never store secret values here. IDs, names, and field hints only.
+#
+# Usage by agents:
+#   1. Load this file when Delinea secrets are needed
+#   2. Match by name (case-insensitive) to get the ID
+#   3. Run: tss secret --secret <id> --field <field>
+#
+# See personal/vaults/README.md for full instructions.
+# Last Updated: YYYY-MM-DD
+
+server_url: https://your-server/SecretServer/
+
+secrets:
+  # ── AWS ──────────────────────────────────────────────────────────────────────
+  # - id: 101
+  #   name: "AWS Prod Access Key"
+  #   field: access-key-id
+  #   category: aws
+  #   notes: "Primary AWS credentials — prod account"
+  #
+  # - id: 102
+  #   name: "AWS Prod Secret Key"
+  #   field: secret-access-key
+  #   category: aws
+
+  # ── GitHub ───────────────────────────────────────────────────────────────────
+  # - id: 200
+  #   name: "GitHub PAT — CI"
+  #   field: password
+  #   category: vcs
+  #   notes: "Used by CI pipelines. Rotate annually."
+
+  # ── Infrastructure ───────────────────────────────────────────────────────────
+  # - id: 300
+  #   name: "Ansible Vault Password"
+  #   field: password
+  #   category: infra
+
+  # ── Add your secrets below ───────────────────────────────────────────────────
