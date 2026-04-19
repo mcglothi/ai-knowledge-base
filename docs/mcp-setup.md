@@ -1,6 +1,7 @@
 # MCP Server Setup
 
-**Summary:** How to configure the GitHub MCP server so AI agents can read and write AIKB without a local clone.
+**Last Updated:** 2026-04-19
+**Summary:** How to configure MCP servers for AIKB, including the GitHub MCP for remote access and the auto-discovery loop that surfaces new MCP opportunities as you document your environment.
 
 ---
 
@@ -102,6 +103,47 @@ The agent should read and display the file contents.
 - **Token storage:** `~/.aikb_token` is excluded by `.gitignore`. Never commit it. Never set `GITHUB_TOKEN` system-wide in a shared environment.
 - **Token rotation:** Rotate the token if it's ever exposed. GitHub will also notify you of leaked tokens if they appear in a public repo.
 - **Expiry:** Set token expiry to match your rotation cadence. A calendar reminder is useful.
+
+---
+
+---
+
+## MCP auto-discovery
+
+AIKB includes a registry of known MCP servers at `_tools/mcp-registry.yaml`. When an agent writes an environmental fact about a tool or platform — "org uses PagerDuty for alerting", "we use Infoblox for IPAM" — it checks the registry for a matching MCP server.
+
+**When a match is found**, the agent:
+1. Mentions it in conversation: *"Noted. There's an MCP server for PagerDuty — want me to add it to your setup?"*
+2. Logs a low-priority item to `_pending_approvals.md` so it's not forgotten if you're mid-task
+
+**Example approval entry:**
+```
+| 2026-04-19 | Claude Code | env discovery | pagerduty-mcp available — org uses PagerDuty for alerting | mcp-discovery | pending |
+```
+
+**Trigger conditions** — agents check the registry when:
+- Writing a new environmental fact to any AIKB file
+- You ask: *"are there any MCP servers we should be using?"*
+- Wake-up surfaces a tool mention in `_state.yaml` or `_index.md` without a matching configured MCP
+
+**No duplicate suggestions** — agents skip tools already listed in your MCP configuration.
+
+### Registry entries marked `wanted`
+
+Some registry entries have `status: wanted` — these are tools where no MCP server exists yet, but one would be useful. They're tracked as ecosystem gaps. If you build one, submit it upstream.
+
+### Adding entries to the registry
+
+```yaml
+- keywords: ["MyTool", "mytool.io"]
+  mcp_name: "mytool-mcp"
+  install: "npm install mytool-mcp"
+  capabilities:
+    - what the MCP can do
+  status: community
+```
+
+Contributions to `_tools/mcp-registry.yaml` that are tool-agnostic belong in the public template at `mcglothi/ai-knowledge-base`.
 
 ---
 

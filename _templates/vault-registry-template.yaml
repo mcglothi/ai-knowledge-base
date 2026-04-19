@@ -1,0 +1,24 @@
+# _templates/vault-registry-template.yaml
+# Template for a vault ID registry in personal/vaults/
+#
+# Copy this to personal/vaults/<vault-name>.yaml and fill in your secrets.
+# Never store secret values here. IDs, names, and field hints only.
+#
+# See personal/vaults/README.md for full usage instructions.
+#
+# Last Updated: YYYY-MM-DD
+
+# server_url: https://your-vault-server/path/   # optional — vault base URL
+
+secrets:
+  # ── Category name ─────────────────────────────────────────────────────────
+  - id: 0                        # numeric ID from the vault UI
+    name: "Friendly Name Here"   # what you call this secret in conversation
+    field: password              # vault field to retrieve (password, username, etc.)
+    category: other              # aws | vcs | infra | db | api | other
+    notes: ""                    # optional — rotation date, owning team, linked service
+
+  # - id: 0
+  #   name: "Another Secret"
+  #   field: username
+  #   category: db

@@ -91,6 +91,16 @@ bw get password "PAT/<Service>/<Name>" --session "$BW_SESSION"
 - Never run `bw unlock` (hangs interactively)
 - Never run `bw status` without `--session`
 
+**Delinea Secret Server pattern:**
+- Load `personal/vaults/delinea.yaml` to resolve a friendly name → numeric ID
+- Then retrieve: `tss secret --secret <id> --field <field>`
+- If the registry doesn't have the secret, ask the operator for the ID and add it
+
+**MCP auto-discovery:**
+- When writing an environmental fact about a tool or platform (e.g. "org uses PagerDuty"), check `_tools/mcp-registry.yaml` for a matching MCP server
+- If found: mention it in conversation and log to `_pending_approvals.md` (type: `mcp-discovery`, priority: low)
+- Skip if the tool is already in the operator's MCP configuration
+
 ---
 
 ## Session End

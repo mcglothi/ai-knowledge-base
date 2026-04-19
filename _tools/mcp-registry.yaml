@@ -1,0 +1,143 @@
+# _tools/mcp-registry.yaml
+# MCP server registry — maps tool/platform keywords to known MCP servers.
+#
+# When an agent writes an environmental fact about a tool or platform
+# (e.g. "org uses PagerDuty for alerting"), it checks this file for a match.
+# If found, it surfaces a suggestion in conversation and logs it to
+# _pending_approvals.md for follow-up.
+#
+# Status values:
+#   official     — published by the tool vendor
+#   community    — well-maintained community package
+#   experimental — early-stage or unofficial
+#   wanted       — no MCP exists yet; tracked as a gap
+#
+# To add an entry: fill in keywords, mcp_name, install, capabilities, status.
+# To mark a gap: set status: wanted and leave install/mcp_name as comments.
+#
+# Last Updated: 2026-04-19
+
+integrations:
+
+  # ── Version control ──────────────────────────────────────────────────────────
+  - keywords: ["GitHub", "github.com"]
+    mcp_name: "@modelcontextprotocol/server-github"
+    install: "npx -y @modelcontextprotocol/server-github"
+    capabilities:
+      - search code and issues
+      - read and write files in a repo
+      - manage pull requests
+    status: official
+    docs: "https://github.com/modelcontextprotocol/servers/tree/main/src/github"
+
+  - keywords: ["GitLab"]
+    mcp_name: "gitlab-mcp"
+    install: "npx -y @modelcontextprotocol/server-gitlab"
+    capabilities:
+      - read repos, issues, and MRs
+      - manage pipelines
+    status: community
+
+  # ── Project management ───────────────────────────────────────────────────────
+  - keywords: ["Jira", "Atlassian", "Confluence"]
+    mcp_name: "jira-mcp"
+    install: "npx -y @modelcontextprotocol/server-atlassian"
+    capabilities:
+      - query and create Jira issues
+      - read Confluence pages
+    status: community
+
+  - keywords: ["Linear"]
+    mcp_name: "linear-mcp"
+    install: "npx -y @linear/mcp-server"
+    capabilities:
+      - query issues and projects
+      - create and update issues
+    status: official
+
+  # ── Observability & incidents ────────────────────────────────────────────────
+  - keywords: ["PagerDuty", "pagerduty"]
+    mcp_name: "pagerduty-mcp"
+    install: "npx -y @pagerduty/mcp-server"
+    capabilities:
+      - list and acknowledge incidents
+      - query on-call schedules
+      - create alerts
+    status: community
+
+  - keywords: ["Sentry", "sentry.io"]
+    mcp_name: "sentry-mcp"
+    install: "npx -y @sentry/mcp-server"
+    capabilities:
+      - query errors and issues
+      - read stack traces
+    status: community
+
+  # ── Databases ────────────────────────────────────────────────────────────────
+  - keywords: ["PostgreSQL", "Postgres", "pg"]
+    mcp_name: "@modelcontextprotocol/server-postgres"
+    install: "npx -y @modelcontextprotocol/server-postgres"
+    capabilities:
+      - query tables
+      - inspect schema
+    status: official
+
+  - keywords: ["SQLite"]
+    mcp_name: "@modelcontextprotocol/server-sqlite"
+    install: "npx -y @modelcontextprotocol/server-sqlite"
+    capabilities:
+      - read and write SQLite databases
+    status: official
+
+  # ── Communication ────────────────────────────────────────────────────────────
+  - keywords: ["Slack"]
+    mcp_name: "@modelcontextprotocol/server-slack"
+    install: "npx -y @modelcontextprotocol/server-slack"
+    capabilities:
+      - read channels and messages
+      - post messages
+    status: official
+
+  # ── Search ───────────────────────────────────────────────────────────────────
+  - keywords: ["Brave Search", "web search"]
+    mcp_name: "@modelcontextprotocol/server-brave-search"
+    install: "npx -y @modelcontextprotocol/server-brave-search"
+    capabilities:
+      - web search via Brave API
+    status: official
+
+  # ── Secrets & identity ───────────────────────────────────────────────────────
+  - keywords: ["Delinea", "Secret Server", "Thycotic", "tss"]
+    mcp_name: "delinea-mcp"
+    install: null   # no MCP server exists yet
+    capabilities:
+      - retrieve secrets by name (planned)
+      - list vaults (planned)
+    status: wanted
+    notes: "tss CLI available; MCP would allow name-based lookup without local registry"
+
+  - keywords: ["HashiCorp Vault", "Vault", "hvault"]
+    mcp_name: "vault-mcp"
+    install: "npx -y @hashicorp/mcp-server-vault"
+    capabilities:
+      - read KV secrets
+      - manage leases
+    status: community
+
+  # ── Networking & infrastructure ──────────────────────────────────────────────
+  - keywords: ["Infoblox", "IPAM", "DDI"]
+    mcp_name: "infoblox-mcp"
+    install: null   # no MCP server exists yet
+    capabilities:
+      - query DNS records (planned)
+      - manage IPAM allocations (planned)
+    status: wanted
+    notes: "REST API available; MCP would allow natural-language IPAM queries"
+
+  - keywords: ["Cloudflare"]
+    mcp_name: "@cloudflare/mcp-server-cloudflare"
+    install: "npx -y @cloudflare/mcp-server-cloudflare"
+    capabilities:
+      - manage DNS records
+      - query Workers and KV
+    status: official

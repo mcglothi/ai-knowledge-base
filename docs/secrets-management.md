@@ -1,6 +1,6 @@
 # Secrets Management
 
-**Last Updated:** 2026-04-19
+**Last Updated:** 2026-04-19 (rev 2)
 **Summary:** How to integrate AIKB with your secrets manager. AIKB never stores credentials — only references to them.
 
 ---
@@ -111,6 +111,8 @@ Include a human-readable label alongside the ID so the reference stays meaningfu
 ```
 
 **Tip:** The `tss` CLI is available from the Delinea Downloads portal (search "Secret Server SDK for DevOps"). There is no Homebrew formula — download and install manually. A Python SDK is also available: `pip install python-tss-sdk`.
+
+**Secret ID registry:** Because `tss` uses numeric IDs, AIKB provides a lookup table at `personal/vaults/delinea.yaml`. Agents load this to resolve a friendly name like "Ansible Vault Password" to its ID before calling `tss`. See [`personal/vaults/README.md`](../personal/vaults/README.md) for setup instructions.
 
 ---
 

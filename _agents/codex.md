@@ -81,6 +81,16 @@ AIKB is exempt — always push `_runtime/` and canonical docs directly to `main`
 
 Use your secrets manager. Reference secrets as `[Stored in Vaultwarden: <Item Name>]`.
 
+**Delinea Secret Server pattern:**
+- Load `personal/vaults/delinea.yaml` to resolve a friendly name → numeric ID
+- Then retrieve: `tss secret --secret <id> --field <field>`
+- If the registry doesn't have the secret, ask the operator for the ID and add it
+
+**MCP auto-discovery:**
+- When writing an environmental fact about a tool or platform, check `_tools/mcp-registry.yaml` for a matching MCP server
+- If found: mention it in conversation and log to `_pending_approvals.md` (type: `mcp-discovery`, priority: low)
+- Skip if the tool is already configured
+
 ---
 
 ## Session End
