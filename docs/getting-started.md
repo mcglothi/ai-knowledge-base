@@ -1,6 +1,9 @@
 # Getting Started with AIKB
+**Last Updated:** 2026-04-19
 
 This guide walks through setting up AIKB from scratch, filling in your first files, and getting an AI agent to use it effectively.
+
+Already have a private AIKB and just need to bring a new machine online? Use the shorter [new machine onboarding workflow](new-machine-onboarding.md).
 
 ---
 
@@ -188,22 +191,23 @@ After the initial setup, agents take over most of the maintenance. At the end of
 - Update `_state.yaml` if anything time-sensitive changed
 - Commit and push
 
-Optional but helpful once you start using runtime memory:
-- Use `python3 _tools/memory-pipeline/runtime_cli.py hud` for a compact operator snapshot
-- Use `python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"` when ending a session to capture a structured closeout event
-- Track human sign-off items in `_pending_approvals.md` or via `python3 _tools/memory-pipeline/approvals_cli.py`
-- Capture repeated shorthand requests in [`home-lab/runbooks/operator-intents.md`](../home-lab/runbooks/operator-intents.md) so future sessions can execute them without rediscovery
+**You don't need to manage any of this directly.** Just talk to your agent:
 
-If you want the smallest useful habit stack, start here:
-1. Run `hud` once at the start of a longer session.
-2. Set a focus task when the work is likely to branch.
-3. Use approvals for high-impact or preference-sensitive decisions.
-4. End with `closeout`.
+| What you want | What to say |
+|---|---|
+| Explicit session summary | "What was I working on?" *(optional — agent orients itself automatically)* |
+| Set today's goal | "My focus is X" |
+| Flag something for sign-off | "Ask me before you do X" |
+| Save a decision | "Remember that we decided Y because Z" |
+| Wrap up | "Let's wrap up" |
+| Force a sync | "Update AIKB with what we learned today" |
 
-See [`operator-loop.md`](operator-loop.md) for the fast path.
-If you prefer a terminal walkthrough, run `bash _tools/feature-tour.sh`.
+If you want the smallest useful habit stack, there's really just one habit:
+- **End sessions with:** "Let's wrap up" — this captures context so the next session picks up where you left off.
 
-You can also ask explicitly: "Update AIKB with what we learned today."
+Wake-up is automatic. Agents configured with AIKB orient themselves at the start of every session without you having to ask. If you want an explicit summary anyway, just say "what was I working on?" and you'll get one.
+
+See [`operator-loop.md`](operator-loop.md) for the full daily rhythm and examples.
 
 ---
 

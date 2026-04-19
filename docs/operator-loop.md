@@ -1,160 +1,116 @@
 # Operator Loop
 
-**Summary:** The quickest way to feel AIKB working in real life: a small daily loop for focus, wrap-up, approvals, and recurring shorthand requests.
+**Last Updated:** 2026-04-19
+**Summary:** The daily loop that makes AIKB feel alive. No commands to remember — just talk to your agent.
 
 ---
 
-## Session Start: wake-up
+## How it works
 
-Run one command at the start of every session:
+Your agent knows what to do. You just say what you need.
 
-    python3 _tools/memory-pipeline/runtime_cli.py wake-up
+| What you want | What you say |
+|---|---|
+| Explicit session summary | "What was I working on last time?" *(optional — agent wakes itself up automatically)* |
+| Current state snapshot | "What's the current state of things?" |
+| Set a session focus | "My focus today is shipping the docs refresh" |
+| Flag something for sign-off | "Ask me before you publish anything public" |
+| Wrap up | "Let's wrap up" |
+| Capture a decision | "Remember that we switched to PostgreSQL — SQLite had deadlock issues under concurrent load" |
 
-Output: SSL expiry warnings, pending blockers, in-progress items, recent events.
-This replaces reading `_index.md` and `_state.yaml` manually.
-
----
-
-## The 5-Minute Version
-
-If you only adopt one advanced AIKB habit, make it this:
-
-```bash
-# 1. See current session state
-python3 _tools/memory-pipeline/runtime_cli.py hud
-
-# 2. Set the current objective
-python3 _tools/memory-pipeline/runtime_cli.py focus set \
-  --task "Ship docs refresh" \
-  --verify "Open README and confirm new sections are visible"
-
-# 3. If the agent needs sign-off for something meaningful
-python3 _tools/memory-pipeline/approvals_cli.py add \
-  --agent "Claude Code" \
-  --project "AIKB" \
-  --action "Publish public docs redesign" \
-  --notes "Higher-visibility launch change"
-
-# 4. Wrap up when you stop
-python3 _tools/memory-pipeline/runtime_cli.py closeout \
-  --phrase "lets wrap up for now"
-```
-
-That is enough to make AIKB feel active instead of static.
+The agent handles all of this internally. You don't need to remember tool names or commands.
 
 ---
 
-## What Each Part Gives You
+## The Daily Rhythm
 
-### `hud`
+### Starting a session
 
-Shows the operator-facing snapshot:
-- current working tree cleanliness
-- active session info
-- recent approvals
-- runtime-memory activity
-- focus state if one is set
+You don't need to do anything — agents configured with AIKB wake themselves up automatically at the start of each session. They'll check pending items, open incidents, SSL warnings, and in-progress tasks before you say a word.
 
-Use it when you want the "what state are we in?" answer fast.
+If you want a more explicit summary, just ask:
 
-### `focus set`
+> "What was I working on last time?"
 
-Keeps the current objective visible for longer sessions.
+> "Anything I should know before we start?"
 
-Good examples:
-- `"Ship onboarding docs"`
-- `"Debug deploy failure"`
-- `"Review queued approvals"`
+The agent will give you a structured snapshot on demand, but it's already oriented — you can also just dive straight into the work.
 
-Good verification steps:
-- `"Run tests and confirm green"`
-- `"Open the live page and confirm layout"`
-- `"Check git status and approval queue"`
+### Setting a focus
 
-### `approvals_cli.py`
+When a session is likely to branch, set a focus early:
 
-Use approvals when the agent is about to do something with:
-- architectural consequences
-- preference ambiguity
-- money or spending impact
-- security implications
-- public-facing changes you want to sanity-check first
+> "My focus for this session is debugging the deploy failure"
 
-This creates a visible trust layer instead of hiding those decisions inside chat history.
+> "I want to ship the onboarding docs today"
 
-### `closeout`
+This keeps the agent oriented when you go down rabbit holes. Good verification steps tell the agent what "done" looks like: "confirm the tests are green", "open the live page and check the layout."
 
-Captures how a session ended:
-- repo cleanliness
-- branch context
-- active focus/task state
-- queue and approval counts
-- any explicit wrap-up phrase that triggered the close
+### Approvals
 
-This makes the next session easier to resume.
+For decisions with architectural consequences, spending impact, or public-facing changes, tell your agent upfront:
 
----
+> "Don't push anything to production without asking me first"
 
-## Capture quality
+> "Flag it before you delete anything"
 
-Good capture makes the compact-and-recall loop work. A one-line capture preserves the decision but loses the *shape* of reasoning around unfinished work.
+This creates a visible trust layer instead of those decisions disappearing into chat history.
 
-The four-field capture model adds high-fidelity context:
+### Capturing decisions mid-session
 
-- **Rejected:** what was tried or considered and ruled out, and why. Prevents future agents from re-litigating solved questions.
-- **Assumptions:** things true right now that won't be obvious from the code later.
-- **Invariants:** temporary states: things intentionally broken or incomplete until X happens.
-- **Next Step:** the single most important action when this work resumes.
+When something important is decided, just say it out loud:
 
-### Example: Weak vs. Rich Capture
+> "Remember that we're using JWT, not session tokens — session tokens don't work across services"
 
-**Weak capture (preserves the decision, loses the context):**
-```bash
-python3 _tools/memory-pipeline/runtime_cli.py capture \
-  --type decision --summary "switched to PostgreSQL"
-```
+> "Save a checkpoint — migration 004 still isn't written, next step is UserService.getRole()"
 
-**Rich capture (a future agent can actually resume from this):**
-```bash
-python3 _tools/memory-pipeline/runtime_cli.py capture \
-  --type decision \
-  --summary "switched from SQLite to PostgreSQL for multi-user support" \
-  --rejected "SQLite WAL mode doesn't handle concurrent writes from multiple agents; tested and confirmed deadlocks under load" \
-  --assumptions "DB schema is read-only until migration 004 runs — do not write to users table yet" \
-  --invariants "user.role column exists but is always NULL until seeder is written" \
-  --next-step "write migration 004, then update UserService.getRole() to read from DB instead of hardcoded default"
-```
+For mid-implementation captures, richer context helps. Include what was rejected, what's still incomplete, and what the next step is. The agent will ask if it needs clarification.
+
+### Wrapping up
+
+> "Let's wrap up" or "Let's shut down"
+
+The agent captures a closeout event, syncs AIKB, and releases its session claim. The next session picks up from there.
 
 ---
 
-## Repeated Shorthand Requests
+## What good capture sounds like
 
-When you notice you keep saying the same short thing:
+The difference between a capture that helps and one that doesn't is context.
 
-- `"wrap up for now"`
-- `"wake the lab server"`
-- `"restart staging"`
-- `"remember this shortcut"`
+**Thin** — preserves the decision, loses the reasoning:
 
-capture it in [`../home-lab/runbooks/operator-intents.md`](../home-lab/runbooks/operator-intents.md).
+> "We switched to PostgreSQL."
 
-That is how AIKB turns operator habits into reusable workflows.
+**Rich** — a future agent can actually resume from this:
+
+> "We switched from SQLite to PostgreSQL for multi-user support. SQLite WAL mode deadlocked under concurrent agent writes — tested and confirmed. Migration isn't done yet, don't write to the users table. Next step is migration 004, then update UserService.getRole() to read from DB."
+
+When you're mid-implementation or the session is getting long, say what was rejected and what's still broken. A future agent reading that capture won't ask "why didn't you just use SQLite?" or "wait, is the migration done?"
 
 ---
 
-## A Good First Week Rollout
+## Repeated shorthand
 
-Day 1:
-- fill in `personal/profile.md`
-- fill in `personal/dev-environment/README.md`
-- run `hud` once
+When you notice you keep saying the same short thing — "wake the lab server", "restart staging" — tell your agent to log it:
 
-Day 2:
-- start using `closeout` when you stop
-- add one approval row for a real decision
+> "Add 'restart staging' to my operator intents so you remember how to do it next time"
 
-Day 3:
-- capture your first operator intent
-- optionally enable semantic search with `bash _tools/aikb-search/setup.sh`
+That's how AIKB turns operator habits into reusable workflows.
 
-You do not need the full memory pipeline on day one. The goal is a small loop you will actually keep using.
+---
+
+## Under the hood
+
+If you're curious what the agent is actually running, here's the mapping:
+
+| What you said | Tool invoked internally |
+|---|---|
+| "Give me a wake-up" | `runtime_cli.py wake-up` |
+| "What's the current state?" | `runtime_cli.py hud` |
+| "My focus is X" | `runtime_cli.py focus set` |
+| "Remember that..." | `runtime_cli.py capture` |
+| "Let's wrap up" | `runtime_cli.py closeout` |
+| "What's pending approval?" | `approvals_cli.py list` |
+
+You never need to run these directly.

@@ -132,24 +132,18 @@ Wrap up        -> Stop hook, wrapper, or manual closeout records the end state
 Next session   -> wake-up synthesizes what changed, agent starts informed
 ```
 
-If you enable the runtime helpers, that operator loop becomes tangible:
+In practice, you don't run any of this yourself — you just talk to your agent:
 
-```bash
-# Synthesize a compact briefing from recent events and current state
-python3 _tools/memory-pipeline/runtime_cli.py wake-up
+| What you want | What you say |
+|---|---|
+| Session context | Agent orients itself automatically at start — nothing required |
+| Explicit summary | "What was I working on last time?" |
+| Set a focus | "My focus today is shipping the dashboard cleanup" |
+| Flag for sign-off | "Ask me before you push anything public" |
+| Capture a decision | "Remember that we switched to Postgres — SQLite deadlocked under concurrent writes" |
+| Wrap up | "Let's wrap up" |
 
-# See what AIKB thinks is active right now
-python3 _tools/memory-pipeline/runtime_cli.py hud
-
-# Keep a current objective visible during longer work
-python3 _tools/memory-pipeline/runtime_cli.py focus set \
-  --task "Ship dashboard cleanup" \
-  --verify "Run tests and confirm deploy status"
-
-# When you finish for now, capture the wrap-up state
-python3 _tools/memory-pipeline/runtime_cli.py closeout \
-  --phrase "lets wrap up for now"
-```
+The agent calls the right tools internally. You never need to remember a command name. See [`docs/operator-loop.md`](docs/operator-loop.md) for the full daily rhythm and examples.
 
 Claude Code and Gemini CLI can both call the Stop hook from their settings JSON files. Codex does not expose a native Stop hook today, so AIKB includes a small wrapper script plus a manual fallback. All three routes converge on `aikb-session-stop.sh`, which captures a closeout event, runs the candidate pipeline, releases the active claim, and commits tracked `_runtime/` changes.
 
