@@ -125,12 +125,12 @@ footer a:hover{color:var(--muted)}
       <div class="t-dot" style="background:#3dd68c"></div>
     </div>
     <div class="terminal-body">
-<div><span class="t-prompt">$</span> python3 _tools/memory-pipeline/runtime_cli.py <span class="t-hi">wake-up</span></div>
-<div class="t-out">loading _index.md + _state.yaml ...</div>
+<div><span class="t-prompt">&gt;</span> <span class="t-amber">"what was I working on last time?"</span></div>
+<div class="t-out">reading recent events and active projects ...</div>
 <div class="t-grn">✓ 3 active projects · 1 open incident · 2 pending items</div>
-<div style="margin-top:0.4rem"><span class="t-prompt">$</span> python3 runtime_cli.py <span class="t-hi">capture</span> --summary <span class="t-amber">"switched auth to JWT — session tokens rejected"</span></div>
-<div class="t-grn">✓ captured to _runtime/events/2026-04-18.ndjson</div>
-<div style="margin-top:0.4rem"><span class="t-prompt">$</span> aikb_search <span class="t-amber">"what was decided about auth?"</span></div>
+<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"remember — switched auth to JWT, session tokens rejected"</span></div>
+<div class="t-grn">✓ decision captured to session memory</div>
+<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"what was decided about auth?"</span></div>
 <div class="t-out">2026-04-18  decision: switched auth to JWT</div>
 <div class="t-out">             rejected: session tokens — don't work across services</div>
     </div>
@@ -227,8 +227,8 @@ footer a:hover{color:var(--muted)}
 git clone https://github.com/YOUR_USERNAME/ai-knowledge-base.git
 cd ai-knowledge-base && bash install.sh
 
-# Start a session:
-python3 _tools/memory-pipeline/runtime_cli.py wake-up</div>
+# Open your AI tool and just start talking — your agent
+# orients itself automatically at the start of every session.</div>
       <div class="install-meta">
         <span class="install-note">Requires Python 3.8+ and git</span>
         <button class="copy-btn" onclick="copyCmd('cmd-fork',this)">Copy</button>
