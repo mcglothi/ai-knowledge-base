@@ -127,7 +127,7 @@ Wrap up        -> Stop hook, wrapper, or manual closeout records the end state
 Next session   -> wake-up synthesizes what changed, agent starts informed
 ```
 
-In practice, you don't run any of this yourself — you just talk to your agent:
+**You don't run any of this yourself.** There are no commands to memorize, no files to manually edit. You just talk to your agent:
 
 | What you want | What you say |
 |---|---|
@@ -211,17 +211,19 @@ AI tools you use. Takes about 3 minutes.
 
 **Windows users:** see [docs/windows-wsl.md](docs/windows-wsl.md) first.
 
-### Step 3: Push and fill in your profile
+### Step 3: Push, then just chat
 
 ```bash
 git push origin main
 ```
 
-Then open these two files and fill in the `[TODO]` sections:
-- `personal/profile.md` — your background, skills, stack
-- `personal/dev-environment/[hostname].md` — tools on this machine
+Open Claude Code (or your preferred agent) and say:
 
-Once filled, agents won't ask "what's your stack?" or "what machine are you on?" again.
+> "I just set up AIKB — let's fill in my profile."
+
+The agent will ask about your background, skills, stack, and machine — and write `personal/profile.md` and `personal/dev-environment/[hostname].md` directly from the conversation. No manual editing required.
+
+Once done, agents won't ask "what's your stack?" or "what machine are you on?" ever again.
 
 ---
 
