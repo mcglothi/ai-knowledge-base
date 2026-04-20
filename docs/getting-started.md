@@ -1,5 +1,5 @@
 # Getting Started with AIKB
-**Last Updated:** 2026-04-19
+**Last Updated:** 2026-04-20
 
 This guide walks through setting up AIKB from scratch, filling in your first files, and getting an AI agent to use it effectively.
 
@@ -208,6 +208,8 @@ If you want the smallest useful habit stack, there's really just one habit:
 Wake-up is automatic. Agents configured with AIKB orient themselves at the start of every session without you having to ask. If you want an explicit summary anyway, just say "what was I working on?" and you'll get one.
 
 See [`operator-loop.md`](operator-loop.md) for the full daily rhythm and examples.
+
+Optional (multi-agent teams): if you run multiple models in parallel, you can enable a lightweight inbox + archive system for agents to leave each other quick notes and review requests. See [`agent-im.md`](agent-im.md).
 
 ---
 

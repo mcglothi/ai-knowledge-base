@@ -1,6 +1,6 @@
 # Runtime Memory Staging
 
-**Last Updated:** 2026-03-25
+**Last Updated:** 2026-04-20
 **Summary:** Non-canonical staging area for runtime capture, candidate generation, nightly dream consolidation, promotion review, scratchpads, graph data, and maintenance artifacts.
 
 ---
@@ -16,6 +16,7 @@
 ## Layout
 
 - `events/` — append-only NDJSON event logs by date (`YYYY-MM-DD.ndjson`)
+- `im/` — cross-agent IM inbox + archive (file-based, advisory; local working memory by default)
 - `candidates/` — daily candidate bundles for review (`YYYY-MM-DD.yaml`)
 - `promotion-queue.md` — manual queue for approve/reject/merge tracking
 - `dreams/` — nightly dream-cycle outputs (`dream-summary`, `dream-facts`, `dream-procedures`, `dream-preferences`, `dream-rejections`)
