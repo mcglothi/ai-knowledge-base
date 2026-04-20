@@ -1,6 +1,6 @@
 # L.L. Bean — Infrastructure Engineering
 
-**Last Updated:** 2026-04-16
+**Last Updated:** 2026-04-17
 **Summary:** Platform stack, team structure, and automation context for Tim McGlothin's work at L.L. Bean. Read this before diving into any LLBean Ansible or infra work.
 
 ---
@@ -189,6 +189,7 @@ Vault-encrypted secrets: `group_vars/vault.yml`
 - **Brocade SAN sessions:** if SAN automation fails with session errors, use `mgmtapp --show` and `mgmtapp --terminate <sessionid>` to clear idle sessions (ref: Dell KB 000186005)
 - **Production runs via AAP only:** don't run production playbooks from CLI; always use Tower/AAP workflows
 - **Satellite vs Foreman:** old hosts may still be registered to Foreman — use `UTILITY_Foreman_Client_Migrate_to_Satellite.yml` to migrate
+- **centrify-sshd vs native sshd:** The `CentrifyDC-ssh` package installs `centrify-sshd.service`, which can run in place of (or alongside) the native `sshd.service`. LLBean does **not** use `centrify-sshd` on any managed RHEL host — all servers should run native `sshd` (openssh). If `centrify-sshd.service` is found active, it must be stopped and disabled; `sshd.service` must be started and enabled. `CentrifyDC-ssh` should **not** be removed — it carries a large perl dependency chain. The automation fix belongs in `org/esgunix/tasks/sshd.yml` (use a `stat` check on `/usr/lib/systemd/system/centrify-sshd.service` before acting, so it's safe on hosts without the package). **Status as of 2026-04-17:** not yet automated — manually fixed on `wasdm-preprod-101` (stop only, disable not confirmed — may not survive reboot). Pending addition to configmgmt base.
 
 ---
 
