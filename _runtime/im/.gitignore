@@ -1,0 +1,6 @@
+# IM artifacts are local working memory by default.
+inbox/*.ndjson
+sent/*.ndjson
+archive/**/*.ndjson
+state/*.json
+

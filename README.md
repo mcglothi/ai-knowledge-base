@@ -109,6 +109,7 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 | Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
 | Local model offload (sidecar) | ✅ Built | `sidecar.py` + `AIKB_SIDECAR_URL` env var |
 | Mind Meld (cross-agent awareness) | ✅ Built | Read `_runtime/events/YYYY-MM-DD.ndjson`; see agent instruction files |
+| Agent IM (cross-agent messaging) | ✅ Built | `runtime_cli.py im send/peek/ack/archive/gc` + `docs/agent-im.md` |
 | Dream cycle consolidation | 🔨 Prototype | `dream_cycle.py` (outputs not yet auto-promoted) |
 | Automatic conflict detection | 🔨 Prototype | `conflict_scan.py` (offline, not wired to writes) |
 | Sidecar-enriched pipeline scoring | 🔨 In progress | `build_candidates.py` + `sidecar.py` |
@@ -328,3 +329,4 @@ If you enable runtime memory, the writing protocol also gains a non-canonical st
 - `_runtime/events/` for session observations and closeout captures
 - `_pending_approvals.md` for human sign-off items
 - `_runtime/candidates/` and related tools for review-before-promotion workflows
+- `_runtime/im/` for cross-agent inbox + archive notes (optional; see `docs/agent-im.md`)

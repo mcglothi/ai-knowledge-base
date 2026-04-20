@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentInstantMessage",
+  "type": "object",
+  "required": ["id", "ts_utc", "from", "to", "summary"],
+  "properties": {
+    "id": { "type": "string" },
+    "ts_utc": { "type": "string" },
+    "from": { "type": "string" },
+    "to": { "type": "string" },
+    "cc": { "type": "array", "items": { "type": "string" } },
+    "severity": { "type": "string", "enum": ["info", "warn", "blocker", "review", "request"] },
+    "repo": { "type": "string" },
+    "scope": { "type": "string" },
+    "summary": { "type": "string" },
+    "body": { "type": "string" },
+    "thread_id": { "type": "string" },
+    "reply_to": { "type": "string" },
+    "links": { "type": "array", "items": { "type": "string" } },
+    "memory_candidate": { "type": "boolean" },
+    "memory_project": { "type": "string" }
+  },
+  "additionalProperties": true
+}
+
