@@ -1,6 +1,6 @@
 # L.L. Bean — Infrastructure Engineering
 
-**Last Updated:** 2026-04-17
+**Last Updated:** 2026-04-21
 **Summary:** Platform stack, team structure, and automation context for Tim McGlothin's work at L.L. Bean. Read this before diving into any LLBean Ansible or infra work.
 
 ---
@@ -55,7 +55,7 @@ Other teams Tim's code supports: DBA, Distribution/WMS, EDW (Enterprise Data War
 ### DNS / IPAM
 | System | Purpose |
 |--------|---------|
-| **Infoblox** | DNS, DHCP, IPAM — API endpoint: `llb-gm-dns.llbean.com` |
+| **Infoblox** | DNS, DHCP, IPAM — deploy endpoint: `llb-gm-new.llbean.com` (old: `llb-gm-dns.llbean.com` — still used in decom, inconsistency is a known issue) |
 
 ### Endpoint Security
 | Tool | Purpose |
@@ -130,17 +130,19 @@ Other teams Tim's code supports: DBA, Distribution/WMS, EDW (Enterprise Data War
 
 ### VM Lifecycle Workflow (VMDEPLOY)
 1. `VarMapping` — survey input → cluster/subnet/security group mappings
-2. `CreateVM` — Nutanix AHV via cloud-init
-3. `Infoblox` — DNS/DHCP registration
-4. `WaitForSSH` — connectivity gate
-5. `ConfigMgmt_Base` — RHEL hardening, base packages
-6. `Satellite` — subscription registration
-7. `BESClient_Setup` — BlackBerry endpoint security
-8. `Crowdstrike` — Falcon agent
-9. `NessusAgent` — vulnerability scanning
-10. `Patch` — initial patching
-11. `InventoryAdd` — add to AAP inventory
-12. `SendEmail` — notification
+2. `Infoblox` — DNS/IP allocation and A-record registration
+3. `CreateVM` — Nutanix AHV VM creation via cloud-init (v1 API)
+4. `WaitForSSH` — connectivity gate (300s timeout)
+5. `Satellite` — subscription registration and full package update
+6. `ConfigMgmt_Base` — RHEL hardening, base packages, Centrify AD join, NTP, SSH, sudoers
+7. `BESClient_Setup` — IBM BigFix endpoint security
+8. `NessusAgent` — Tenable vulnerability scanning agent
+9. `Crowdstrike` — Falcon EDR/XDR agent
+10. `InventoryAdd` — add to AAP inventory "Linux - All Servers"
+11. `Patch` — full `yum update` + reboot
+12. `SendEmail` — notification to TOC and owner
+
+**Deep-dive doc (history, pain points, roadmap):** [`work/vm-lifecycle.md`](vm-lifecycle.md)
 
 ### Key Roles
 | Role | Purpose |
