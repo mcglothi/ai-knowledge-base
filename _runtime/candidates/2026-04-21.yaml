@@ -31,16 +31,18 @@ candidates:
       - evt_20260421_200134_740354_e0bae5
       - evt_20260421_203057_574844_23e038
       - evt_20260421_203348_192402_31e255
+      - evt_20260421_203418_203118_4e1b78
     target_file: AIKB
-    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=clean; branch=master; cwd=AIKB; events=30; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=clean; branch=master; cwd=AIKB; events=32; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
     confidence: 0.70
     class: needs-review
     status: queued
   - id: cand_20260421_002
     source_events:
       - evt_20260421_163330_145834_572866
+      - evt_20260421_203410_772824_e491a7
     target_file: /home/tmcglothin/code
-    proposed_change: "[observation] Closeout captured for task 'work in /home/tmcglothin/code'; repo=dirty:1; branch=-; cwd=/home/tmcglothin/code; events=23; candidates=1; queue=0; approvals=0; session_age=unknown; trigger='lets wrap up here for now'"
+    proposed_change: "[observation] Closeout captured for task 'work in /home/tmcglothin/code'; repo=clean; branch=-; cwd=/home/tmcglothin/code; events=31; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='lets wrap up'"
     confidence: 0.70
     class: needs-review
     status: queued
