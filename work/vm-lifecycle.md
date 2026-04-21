@@ -1,6 +1,6 @@
 # VM Lifecycle — VMDEPLOY & VMDECOM (ESGUnix)
 
-**Last Updated:** 2026-04-21
+**Last Updated:** 2026-04-21 (rev 2 — new stack design decisions added)
 **Summary:** Full history, architecture, pain points, and future roadmap for the ESGUnix automated VM build and decommission system. Read this before touching any VMDEPLOY_* or VMDECOM_* playbook or planning a replacement.
 
 ---
@@ -191,28 +191,141 @@ Multiple hardcoded exclusion lists in the config management tasks (~40 Oracle se
 ### Near-term (improvements to current stack)
 - Fix Infoblox endpoint mismatch between deploy and decom
 - Fix logic bug in `fixes.yml` (`and` → `or`)
-- Move hardcoded credentials into Ansible Vault
-- Migrate Nutanix API to v2 (`nutanix.ncp`) — timing TBD based on Nutanix release stability
-- Add RHEL8 back to VarMapping (or explicitly remove it as supported)
+- Migrate credentials to Delinea Secret Server (see new stack design below)
+- Migrate Nutanix API to v2 (`nutanix.ncp`)
+- Add RHEL8 back to VarMapping (or explicitly document it as unsupported)
 - Proper decom cleanup for BigFix, Nessus, CrowdStrike, and Omnicenter
 - Add a cleanup/rollback playbook for failed partial deployments
 
-### Long-term (new stack)
-**Goal: Full integrated self-service VM request and decom via Jira Service Management (JSM)**
+---
 
-Architecture:
-- **Front door**: Jira Service Management (JSM) request portal
-  - User selects: OS (RHEL / Windows), t-shirt size (S/M/L → maps to CPU/RAM presets), datacenter, purpose/owner
-  - Management approval workflow for regular users
-  - Request generates an AAP job trigger
-- **Execution layer**: AAP (unchanged as the trusted automation backbone)
-  - Engineers can bypass JSM and submit AAP workflows directly (no approval needed)
-  - Regular users always go through JSM → approval → AAP
-- **Unified model**: Same approval and sizing concepts for Unix (ESGUnix) and Windows (Windows team)
-- **T-shirt sizes**: Standardized presets replace free-form CPU/memory survey fields
-- **Audit trail**: JSM tickets serve as the record of every build and decom request
-- **Proper cleanup**: Decom requests trigger cleanup across all systems (not just the current 5)
+## New Stack Design
 
-This is designed for a two-tier user population:
-1. Engineers — trust is established, use AAP directly
-2. Everyone else — request via JSM, goes through approval, AAP executes on approval
+**Goal:** Full integrated self-service VM request and decom via Jira Service Management (JSM), with AAP as the trusted execution backbone.
+
+### User Model
+
+Two entry points, one execution path:
+
+```
+Regular user (JSM)                  Engineer (AAP direct)
+  → request form                      → job template
+  → management approval               → no approval needed
+  → AAP trigger on approval           │
+         └──────────────┬─────────────┘
+                        ▼
+                  AAP Workflow
+              (same playbooks either way)
+```
+
+JSM is new at LLBean (recently migrated from ServiceNow) — mostly greenfield. The JSM team and the AAP engineering team are different groups, so each layer is owned separately.
+
+Primary self-service use case: **temporary dev/experiment VMs**. Larger or specialized builds (SQL, Oracle, infrastructure) go directly to engineering via AAP, not JSM.
+
+### T-shirt Sizing
+
+Owned entirely by JSM — the JSM request form presents S/M/L and maps to resolved integers before triggering AAP. AAP receives `cpu_count` and `memory_size` as integers; it has no knowledge of sizing labels. This allows the JSM team to adjust sizes based on user feedback without any AAP changes.
+
+Approximate starting sizes (not final):
+
+| Label | vCPU | RAM |
+|-------|------|-----|
+| S | 2 | 4 GB |
+| M | 4 | 8 GB |
+| L | 8 | 16 GB |
+
+Engineers submitting directly to AAP supply raw integers.
+
+### Playbook Architecture — `import_playbook` + natural variable flow
+
+**Replace `set_stats` with a single master playbook** that `import_playbook`s each sub-playbook in sequence. Variables set via `set_fact` on `localhost` in any play are available to all subsequent plays without tunneling through AAP workflow artifacts.
+
+The new VM is added to in-memory inventory via `add_host` after creation. Remote plays target the `new_vms` group and access infra vars from `hostvars['localhost']` where needed.
+
+```
+VMDEPLOY_Main.yml          ← single AAP job template
+  import_playbook: VarMapping.yml
+  import_playbook: Infoblox.yml
+  import_playbook: CreateVM.yml       ← add_host here
+  import_playbook: WaitForSSH.yml
+  import_playbook: Satellite.yml
+  import_playbook: ConfigMgmt_Base.yml
+  import_playbook: Agents.yml         ← consolidate BES + Nessus + CrowdStrike
+  import_playbook: InventoryAdd.yml
+  import_playbook: Patch.yml
+  import_playbook: Notify.yml
+```
+
+**Tradeoff acknowledged:** moving from 12 separate job templates to 1 means you lose the AAP workflow UI's ability to restart from a specific failed step. Accepted — a failed build should be rolled back and retried cleanly, not resumed mid-flight. The rollback mechanism handles cleanup automatically.
+
+Individual sub-playbooks remain standalone files. The master playbook is the orchestrator.
+
+Decom follows the same pattern:
+
+```
+VMDECOM_Main.yml
+  import_playbook: GuestCleanup.yml     (Satellite unregister + AD leave)
+  import_playbook: BigFixCleanup.yml    ← new
+  import_playbook: NessusCleanup.yml    ← new
+  import_playbook: CrowdstrikeCleanup.yml ← new
+  import_playbook: OmnicenterCleanup.yml  ← new
+  import_playbook: InventoryRemove.yml
+  import_playbook: InfobloxCleanup.yml  (fix endpoint)
+  import_playbook: DeleteVM.yml         (v2 API)
+  import_playbook: Notify.yml
+```
+
+### Error Handling — block/rescue with automatic rollback
+
+Wrap the full deploy in a `block/rescue/always`. On any failure, the rescue triggers cleanup logic that mirrors the decom. The rollback task list is written once and shared between rollback and decom.
+
+```yaml
+- block:
+    - import_tasks: provision_infra.yml   # Infoblox + Nutanix
+    - import_tasks: configure_vm.yml      # all remote plays
+  rescue:
+    - import_tasks: rollback.yml          # delete VM, remove DNS, log failure
+  always:
+    - import_tasks: report_result.yml     # success or failure notification
+```
+
+### Nutanix — Templates + v2 API + Storage Container Targeting
+
+**Move from image clones to templates.** Reasons:
+1. Templates are easier to keep current (patch the template, redeploy)
+2. Image clones prevent disk extension on the resulting VM (confirmed on Windows side, assumed true for RHEL)
+3. The v2 API (`nutanix.ncp`) provides per-disk `storage_container_reference.ext_id` — this should allow deploying directly into `SC-dc1-ahv01-prod` (etc.) without the current manual post-creation migration
+
+**The storage container problem** is a known gap in the current stack. VMs deploy into the default storage container and require manual migration to the correct named container. The v2 API disk config is the expected solution path — needs a spike to confirm. The commented-out UUID lookup in the current `VMDEPLOY_CreateVM.yml` shows this was attempted and not completed.
+
+Target pattern for v2 VM creation:
+1. Look up storage container UUID by name (`SC-{dc}-ahv01-{prod|nonprod}`)
+2. Specify that UUID in the disk config at creation time
+3. No post-creation migration
+
+### Secrets — Delinea Secret Server (unified)
+
+**Current problem:** each AAP job template has a different credential configured (Infoblox template gets Infoblox cred, Nutanix template gets Nutanix cred, etc.). Fragmented, and rotating a credential means updating both SS and AAP.
+
+**New pattern:** one custom AAP credential type that injects the SS API token as an environment variable. All secrets fetched programmatically via the `community.general.tss` lookup plugin (already used in the codebase). Single credential on the master job template.
+
+```yaml
+# At the top of the master playbook (or a dedicated secrets-fetch play):
+- set_fact:
+    centrify_password: "{{ lookup('community.general.tss',
+                           ss_centrify_secret_id,
+                           base_url=ss_base_url,
+                           token=lookup('env', 'SECRET_SERVER_TOKEN'))
+                           | json_query('items[?slug==`password`].itemValue | [0]') }}"
+    nessus_api_key:    "{{ lookup('community.general.tss', ss_nessus_secret_id, ...) }}"
+```
+
+Credential rotation is done in Delinea SS only — AAP and playbooks are untouched. This replaces both the current fragmented AAP credentials pattern and the hardcoded plaintext values in `centrify.yml` and `NessusAgent.yml`.
+
+### Open Technical Questions / Spikes Needed
+
+1. **Nutanix v2 + storage container targeting**: Confirm `ntnx_vms_v2` supports `storage_container_reference.ext_id` at VM creation/clone time and that it works with template-based deploys. Nutanix API has been a moving target — verify against current `nutanix.ncp` collection version.
+2. **Template vs image in v2**: Confirm the exact module/parameter for deploying from a Nutanix template (`ntnx_vm_templates_v2`?) vs. image clone. Both platforms (Unix + Windows) need this.
+3. **`add_host` + SSH bootstrap**: Fresh RHEL9 templates need `svc-ansible` SSH key present for `add_host` dynamic inventory to work for remote plays. Confirm whether the RHEL9 template has the key baked in or if a bootstrap step is needed.
+4. **`community.general.tss` + AAP custom credential type**: Design the custom credential type YAML for injecting the SS token. Confirm `tss` plugin version compatibility with current EE Python environment.
+5. **JSM → AAP trigger mechanism**: When JSM approval fires, how does it trigger the AAP job template? AAP REST API webhook? Jira automation rule? This is the JSM team's problem to solve but the AAP API endpoint and credential need to be defined.
