@@ -324,8 +324,8 @@ Credential rotation is done in Delinea SS only — AAP and playbooks are untouch
 
 ### Open Technical Questions / Spikes Needed
 
-1. **Nutanix v2 + storage container targeting**: Confirm `ntnx_vms_v2` supports `storage_container_reference.ext_id` at VM creation/clone time and that it works with template-based deploys. Nutanix API has been a moving target — verify against current `nutanix.ncp` collection version.
+1. **Nutanix v2 + storage container targeting** ⬅ NEEDS SPIKE: Confirm `ntnx_vms_v2` supports `storage_container_reference.ext_id` at VM creation/clone time and that it works with template-based deploys. Nutanix API has been a moving target — verify against current `nutanix.ncp` collection version and online docs. This is a design blocker: if v2 can't solve the storage container problem at creation time, the no-post-migration premise breaks and the architecture needs adjustment.
 2. **Template vs image in v2**: Confirm the exact module/parameter for deploying from a Nutanix template (`ntnx_vm_templates_v2`?) vs. image clone. Both platforms (Unix + Windows) need this.
-3. **`add_host` + SSH bootstrap**: Fresh RHEL9 templates need `svc-ansible` SSH key present for `add_host` dynamic inventory to work for remote plays. Confirm whether the RHEL9 template has the key baked in or if a bootstrap step is needed.
+3. ~~**`add_host` + SSH bootstrap**~~: **RESOLVED** — `svc-ansible` SSH key is baked into all baseline images and templates. `add_host` dynamic inventory works cleanly; no bootstrap step needed. The `import_playbook` architecture is unblocked on this point.
 4. **`community.general.tss` + AAP custom credential type**: Design the custom credential type YAML for injecting the SS token. Confirm `tss` plugin version compatibility with current EE Python environment.
 5. **JSM → AAP trigger mechanism**: When JSM approval fires, how does it trigger the AAP job template? AAP REST API webhook? Jira automation rule? This is the JSM team's problem to solve but the AAP API endpoint and credential need to be defined.
