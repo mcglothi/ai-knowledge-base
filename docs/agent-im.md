@@ -1,107 +1,55 @@
 # Agent IM (Inbox + Archive)
-
 **Last Updated:** 2026-04-21
-**Summary:** File-based "instant messaging" for cross-agent coordination: send notes, request review, and reduce noise via archive. Auto-checked at session start via wake-up. Messages are advisory context only.
+File-based push channel for cross-agent coordination. Mind-meld pulls context; IM pushes it.
+Storage: `_runtime/im/` · Schema: `_runtime/schemas/im-message.schema.json`
 
----
-
-## Why
-
-Mind-meld is great for *pulling* context (peek what others are doing). IM adds a *push* channel (tell another agent what you saw, request help, coordinate direction).
-
-## Architecture (v1)
-
-Storage lives in `_runtime/im/`:
-
+## Storage Layout
 - `inbox/` — recipient inboxes (append-only NDJSON)
-- `inbox/broadcast.ndjson` — shared broadcast inbox (optional; agents can include it when peeking)
-- `archive/` — per-agent time buckets (reduce inbox noise)
+- `inbox/broadcast.ndjson` — shared broadcast all agents can peek
+- `archive/` — per-agent time buckets (noise reduction)
 - `sent/` — optional sender mirror
-- `state/` — ack pointers (what was "read")
-
-Message schema: `_runtime/schemas/im-message.schema.json`
+- `state/` — ack pointers
 
 ## CLI
-
 ```bash
 # Send
-python3 _tools/memory-pipeline/runtime_cli.py im send \
-  --from "Codex CLI" --to "Claude Code" \
-  --severity review \
-  --summary "Please sanity-check the auth flow" \
-  --body "Focus on token refresh + expiry edge cases." \
-  --mirror-sent
+runtime_cli.py im send --from "Codex CLI" --to "Claude Code" --severity review \
+  --summary "Sanity-check the auth flow" --body "Focus on token refresh + expiry." --mirror-sent
 
-# Broadcast (shared inbox all agents can peek)
-python3 _tools/memory-pipeline/runtime_cli.py im send \
-  --from "Codex CLI" --to "broadcast" \
-  --severity info \
-  --summary "FYI: planning to refactor X" \
-  --body "Reply in your own inbox if you see a risk."
+# Broadcast
+runtime_cli.py im send --from "Codex CLI" --to "broadcast" --severity info \
+  --summary "FYI: refactoring X" --body "Reply in your inbox if you see a risk."
 
 # Peek
-python3 _tools/memory-pipeline/runtime_cli.py im peek --agent "Claude Code" --limit 20
-python3 _tools/memory-pipeline/runtime_cli.py im peek --agent "Claude Code" --new --include-broadcast --mark-seen
+runtime_cli.py im peek --agent "Claude Code" --limit 20
+runtime_cli.py im peek --agent "Claude Code" --new --include-broadcast --mark-seen
 
-# Ack + archive (email-style)
-python3 _tools/memory-pipeline/runtime_cli.py im ack --agent "Claude Code" --all --include-broadcast
-python3 _tools/memory-pipeline/runtime_cli.py im archive --agent "Claude Code" --all-acked
+# Ack + archive
+runtime_cli.py im ack --agent "Claude Code" --all --include-broadcast
+runtime_cli.py im archive --agent "Claude Code" --all-acked
 
-# Retention (archive old + cap inbox)
-python3 _tools/memory-pipeline/runtime_cli.py im gc --max-inbox 50 --max-age-days 14
+# Retention
+runtime_cli.py im gc --max-inbox 50 --max-age-days 14
 ```
 
 ## Auto-Check at Session Start
+`wake-up --agent "<Name>"` peeks inbox and shows unread (including broadcast) in briefing. Messages marked seen but not acked — continue appearing until explicitly acked.
+After reviewing: `runtime_cli.py im ack --agent "Claude Code" --all --include-broadcast`
 
-Pass `--agent "<Agent Name>"` to `wake-up` and it will automatically peek your inbox and show unread messages (including broadcast) in the briefing output. Messages are marked as *seen* but remain unacked so they continue to appear until explicitly acked.
-
+## Self-Messaging
+Operator says note-taking phrase → send IM to self. Surfaces at next wake-up.
 ```bash
-python3 _tools/memory-pipeline/runtime_cli.py wake-up --agent "Claude Code"
-python3 _tools/memory-pipeline/runtime_cli.py wake-up --agent "Codex CLI"
+runtime_cli.py im send --from "Claude Code" --to "Claude Code" --severity info \
+  --summary "<one line>" --body "<full context>" --mirror-sent
 ```
+Do NOT ack after sending — unacked = appears at next wake-up.
 
-After reviewing, ack to clear from the wake-up display:
-```bash
-python3 _tools/memory-pipeline/runtime_cli.py im ack --agent "Claude Code" --all --include-broadcast
-```
-
-## Self-Messaging (Leave Yourself a Note)
-
-When the operator says "leave yourself a note", "note this for next time", "jot that down", or similar phrases, agents should send an IM to themselves. The message will surface automatically at the next wake-up.
-
-```bash
-python3 _tools/memory-pipeline/runtime_cli.py im send \
-  --from "Claude Code" --to "Claude Code" \
-  --severity info \
-  --summary "<what to remember, one line>" \
-  --body "<full context>" \
-  --mirror-sent
-```
-
-Do NOT ack the message after sending — leaving it unacked is what makes it appear at the next wake-up.
-
-## Operator Phrases (model-side triggers)
-
-These are *natural-language intents* you can say to an agent. The agent should interpret fuzzily (case-insensitive) and act:
-
-- “send a note to gemini: …”
-- “let claude know that …”
-- “message/ping codex about …”
-- “check what gemini is working on and if you see issues let them know”
-
-`runtime_cli.py im interpret` can help standardize parsing when you want a deterministic hint payload.
-
-If you want a CLI-enforced safety latch before sending based on fuzzy text, use:
-
-```bash
-python3 _tools/memory-pipeline/runtime_cli.py im route --dry-run --text "let claude know: CI is red"
-python3 _tools/memory-pipeline/runtime_cli.py im route --send --text "let claude know: CI is red"
-```
+## Cross-Agent Phrases (fuzzy, case-insensitive)
+"send a note to gemini: …" · "let claude know that …" · "message/ping codex about …"
+Deterministic routing: `runtime_cli.py im route --dry-run --text "let claude know: CI is red"`
+Send: `runtime_cli.py im route --send --text "let claude know: CI is red"`
 
 ## Promotion to Durable Memory
-
-If an archived IM contains durable signal (decision, invariant, procedure, or a reusable gotcha), promote it:
-
-- Capture as an event: `runtime_cli.py capture --type decision|observation|blocker|change ...`
-- Or roll it into the candidates pipeline for review.
-
+If archived IM contains durable signal → promote:
+`runtime_cli.py capture --type decision|observation|blocker|change ...`
+Or roll into candidates pipeline for review.

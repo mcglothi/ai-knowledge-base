@@ -1,191 +1,50 @@
 # Secrets Management
+**Last Updated:** 2026-04-21
+AIKB never stores credentials — only references: `[Stored in <Manager>: <Path/Name>]`
 
-**Last Updated:** 2026-04-19 (rev 2)
-**Summary:** How to integrate AIKB with your secrets manager. AIKB never stores credentials — only references to them.
-
----
-
-## The pattern
-
-Every credential referenced in AIKB follows this format:
-
-```markdown
-[Stored in YourSecretsManager: Hierarchy/Of/Item/Name]
-```
-
-This tells a future agent (or human) exactly where to find the credential without exposing it in the repo. When an agent needs a credential, it reads the reference from AIKB and retrieves it from the secrets manager.
-
----
-
-## Supported integrations
-
-### 1Password
-
-**Retrieve a secret:**
+## 1Password
 ```bash
 op read "op://Private/Item Name/field"
-# or by UUID:
-op read "op://vaultname/itemid/field"
 ```
+Reference: `[Stored in 1Password: Private/Service Name/API Key]`
 
-**In AIKB files, reference as:**
-```
-[Stored in 1Password: Private/Service Name/API Key]
-```
-
-**Shell profile setup:**
+## Bitwarden / Vaultwarden
 ```bash
-# Add to ~/.zshrc or ~/.bashrc
-export OP_ACCOUNT="your-account.1password.com"
-```
-
-**Tip:** Use the [1Password CLI (`op`)](https://developer.1password.com/docs/cli) for scripted access. Sign in once per session with `op signin`.
-
----
-
-### Bitwarden (self-hosted or cloud)
-
-**Retrieve a secret:**
-```bash
-BW_SESSION=$(bw unlock --raw)   # or use a cached session
+BW_SESSION=$(cat ~/.bw_session)
 bw get password "Item Name" --session "$BW_SESSION"
 ```
+Reference: `[Stored in Bitwarden: Item Name]` or `[Stored in Vaultwarden: PAT/Service/Item Name]`
+Vaultwarden server config: `bw config server https://your-vault.example.com && bw login`
 
-**In AIKB files, reference as:**
-```
-[Stored in Bitwarden: Item Name]
-```
+## Delinea Secret Server
+One-time init (per machine): `tss init --url https://your-server/SecretServer/ -r <RuleName> -k <onboarding-key>`
+Retrieve: `tss secret --secret <id> --field password`
+ID lookup: `personal/vaults/delinea.yaml` → friendly name → numeric ID
+Reference: `[Stored in Delinea Secret Server: AWS Root Key (#123) / access-key-id]`
+CLI: download from Delinea Downloads portal (no Homebrew formula). Python SDK: `pip install python-tss-sdk`.
 
-**Shell profile setup:**
-```bash
-# Unlock once and cache the session token
-export BW_SESSION=$(bw unlock --raw)
-```
-
-**Tip:** Store `BW_SESSION` in a file with restricted permissions if you need it across shell sessions:
-```bash
-bw unlock --raw > ~/.bw_session && chmod 600 ~/.bw_session
-```
-
----
-
-### Vaultwarden (self-hosted Bitwarden-compatible)
-
-Same CLI as Bitwarden. Configure the server URL:
-```bash
-bw config server https://your-vault-instance.example.com
-bw login
-```
-
-**In AIKB files, reference as:**
-```
-[Stored in Vaultwarden: PAT/Service/Item Name]
-```
-
----
-
-### Delinea Secret Server (formerly Thycotic)
-
-**One-time setup** — run once per machine, creates an encrypted credentials config:
-```bash
-tss init --url https://your-server/SecretServer/ -r YourRuleName -k <onboarding-key>
-```
-The rule name and onboarding key come from Secret Server's SDK Client Management page. After init, `tss` uses the stored credentials automatically.
-
-**Retrieve a secret:**
-```bash
-tss secret --secret 123 --field password
-tss secret --secret 123 --field username
-```
-
-Secrets are identified by numeric ID, not by name. Look up the ID in the Secret Server UI or ask your admin.
-
-**In AIKB files, reference as:**
-```
-[Stored in Delinea Secret Server: Secret #123 / password field]
-```
-
-Include a human-readable label alongside the ID so the reference stays meaningful:
-```
-[Stored in Delinea Secret Server: AWS Root Key (#123) / access-key-id]
-```
-
-**Tip:** The `tss` CLI is available from the Delinea Downloads portal (search "Secret Server SDK for DevOps"). There is no Homebrew formula — download and install manually. A Python SDK is also available: `pip install python-tss-sdk`.
-
-**Secret ID registry:** Because `tss` uses numeric IDs, AIKB provides a lookup table at `personal/vaults/delinea.yaml`. Agents load this to resolve a friendly name like "Ansible Vault Password" to its ID before calling `tss`. See [`personal/vaults/README.md`](../personal/vaults/README.md) for setup instructions.
-
----
-
-### macOS Keychain
-
-**Store a secret:**
+## macOS Keychain
 ```bash
 security add-generic-password -a "$USER" -s "AIKB/Service/Item" -w "secret-value"
-```
-
-**Retrieve a secret:**
-```bash
 security find-generic-password -w -a "$USER" -s "AIKB/Service/Item"
 ```
+Reference: `[Stored in macOS Keychain: AIKB/Service/Item]`
 
-**In AIKB files, reference as:**
-```
-[Stored in macOS Keychain: AIKB/Service/Item]
-```
-
-**Tip:** Use a consistent naming prefix (e.g. `AIKB/`) to keep your AIKB-related credentials organized.
-
----
-
-### Environment variables
-
-Suitable for credentials that are always available in your shell environment.
-
-**Shell profile setup (do not commit this file):**
+## Environment Variables
 ```bash
-# In ~/.zshrc.local or ~/.profile.local (not tracked by dotfiles)
+# In ~/.zshrc.local or ~/.profile.local (untracked)
 export MY_SERVICE_API_KEY="secret-value"
 ```
+Reference: `[Stored in environment: $MY_SERVICE_API_KEY]`
 
-**In AIKB files, reference as:**
-```
-[Stored in environment: $MY_SERVICE_API_KEY]
-```
+## Secret Scanning
+Prevent accidental commits:
+- [gitleaks](https://github.com/gitleaks/gitleaks): `brew install gitleaks` → pre-commit: `gitleaks protect --staged --redact`
+- [detect-secrets](https://github.com/Yelp/detect-secrets): pre-commit hook
+- [trufflehog](https://github.com/trufflesecurity/trufflehog): deep history scan
 
-**Tip:** Keep secrets out of your main dotfiles repo by using a separate, untracked include file.
-
----
-
-### Secret scanning
-
-Git offers a hook-based approach to prevent accidental credential commits. Consider tools like:
-- [gitleaks](https://github.com/gitleaks/gitleaks) — scans for secrets in git history
-- [detect-secrets](https://github.com/Yelp/detect-secrets) — pre-commit hook
-- [trufflehog](https://github.com/trufflesecurity/trufflehog) — deep scan
-
-Basic pre-commit check with gitleaks:
-```bash
-# Install
-brew install gitleaks  # macOS
-# or: go install github.com/gitleaks/gitleaks/v8@latest
-
-# Add to AIKB as a pre-commit hook
-cat > .git/hooks/pre-commit << 'EOF'
-#!/bin/sh
-gitleaks protect --staged --redact
-EOF
-chmod +x .git/hooks/pre-commit
-```
-
----
-
-## What to do if a secret is accidentally committed
-
-1. **Rotate the credential immediately** — assume it's compromised regardless of repo visibility.
-2. Remove it from git history:
-   ```bash
-   git filter-repo --path file-with-secret.md --invert-paths
-   # or use BFG Repo Cleaner
-   ```
-3. Force-push the cleaned history (coordinate with anyone else who has cloned the repo).
-4. Add the pattern to `.gitignore` or a pre-commit hook to prevent recurrence.
+## If a Secret is Committed
+1. Rotate immediately — assume compromised.
+2. `git filter-repo --path <file> --invert-paths` (or BFG Repo Cleaner)
+3. Force-push cleaned history.
+4. Add pattern to `.gitignore` or pre-commit hook.
