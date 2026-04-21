@@ -39,6 +39,8 @@ Optional GitHub MCP for remote access: [docs/mcp-setup.md](mcp-setup.md)
 
 **Codex CLI:** `cp ~/code/AIKB/_agents/codex.md /path/to/project/AGENTS.md` (per workspace)
 
+**GitHub Copilot:** `./sync-agents.sh --agent copilot /path/to/project` (writes `.github/copilot-instructions.md`)
+
 **Cursor:** Settings → Cursor Settings → Rules → User Rules → paste `_agents/cursor.md`
 
 **ChatGPT / Gemini (web) / Grok:** Settings → Custom Instructions → paste matching `_agents/` file.
