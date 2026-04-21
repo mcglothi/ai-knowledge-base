@@ -181,6 +181,7 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 | Claude Code | `~/.claude/CLAUDE.md` auto-loaded | Local clone or GitHub MCP |
 | Gemini CLI | `~/.gemini/GEMINI.md` auto-loaded | Local clone or GitHub MCP |
 | Codex CLI | `AGENTS.md` in project root | Local clone (or MCP if configured) |
+| GitHub Copilot | `.github/copilot-instructions.md` in project root | Local workspace context |
 | OpenCode | `instructions` array in `~/.config/opencode/opencode.json` | Local clone or GitHub MCP |
 | Cursor | User Rules (Settings UI) | Local clone |
 | ChatGPT | Custom Instructions (Settings UI) | Manual paste at session start |
@@ -257,13 +258,13 @@ python3 _tools/memory-pipeline/runtime_cli.py template-sync --set-interval 7
 1. Fetch the latest changes from upstream
 2. Use `.aikb-config.d/template-sync-state.json` to remember when you last checked and which upstream SHA you last applied
 3. In `--check` mode, show whether framework updates are waiting without touching tracked files
-4. In normal mode, show you exactly what changed in the framework dirs (`AGENTS.md`, `_agents/`, `_templates/`, `_tools/`, `docs/`, and selected root framework files)
+4. In normal mode, show you exactly what changed in the framework dirs (`AGENTS.md`, `.github/copilot-instructions.md`, `_agents/`, `_templates/`, `_tools/`, `docs/`, and selected root framework files)
 5. Ask for confirmation before applying anything
 6. Re-apply your personal values (username, repo name, paths, secrets manager) automatically
 7. Re-copy to `~/.claude/CLAUDE.md` or `~/.gemini/GEMINI.md` if you set those up during install
 8. Commit the result
 
-**What gets updated:** `AGENTS.md`, `_agents/`, `_templates/`, `_tools/`, `docs/`, `_pending_approvals.md`, `sync.sh`, `sync-agents.sh`, `install.sh`, `.gitignore`
+**What gets updated:** `AGENTS.md`, `.github/copilot-instructions.md`, `_agents/`, `_templates/`, `_tools/`, `docs/`, `_pending_approvals.md`, `sync.sh`, `sync-agents.sh`, `install.sh`, `.gitignore`
 
 **What is never touched:** `_index.md`, `_state.yaml`, `personal/`, `projects/`, `work/`, and any other dirs you've created
 
@@ -271,7 +272,7 @@ Suggested habit:
 - Let agents run `python3 _tools/memory-pipeline/runtime_cli.py template-sync --auto-check` during session setup or when you explicitly ask about updates.
 - Keep the default cadence at `7` days unless the public template is changing quickly; use `--set-interval 3` for active rollout periods or `--set-interval 14` for a quieter cadence.
 - Keep actual `./sync.sh` application operator-approved, since it changes tracked framework files.
-- After a framework sync, re-sync downstream Codex project repos with `./sync-agents.sh`.
+- After a framework sync, re-sync downstream project agent files with `./sync-agents.sh --all /path/to/project`.
 
 ---
 
@@ -282,6 +283,7 @@ Suggested habit:
 ```text
 AIKB/
 ├── README.md                  ← Human-readable overview (you're reading it)
+├── .github/copilot-instructions.md ← Repo instructions for GitHub Copilot
 ├── _index.md                  ← One-line status for every project (agents read this first)
 ├── _state.yaml                ← Time-sensitive surface: SSL expiry, incidents, recent changes
 ├── _pending_approvals.md      ← Human sign-off queue for high-impact agent actions
@@ -290,6 +292,7 @@ AIKB/
 │   ├── claude-code.md         ← Source of truth for ~/.claude/CLAUDE.md
 │   ├── gemini-cli.md          ← Source of truth for ~/.gemini/GEMINI.md
 │   ├── codex.md               ← Source of truth for repo-level AGENTS.md
+│   ├── copilot.md             ← Source of truth for .github/copilot-instructions.md
 │   ├── opencode.md            ← Referenced via instructions array in opencode.json
 │   ├── cursor.md              ← Paste into Cursor User Rules
 │   ├── chatgpt.md             ← Paste into ChatGPT Custom Instructions
