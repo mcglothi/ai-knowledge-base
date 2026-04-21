@@ -1,6 +1,7 @@
 # Agent Instructions
 
-**Last Updated:** 2026-04-17 Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
+**Last Updated:** 2026-04-13
+**Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
 
@@ -25,7 +26,6 @@
 | [`chatgpt.md`](chatgpt.md) | ChatGPT | Settings → Personalization → Custom Instructions |
 | [`gemini.md`](gemini.md) | Google Gemini | Settings → Custom Instructions |
 | [`grok.md`](grok.md) | Grok | Settings → Customise Grok |
-| [`copilot-cli.md`](copilot-cli.md) | GitHub Copilot CLI | `~/.copilot/copilot-instructions.md` (auto-loaded) |
 
 ---
 
@@ -126,34 +126,6 @@ These tools are UI-configured only. Workflow:
 1. The files in `_agents/` are the source of truth.
 2. Open the tool's settings and paste the relevant file's content into Custom Instructions.
 3. Re-paste whenever instructions are updated.
-
-### GitHub Copilot CLI
-
-Copilot CLI reads `~/.copilot/copilot-instructions.md` automatically at startup. Create a symlink so it always stays in sync with the AIKB source:
-
-```bash
-ln -s /path/to/your/AIKB/_agents/copilot-cli.md ~/.copilot/copilot-instructions.md
-```
-
-Copilot CLI also auto-loads `CLAUDE.md`, `GEMINI.md`, and `AGENTS.md` from any git repo, so AIKB context applies in any workspace without extra setup.
-
-Optional — GitHub MCP server for AIKB read/write access (add to `~/.copilot/mcp-config.json`):
-```json
-{
-  "mcpServers": {
-    "github-aikb": {
-      "tools": ["*"],
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-token-here"
-      }
-    }
-  }
-}
-```
-
-No native Stop hook — run `aikb-session-stop.sh` manually before finishing each session. See [`../docs/stop-hook-setup.md`](../docs/stop-hook-setup.md).
 
 ---
 

@@ -1,6 +1,6 @@
 # Memory Pipeline CLI
 
-**Last Updated:** 2026-04-08
+**Last Updated:** 2026-04-20
 **Summary:** Runtime memory tooling for candidate generation, autonomous reorg, temporal graphing, retrieval evaluation, metadata validation, chunk-aware write previews, scratchpads, and nightly maintenance.
 
 ## Core Commands
@@ -9,6 +9,14 @@
 python3 _tools/memory-pipeline/runtime_cli.py hud
 python3 _tools/memory-pipeline/runtime_cli.py prompt
 python3 _tools/memory-pipeline/runtime_cli.py status
+python3 _tools/memory-pipeline/runtime_cli.py im send --from "Codex CLI" --to "Gemini CLI" --summary "FYI: failing test" --body "Details + repro" --severity warn
+python3 _tools/memory-pipeline/runtime_cli.py im peek --agent "Gemini CLI" --limit 10
+python3 _tools/memory-pipeline/runtime_cli.py im peek --agent "Gemini CLI" --new --include-broadcast --mark-seen
+python3 _tools/memory-pipeline/runtime_cli.py im ack --agent "Gemini CLI" --all --include-broadcast
+python3 _tools/memory-pipeline/runtime_cli.py im archive --agent "Gemini CLI" --all-acked
+python3 _tools/memory-pipeline/runtime_cli.py im gc --max-inbox 50 --max-age-days 14
+python3 _tools/memory-pipeline/runtime_cli.py im interpret --text "check out what gemini is working on and if you see problems let him know"
+python3 _tools/memory-pipeline/runtime_cli.py im route --dry-run --text "let claude know: CI is red"
 python3 _tools/memory-pipeline/runtime_cli.py claim-session --agent "Codex CLI" --repo AIKB --scope 'docs/*' --task "Refine onboarding"
 python3 _tools/memory-pipeline/runtime_cli.py release-session --agent "Codex CLI"
 python3 _tools/memory-pipeline/runtime_cli.py check-repo --path ~/code/ai-knowledge-base

@@ -9,6 +9,7 @@ import re
 import socket
 import subprocess
 import sys
+import uuid
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -27,6 +28,11 @@ PENDING_APPROVALS_FILE = ROOT / "_pending_approvals.md"
 HUD_STATE_DIR = ROOT / "_runtime" / "session-hud"
 TEMPLATE_SYNC_STATE_FILE = ROOT / ".aikb-config.d" / "template-sync-state.json"
 TEMPLATE_SYNC_SCRIPT = ROOT / "sync.sh"
+IM_DIR = ROOT / "_runtime" / "im"
+IM_INBOX_DIR = IM_DIR / "inbox"
+IM_ARCHIVE_DIR = IM_DIR / "archive"
+IM_SENT_DIR = IM_DIR / "sent"
+IM_STATE_DIR = IM_DIR / "state"
 
 STATUS_RE = re.compile(r"\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|")
 CANDIDATE_ID_RE = re.compile(r"^\s*-\s+id:\s+(\S+)\s*$")
@@ -35,6 +41,21 @@ SEPARATOR_RE = re.compile(r"^\|[-\s|]+\|$")
 ALIGNMENT_CELL_RE = re.compile(r"^:?-{3,}:?$")
 LAST_WRITE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\s+[A-Z]{2,4}$")
 OPEN_APPROVAL_STATUSES = {"pending", "requested", "needs-review", "awaiting-review", "awaiting-approval"}
+
+IM_SEVERITIES = ("info", "warn", "blocker", "review", "request")
+
+AGENT_ALIASES: dict[str, str] = {
+    # Keep this intentionally small and stable; add aliases as you standardize names.
+    "codex": "Codex CLI",
+    "codex cli": "Codex CLI",
+    "gpt": "Codex CLI",
+    "claude": "Claude Code",
+    "claude code": "Claude Code",
+    "gemini": "Gemini CLI",
+    "gemini cli": "Gemini CLI",
+    "hermes": "Hermes",
+    "hopper": "Hopper",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -145,6 +166,125 @@ def parse_args() -> argparse.Namespace:
     )
     wakeup.add_argument("--max-pending", type=int, default=6, help="Max pending items to show.")
     wakeup.add_argument("--max-inprogress", type=int, default=5, help="Max in-progress index rows to show.")
+    wakeup.add_argument("--agent", default="", help="Agent display name — if set, checks IM inbox for unread messages.")
+
+    im = subparsers.add_parser(
+        "im",
+        help="Cross-agent instant message inbox + archive helpers (file-based).",
+    )
+    im_subparsers = im.add_subparsers(dest="im_command", required=True)
+
+    im_send = im_subparsers.add_parser("send", help="Send a message to an agent inbox.")
+    im_send.add_argument("--from", dest="from_agent", required=True, help="Sender display name.")
+    im_send.add_argument("--to", dest="to_agent", required=True, help="Recipient display name.")
+    im_send.add_argument("--summary", required=True, help="1-line subject/summary.")
+    im_send.add_argument("--body", default="", help="Optional freeform body.")
+    im_send.add_argument("--severity", default="info", choices=IM_SEVERITIES)
+    im_send.add_argument("--repo", default="", help="Optional repo context (e.g. AIKB).")
+    im_send.add_argument("--scope", default="", help="Optional scope/path context.")
+    im_send.add_argument("--thread-id", default="", help="Optional thread identifier.")
+    im_send.add_argument("--reply-to", default="", help="Optional message id being replied to.")
+    im_send.add_argument("--cc", action="append", default=[], help="Optional CC recipients (repeatable).")
+    im_send.add_argument(
+        "--deliver-cc",
+        action="store_true",
+        help="Also deliver copies of the message to each CC recipient inbox.",
+    )
+    im_send.add_argument("--link", action="append", default=[], help="Optional related links/paths (repeatable).")
+    im_send.add_argument("--id", default="", help="Optional message id override (defaults to UUID).")
+    im_send.add_argument(
+        "--mirror-sent",
+        action="store_true",
+        help="Also append a copy to the sender's sent mailbox.",
+    )
+
+    im_peek = im_subparsers.add_parser("peek", help="Peek an agent inbox.")
+    im_peek.add_argument("--agent", required=True, help="Inbox owner display name.")
+    im_peek.add_argument("--limit", type=int, default=20, help="How many messages to show.")
+    im_peek.add_argument(
+        "--new",
+        action="store_true",
+        help="Show only unacked messages for this agent (uses state/<agent>.json).",
+    )
+    im_peek.add_argument(
+        "--mark-seen",
+        action="store_true",
+        help="Update last_seen_ts_utc in state after peeking.",
+    )
+    im_peek.add_argument(
+        "--include-broadcast",
+        action="store_true",
+        help="Also include messages sent to the shared 'broadcast' inbox.",
+    )
+    im_peek.add_argument(
+        "--json",
+        action="store_true",
+        help="Print raw NDJSON lines instead of formatted output.",
+    )
+
+    im_ack = im_subparsers.add_parser("ack", help="Mark message(s) as read in state (does not archive).")
+    im_ack.add_argument("--agent", required=True, help="Inbox owner display name.")
+    im_ack.add_argument("--id", action="append", default=[], help="Message id to ack (repeatable).")
+    im_ack.add_argument("--all", action="store_true", help="Ack all message ids currently in inbox.")
+    im_ack.add_argument(
+        "--include-broadcast",
+        action="store_true",
+        help="With --all, also ack message ids from the shared broadcast inbox.",
+    )
+
+    im_archive = im_subparsers.add_parser("archive", help="Move message(s) from inbox to archive.")
+    im_archive.add_argument("--agent", required=True, help="Inbox owner display name.")
+    im_archive.add_argument("--id", action="append", default=[], help="Message id to archive (repeatable).")
+    im_archive.add_argument("--all-acked", action="store_true", help="Archive all acked messages.")
+
+    im_interpret = im_subparsers.add_parser(
+        "interpret",
+        help="Parse fuzzy operator text into an IM intent payload (does not send).",
+    )
+    im_interpret.add_argument("--text", required=True, help="Operator text to interpret.")
+    im_interpret.add_argument(
+        "--default-from",
+        default="Codex CLI",
+        help="Default sender name when not specified elsewhere.",
+    )
+
+    im_route = im_subparsers.add_parser(
+        "route",
+        help="Parse fuzzy operator text and (optionally) send when intent is confident.",
+    )
+    im_route.add_argument("--text", required=True, help="Operator text to interpret.")
+    im_route.add_argument("--from", dest="from_agent", default="Codex CLI", help="Sender display name.")
+    im_route.add_argument("--severity", default="info", choices=IM_SEVERITIES)
+    im_route.add_argument("--repo", default="", help="Optional repo context (e.g. AIKB).")
+    im_route.add_argument("--scope", default="", help="Optional scope/path context.")
+    im_route.add_argument(
+        "--send",
+        action="store_true",
+        help="If a message intent is confident and body exists, deliver to inbox.",
+    )
+    im_route.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the resolved payload that would be sent (never writes).",
+    )
+
+    im_gc = im_subparsers.add_parser(
+        "gc",
+        help="Apply retention policies: archive old messages and cap inbox sizes.",
+    )
+    im_gc.add_argument("--agent", default="", help="Only GC this agent inbox (default: all inboxes).")
+    im_gc.add_argument(
+        "--max-inbox",
+        type=int,
+        default=50,
+        help="Keep at most this many newest messages in each inbox.",
+    )
+    im_gc.add_argument(
+        "--max-age-days",
+        type=int,
+        default=14,
+        help="Archive messages older than this many days.",
+    )
 
     return parser.parse_args()
 
@@ -1476,8 +1616,579 @@ def run_wakeup(args: argparse.Namespace) -> int:
         print("  → python3 _tools/memory-pipeline/review_candidates.py")
         print()
 
+    agent_name = (getattr(args, "agent", "") or "").strip()
+    if agent_name:
+        _ensure_im_dirs()
+        im_state = _load_state(agent_name)
+        acked: set[str] = set(x for x in im_state.get("acked_ids", []) if isinstance(x, str))
+
+        inbox_rows = _read_ndjson(_inbox_path(agent_name))
+        broadcast_rows = _read_ndjson(_inbox_path("broadcast"))
+        for raw, msg in broadcast_rows:
+            if isinstance(msg, dict) and "_invalid_json" not in msg:
+                msg = dict(msg)
+                msg["_mailbox"] = "broadcast"
+            inbox_rows.append((raw, msg))
+
+        new_rows = [
+            (raw, msg) for raw, msg in inbox_rows
+            if not (isinstance(msg, dict) and isinstance(msg.get("id"), str) and msg["id"] in acked)
+        ]
+
+        if new_rows:
+            print(f"INBOX — {len(new_rows)} unread message(s):")
+            for raw, msg in new_rows[-5:]:
+                if not isinstance(msg, dict) or msg.get("_invalid_json"):
+                    continue
+                frm = msg.get("from", "?")
+                sev = msg.get("severity", "info")
+                summary = msg.get("summary", "").strip()
+                ts = msg.get("ts_utc", "")[:16]
+                mailbox = msg.get("_mailbox", "")
+                tag = " [broadcast]" if mailbox == "broadcast" else ""
+                icon = "🔴" if sev in ("urgent", "critical") else "📨"
+                print(f"  {icon} {ts}  {frm}{tag}: {truncate(summary, 48)}")
+            if len(new_rows) > 5:
+                print(f"  … and {len(new_rows) - 5} more")
+            print(f'  → runtime_cli.py im peek --agent "{agent_name}" --new --include-broadcast --mark-seen')
+            print()
+            im_state["last_seen_ts_utc"] = _ts_utc_now()
+            _save_state(agent_name, im_state)
+
     print("─" * width)
     print("Load _index.md / _state.yaml for full detail. Use aikb_search for freeform queries.")
+    return 0
+
+
+def _ts_utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _agent_key(agent_name: str) -> str:
+    key = re.sub(r"[^a-zA-Z0-9]+", "-", (agent_name or "").strip().lower()).strip("-")
+    return key or "unknown-agent"
+
+
+def _ensure_im_dirs() -> None:
+    IM_INBOX_DIR.mkdir(parents=True, exist_ok=True)
+    IM_ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+    IM_SENT_DIR.mkdir(parents=True, exist_ok=True)
+    IM_STATE_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _inbox_path(agent_name: str) -> Path:
+    return IM_INBOX_DIR / f"{_agent_key(agent_name)}.ndjson"
+
+
+def _sent_path(agent_name: str) -> Path:
+    return IM_SENT_DIR / f"{_agent_key(agent_name)}.ndjson"
+
+
+def _state_path(agent_name: str) -> Path:
+    return IM_STATE_DIR / f"{_agent_key(agent_name)}.json"
+
+
+def _parse_ts_year_month(ts_utc: str) -> tuple[int, int]:
+    ts = ts_utc.replace("Z", "+00:00")
+    dt = datetime.fromisoformat(ts)
+    dt = dt.astimezone(timezone.utc)
+    return dt.year, dt.month
+
+
+def _archive_path_by_key(agent_key: str, ts_utc: str) -> Path:
+    year, month = _parse_ts_year_month(ts_utc)
+    safe = re.sub(r"[^a-zA-Z0-9-]+", "-", (agent_key or "").strip().lower()).strip("-") or "unknown-agent"
+    base = IM_ARCHIVE_DIR / safe / f"{year:04d}" / f"{month:02d}.ndjson"
+    base.parent.mkdir(parents=True, exist_ok=True)
+    return base
+
+
+def _archive_path(agent_name: str, ts_utc: str) -> Path:
+    return _archive_path_by_key(_agent_key(agent_name), ts_utc)
+
+
+def _read_ndjson(path: Path) -> list[tuple[str, dict]]:
+    if not path.exists():
+        return []
+    rows: list[tuple[str, dict]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        raw = line.strip()
+        if not raw:
+            continue
+        try:
+            rows.append((raw, json.loads(raw)))
+        except json.JSONDecodeError:
+            rows.append((raw, {"_invalid_json": True, "raw": raw}))
+    return rows
+
+
+def _append_line(path: Path, line: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(line.rstrip("\n") + "\n")
+
+
+def _load_state(agent_name: str) -> dict:
+    path = _state_path(agent_name)
+    if not path.exists():
+        return {"agent": agent_name, "last_seen_ts_utc": "", "acked_ids": []}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        data = {}
+    if not isinstance(data, dict):
+        data = {}
+    data.setdefault("agent", agent_name)
+    data.setdefault("last_seen_ts_utc", "")
+    data.setdefault("acked_ids", [])
+    if not isinstance(data["acked_ids"], list):
+        data["acked_ids"] = []
+    return data
+
+
+def _save_state(agent_name: str, state: dict) -> None:
+    path = _state_path(agent_name)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def run_im_send(args: argparse.Namespace) -> int:
+    _ensure_im_dirs()
+
+    msg_id = args.id.strip() or str(uuid.uuid4())
+    ts_utc = _ts_utc_now()
+    to_agent = args.to_agent.strip()
+    cc_list = [c.strip() for c in (args.cc or []) if c.strip()]
+    payload = {
+        "id": msg_id,
+        "ts_utc": ts_utc,
+        "from": args.from_agent.strip(),
+        "to": to_agent,
+        "cc": cc_list,
+        "severity": args.severity,
+        "repo": (args.repo or "").strip(),
+        "scope": (args.scope or "").strip(),
+        "summary": args.summary.strip(),
+        "body": (args.body or "").rstrip(),
+        "thread_id": (args.thread_id or "").strip(),
+        "reply_to": (args.reply_to or "").strip(),
+        "links": [l.strip() for l in (args.link or []) if l.strip()],
+    }
+    line = json.dumps(payload, ensure_ascii=False)
+
+    if _agent_key(to_agent) == "broadcast":
+        _append_line(_inbox_path("broadcast"), line)
+    else:
+        _append_line(_inbox_path(to_agent), line)
+
+    if args.deliver_cc:
+        for cc_agent in cc_list:
+            if _agent_key(cc_agent) == "broadcast":
+                _append_line(_inbox_path("broadcast"), line)
+            else:
+                _append_line(_inbox_path(cc_agent), line)
+
+    if args.mirror_sent:
+        _append_line(_sent_path(args.from_agent), line)
+
+    print(f"OK: sent {msg_id} -> {to_agent}")
+    return 0
+
+
+def run_im_peek(args: argparse.Namespace) -> int:
+    _ensure_im_dirs()
+
+    state = _load_state(args.agent)
+    acked: set[str] = set(x for x in state.get("acked_ids", []) if isinstance(x, str))
+
+    rows = _read_ndjson(_inbox_path(args.agent))
+    if args.include_broadcast and _agent_key(args.agent) != "broadcast":
+        broadcast_rows = _read_ndjson(_inbox_path("broadcast"))
+        tagged: list[tuple[str, dict]] = []
+        for raw, msg in broadcast_rows:
+            if isinstance(msg, dict) and "_invalid_json" not in msg:
+                msg = dict(msg)
+                msg["_mailbox"] = "broadcast"
+            tagged.append((raw, msg))
+        rows += tagged
+
+    if args.new:
+        filtered: list[tuple[str, dict]] = []
+        for raw, msg in rows:
+            mid = msg.get("id") if isinstance(msg, dict) else None
+            if isinstance(mid, str) and mid and mid in acked:
+                continue
+            filtered.append((raw, msg))
+        rows = filtered
+
+    tail = rows[-args.limit :] if args.limit > 0 else rows
+    if args.json:
+        for raw, _ in tail:
+            print(raw)
+        if args.mark_seen:
+            state["last_seen_ts_utc"] = _ts_utc_now()
+            _save_state(args.agent, state)
+        return 0
+
+    if not tail:
+        print("(empty)")
+        if args.mark_seen:
+            state["last_seen_ts_utc"] = _ts_utc_now()
+            _save_state(args.agent, state)
+        return 0
+
+    for raw, msg in tail:
+        if msg.get("_invalid_json"):
+            print(f"[invalid] {raw}")
+            continue
+        ts = msg.get("ts_utc", "")
+        frm = msg.get("from", "")
+        sev = msg.get("severity", "info")
+        summary = msg.get("summary", "").strip()
+        msg_id = msg.get("id", "")
+        mailbox = msg.get("_mailbox", "")
+        mailbox_tag = f" ({mailbox})" if mailbox else ""
+        print(f"{ts}  [{sev}]  {frm} -> {args.agent}{mailbox_tag}  {summary}  ({msg_id})")
+
+    if args.mark_seen:
+        state["last_seen_ts_utc"] = _ts_utc_now()
+        _save_state(args.agent, state)
+    return 0
+
+
+def run_im_ack(args: argparse.Namespace) -> int:
+    _ensure_im_dirs()
+
+    state = _load_state(args.agent)
+    acked: set[str] = set(x for x in state.get("acked_ids", []) if isinstance(x, str))
+
+    ids: list[str] = [i.strip() for i in (args.id or []) if i.strip()]
+    if args.all:
+        for _, msg in _read_ndjson(_inbox_path(args.agent)):
+            mid = msg.get("id")
+            if isinstance(mid, str) and mid:
+                ids.append(mid)
+        if args.include_broadcast and _agent_key(args.agent) != "broadcast":
+            for _, msg in _read_ndjson(_inbox_path("broadcast")):
+                mid = msg.get("id")
+                if isinstance(mid, str) and mid:
+                    ids.append(mid)
+
+    for mid in ids:
+        acked.add(mid)
+
+    state["acked_ids"] = sorted(acked)
+    state["last_seen_ts_utc"] = _ts_utc_now()
+    _save_state(args.agent, state)
+
+    print(f"OK: acked {len(ids)} for {args.agent}")
+    return 0
+
+
+def run_im_archive(args: argparse.Namespace) -> int:
+    _ensure_im_dirs()
+
+    inbox_path = _inbox_path(args.agent)
+    rows = _read_ndjson(inbox_path)
+    if not rows:
+        print("(empty)")
+        return 0
+
+    state = _load_state(args.agent)
+    acked: set[str] = set(x for x in state.get("acked_ids", []) if isinstance(x, str))
+
+    targets: set[str] = set(i.strip() for i in (args.id or []) if i.strip())
+    if args.all_acked:
+        targets |= acked
+    if not targets:
+        raise SystemExit("Nothing to archive: pass --id ... (repeatable) or --all-acked")
+
+    keep_lines: list[str] = []
+    archived: list[tuple[str, dict]] = []
+    for raw, msg in rows:
+        mid = msg.get("id") if isinstance(msg, dict) else None
+        if isinstance(mid, str) and mid in targets:
+            archived.append((raw, msg))
+        else:
+            keep_lines.append(raw)
+
+    if not archived:
+        print("No matching messages found to archive.")
+        return 0
+
+    for raw, msg in archived:
+        ts = msg.get("ts_utc") if isinstance(msg, dict) else ""
+        if not isinstance(ts, str) or not ts:
+            ts = _ts_utc_now()
+        _append_line(_archive_path(args.agent, ts), raw)
+
+    inbox_path.parent.mkdir(parents=True, exist_ok=True)
+    inbox_path.write_text("\n".join(keep_lines).rstrip() + ("\n" if keep_lines else ""), encoding="utf-8")
+
+    state["acked_ids"] = sorted(mid for mid in acked if mid not in targets)
+    state["last_seen_ts_utc"] = _ts_utc_now()
+    _save_state(args.agent, state)
+
+    print(f"OK: archived {len(archived)} for {args.agent}")
+    return 0
+
+
+def _normalize_text(text: str) -> str:
+    lowered = (text or "").lower()
+    lowered = re.sub(r"[“”]", '"', lowered)
+    lowered = re.sub(r"[’]", "'", lowered)
+    lowered = re.sub(r"\s+", " ", lowered).strip()
+    return lowered
+
+
+def _find_agent_mentions(text: str) -> list[tuple[int, str, str]]:
+    normalized = _normalize_text(text)
+    hits: list[tuple[int, str, str]] = []
+    for alias, canonical in AGENT_ALIASES.items():
+        pattern = r"\b" + re.escape(alias) + r"\b"
+        match = re.search(pattern, normalized)
+        if match:
+            hits.append((match.start(), alias, canonical))
+    hits.sort(key=lambda x: x[0])
+    return hits
+
+
+def _extract_message_body(text: str, to_agent: str | None) -> str:
+    raw = (text or "").strip()
+    if not raw:
+        return ""
+
+    quote_match = re.search(r"\"([^\"]+)\"", raw)
+    if quote_match:
+        return quote_match.group(1).strip()
+
+    if ":" in raw:
+        after = raw.split(":", 1)[1].strip()
+        if after:
+            return after
+
+    normalized = _normalize_text(raw)
+    for marker in ("let", "tell", "message", "ping", "dm", "im", "notify", "send a note", "send a message", "ask"):
+        if marker in normalized:
+            if marker == "let" and " know" in normalized:
+                idx = normalized.find(" know")
+                after = normalized[idx + len(" know") :].lstrip()
+                after = re.sub(r"^(that|about)\s+", "", after).strip()
+                return after
+            if " to " in normalized and to_agent:
+                after_to = normalized.split(" to ", 1)[1].strip()
+                agent_key = _normalize_text(to_agent)
+                if after_to.startswith(agent_key):
+                    after_to = after_to[len(agent_key) :].strip()
+                return after_to
+    return ""
+
+
+def run_im_interpret(args: argparse.Namespace) -> int:
+    text = (args.text or "").strip()
+    normalized = _normalize_text(text)
+    mentions = _find_agent_mentions(normalized)
+    to_agent = mentions[0][2] if mentions else ""
+
+    is_compound = (
+        ("check" in normalized or "peek" in normalized or "look" in normalized)
+        and "working on" in normalized
+        and ("let" in normalized or "tell" in normalized)
+        and ("know" in normalized or "notify" in normalized)
+    )
+
+    send_verbs = ("send", "message", "ping", "dm", "im", "notify", "tell", "let", "ask")
+    is_send = any(v in normalized for v in send_verbs) and bool(to_agent)
+
+    action = ""
+    if is_compound:
+        action = "mindmeld_then_message"
+    elif is_send:
+        action = "message"
+    else:
+        action = "unknown"
+
+    body = _extract_message_body(text, to_agent or None)
+    summary = ""
+    if body:
+        summary = body.splitlines()[0].strip()
+        if len(summary) > 120:
+            summary = summary[:117].rstrip() + "..."
+
+    payload = {
+        "action": action,
+        "from": args.default_from,
+        "to": to_agent,
+        "as_of_ts_utc": _ts_utc_now(),
+        "needs_body": not bool(body),
+        "summary_suggestion": summary,
+        "body_suggestion": body,
+        "mentions": [{"alias": a, "canonical": c, "pos": p} for (p, a, c) in mentions],
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
+    return 0
+
+
+def _tokenize(text: str) -> list[str]:
+    return [t for t in re.split(r"[^\w]+", _normalize_text(text)) if t]
+
+
+def _alias_token_sequences() -> list[tuple[list[str], str]]:
+    sequences: list[tuple[list[str], str]] = []
+    for alias, canonical in AGENT_ALIASES.items():
+        tokens = [t for t in alias.split(" ") if t]
+        if tokens:
+            sequences.append((tokens, canonical))
+    sequences.sort(key=lambda x: len(x[0]), reverse=True)
+    return sequences
+
+
+def _find_first_recipient_with_latch(text: str) -> tuple[str, bool]:
+    tokens = _tokenize(text)
+    if not tokens:
+        return "", False
+
+    verbs = {"send", "message", "ping", "dm", "im", "notify", "tell", "let", "ask"}
+    sequences = _alias_token_sequences()
+
+    for idx in range(len(tokens)):
+        for alias_tokens, canonical in sequences:
+            if tokens[idx : idx + len(alias_tokens)] != alias_tokens:
+                continue
+
+            window_start = max(0, idx - 6)
+            window_end = min(len(tokens), idx + len(alias_tokens) + 6)
+            window = tokens[window_start:window_end]
+
+            if idx > 0 and tokens[idx - 1] == "to":
+                if any(v in window for v in verbs):
+                    return canonical, True
+                return canonical, False
+
+            if idx > 0 and tokens[idx - 1] in {"let", "tell", "message", "ping", "notify", "ask"}:
+                return canonical, True
+            if "let" in window and "know" in window:
+                return canonical, True
+
+            if any(v in window for v in verbs):
+                return canonical, True
+
+            return canonical, False
+
+    return "", False
+
+
+def run_im_route(args: argparse.Namespace) -> int:
+    text = (args.text or "").strip()
+    to_agent, confident = _find_first_recipient_with_latch(text)
+    body = _extract_message_body(text, to_agent or None)
+
+    summary = ""
+    if body:
+        summary = body.splitlines()[0].strip()
+        if len(summary) > 120:
+            summary = summary[:117].rstrip() + "..."
+
+    payload = {
+        "action": "message" if to_agent else "unknown",
+        "confident": confident,
+        "from": args.from_agent,
+        "to": to_agent,
+        "severity": args.severity,
+        "repo": (args.repo or "").strip(),
+        "scope": (args.scope or "").strip(),
+        "summary": summary,
+        "body": body,
+        "as_of_ts_utc": _ts_utc_now(),
+        "needs_body": not bool(body),
+    }
+
+    if args.dry_run or not args.send:
+        print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
+        if not (to_agent and confident and body):
+            return 2
+        return 0
+
+    if not to_agent:
+        raise SystemExit("No recipient detected; use --dry-run to inspect parsing.")
+    if not confident:
+        raise SystemExit("Recipient mentioned but intent not confident; refine phrasing or use `im send`.")
+    if not body:
+        raise SystemExit("No message body detected; add ':' or quotes, or use `im send`.")
+
+    send_args = argparse.Namespace(
+        from_agent=args.from_agent,
+        to_agent=to_agent,
+        summary=summary or "(no subject)",
+        body=body,
+        severity=args.severity,
+        repo=args.repo,
+        scope=args.scope,
+        thread_id="",
+        reply_to="",
+        cc=[],
+        deliver_cc=False,
+        link=[],
+        id="",
+        mirror_sent=False,
+    )
+    return run_im_send(send_args)
+
+
+def _parse_ts_utc(ts_utc: str) -> datetime | None:
+    if not ts_utc:
+        return None
+    try:
+        return datetime.fromisoformat(ts_utc.replace("Z", "+00:00")).astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
+def run_im_gc(args: argparse.Namespace) -> int:
+    _ensure_im_dirs()
+
+    max_inbox = max(0, args.max_inbox)
+    max_age_days = max(0, args.max_age_days)
+    cutoff = datetime.now(timezone.utc) - timedelta(days=max_age_days) if max_age_days else None
+
+    inbox_files = sorted(IM_INBOX_DIR.glob("*.ndjson"))
+    if args.agent.strip():
+        inbox_files = [_inbox_path(args.agent)]
+
+    total_archived = 0
+    total_trimmed = 0
+
+    for inbox_path in inbox_files:
+        rows = _read_ndjson(inbox_path)
+        if not rows:
+            continue
+        owner_key = inbox_path.stem
+
+        keep: list[tuple[str, dict]] = []
+        for raw, msg in rows:
+            ts = msg.get("ts_utc") if isinstance(msg, dict) else ""
+            dt = _parse_ts_utc(ts) or datetime.now(timezone.utc)
+            if cutoff and dt < cutoff:
+                _append_line(_archive_path_by_key(owner_key, ts or _ts_utc_now()), raw)
+                total_archived += 1
+            else:
+                keep.append((raw, msg))
+
+        if max_inbox and len(keep) > max_inbox:
+            overflow = keep[: len(keep) - max_inbox]
+            remainder = keep[len(keep) - max_inbox :]
+            for raw, msg in overflow:
+                ts = msg.get("ts_utc") if isinstance(msg, dict) else ""
+                _append_line(_archive_path_by_key(owner_key, ts or _ts_utc_now()), raw)
+                total_trimmed += 1
+            keep = remainder
+
+        inbox_path.write_text(
+            "\n".join(raw for (raw, _) in keep).rstrip() + ("\n" if keep else ""),
+            encoding="utf-8",
+        )
+
+    print(f"OK: gc archived={total_archived} trimmed={total_trimmed}")
     return 0
 
 
@@ -1511,6 +2222,22 @@ def main() -> int:
         return print_status(args.limit)
     if args.command == "wake-up":
         return run_wakeup(args)
+    if args.command == "im":
+        if args.im_command == "send":
+            return run_im_send(args)
+        if args.im_command == "peek":
+            return run_im_peek(args)
+        if args.im_command == "ack":
+            return run_im_ack(args)
+        if args.im_command == "archive":
+            return run_im_archive(args)
+        if args.im_command == "interpret":
+            return run_im_interpret(args)
+        if args.im_command == "route":
+            return run_im_route(args)
+        if args.im_command == "gc":
+            return run_im_gc(args)
+        raise SystemExit(f"Unknown im command: {args.im_command}")
     raise SystemExit(f"Unknown command: {args.command}")
 
 

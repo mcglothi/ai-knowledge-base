@@ -1,5 +1,5 @@
 #!/bin/bash
-# Mock AIKB Wake-up Briefing for demo recordings
+# Mock AIKB conversational wake-up for demo recordings
 
 BOLD='\033[1m'
 NC='\033[0m'
@@ -8,16 +8,17 @@ GREEN='\033[32m'
 YELLOW='\033[33m'
 DIM='\033[2m'
 
-echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo -e "  AIKB Wake-up Briefing · 2026-04-14 09:12 UTC"
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${DIM}you:${NC} what was I working on?"
+sleep 1.0
+
+echo ""
+echo -e "${DIM}reading _index.md and recent session events ...${NC}"
 sleep 1.2
 
-echo -e "\n${BLUE}▸ SESSION${NC}"
-echo -e "  Agent    : Claude Code"
-echo -e "  Machine  : dev-box (macOS)"
-echo -e "  Scope    : personal-projects"
-sleep 1.5
+echo -e "\n${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo -e "  AIKB Session Briefing · 2026-04-14 09:12 UTC"
+echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+sleep 1.2
 
 echo -e "\n${BLUE}▸ ACTIVE PROJECTS (3)${NC}"
 echo -e "  ● portfolio-site      ${GREEN}Active${NC}      deploy pending — waiting on DNS TTL"
@@ -36,6 +37,6 @@ echo -e "  08:31  homelab cert registry updated — flagged for follow-up"
 sleep 1.5
 
 echo -e "\n${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo -e "  Ready. Load a project file or ask what's next."
+echo -e "  Ready. What do you want to work on?"
 echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 sleep 3.0

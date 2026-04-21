@@ -62,17 +62,19 @@ next
 
 page 2 "START WITH THE OPERATOR LOOP"
 
-echo -e "  If you only adopt one advanced workflow, make it this one:"
+echo -e "  The operator loop is just three habits — and they're all"
+echo -e "  things you say, not commands you run:"
 echo ""
-echo -e "  ${DIM}    python3 _tools/memory-pipeline/runtime_cli.py hud${RESET}"
-echo -e "  ${DIM}    python3 _tools/memory-pipeline/runtime_cli.py focus set ...${RESET}"
-echo -e "  ${DIM}    python3 _tools/memory-pipeline/runtime_cli.py closeout ...${RESET}"
+echo -e "  ${BOLD}Start:${RESET}  Agent orients itself automatically. Nothing required."
+echo -e "  ${DIM}          If you want a summary: \"what was I working on?\"${RESET}"
 echo ""
-echo -e "  ${BOLD}hud${RESET} answers: what state are we in?"
-echo -e "  ${BOLD}focus set${RESET} keeps the current objective visible."
-echo -e "  ${BOLD}closeout${RESET} captures how the session ended."
+echo -e "  ${BOLD}Focus:${RESET}  ${DIM}\"My focus today is X\"${RESET}"
+echo -e "  ${DIM}          Keeps the agent oriented through long sessions.${RESET}"
 echo ""
-echo -e "  This turns AIKB from static notes into a working loop."
+echo -e "  ${BOLD}End:${RESET}    ${DIM}\"Let's wrap up\"${RESET}"
+echo -e "  ${DIM}          Captures how the session ended, for the next one.${RESET}"
+echo ""
+echo -e "  That single closing phrase is the most valuable habit here."
 
 next
 
@@ -86,10 +88,12 @@ echo -e "  ${DIM}    • money/spend impact${RESET}"
 echo -e "  ${DIM}    • security implications${RESET}"
 echo -e "  ${DIM}    • preference ambiguity${RESET}"
 echo ""
-echo -e "  Example:"
-echo -e "  ${DIM}    python3 _tools/memory-pipeline/approvals_cli.py add \\\n      --agent \"Claude Code\" --project \"AIKB\" \\\n      --action \"Publish docs redesign\"${RESET}"
+echo -e "  Just tell your agent upfront:"
+echo -e "  ${DIM}    \"Ask me before you publish anything public\"${RESET}"
+echo -e "  ${DIM}    \"Don't delete anything without checking first\"${RESET}"
 echo ""
-echo -e "  This gives the operator a visible sign-off surface."
+echo -e "  The agent logs the approval item — you review it before it acts."
+echo -e "  Visible sign-off without having to run a command to set it up."
 
 next
 
@@ -131,18 +135,18 @@ page 6 "A GOOD FIRST-WEEK ADOPTION PLAN"
 
 echo -e "  ${BOLD}Day 1${RESET}"
 echo -e "    • Fill in profile + dev environment"
-echo -e "    • Run ${BOLD}hud${RESET} once"
+echo -e "    • Ask your agent: ${DIM}\"what's currently active?\"${RESET}"
 echo ""
 echo -e "  ${BOLD}Day 2${RESET}"
-echo -e "    • Start using ${BOLD}closeout${RESET} when you stop"
-echo -e "    • Add one real approval row"
+echo -e "    • End sessions with: ${DIM}\"let's wrap up\"${RESET}"
+echo -e "    • Tell the agent one real thing to flag for sign-off"
 echo ""
 echo -e "  ${BOLD}Day 3${RESET}"
-echo -e "    • Capture your first operator intent"
+echo -e "    • Say a shorthand phrase, tell the agent to remember it"
 echo -e "    • Enable search if the repo is growing"
 echo ""
 echo -e "  The goal is not to enable every feature."
-echo -e "  The goal is to build habits that scale with the repo."
+echo -e "  The goal is to build ${BOLD}one habit${RESET} that sticks — wrap up."
 
 next
 

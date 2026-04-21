@@ -1,6 +1,7 @@
 # AI Tool Registry
 
-**Last Updated:** 2026-04-17 for each AI tool in use. Read this when working in a multi-agent setup to understand what each tool can and cannot do.
+**Last Updated:** 2026-04-13
+**Purpose:** Capabilities and gotchas for each AI tool in use. Read this when working in a multi-agent setup to understand what each tool can and cannot do.
 
 ---
 
@@ -12,7 +13,6 @@
 | Gemini CLI | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks |
 | Codex CLI | Local clone (or MCP if configured) | Yes | Yes | Large | Code edits with repo-scoped instructions |
 | OpenCode | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks, multi-provider, local models |
-| GitHub Copilot CLI | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks, GitHub-native workflows |
 | Cursor | Local clone | Yes (manual) | No (without config) | Large | IDE-integrated coding |
 | ChatGPT | Paste only | No (manual) | No | Medium | Ideation, writing, one-off questions |
 | Google Gemini | Paste only | No (manual) | No | Large | Research, writing |
@@ -58,13 +58,6 @@
 - Session workflow: paste `_index.md` (or relevant sections) at session start
 - At session end: ask for AIKB update suggestions, paste them manually into files
 - These tools cannot maintain AIKB independently — human-in-the-loop required
-
-### GitHub Copilot CLI
-- Reads `~/.copilot/copilot-instructions.md` automatically at startup
-- Also reads `CLAUDE.md`, `GEMINI.md`, `AGENTS.md`, `.github/copilot-instructions.md` when present in a git repo
-- Supports MCP servers — can read/write AIKB via `github-aikb` MCP (configured in `~/.copilot/mcp-config.json`)
-- No native Stop hook; run `aikb-session-stop.sh` manually before finishing
-- Use `/compact` to reduce context; capture to AIKB first with `runtime_cli.py capture`
 
 ---
 

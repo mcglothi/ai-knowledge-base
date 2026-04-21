@@ -1,191 +1,271 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AIKB</title>
-    <style>
-      :root {
-        --ink: #0c1522;
-        --cloud: #f6f1e9;
-        --cobalt: #7dd3fc;
-        --steel: #94a3b8;
-        --line: rgba(148, 163, 184, 0.2);
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: var(--cloud);
-        background:
-          radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 32%),
-          radial-gradient(circle at 82% 12%, rgba(148, 163, 184, 0.1), transparent 24%),
-          linear-gradient(180deg, #0c1522 0%, #070d16 100%);
-        min-height: 100vh;
-      }
-      .shell {
-        width: min(1180px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 28px 0 64px;
-      }
-      .nav, .panel, .card {
-        border: 1px solid var(--line);
-        background: rgba(8, 13, 20, 0.64);
-        backdrop-filter: blur(12px);
-      }
-      .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        padding: 16px 18px;
-        border-radius: 22px;
-      }
-      .brand { display: flex; align-items: center; gap: 14px; }
-      .brand img { width: 42px; height: 42px; }
-      .brand strong { display: block; font-size: 0.95rem; letter-spacing: 0.14em; }
-      .brand span, .navlinks, .footer, .card p, .subcopy { color: #b5c0ce; }
-      .navlinks { display: flex; gap: 18px; font-size: 0.94rem; }
-      .hero {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 36px;
-        padding: 56px 0 40px;
-        align-items: center;
-      }
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 12px;
-        border: 1px solid rgba(125, 211, 252, 0.22);
-        border-radius: 999px;
-        color: #d5efff;
-        font-size: 0.84rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        background: rgba(125, 211, 252, 0.1);
-      }
-      .eyebrow::before {
-        content: "";
-        width: 8px; height: 8px; border-radius: 999px;
-        background: var(--cobalt);
-        box-shadow: 0 0 18px rgba(125, 211, 252, 0.56);
-      }
-      h1 {
-        margin: 18px 0 14px;
-        font-size: clamp(3rem, 7vw, 5.7rem);
-        line-height: 0.94;
-        letter-spacing: -0.05em;
-      }
-      .lede { margin: 0 0 18px; font-size: 1.3rem; color: #e6edf6; max-width: 18ch; }
-      .subcopy { margin: 0 0 28px; line-height: 1.7; max-width: 58ch; }
-      .actions { display: flex; flex-wrap: wrap; gap: 14px; }
-      .button {
-        display: inline-flex; align-items: center; justify-content: center;
-        min-width: 168px; padding: 14px 18px; border-radius: 14px;
-        border: 1px solid transparent; text-decoration: none; color: inherit; font-weight: 600;
-      }
-      .primary { background: linear-gradient(135deg, var(--cobalt), #c7ebff); color: #082033; }
-      .secondary { border-color: rgba(100, 116, 139, 0.3); background: rgba(15, 23, 32, 0.42); }
-      .panel {
-        position: relative; overflow: hidden; border-radius: 28px;
-        padding: 24px; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
-      }
-      .terminal {
-        border-radius: 18px; border: 1px solid rgba(100, 116, 139, 0.2);
-        background: rgba(6, 10, 16, 0.94); overflow: hidden;
-      }
-      .terminal-top { display: flex; gap: 8px; padding: 12px 14px; border-bottom: 1px solid rgba(100, 116, 139, 0.18); }
-      .dot { width: 9px; height: 9px; border-radius: 999px; background: #314253; }
-      .terminal-body {
-        padding: 20px;
-        font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
-        font-size: 0.92rem;
-        line-height: 1.65;
-        color: #d4dce7;
-      }
-      .accent { color: #9fdcff; }
-      .warm { color: #d6e0ec; }
-      .stats, .section { display: grid; gap: 16px; }
-      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
-      .stat, .card { padding: 18px; border-radius: 18px; }
-      .stat { border: 1px solid var(--line); background: rgba(12, 19, 27, 0.68); }
-      .stat strong { display: block; font-size: 1.5rem; margin-bottom: 6px; }
-      .section { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 30px; }
-      .card h3 { margin: 0 0 10px; font-size: 1.08rem; }
-      .card p { margin: 0; line-height: 1.65; }
-      .footer { margin-top: 34px; padding-top: 20px; border-top: 1px solid rgba(100, 116, 139, 0.14); font-size: 0.94rem; }
-      @media (max-width: 940px) {
-        .hero, .section, .stats { grid-template-columns: 1fr; }
-        .nav { flex-direction: column; align-items: flex-start; }
-        .navlinks { flex-wrap: wrap; }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="shell">
-      <section class="nav">
-        <div class="brand">
-          <img src="assets/aikb-mark.svg" alt="AIKB mark" />
-          <div>
-            <strong>AIKB</strong>
-            <span>Persistent memory for your AI tools</span>
-          </div>
-        </div>
-        <div class="navlinks">
-          <span>Local-first</span>
-          <span>Git-backed</span>
-          <span>Multi-agent</span>
-          <span>Inspectable</span>
-        </div>
-      </section>
-      <section class="hero">
-        <div>
-          <div class="eyebrow">Direction A / Mineral Cobalt</div>
-          <h1>AIKB</h1>
-          <p class="lede">Persistent memory for your AI tools.</p>
-          <p class="subcopy">
-            Give your agents shared context that survives across sessions, tools, and machines.
-            AIKB stays local-first, Git-backed, and fully inspectable so your memory system feels like
-            infrastructure you control instead of a black box you hope is right.
-          </p>
-          <div class="actions">
-            <a class="button primary" href="https://github.com/mcglothi/ai-knowledge-base">Use this template</a>
-            <a class="button secondary" href="https://github.com/mcglothi/ai-knowledge-base/blob/main/README.md">Read the docs</a>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="terminal">
-            <div class="terminal-top">
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-            </div>
-            <div class="terminal-body">
-              <div><span class="accent">$</span> ask "what changed since last session?"</div>
-              <div>reading <span class="warm">_index.md</span> and <span class="warm">_state.yaml</span> ...</div>
-              <div>found:</div>
-              <div>  <span class="accent">-</span> open SSL renewal due in 18 days</div>
-              <div>  <span class="accent">-</span> pending client approval on AWS simplification</div>
-              <div>  <span class="accent">-</span> AIKB public launch checklist in progress</div>
-              <div style="margin-top: 10px;"><span class="accent">$</span> ask "what should I do next?"</div>
-              <div>loaded decision context from prior sessions</div>
-            </div>
-          </div>
-          <div class="stats">
-            <div class="stat"><strong>1 repo</strong><span>shared memory substrate</span></div>
-            <div class="stat"><strong>Any tool</strong><span>Claude, Gemini, Codex, Cursor, more</span></div>
-            <div class="stat"><strong>No black box</strong><span>Markdown + Git + inspectable structure</span></div>
-          </div>
-        </div>
-      </section>
-      <section class="section">
-        <article class="card"><h3>Shared context</h3><p>Stop re-explaining your machines, projects, and decisions whenever you switch sessions or tools.</p></article>
-        <article class="card"><h3>Local-first trust</h3><p>Keep memory in a repo you control, with explicit files, history, diffs, and reviewable changes.</p></article>
-        <article class="card"><h3>Operator-grade flow</h3><p>Start with Markdown and Git. Add semantic search, MCP access, and richer workflows only when you want them.</p></article>
-      </section>
-      <div class="footer">Temporary branding preview for AIKB. Direction: editorial wordmark / mineral cobalt.</div>
-    </main>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Knowledge Base — Persistent Memory for AI Agents</title>
+<meta name="description" content="Open source framework for persistent AI agent memory. Runtime event log, temporal search, dream cycle compression, and session handoff.">
+<style>
+:root {
+  --bg:#08090d; --surface:#0f1117; --card:#141720; --border:#1e2130;
+  --border2:#252a3a; --text:#d4d8e8; --muted:#5a607a; --dim:#3a4060;
+  --blue:#4d9fff; --blue-d:#0d1e38; --green:#3dd68c; --green-d:#0f2e20;
+  --amber:#f0b429; --amber-d:#2a1f00; --red:#f25c54; --purple:#a78bfa; --purple-d:#1e1535;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(8,9,13,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px}
+.nav-back{font-size:0.82rem;color:var(--muted)}
+.nav-back:hover{color:var(--text);text-decoration:none}
+.nav-brand{font-size:1rem;font-weight:800;letter-spacing:-0.01em;background:linear-gradient(135deg,#a78bfa 0%,#38c8f8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:1.25rem}
+.nav-links a{font-size:0.82rem;color:var(--muted)}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+
+.hero{max-width:760px;margin:0 auto;padding:5.5rem 2rem 4rem;text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1.25rem;font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);background:var(--purple-d);border:1px solid rgba(167,139,250,0.2);padding:0.3rem 0.85rem;border-radius:20px}
+.hero h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:#fff;margin-bottom:1.25rem}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#a78bfa,#38c8f8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin:0 auto 2.25rem;line-height:1.7}
+.hero-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-block;padding:0.65rem 1.4rem;background:var(--purple);color:#fff;font-size:0.88rem;font-weight:700;border-radius:7px;transition:opacity .15s}
+.btn-primary:hover{opacity:.85;text-decoration:none;color:#fff}
+.btn-ghost{display:inline-block;padding:0.65rem 1.4rem;background:none;color:var(--text);font-size:0.88rem;font-weight:600;border-radius:7px;border:1px solid var(--border2);transition:border-color .15s}
+.btn-ghost:hover{border-color:var(--purple);color:var(--purple);text-decoration:none}
+
+/* Terminal demo */
+.terminal-wrap{max-width:680px;margin:0 auto;padding:0 2rem 4rem}
+.terminal{background:#060a10;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.terminal-top{display:flex;gap:7px;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:var(--surface)}
+.t-dot{width:9px;height:9px;border-radius:50%}
+.terminal-body{padding:1.25rem 1.4rem;font-family:"SFMono-Regular",ui-monospace,monospace;font-size:0.82rem;line-height:1.9;color:#d4dce7}
+.t-prompt{color:#a78bfa}
+.t-path{color:#5a607a}
+.t-out{color:#6b7a99}
+.t-hi{color:#9fdcff}
+.t-grn{color:#3dd68c}
+.t-amber{color:#f0b429}
+
+section{max-width:900px;margin:0 auto;padding:3.5rem 2rem}
+.section-label{font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
+.section-title{font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:0.65rem}
+.section-sub{font-size:0.9rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;max-width:540px}
+
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0.75rem}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.2rem}
+.feature-icon{font-size:1.25rem;margin-bottom:0.6rem}
+.feature-name{font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.3rem}
+.feature-desc{font-size:0.8rem;color:var(--muted);line-height:1.5}
+
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:2rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem}
+.stat-val{font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:0.2rem}
+.stat-desc{font-size:0.78rem;color:var(--muted)}
+
+.layout-diagram{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem;font-family:monospace;font-size:0.78rem;color:var(--muted);line-height:1.9;overflow-x:auto;white-space:pre}
+.hi{color:#a78bfa}.hi2{color:#3dd68c}.hi3{color:#4d9fff}.dim-c{color:var(--dim)}
+
+.install-block{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.install-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface)}
+.install-tab{padding:0.55rem 1rem;font-size:0.78rem;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .12s}
+.install-tab.active{color:var(--purple);border-bottom-color:var(--purple)}
+.install-panel{display:none;padding:1.1rem 1.25rem}
+.install-panel.active{display:block}
+.install-cmd{font-family:monospace;font-size:0.83rem;color:var(--green);white-space:pre;overflow-x:auto}
+.install-meta{display:flex;align-items:center;justify-content:space-between;margin-top:0.75rem;flex-wrap:wrap;gap:0.5rem}
+.install-note{font-size:0.72rem;color:var(--dim)}
+.copy-btn{padding:0.35rem 0.7rem;background:none;border:1px solid var(--border2);border-radius:5px;color:var(--muted);font-size:0.72rem;cursor:pointer;transition:border-color .12s,color .12s}
+.copy-btn:hover{border-color:var(--purple);color:var(--purple)}
+.copy-btn.copied{border-color:var(--green);color:var(--green)}
+
+.divider{border:none;border-top:1px solid var(--border)}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:0.72rem;color:var(--dim);line-height:2}
+footer a{color:var(--dim)}
+footer a:hover{color:var(--muted)}
+@media(max-width:600px){nav{padding:0 1rem}.hero,.terminal-wrap{padding-left:1.25rem;padding-right:1.25rem}section{padding:2.5rem 1.25rem}.stat-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="https://mcglothi.github.io">← All projects</a>
+  <span class="nav-brand">AI Knowledge Base</span>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#structure">Structure</a>
+    <a href="#get-started">Get started</a>
+    <a href="https://github.com/mcglothi/ai-knowledge-base/blob/main/docs/agent-im.md" target="_blank">Agent IM</a>
+    <a href="https://github.com/mcglothi/ai-knowledge-base" target="_blank">GitHub</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="hero-eyebrow">🧠 Open source · Any LLM · Git-backed</span>
+  <h1>Your agents should not<br><em>start from zero</em></h1>
+  <p class="hero-sub">
+    File-based persistent memory for AI agents. Runtime event log,
+    temporal search, dream cycle compression, and session handoff —
+    so context survives across conversations, agents, and tools.
+  </p>
+  <div class="hero-actions">
+    <a href="#get-started" class="btn-primary">Get started</a>
+    <a href="https://github.com/mcglothi/ai-knowledge-base" class="btn-ghost" target="_blank">GitHub →</a>
+    <a href="https://github.com/mcglothi/ai-knowledge-base/blob/main/docs/agent-im.md" class="btn-ghost" target="_blank">Agent IM →</a>
+  </div>
+</div>
+
+<!-- Terminal demo -->
+<div class="terminal-wrap">
+  <div class="terminal">
+    <div class="terminal-top">
+      <div class="t-dot" style="background:#f25c54"></div>
+      <div class="t-dot" style="background:#f0b429"></div>
+      <div class="t-dot" style="background:#3dd68c"></div>
+    </div>
+    <div class="terminal-body">
+<div><span class="t-prompt">&gt;</span> <span class="t-amber">"what was I working on last time?"</span></div>
+<div class="t-out">reading recent events and active projects ...</div>
+<div class="t-grn">✓ 3 active projects · 1 open incident · 2 pending items</div>
+<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"remember — switched auth to JWT, session tokens rejected"</span></div>
+<div class="t-grn">✓ decision captured to session memory</div>
+<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"what was decided about auth?"</span></div>
+<div class="t-out">2026-04-18  decision: switched auth to JWT</div>
+<div class="t-out">             rejected: session tokens — don't work across services</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<section id="features">
+  <div class="section-label">Features</div>
+  <div class="section-title">What it gives your agents</div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-val">1 repo</div>
+      <div class="stat-desc">Shared memory substrate across all your AI tools</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">Any tool</div>
+      <div class="stat-desc">Claude, Gemini, Codex, Cursor — same memory layer</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">No black box</div>
+      <div class="stat-desc">Markdown + Git — fully inspectable, diffable, reviewable</div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <div class="feature-name">Runtime event log</div>
+      <div class="feature-desc">Append-only NDJSON log of agent decisions, findings, and session events. Survives compaction, tool resets, and model switches.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <div class="feature-name">Temporal search</div>
+      <div class="feature-desc">Query across sessions — "what was decided about X last week?" — without re-reading entire conversation histories.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💤</div>
+      <div class="feature-name">Dream cycle</div>
+      <div class="feature-desc">Background compression that promotes high-signal events to long-term canonical docs. Keeps the runtime log lean.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤝</div>
+      <div class="feature-name">Session handoff</div>
+      <div class="feature-desc">Structured closeout events so a fresh agent picks up exactly where the last one stopped — no re-reading required.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔌</div>
+      <div class="feature-name">MCP server</div>
+      <div class="feature-desc">Optional MCP integration exposes <code>aikb_search</code> and <code>aikb_remember</code> directly to any MCP-capable client.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗂</div>
+      <div class="feature-name">Canonical docs</div>
+      <div class="feature-desc">Human-readable Markdown for projects, infrastructure, and decisions. Git-tracked and readable without any tooling.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <div class="feature-name">Agent IM inbox</div>
+      <div class="feature-desc">File-based inbox + archive so models can leave each other — or themselves — quick notes, review requests, and resume hints. Unread messages surface automatically at the next wake-up.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="structure">
+  <div class="section-label">Structure</div>
+  <div class="section-title">Plain files, no database</div>
+  <p class="section-sub">A single git repo. Everything is Markdown and NDJSON — inspectable, diffable, and portable.</p>
+  <div class="layout-diagram"><span class="hi">AIKB/</span>
+<span class="dim-c">├─</span> <span class="hi2">_runtime/</span>          <span class="dim-c"># live session data</span>
+<span class="dim-c">│  ├─ events/</span>          <span class="dim-c"># YYYY-MM-DD.ndjson — append-only event log</span>
+<span class="dim-c">│  └─ active.md</span>        <span class="dim-c"># current session claim</span>
+<span class="dim-c">├─</span> <span class="hi3">_tools/</span>            <span class="dim-c"># memory pipeline scripts</span>
+<span class="dim-c">│  └─ memory-pipeline/</span>
+<span class="dim-c">│     ├─ runtime_cli.py</span> <span class="dim-c"># wake-up (+ IM check), capture, closeout, im send/peek/ack</span>
+<span class="dim-c">│     └─ dream_cycle.py</span> <span class="dim-c"># compression + promotion to canonical docs</span>
+<span class="dim-c">├─</span> <span class="hi">_index.md</span>           <span class="dim-c"># project registry</span>
+<span class="dim-c">├─ _state.yaml</span>         <span class="dim-c"># incidents, certs, pending items</span>
+<span class="dim-c">└─ projects/</span>           <span class="dim-c"># canonical long-term project docs</span></div>
+</section>
+
+<hr class="divider">
+
+<section id="get-started">
+  <div class="section-label">Get started</div>
+  <div class="section-title">Set up your knowledge base</div>
+  <p class="section-sub">Fork the template, run install, and capture your first session event in under a minute.</p>
+  <div class="install-block">
+    <div class="install-tabs">
+      <button class="install-tab active" onclick="showTab('fork',this)">Fork template</button>
+      <button class="install-tab" onclick="showTab('mcp',this)">MCP setup</button>
+    </div>
+    <div class="install-panel active" id="tab-fork">
+      <div class="install-cmd" id="cmd-fork"># Fork mcglothi/ai-knowledge-base on GitHub, then:
+git clone https://github.com/YOUR_USERNAME/ai-knowledge-base.git
+cd ai-knowledge-base && bash install.sh
+
+# Open your AI tool and just start talking — your agent
+# orients itself automatically at the start of every session.</div>
+      <div class="install-meta">
+        <span class="install-note">Requires Python 3.8+ and git</span>
+        <button class="copy-btn" onclick="copyCmd('cmd-fork',this)">Copy</button>
+      </div>
+    </div>
+    <div class="install-panel" id="tab-mcp">
+      <div class="install-cmd" id="cmd-mcp"># Add to your MCP client config:
+{
+  "mcpServers": {
+    "aikb-search": {
+      "command": "python3",
+      "args": ["path/to/aikb/_tools/mcp/server.py"]
+    }
+  }
+}</div>
+      <div class="install-meta">
+        <span class="install-note">Exposes aikb_search and aikb_remember to any MCP-capable client</span>
+        <button class="copy-btn" onclick="copyCmd('cmd-mcp',this)">Copy</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>Part of the <a href="https://mcglothi.github.io">AI Ops Toolkit</a> &nbsp;·&nbsp; <a href="https://github.com/mcglothi/ai-knowledge-base" target="_blank">github.com/mcglothi/ai-knowledge-base</a> &nbsp;·&nbsp; MIT License</div>
+</footer>
+
+<script>
+function showTab(id,btn){document.querySelectorAll('.install-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.install-tab').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active')}
+function copyCmd(id,btn){navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000)})}
+</script>
+</body>
 </html>

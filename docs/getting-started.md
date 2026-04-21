@@ -1,252 +1,97 @@
 # Getting Started with AIKB
+**Last Updated:** 2026-04-21
 
-This guide walks through setting up AIKB from scratch, filling in your first files, and getting an AI agent to use it effectively.
+Setup from scratch. Already have a private AIKB and need a new machine? Use [new-machine-onboarding.md](new-machine-onboarding.md).
 
----
+## Pick Your Path
+| I use... | Setup |
+|----------|--------|
+| Claude Code or Gemini CLI | Follow this guide top to bottom |
+| Cursor or OpenCode | Steps 1–3, then see Cursor/OpenCode section |
+| ChatGPT, Gemini (web), or Grok | Steps 1–2 + 2-minute paste → [web tools](#web-tools) |
+| Windows | [WSL guide first →](windows-wsl.md) |
 
-## Pick your path
+## Step 1 — Create your private repo
 
-| I use... | My setup is... |
-|----------|----------------|
-| Claude Code or Gemini CLI | Follow this guide top to bottom — the installer handles most of it |
-| Cursor or OpenCode | Follow Step 1–3, then see the Cursor/OpenCode section in Step 3 |
-| ChatGPT, Gemini (web), or Grok | You only need Steps 1–2 + a 2-minute paste. [Jump to web tools →](#web-tools) |
-| Windows | [Read the WSL guide first →](windows-wsl.md) |
+**Option A (recommended):**
+1. Click **Use this template** → name it `AIKB` → set **Private** → **Create repository**
+2. `git clone https://github.com/YOUR_USERNAME/AIKB.git ~/code/AIKB`
 
----
+**Option B:** `gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone`
 
-## Overview of the workflow
+Windows: clone inside WSL filesystem (not `/mnt/c/...`). See [windows-wsl.md](windows-wsl.md).
 
-```
-1. Create a private AIKB repo (from this template)
-2. Run install.sh to personalize
-3. Configure one AI tool
-4. Fill in your profile and machine info
-5. Add projects as you work on them
-```
-
-The last step is the most important: AIKB grows as you use it. You don't need to fill everything in on day one.
-
----
-
-## Step 1: Create your private repo
-
-**Option A: GitHub template (recommended)**
-
-1. Click **Use this template** at the top of the repo
-2. Name it `AIKB`
-3. Set visibility to **Private** — this repo will contain system details and project notes
-4. Click **Create repository**
-5. Clone it:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/AIKB.git ~/code/AIKB
-   cd ~/code/AIKB
-   ```
-
-**Option B: GitHub CLI**
+## Step 2 — Run setup
 ```bash
-gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
-cd AIKB
+chmod +x install.sh && ./install.sh
 ```
+Asks for GitHub username, repo name, local path → substitutes into agent files → optionally copies to `~/.claude/CLAUDE.md` and `~/.gemini/GEMINI.md`.
+If cloned from your GitHub repo first, `install.sh` pre-fills from `origin`.
 
-> **Windows users:** AIKB requires WSL. See [docs/windows-wsl.md](windows-wsl.md) for
-> the full guide. The short version: install WSL, open Ubuntu, clone the repo *inside
-> WSL's filesystem* (not /mnt/c/...), and run install.sh from the WSL terminal.
----
+Optional walkthroughs: `bash _tools/tutorial.sh` · `bash _tools/feature-tour.sh`
 
-## Step 2: Run the setup script
+## Step 3 — Configure your AI tool
 
+**Claude Code:** `cp ~/code/AIKB/_agents/claude-code.md ~/.claude/CLAUDE.md`
+Optional GitHub MCP for remote access: [docs/mcp-setup.md](mcp-setup.md)
+
+**Gemini CLI:** `cp ~/code/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md`
+
+**Codex CLI:** `cp ~/code/AIKB/_agents/codex.md /path/to/project/AGENTS.md` (per workspace)
+
+**Cursor:** Settings → Cursor Settings → Rules → User Rules → paste `_agents/cursor.md`
+
+**ChatGPT / Gemini (web) / Grok:** Settings → Custom Instructions → paste matching `_agents/` file.
+
+### Web tools {#web-tools}
+| Tool | Location |
+|------|----------|
+| ChatGPT | Settings → Customize ChatGPT → Custom Instructions |
+| Gemini | Settings → Custom Instructions |
+| Grok | Customize Grok → System Prompt |
+
+Web tools can't read your repo directly — paste `_index.md` at the start of each session.
+
+## Step 4 — Fill in your profile
+
+**`personal/profile.md`** — copy `example/personal/profile.md`, fill in: name, background, skills, areas, preferred stack.
+
+**`personal/dev-environment/README.md`** — copy templates, fill in per machine: hostname, OS, code root, AIKB path, package manager, installed tools.
+
+## Step 5 — Add your first project
 ```bash
-chmod +x install.sh
-./install.sh
+cp ~/code/AIKB/_templates/file-template.md ~/code/AIKB/projects/my-project.md
 ```
+Fill in: summary, current state, key URLs/paths/commands, gotchas.
+Add row to `_index.md`: `| My Project | 🟢 Active | tags | [path] |`
+Commit: `git add . && git commit -m "Add my-project to AIKB" && git push`
 
-The script will:
-- Ask for your GitHub username, repo name, and local path
-- Substitute those values into the agent instruction files
-- Optionally copy instructions to `~/.claude/CLAUDE.md` and `~/.gemini/GEMINI.md`
+## Step 6 — Let agents maintain it
+After setup, agents handle maintenance. At session end, a configured agent will update project files, add gotchas, mark tasks, update `_state.yaml`, and commit.
 
-If you cloned from your GitHub repo first, `install.sh` pre-fills the GitHub username and repo name from `origin` so most people can just press Enter through the defaults.
+| What you want | What to say |
+|---|---|
+| Today's goal | "My focus is X" |
+| Flag for sign-off | "Ask before you do X" |
+| Save a decision | "Remember that we decided Y because Z" |
+| Wrap up | "Let's wrap up" |
 
-This is the only time you need to run the script. After this, agent files are plain Markdown — edit them directly.
+One habit: end sessions with "Let's wrap up" — captures context for the next session.
 
-At the end of install, AIKB can offer two optional terminal walkthroughs:
-- `bash _tools/tutorial.sh` for the beginner mental model
-- `bash _tools/feature-tour.sh` for the practical feature walkthrough
+## Growing AIKB
 
----
-
-## Step 3: Configure your primary AI tool
-
-### Claude Code (recommended for technical users)
-
-The script handles this if you accepted the prompt. To do it manually:
-```bash
-cp ~/code/AIKB/_agents/claude-code.md ~/.claude/CLAUDE.md
-```
-
-Optional — set up the GitHub MCP server for remote access (skip for now if you'll always have a local clone):
-```
-See docs/mcp-setup.md
-```
-
-### Gemini CLI
-
-```bash
-cp ~/code/AIKB/_agents/gemini-cli.md ~/.gemini/GEMINI.md
-```
-
-### Codex CLI
-
-For each Codex workspace/project:
-```bash
-cp ~/code/AIKB/_agents/codex.md /path/to/project/AGENTS.md
-```
-
-### Cursor
-
-Cursor Settings → Cursor Settings → Rules → User Rules → paste the content of `_agents/cursor.md`.
-
-### ChatGPT / Gemini (web) / Grok
-
-Open the tool's settings and paste the relevant agent file into Custom Instructions.
-Note: These tools require you to paste `_index.md` at the start of sessions for best results.
-
-### Web tools (ChatGPT / Gemini / Grok) {#web-tools}
-
-These tools can't be configured from a script — they require a one-time paste into settings.
-
-**ChatGPT:** Settings → Customize ChatGPT → Custom Instructions  
-**Gemini:** Settings → Custom Instructions  
-**Grok:** Customize Grok → System Prompt  
-
-Paste the contents of the matching file from `_agents/`.
-
-Each session, you'll also need to paste `_index.md` at the start of your conversation —
-web tools can't read your repo directly, so this gives them the context they need.
-
----
-
-## Step 4: Fill in your profile
-
-Start with two files:
-
-### `personal/profile.md`
-Copy `example/personal/profile.md` and fill in:
-- Your name and background
-- Skills (the things agents should assume you know)
-- Areas you're working in
-- Preferred tools and stack
-
-### `personal/dev-environment/README.md`
-Copy `_templates/domain-readme.md` and `_templates/machine-profile.md`. For each machine you use:
-- Hostname and OS
-- Code root path and AIKB path
-- Package manager
-- Installed tools (be specific — agents will use this list)
-
-Once these files exist, agents can orient without asking "what machine are you on?" or "what's your stack?"
-
----
-
-## Step 5: Add your first project
-
-When you start a new project or start using AIKB on an existing one:
-
-1. Create a file for it:
-   ```bash
-   cp ~/code/AIKB/_templates/file-template.md ~/code/AIKB/projects/my-project.md
-   ```
-
-2. Fill in the template — at minimum:
-   - Summary (1–2 sentences)
-   - Current state (what exists, what's pending)
-   - Key details (URLs, paths, commands)
-   - Gotchas you've already hit
-
-3. Add a row to `_index.md`:
-   ```markdown
-   | My Project | 🟢 Active | my-project, python, api | [`projects/my-project.md`](projects/my-project.md) |
-   ```
-
-4. Commit and push:
-   ```bash
-   git add . && git commit -m "Add my-project to AIKB" && git push
-   ```
-
-Now agents know the project exists and can load the file when relevant.
-
----
-
-## Step 6: Let agents maintain it
-
-After the initial setup, agents take over most of the maintenance. At the end of sessions where something significant happened, an agent configured with AIKB will:
-
-- Update the relevant project file
-- Add discovered gotchas
-- Mark completed tasks
-- Update `_state.yaml` if anything time-sensitive changed
-- Commit and push
-
-Optional but helpful once you start using runtime memory:
-- Use `python3 _tools/memory-pipeline/runtime_cli.py hud` for a compact operator snapshot
-- Use `python3 _tools/memory-pipeline/runtime_cli.py closeout --phrase "lets wrap up for now"` when ending a session to capture a structured closeout event
-- Track human sign-off items in `_pending_approvals.md` or via `python3 _tools/memory-pipeline/approvals_cli.py`
-- Capture repeated shorthand requests in [`home-lab/runbooks/operator-intents.md`](../home-lab/runbooks/operator-intents.md) so future sessions can execute them without rediscovery
-
-If you want the smallest useful habit stack, start here:
-1. Run `hud` once at the start of a longer session.
-2. Set a focus task when the work is likely to branch.
-3. Use approvals for high-impact or preference-sensitive decisions.
-4. End with `closeout`.
-
-See [`operator-loop.md`](operator-loop.md) for the fast path.
-If you prefer a terminal walkthrough, run `bash _tools/feature-tour.sh`.
-
-You can also ask explicitly: "Update AIKB with what we learned today."
-
----
-
-## Growing your AIKB over time
-
-### Adding a new domain
-
-When you have a coherent set of related projects (e.g. home lab, a client, a side project), give them a folder:
-
+**New domain:**
 ```bash
 mkdir -p ~/code/AIKB/home-lab
 cp ~/code/AIKB/_templates/domain-readme.md ~/code/AIKB/home-lab/README.md
 ```
+Common: `personal/` · `projects/` · `work/` · `home-lab/` · `clients/`
+After adding: update `_index.md` and re-sync agent files.
 
-Common domains:
-| Folder | Contents |
-|--------|---------|
-| `personal/` | Profile, skills, dev environments (already created) |
-| `projects/` | Personal coding projects |
-| `work/` | Professional context |
-| `home-lab/` | Self-hosted services, networking, servers |
-| `clients/` | Freelance / consulting work |
-
-After adding a domain, update `_index.md` and re-sync your agent instruction files.
-
-### Keeping files from growing stale
-
-- The `Last Updated` field is the primary staleness signal. Agents update it when they touch a file.
-- If a project ends, mark it `✅ Complete` at the top — don't delete it. Historical context has value.
-- Run `git log --since="30 days ago" --name-only --pretty=""` periodically to see which files haven't been touched.
-
----
+**Staleness:** `Last Updated` is the primary signal. Mark ended projects `✅ Complete` — don't delete. Run `git log --since="30 days ago" --name-only --pretty=""` to find untouched files.
 
 ## Troubleshooting
-
-**Agent doesn't seem to know about my project**
-→ Check `_index.md` — does the project have a row with useful tags? Tags are how agents decide which files to load.
-
-**Agent asks questions I've already answered in AIKB**
-→ Check `personal/profile.md` and `personal/dev-environment/README.md` — are they filled in? Agents load these early in sessions.
-
-**Changes not persisting across sessions**
-→ Check that the agent's commit went through: `git -C ~/code/AIKB log --oneline -5`. If commits aren't appearing, the agent may not have write access or the MCP server may not be configured.
-
-**Two agents wrote conflicting updates**
-→ Check `_agents/active.md` — it's designed to prevent this. If conflicts occur, resolve them manually: `git -C ~/code/AIKB pull` then resolve any merge conflicts.
+- **Agent doesn't know about my project** → check `_index.md` has a row with useful tags
+- **Agent asks things already in AIKB** → check `personal/profile.md` and dev-environment are filled in
+- **Changes not persisting** → `git -C ~/code/AIKB log --oneline -5` — confirm commits appeared
+- **Two agents wrote conflicts** → check `_agents/active.md` · `git -C ~/code/AIKB pull` then resolve
