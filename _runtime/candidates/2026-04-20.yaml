@@ -1,0 +1,42 @@
+candidates:
+  - id: cand_20260420_001
+    source_events:
+      - evt_20260420_163430_567139_694c9d
+      - evt_20260420_190151_287232_f81df1
+      - evt_20260420_190633_520807_39530d
+      - evt_20260420_190840_429805_9a98a6
+      - evt_20260420_191053_478799_1a1552
+      - evt_20260420_191109_374223_da77bc
+      - evt_20260420_191355_634568_8f7b26
+      - evt_20260420_192231_803270_cf65af
+      - evt_20260420_193452_119545_9dca32
+      - evt_20260420_200912_924895_af8a3a
+    target_file: AIKB
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:1; branch=master; cwd=AIKB; events=11; candidates=4; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    confidence: 0.70
+    class: needs-review
+    status: queued
+  - id: cand_20260420_002
+    source_events:
+      - evt_20260420_191031_079584_70a76c
+    target_file: work/llbean-infrastructure.md
+    proposed_change: "[observation] centrify-sshd.service should never be active on managed RHEL hosts. All servers must run native sshd (openssh). CentrifyDC-ssh package installs centrify-sshd.service but we do not use it. Do not remove CentrifyDC-ssh (perl dep chain). Fix: stop+disable centrify-sshd, start+enable sshd. Use stat check on /usr/lib/systemd/system/centrify-sshd.service before acting. Add to org/esgunix/tasks/sshd.yml when ready to automate."
+    confidence: 0.70
+    class: needs-review
+    status: queued
+  - id: cand_20260420_003
+    source_events:
+      - evt_20260420_191100_505211_cc6109
+    target_file: /home/tmcglothin/code
+    proposed_change: "[observation] Closeout captured for task 'work in /home/tmcglothin/code'; repo=dirty:1; branch=-; cwd=/home/tmcglothin/code; events=6; candidates=3; queue=0; approvals=0; session_age=unknown; trigger='lets wrap up for now'"
+    confidence: 0.70
+    class: needs-review
+    status: queued
+  - id: cand_20260420_004
+    source_events:
+      - evt_20260420_191031_079584_70a76c
+    target_file: personal/profile.md
+    proposed_change: "[preference] User preference observed: centrify-sshd.service should never be active on managed RHEL hosts. All servers must run native sshd (openssh). CentrifyDC-ssh package installs centrify-sshd.service but we do not use it. Do not remove CentrifyDC-ssh (perl dep chain). Fix: stop+disable centrify-sshd, start+enable sshd. Use stat check on /usr/lib/systemd/system/centrify-sshd.service before acting. Add to org/esgunix/tasks/sshd.yml when ready to automate."
+    confidence: 0.76
+    class: needs-review
+    status: queued

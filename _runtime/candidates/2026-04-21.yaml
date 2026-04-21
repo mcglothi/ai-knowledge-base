@@ -1,0 +1,31 @@
+candidates:
+  - id: cand_20260421_001
+    source_events:
+      - evt_20260421_131733_601823_4b9b45
+      - evt_20260421_131759_966866_139e4c
+      - evt_20260421_132309_101879_508cf3
+      - evt_20260421_132521_808910_375ca1
+      - evt_20260421_133008_845760_e43de4
+      - evt_20260421_133216_204418_3b9a15
+      - evt_20260421_133853_919219_5e7fe9
+      - evt_20260421_134229_109089_373f62
+      - evt_20260421_140158_952045_d7bdfa
+      - evt_20260421_141011_454729_9c2157
+      - evt_20260421_141110_160045_5f6328
+      - evt_20260421_141134_316453_06df59
+      - evt_20260421_141328_030996_69f43e
+      - evt_20260421_141418_154997_2751fd
+      - evt_20260421_141736_609872_25ebdb
+      - evt_20260421_142222_100839_b353ba
+      - evt_20260421_143635_525507_8b1155
+      - evt_20260421_150947_377906_7529a9
+      - evt_20260421_151001_136792_929437
+      - evt_20260421_151353_986176_1df20e
+      - evt_20260421_152215_380797_12b146
+      - evt_20260421_154832_740636_b62c7b
+      - evt_20260421_160352_765541_319c34
+    target_file: AIKB
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:1; branch=master; cwd=AIKB; events=22; candidates=1; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    confidence: 0.70
+    class: needs-review
+    status: queued
