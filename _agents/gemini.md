@@ -1,6 +1,6 @@
 # Gemini CLI — Global Agent Instructions
 
-**Last Updated:** 2026-04-12 (rev 12)
+**Last Updated:** 2026-04-21 (rev 13)
 **Summary:** Streamlined Gemini instruction set. Wake-up command replaces manual startup. Stop hook handles session end automatically.
 **Config location:** `~/.gemini/GEMINI.md`
 **Sync:** `cp {{LOCAL_PATH}}/_agents/gemini-cli.md ~/.gemini/GEMINI.md`
@@ -18,7 +18,7 @@ Add your machines to `personal/dev-environment/README.md`.
 ## Session Start
 
 ```bash
-git -C {{LOCAL_PATH}} pull && python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up
+git -C {{LOCAL_PATH}} pull && python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up --agent "Gemini CLI"
 ```
 
 Then register your session:
@@ -84,6 +84,37 @@ python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture \
 ```
 
 The goal is that a future agent reading this capture can continue without asking "why didn't you just...?" or "wait, is X done yet?" Only `--summary` is required.
+
+---
+
+## Agent Self-Messaging — IM Triggers
+
+When the operator says any of the following (interpret fuzzily, case-insensitive):
+
+- "leave yourself a note"
+- "note this for next time" / "note that for next time"
+- "remember this for the next session" / "remember that for next time"
+- "jot this down" / "jot that down"
+- "make a note of that"
+- "save that for next session" / "save this for later"
+- "don't forget this" (addressed to you)
+
+**Action:** Send an IM to yourself using the IM feature. This message will appear automatically in the next session's wake-up output.
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py im send \
+  --from "Gemini CLI" --to "Gemini CLI" \
+  --severity info \
+  --summary "<one-line subject: what to remember>" \
+  --body "<full context, next step, or whatever the operator just said to note>" \
+  --mirror-sent
+```
+
+- Keep `--summary` to a single clear sentence — it's what shows in wake-up.
+- Use `--body` for the full detail (context, next-step, links).
+- Use `--severity review` if the note needs deliberate attention next session.
+- Do NOT ack the message — leaving it unacked is what makes it appear at the next wake-up.
+- After sending, tell the operator: "Noted — I'll see that at the start of the next session."
 
 ---
 

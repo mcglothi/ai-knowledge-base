@@ -60,7 +60,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Advanced search & context expansion** — `aikb_search` MCP tool for natural-language queries; hybrid BM25 + vector retrieval with **Graph-RAG relationship expansion**, intent-aware priors, and 14-day recency decay
 - **In-session memory indexing** — `aikb_remember` captures durable memories from within a session; the search indexer automatically scans these event logs, making memories searchable instantly
 - **Session-end automation** — Claude Code and Gemini CLI can run the AIKB Stop hook automatically; Codex can use the shipped wrapper or manual fallback
-- **Session-start briefing** — `runtime_cli.py wake-up` synthesizes a compact briefing from recent events and current state so agents orient in seconds, not minutes
+- **Session-start briefing** — `runtime_cli.py wake-up --agent "<Name>"` synthesizes a compact briefing from recent events and current state, and automatically surfaces any unread IM messages, so agents orient in seconds, not minutes
 - **Interactive candidate review** — `aikb_review.py` presents queued memory candidates one-by-one for approve/reject/skip with source event drill-down
 - **Retention enforcement** — `retention_check.py` flags stale docs, forgotten pending items, and terminal candidate bundles for cleanup
 - **Local model offload** — `sidecar.py` optional helper routes scoring, briefing synthesis, and patch drafting to a local Ollama instance; configurable via env vars, falls back silently when unavailable
@@ -90,7 +90,7 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 
 | Feature | Status | How to use |
 |---------|--------|------------|
-| Session start briefing | ✅ Built | `runtime_cli.py wake-up` |
+| Session start briefing + IM inbox check | ✅ Built | `runtime_cli.py wake-up --agent "<Name>"` |
 | Manual memory capture | ✅ Built | `runtime_cli.py capture` |
 | In-session memory writes (MCP) | ✅ Built | `aikb_remember` MCP tool |
 | Session HUD | ✅ Built | `runtime_cli.py hud` |
@@ -109,7 +109,7 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 | Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
 | Local model offload (sidecar) | ✅ Built | `sidecar.py` + `AIKB_SIDECAR_URL` env var |
 | Mind Meld (cross-agent awareness) | ✅ Built | Read `_runtime/events/YYYY-MM-DD.ndjson`; see agent instruction files |
-| Agent IM (cross-agent messaging) | ✅ Built | `runtime_cli.py im send/peek/ack/archive/gc` + `docs/agent-im.md` |
+| Agent IM (cross-agent + self-messaging) | ✅ Built | `runtime_cli.py im send/peek/ack/archive/gc` + `docs/agent-im.md` |
 | Dream cycle consolidation | 🔨 Prototype | `dream_cycle.py` (outputs not yet auto-promoted) |
 | Automatic conflict detection | 🔨 Prototype | `conflict_scan.py` (offline, not wired to writes) |
 | Sidecar-enriched pipeline scoring | 🔨 In progress | `build_candidates.py` + `sidecar.py` |
@@ -137,6 +137,7 @@ Next session   -> wake-up synthesizes what changed, agent starts informed
 | Set a focus | "My focus today is shipping the dashboard cleanup" |
 | Flag for sign-off | "Ask me before you push anything public" |
 | Capture a decision | "Remember that we switched to Postgres — SQLite deadlocked under concurrent writes" |
+| Leave a note for your next session | "Leave yourself a note: resume from the auth middleware refactor" |
 | Wrap up | "Let's wrap up" |
 
 The agent calls the right tools internally. You never need to remember a command name. See [`docs/operator-loop.md`](docs/operator-loop.md) for the full daily rhythm and examples.

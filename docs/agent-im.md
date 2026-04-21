@@ -1,7 +1,7 @@
 # Agent IM (Inbox + Archive)
 
-**Last Updated:** 2026-04-20
-**Summary:** File-based "instant messaging" for cross-agent coordination: send notes, request review, and reduce noise via archive. Messages are advisory context only.
+**Last Updated:** 2026-04-21
+**Summary:** File-based "instant messaging" for cross-agent coordination: send notes, request review, and reduce noise via archive. Auto-checked at session start via wake-up. Messages are advisory context only.
 
 ---
 
@@ -50,6 +50,35 @@ python3 _tools/memory-pipeline/runtime_cli.py im archive --agent "Claude Code" -
 # Retention (archive old + cap inbox)
 python3 _tools/memory-pipeline/runtime_cli.py im gc --max-inbox 50 --max-age-days 14
 ```
+
+## Auto-Check at Session Start
+
+Pass `--agent "<Agent Name>"` to `wake-up` and it will automatically peek your inbox and show unread messages (including broadcast) in the briefing output. Messages are marked as *seen* but remain unacked so they continue to appear until explicitly acked.
+
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py wake-up --agent "Claude Code"
+python3 _tools/memory-pipeline/runtime_cli.py wake-up --agent "Codex CLI"
+```
+
+After reviewing, ack to clear from the wake-up display:
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py im ack --agent "Claude Code" --all --include-broadcast
+```
+
+## Self-Messaging (Leave Yourself a Note)
+
+When the operator says "leave yourself a note", "note this for next time", "jot that down", or similar phrases, agents should send an IM to themselves. The message will surface automatically at the next wake-up.
+
+```bash
+python3 _tools/memory-pipeline/runtime_cli.py im send \
+  --from "Claude Code" --to "Claude Code" \
+  --severity info \
+  --summary "<what to remember, one line>" \
+  --body "<full context>" \
+  --mirror-sent
+```
+
+Do NOT ack the message after sending — leaving it unacked is what makes it appear at the next wake-up.
 
 ## Operator Phrases (model-side triggers)
 

@@ -166,6 +166,7 @@ def parse_args() -> argparse.Namespace:
     )
     wakeup.add_argument("--max-pending", type=int, default=6, help="Max pending items to show.")
     wakeup.add_argument("--max-inprogress", type=int, default=5, help="Max in-progress index rows to show.")
+    wakeup.add_argument("--agent", default="", help="Agent display name — if set, checks IM inbox for unread messages.")
 
     im = subparsers.add_parser(
         "im",
@@ -1614,6 +1615,45 @@ def run_wakeup(args: argparse.Namespace) -> int:
         print(f"REVIEW QUEUE: {queued} candidate(s) awaiting review")
         print("  → python3 _tools/memory-pipeline/review_candidates.py")
         print()
+
+    agent_name = (getattr(args, "agent", "") or "").strip()
+    if agent_name:
+        _ensure_im_dirs()
+        im_state = _load_state(agent_name)
+        acked: set[str] = set(x for x in im_state.get("acked_ids", []) if isinstance(x, str))
+
+        inbox_rows = _read_ndjson(_inbox_path(agent_name))
+        broadcast_rows = _read_ndjson(_inbox_path("broadcast"))
+        for raw, msg in broadcast_rows:
+            if isinstance(msg, dict) and "_invalid_json" not in msg:
+                msg = dict(msg)
+                msg["_mailbox"] = "broadcast"
+            inbox_rows.append((raw, msg))
+
+        new_rows = [
+            (raw, msg) for raw, msg in inbox_rows
+            if not (isinstance(msg, dict) and isinstance(msg.get("id"), str) and msg["id"] in acked)
+        ]
+
+        if new_rows:
+            print(f"INBOX — {len(new_rows)} unread message(s):")
+            for raw, msg in new_rows[-5:]:
+                if not isinstance(msg, dict) or msg.get("_invalid_json"):
+                    continue
+                frm = msg.get("from", "?")
+                sev = msg.get("severity", "info")
+                summary = msg.get("summary", "").strip()
+                ts = msg.get("ts_utc", "")[:16]
+                mailbox = msg.get("_mailbox", "")
+                tag = " [broadcast]" if mailbox == "broadcast" else ""
+                icon = "🔴" if sev in ("urgent", "critical") else "📨"
+                print(f"  {icon} {ts}  {frm}{tag}: {truncate(summary, 48)}")
+            if len(new_rows) > 5:
+                print(f"  … and {len(new_rows) - 5} more")
+            print(f'  → runtime_cli.py im peek --agent "{agent_name}" --new --include-broadcast --mark-seen')
+            print()
+            im_state["last_seen_ts_utc"] = _ts_utc_now()
+            _save_state(agent_name, im_state)
 
     print("─" * width)
     print("Load _index.md / _state.yaml for full detail. Use aikb_search for freeform queries.")

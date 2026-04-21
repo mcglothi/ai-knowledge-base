@@ -22,7 +22,7 @@ Private repo at `mcglothi/AIKB`. Local clone: `~/code/AIKB/` on all machines.
 ## Session Start
 
 ```bash
-git -C ~/code/AIKB pull && python3 ~/code/AIKB/_tools/memory-pipeline/runtime_cli.py wake-up
+git -C ~/code/AIKB pull && python3 ~/code/AIKB/_tools/memory-pipeline/runtime_cli.py wake-up --agent "Codex CLI"
 python3 ~/code/AIKB/_tools/memory-pipeline/runtime_cli.py claim-session \
   --agent "Codex CLI" --repo "AIKB" --scope "<scope>" --task "<brief task>"
 ```
@@ -83,6 +83,32 @@ bash ~/code/AIKB/_tools/memory-pipeline/aikb-session-stop.sh
 2. `git add` → commit → push for all touched repos
 3. Run `aikb-session-stop.sh`
 4. Report sync state (ahead/behind, any uncommitted files)
+
+---
+
+## Agent Self-Messaging — IM Triggers
+
+When the operator says any of the following (interpret fuzzily, case-insensitive):
+
+- "leave yourself a note"
+- "note this for next time" / "note that for next time"
+- "remember this for the next session" / "remember that for next time"
+- "jot this down" / "jot that down"
+- "make a note of that"
+- "save that for next session" / "save this for later"
+
+**Action:** Send an IM to yourself. Appears automatically at the next wake-up.
+
+```bash
+python3 ~/code/AIKB/_tools/memory-pipeline/runtime_cli.py im send \
+  --from "Codex CLI" --to "Codex CLI" \
+  --severity info \
+  --summary "<one-line subject>" \
+  --body "<full context or next step>" \
+  --mirror-sent
+```
+
+Do NOT ack — unacked messages appear at the next wake-up. After sending, say: "Noted — I'll see that at the start of the next session."
 
 ---
 

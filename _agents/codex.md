@@ -1,7 +1,7 @@
 # Codex CLI — Global Agent Instructions
 
-**Last Updated:** 2026-04-12 (rev 12)
-**Summary:** Streamlined Codex instruction set. Wake-up command replaces manual startup. Session end uses the AIKB stop script.
+**Last Updated:** 2026-04-21 (rev 13)
+**Summary:** Streamlined Codex instruction set. Wake-up now auto-checks IM inbox (--agent flag). IM self-messaging triggers added. Session end uses the AIKB stop script.
 **Config location:** `AGENTS.md` in the current repository root
 **Sync:** `./sync-agents.sh` in AIKB root to propagate changes to project repos
 
@@ -18,7 +18,7 @@ Add your machines to `personal/dev-environment/README.md`.
 ## Session Start
 
 ```bash
-git -C {{LOCAL_PATH}} pull && python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up
+git -C {{LOCAL_PATH}} pull && python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up --agent "Codex CLI"
 ```
 
 Then register your session:
@@ -129,6 +129,37 @@ The goal is that a future agent reading this capture can continue without asking
 2. `git add` → commit → push for all touched repos
 3. Run `bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh` unless the Codex wrapper is already installed
 4. Report final sync state (ahead/behind, any uncommitted files)
+
+---
+
+## Agent Self-Messaging — IM Triggers
+
+When the operator says any of the following (interpret fuzzily, case-insensitive):
+
+- "leave yourself a note"
+- "note this for next time" / "note that for next time"
+- "remember this for the next session" / "remember that for next time"
+- "jot this down" / "jot that down"
+- "make a note of that"
+- "save that for next session" / "save this for later"
+- "don't forget this" (addressed to you)
+
+**Action:** Send an IM to yourself using the IM feature. This message will appear automatically in the next session's wake-up output.
+
+```bash
+python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py im send \
+  --from "Codex CLI" --to "Codex CLI" \
+  --severity info \
+  --summary "<one-line subject: what to remember>" \
+  --body "<full context, next step, or whatever the operator just said to note>" \
+  --mirror-sent
+```
+
+- Keep `--summary` to a single clear sentence — it's what shows in wake-up.
+- Use `--body` for the full detail (context, next-step, links).
+- Use `--severity review` if the note needs deliberate attention next session.
+- Do NOT ack the message — leaving it unacked is what makes it appear at the next wake-up.
+- After sending, tell the operator: "Noted — I'll see that at the start of the next session."
 
 ---
 
