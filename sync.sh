@@ -11,7 +11,7 @@
 #
 # What gets updated (framework dirs — safe to overwrite):
 #   AGENTS.md  _agents/  _templates/  _tools/  docs/  _pending_approvals.md
-#   sync.sh  sync-agents.sh  install.sh  .gitignore
+#   .github/copilot-instructions.md  sync.sh  sync-agents.sh  install.sh  .gitignore
 #
 # What is never touched (your personal content):
 #   _index.md  _state.yaml  personal/  projects/  work/  and any other dirs
@@ -72,6 +72,7 @@ UPSTREAM_URL="https://github.com/mcglothi/ai-knowledge-base.git"
 DEFAULT_CHECK_INTERVAL_DAYS="${AIKB_TEMPLATE_CHECK_DAYS:-7}"
 FRAMEWORK_PATHS=(
   "AGENTS.md"
+  ".github/copilot-instructions.md"
   "_agents"
   "_templates"
   "_tools"
@@ -347,6 +348,9 @@ header "Re-applying your personal configuration..."
 apply_substitutions "$SCRIPT_DIR/AGENTS.md"
 success "Personalized AGENTS.md"
 
+apply_substitutions "$SCRIPT_DIR/.github/copilot-instructions.md"
+success "Personalized Copilot instructions"
+
 for tmpl in "$SCRIPT_DIR/_agents"/*.md; do
   apply_substitutions "$tmpl"
   success "Personalized $(basename "$tmpl")"
@@ -381,7 +385,7 @@ echo ""
 echo "  Next steps:"
 echo "   • Push to your private repo:  git push origin main"
 echo "   • Re-check later without applying:  ./sync.sh --check"
-echo "   • Re-sync Codex project repos:  ./sync-agents.sh /path/to/project [/path/to/project...]"
+  echo "   • Re-sync project agent files: ./sync-agents.sh --all /path/to/project [/path/to/project...]"
 if [[ ! "$SETUP_CLAUDE" =~ ^[Yy] ]]; then
   echo "   • Sync Claude Code:  cp _agents/claude-code.md ~/.claude/CLAUDE.md"
 fi

@@ -1,6 +1,6 @@
 # Agent Instructions
 
-**Last Updated:** 2026-04-13
+**Last Updated:** 2026-04-21
 **Summary:** Per-agent instruction files for every AI tool in use. Each file contains the exact text to configure that tool, plus setup steps. The files in this directory are the source of truth — when new projects are added, update the relevant file here AND sync to the tool's UI or config location.
 
 ---
@@ -21,6 +21,7 @@
 | [`claude-code.md`](claude-code.md) | Claude Code CLI | `~/.claude/CLAUDE.md` (auto-loaded) |
 | [`gemini-cli.md`](gemini-cli.md) | Gemini CLI | `~/.gemini/GEMINI.md` (auto-loaded) |
 | [`codex.md`](codex.md) | Codex CLI | `AGENTS.md` in repo root (project-scoped) |
+| [`copilot.md`](copilot.md) | GitHub Copilot | `.github/copilot-instructions.md` in repo root |
 | [`opencode.md`](opencode.md) | OpenCode TUI/CLI | `~/.config/opencode/opencode.json` → `instructions` array (explicit path) |
 | [`cursor.md`](cursor.md) | Cursor IDE | Settings → Cursor Settings → Rules → User Rules |
 | [`chatgpt.md`](chatgpt.md) | ChatGPT | Settings → Personalization → Custom Instructions |
@@ -69,6 +70,21 @@ cp /path/to/your/AIKB/_agents/codex.md /path/to/your/project/AGENTS.md
 Bulk helper:
 ```bash
 ./sync-agents.sh /path/to/project [/path/to/project...]
+```
+
+### GitHub Copilot
+```bash
+./sync-agents.sh --agent copilot /path/to/project
+```
+
+This writes `.github/copilot-instructions.md`, which GitHub Copilot uses as repository instructions. To refresh every maintained agent source in another AIKB/template checkout and write project-native Codex/Copilot files, run:
+```bash
+./sync-agents.sh --all /path/to/AIKB-or-template
+```
+
+To refresh local file-backed tool configs:
+```bash
+./sync-agents.sh --all --global
 ```
 
 Optional session-end workaround:
@@ -144,6 +160,8 @@ Update the relevant agent file(s) — and re-sync to the tool — when:
 **Claude Code and Gemini CLI** read instruction files directly from disk and optionally support MCP servers. An agent can update AIKB programmatically via the GitHub MCP server or a local clone. After editing instruction files, commit here and copy to the config location.
 
 **Codex CLI** reads instructions from repo-level `AGENTS.md`. Keep `_agents/codex.md` as source of truth and copy it into each Codex project workspace.
+
+**GitHub Copilot** reads repository custom instructions from `.github/copilot-instructions.md`. Keep `_agents/copilot.md` as source of truth and sync it into each repository where Copilot should receive AIKB-aware context.
 
 **OpenCode** does not auto-discover a global instruction file. The `instructions` array in `~/.config/opencode/opencode.json` must explicitly list file paths. Point it directly at `_agents/opencode.md` — no copy step needed. Note: a project-level `opencode.json` overrides the global one, so verify AIKB instructions are referenced in each project context you care about.
 

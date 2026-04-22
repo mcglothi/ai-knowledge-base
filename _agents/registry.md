@@ -1,6 +1,6 @@
 # AI Tool Registry
 
-**Last Updated:** 2026-04-13
+**Last Updated:** 2026-04-21
 **Purpose:** Capabilities and gotchas for each AI tool in use. Read this when working in a multi-agent setup to understand what each tool can and cannot do.
 
 ---
@@ -12,6 +12,7 @@
 | Claude Code | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks, long sessions |
 | Gemini CLI | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks |
 | Codex CLI | Local clone (or MCP if configured) | Yes | Yes | Large | Code edits with repo-scoped instructions |
+| GitHub Copilot | Repo instructions + local workspace | Yes (IDE) | No | Medium | Inline IDE help with repo-native context |
 | OpenCode | Local clone or MCP | Yes | Yes | Large | Terminal/code tasks, multi-provider, local models |
 | Cursor | Local clone | Yes (manual) | No (without config) | Large | IDE-integrated coding |
 | ChatGPT | Paste only | No (manual) | No | Medium | Ideation, writing, one-off questions |
@@ -38,6 +39,12 @@
 - Can read/write local AIKB files when working in a repo with AIKB access
 - Supports MCP tools when configured in the runtime
 - Best for repository-specific coding workflows where instructions should travel with the project
+
+### GitHub Copilot
+- Reads `.github/copilot-instructions.md` from each repository
+- No AIKB MCP/write workflow by default; relies on local workspace files and IDE context
+- Sync from `_agents/copilot.md` with `./sync-agents.sh --agent copilot /path/to/project`
+- Best for lightweight inline edits where repo-native instructions should follow the project
 
 ### OpenCode
 - Terminal TUI with multi-provider support (Anthropic, OpenAI, Google, local Ollama, and any OpenAI-compatible endpoint)
