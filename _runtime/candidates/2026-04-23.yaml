@@ -15,8 +15,73 @@ candidates:
       - evt_20260423_164255_718949_6ea2d8
       - evt_20260423_164804_222504_ade73c
       - evt_20260423_171522_461463_dc0b71
+      - evt_20260423_173314_749075_456e40
     target_file: AIKB
-    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=clean; branch=master; cwd=AIKB; events=13; candidates=1; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=clean; branch=master; cwd=AIKB; events=15; candidates=1; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
     confidence: 0.70
+    class: needs-review
+    status: queued
+  - id: cand_20260423_002
+    source_events:
+      - evt_20260423_173309_813820_98cff5
+    target_file: work/boot-expansion.md
+    proposed_change: "[decision] Boot partition expansion initiative — full plan documented, pending management approval before any production work.
+
+PROBLEM:
+Legacy RHEL servers in-place upgraded from RHEL 6→7→8→9 inherited a 250MB /boot partition (/dev/sda1). Policy is to retain 3 kernels. During kernel patch months, /boot fills up, patches fail at 2-3am, requiring manual kernel cleanup and patch re-run. Hundreds of affected servers. New builds have a larger /boot by design; this only affects legacy upgraded fleet.
+
+CHOSEN APPROACH: Migrate /boot to a new dedicated disk
+- Add a new 2GB disk via Nutanix API (same storage container as existing VM)
+- Partition + format ext4 on new disk
+- rsync /boot to new disk (live, while original still mounted)
+- Update /etc/fstab with new UUID
+- umount old /boot, mount new /boot
+- grub2-mkconfig + grub2-install /dev/sda (MBR stays on sda, core.img updated to find new /boot)
+- Reboot and verify
+
+WHY THIS APPROACH over alternatives:
+- pvmove approach rejected: too dependent on VG free space and VG naming consistency across heterogeneous legacy fleet
+- parted/gparted partition move rejected: requires rescue boot, sector-by-sector copy of large sda2, offline operation
+- New disk approach wins: no LVM dependency, no rescue boot, consistent across all servers regardless of disk count, old sda1 preserved as fallback
+
+PLAYBOOK PLAN (UTILITY_BootExpand.yml) — two-play structure:
+
+Play 1 (localhost, Nutanix API via nutanix.ncp collection):
+  - Resolve VM ext_id from hostname via ntnx_vms_info_v2
+  - Extract storage container ext_id from existing VM first disk
+  - Idempotency: skip host if 2GB disk already present
+  - Create recovery point snapshot via ntnx_recovery_points_v2 (CRASH_CONSISTENT) — hard fail if snapshot fails
+  - Add 2GB disk via ntnx_vms_disks_v2 (SCSI bus)
+
+Play 2 (target hosts, OS operations):
+  - Pre-flight: BIOS-only (skip UEFI), confirm /boot on sda1, confirm /boot < 512MB
+  - Rescan SCSI bus + udevadm settle
+  - Identify new disk by size (2GB unpartitioned) — fail if ambiguous
+  - parted + mkfs.ext4 with label boot-new
+  - rsync with archive/xattrs/acls to temp mount, verify file count
+  - Backup /etc/fstab to /etc/fstab.pre-boot-migration
+  - Update fstab UUID, validate syntax with findmnt --verify
+  - umount /boot (sda1), mount /boot (new disk), verify before grub steps
+  - grub2-mkconfig -o /boot/grub2/grub.cfg
+  - grub2-install /dev/sda — highest risk; on failure restore fstab + remount sda1, surface snapshot UUID
+  - Verify grub.cfg has new UUID, restorecon -Rv /boot
+  - Reboot, post-reboot verify UUID/size/kernels/journal
+
+TECH STACK:
+- Collection: nutanix.ncp (v2/v4 modules), Nutanix host: nutanix.llbean.com
+- AAP machine credential provides Nutanix auth via module_defaults group pattern
+- Snapshot module: ntnx_recovery_points_v2
+- Disk module: ntnx_vms_disks_v2
+- VM lookup: ntnx_vms_info_v2
+
+OPEN ITEMS:
+- RHEL 7 + GPT: may need grub2-install --target=i386-pc
+- UEFI hosts: separate code path needed, out of scope v1
+- Disk identification: confirm no existing 2GB disks in fleet before running
+- grub2-install failure recovery: team needs Nutanix snapshot restore SOP documented
+
+STATUS: Awaiting management approval. No production servers touched.
+NEXT STEP: Approval → build playbook → test on purpose-built VMs with 250MB /boot → fleet rollout."
+    confidence: 0.85
     class: needs-review
     status: queued
