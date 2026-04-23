@@ -53,3 +53,16 @@
 - Bitwarden pattern: `BW_SESSION=$(cat ~/.bw_session)` — never run `bw unlock` (hangs interactively)
 - AAP/Tower runs production Ansible; local `ansible-playbook` is for dev/testing only
 - SSH to LLBean servers: always use `svc-ansible` — `~/.ssh/config` handles this automatically for `*.llbean.com` and common host prefixes. Personal AD account requires Centrify MFA and will block.
+
+---
+
+## ⚠️ Pending Migration — Mac (planned)
+
+See `personal/dev-environment/mac-migration-plan.md` for full plan.
+
+**AIKB ingest pipeline items that break on Mac:**
+- `C:\Temp\aikb_outlook_ingest.ps1` → PowerShell Outlook COM → replace with AppleScript/`osascript`
+- Windows Task Scheduler (`AIKB-Ingest` task) → replace with `launchd` plist
+- `/mnt/c/...` WSL paths → native macOS paths
+- Teams LevelDB path: `C:\Users\tmcglothin\AppData\Local\Packages\MSTeams_8wekyb3d8bbwe\LocalCache\...` → Mac Teams path (TBD on new machine)
+- `ccl_chromium_reader` install: `pip3 install ... --break-system-packages` → `pip3 install ...` (no flag needed on Mac typically)
