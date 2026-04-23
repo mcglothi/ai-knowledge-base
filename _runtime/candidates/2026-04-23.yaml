@@ -18,8 +18,9 @@ candidates:
       - evt_20260423_173314_749075_456e40
       - evt_20260423_173504_624335_16ebcc
       - evt_20260423_173836_123641_33fa07
+      - evt_20260423_181415_422603_c2ccf7
     target_file: AIKB
-    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=clean; branch=master; cwd=AIKB; events=17; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=clean; branch=master; cwd=AIKB; events=19; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
     confidence: 0.70
     class: needs-review
     status: queued
@@ -85,5 +86,13 @@ OPEN ITEMS:
 STATUS: Awaiting management approval. No production servers touched.
 NEXT STEP: Approval → build playbook → test on purpose-built VMs with 250MB /boot → fleet rollout."
     confidence: 0.85
+    class: needs-review
+    status: queued
+  - id: cand_20260423_003
+    source_events:
+      - evt_20260423_181411_096704_750c19
+    target_file: /home/tmcglothin/code
+    proposed_change: "[observation] Closeout captured for task 'work in /home/tmcglothin/code'; repo=clean; branch=-; cwd=/home/tmcglothin/code; events=18; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='lets wrap up'"
+    confidence: 0.70
     class: needs-review
     status: queued
