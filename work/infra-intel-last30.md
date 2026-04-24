@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-24 11:42 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-24 15:39 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 633 raw emails → 416 signal emails
+**Stats:** 637 raw emails → 421 signal emails
 
 ## AAP / Ansible (23 emails)
 
@@ -88,16 +88,14 @@
 ## General (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-20 16:16` **Ben O'Brion** — RE: First Responder Walkthroughs - HQ Building / OFC, and DRS
-  > Curious, does local rescue have access to internal rooms in case of an emergency? Benjamin E O’Brion IS MANAGER I L.L.Bean INFORMATION SERVICES Freeport MAINE Office# 207 552 2276 
 - `2026-04-23 10:14` **Daily Portland** — ☀️ Tim: Breaking News Alert in Portland
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Community news today in Portland, Maine Were you f
 - `2026-04-23 12:47` **Tom Doucette** — Re: SWDC Rack 5N Ready for new servers
   > Asif, thank you for coordinating and completing this work! This is much needed and greatly appreciated! Thank you for all that you do! Tom Tom Doucette | IS Network Services Manage
+- `2026-04-24 08:48` **Tim McGlothin** — Synchronization Log: 
+  > 8:47:53 Synchronizer Version 16.0.19725 8:47:53 Synchronizing Mailbox 'Tim McGlothin' 8:47:53 Synchronizing Hierarchy 8:48:03 Error in folder 'Inbox' 8:48:03 [0-738] 8:48:03 Additi
 
 **📋 Action Items**
-- `2026-04-20 15:57` **David Bernier** — First Responder Walkthroughs - HQ Building / OFC, and DRS
-  > Date: April 20, 2026 On Wednesday, April 22, Corporate Security will be conducting walkthroughs of the OFC and DRS, followed by a tour of the HQ campus. The walkthroughs will begin
 - `2026-04-22 06:03` **FORTNA Insights** — New Gartner® Report, Compliments of FORTNA
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <http://info.fortna.com/rs/830-HTX-840/images/spac
 - `2026-04-22 08:51` **Nina Papa** — Massage in HQ - open appointments for today!
@@ -112,19 +110,10 @@
   > 13:20:29 Calendar 13:20:29 Message class: {SU:IPM.Appointment} 13:20:29 Appointment Conflict Resolution 13:20:29 Local subject: {SU:Change coverage 4/23} 13:20:29 Remote subject: {
 
 **⚙️ AAP Job Activity**
-- `2026-04-21 07:46` **Confluence** — Daily digest: updates from Service OC - Confluence
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://cc-notifications-public.us-west-2.dev.pub
 - `2026-04-23 07:33` **Confluence** — Daily digest: updates from Service OC - Confluence
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 
 **💬 Notable**
-- `2026-04-22 10:45` **Discount Programs** — Earth Day Fun Starts Outside: Deals on Theme Parks
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Zoos, aquariums and more ways to play ‌ ‌ ‌ ‌ ‌ ‌ 
-- `2026-04-22 11:00` **Annie Beagan** — RE: Infrastructure All Hands
-  > Hi Aaron, Thank you for reaching out and letting me know about the mix-up with the Infrastructure All-Hands meetings. I really appreciate you bringing this to my attention—missing 
-- `2026-04-22 11:02` **The CyberArk Team** — Your TLS Workload Just Doubled. Now What?
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ See how leading teams eliminate blind spots and re
-- `2026-04-22 12:49` **Tim McGlothin** — mesume
 - `2026-04-22 13:58` **Karla Adams** — Interview for Network Security Architect
   > Hi Tim, I am going to be setting up an interview for Josh’s role. It will be an in person 1-hour interview. I took a look at your calendar and it looks like the panel (listed below
 - `2026-04-22 14:00` **Tim McGlothin** — RE: Interview for Network Security Architect
@@ -147,6 +136,14 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Don’t miss this exclusive preview of the new 2026 
 - `2026-04-23 15:39` **Atlassian** — Team '26 Keynote: redesigning the human+AI workforce
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hear firsthand from Mercedes-Benz CSO + more! Hear
+- `2026-04-24 10:00` **IS News** — Your Weekly IS News Digest!
+  > Hello IS Team! Check out the recently posted news from the IS Hub <https://llbean.sharepoint.com/sites/is> . Title Date Link Welcome Spring & Celebrating Women History Month – Time
+- `2026-04-24 10:00` **BeyondTrust Webinars** — Last Chance to Join: Hidden Salesforce Privilege Risks
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Live session with Phantom Labs—starting soon ͏ ͏ ͏
+- `2026-04-24 10:23` **Daily Portland** — ☀️ Tim: South Portland's track team shines, Mariners' playoff start (Friday, Apr 24 2026)
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Community news today in Portland, Maine Has someon
+- `2026-04-24 11:27` **Discount Programs** — Deals on Tech That Does More
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Smart picks across electronics, appliances & softw
 
 ## GitHub / Copilot (7 emails)
 
@@ -286,7 +283,7 @@
 - `2026-04-21 11:04` **Cisco Product & Engineering** — Reminder: Shape the future of Cisco Identity Services Engine (ISE) in 3 minutes
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Help us serve you better today and tomorrow. ͏‌ ͏‌
 
-## Nutanix (34 emails)
+## Nutanix (35 emails)
 
 **🔴 Incidents / Issues**
 - `2026-03-25 14:57` **Javier Cedeño** — Planned Maintenance – Nutanix Oracle Non‑Prod Cluster Upgrade (CHG‑2371)
@@ -401,6 +398,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A strategic conversation, not a product pitch.️ Ca
 - `2026-04-22 11:31` **Sophia Lee, Nutanix** — Last Chance: Join us to learn how Markerstudy reduced cloud spend without sacrificing agility
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Cloud costs rising? Compliance pressures increasin
+- `2026-04-24 11:01` **Expedient** — The infrastructure moves that unlock AI advantage
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Coffee chat with Expedient and Nutanix.️ Can't see
 
 ## Nutanix Storage / SAN (14 emails)
 
