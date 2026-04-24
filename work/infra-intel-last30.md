@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-24 19:39 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-24 23:39 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 639 raw emails → 420 signal emails
+**Stats:** 641 raw emails → 424 signal emails
 
 ## AAP / Ansible (23 emails)
 
@@ -166,16 +166,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-22 03:21` **Automation for Jira (Jira)** — [JIRA] (ITS-10453) OmniCenter: wmb-prod-006 SUB: PROBLEM Alert - wmb-prod-006 mqsicvp.BRKP02 is CRITICAL
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
-- `2026-04-22 06:44` **Automation for Jira (Jira)** — [JIRA] (ITS-10462) OmniCenter: shd-pr-ora01 SUB: PROBLEM Alert - shd-pr-ora01 Check the Oracle Listener is running is CR
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
-- `2026-04-22 08:43` **Aaron Smiley** — Re: Lightweight East/West visibility VMs
-  > Just wanted to check in on this - if you guys need anything from me, just let me know! Aaron Not sure if I did it right, but… I did it! https://llbean.atlassian.net/browse/ESG-553 
-- `2026-04-22 08:47` **Josué Real (Jira)** — [JIRA] (ITS-10462) OmniCenter: shd-pr-ora01 SUB: PROBLEM Alert - shd-pr-ora01 Check the Oracle Listener is running is CR
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
-- `2026-04-22 08:48` **Josué Real (Jira)** — [JIRA] (ITS-10453) OmniCenter: wmb-prod-006 SUB: PROBLEM Alert - wmb-prod-006 mqsicvp.BRKP02 is CRITICAL
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
 - `2026-04-22 08:48` **Josué Real (Jira)** — [JIRA] (ITS-10452) OmniCenter: wmb-prod-005 SUB: PROBLEM Alert - wmb-prod-005 mqsicvp.BRKP01 is CRITICAL
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
 - `2026-04-22 16:03` **Automation for Jira (Jira)** — [JIRA] (ITS-10547) OmniCenter: wmb-prod-006 SUB: PROBLEM Alert - wmb-prod-006 mqsicvp.BRKP02 is CRITICAL
@@ -196,6 +186,16 @@
   > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00 Incident: ITS-10652
 - `2026-04-24 12:20` **Automation for Jira (Jira)** — [JIRA] (ITS-10709) OmniCenter: sec-scan-ta08 SUB: sec-scan-ta08 - Threshold CRITICAL - CPU Utilization for sec-scan-ta08
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
+- `2026-04-24 16:24` **Automation for Jira (Jira)** — [JIRA] (ITS-10744) OmniCenter: mb-qa-media02 SUB: mb-qa-media02 - Threshold CRITICAL - /home Percent Used Space
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
+- `2026-04-24 16:39` **Automation for Jira (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
+- `2026-04-24 16:55` **Javier Cedeño (Jira)** — [JIRA] (ITS-10437) OmniCenter: edw-pr-dbn113 SUB: edw-pr-dbn113 - Threshold CRITICAL - CPU Utilization for edw-pr-dbn113
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
+- `2026-04-24 17:00` **Javier Cedeño (Jira)** — [JIRA] (ITS-10744) OmniCenter: mb-qa-media02 SUB: mb-qa-media02 - Threshold CRITICAL - /home Percent Used Space
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
+- `2026-04-24 17:00` **Javier Cedeño (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 
 **✅ Resolved**
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
@@ -220,8 +220,6 @@
   > Bernie, I know it's been a while, but If you have the time, I would like to ask a favor on behalf of the Unix Server Team. If you can do this, I'll create an incident or something 
 
 **💬 Notable**
-- `2026-04-21 09:23` **Jorge Adriazola (Jira)** — [JIRA] (ITS-10332) Control-M: ans00095 ENDED NOTOK! - Production - Abend Code  99
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Jorge Adriazola 1 made an update _________________
 - `2026-04-21 21:24` **Automation for Jira (Jira)** — [JIRA] (ITS-10438) Control-M: ans00200 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 01:43` **Automation for Jira (Jira)** — [JIRA] (ITS-10445) Control-M: ans00006 ENDED NOTOK! - Production - Abend Code  99
@@ -242,6 +240,10 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-23 02:23` **Automation for Jira (Jira)** — [JIRA] (ITS-10596) Control-M: ans00203 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
+- `2026-04-24 16:54` **Javier Cedeño (Jira)** — [JIRA] (ITS-10596) Control-M: ans00203 ENDED NOTOK! - Production - Abend Code  99
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
+- `2026-04-24 16:54` **Javier Cedeño (Jira)** — [JIRA] (ITS-10595) Control-M: ans00140 ENDED NOTOK! - Production - Abend Code  99
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 
 ## Network (9 emails)
 
@@ -283,11 +285,9 @@
 - `2026-04-21 11:04` **Cisco Product & Engineering** — Reminder: Shape the future of Cisco Identity Services Engine (ISE) in 3 minutes
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Help us serve you better today and tomorrow. ͏‌ ͏‌
 
-## Nutanix (35 emails)
+## Nutanix (33 emails)
 
 **🔴 Incidents / Issues**
-- `2026-03-25 14:57` **Javier Cedeño** — Planned Maintenance – Nutanix Oracle Non‑Prod Cluster Upgrade (CHG‑2371)
-  > Hi team, good afternoon. As part of change request CHG‑2371, we are planning to upgrade the Nutanix Oracle Non‑Prod Cluster on Monday, March 30 from 10:00 AM – 4:00 PM EST This is 
 - `2026-03-30 16:29` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hello Javier Cedeño, Thank you for contacting Nuta
 - `2026-03-30 16:47` **Nutanix Support** — NTNX Case 02505157 | P2 - Critical | CVM not showing on element and can't access on SSH or Console after BIOS upgrade [ 
@@ -330,8 +330,6 @@
   > Hello Jason, New certificate is in place now. Regards, Henry Hello Jason, I will reach out to the IAM team to complete the request. Regards, Henry Good Morning, Here is the notific
 
 **📋 Action Items**
-- `2026-03-25 14:57` **Javier Cedeño** — Planned Maintenance – Nutanix Oracle Non‑Prod Cluster Upgrade (CHG‑2371)
-  > Hi team, good afternoon. As part of change request CHG‑2371, we are planning to upgrade the Nutanix Oracle Non‑Prod Cluster on Monday, March 30 from 10:00 AM – 4:00 PM EST This is 
 - `2026-03-30 09:10` **Jason Mills** — FW: Action required: Renew your application certificate in Microsoft Entra ID
   > Good Morning, Here is the notification that I received regarding the SAML Certificate for Nutanix. -JM Good morning, The SAML certificate for LLB - Nutanix will expire on May 24, 2
 - `2026-03-30 16:47` **Nutanix Support** — NTNX Case 02505157 | P2 - Critical | CVM not showing on element and can't access on SSH or Console after BIOS upgrade [ 
@@ -384,8 +382,6 @@
   > Hi David, looks like it still spamming after doing the inventory again: CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ___________
 
 **💬 Notable**
-- `2026-03-25 12:04` **Sophia Lee, Nutanix** — Don’t miss .NEXT 2026’s most popular sessions—limited seats
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ These are the sessions in highest demand—reserve y
 - `2026-04-07 11:03` **Sophia Lee, Nutanix** — A Clear Path Beyond VMware: Register for April 23
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Rising costs, operational complexity <https://info
 - `2026-04-14 10:09` **Expedient** — Is your infrastructure AI-ready or just AI-adjacent?
@@ -479,7 +475,7 @@
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 
-## Oracle / DBA (22 emails)
+## Oracle / DBA (21 emails)
 
 **🔴 Incidents / Issues**
 - `2026-04-21 17:50` **Automation for Jira (Jira)** — [JIRA] (ITS-10424) OmniCenter: wms-qa-ora02 SUB: PROBLEM Alert - wms-qa-ora02 Tablespace is CRITICAL
@@ -526,8 +522,6 @@
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 
 **📋 Action Items**
-- `2026-03-25 14:57` **Javier Cedeño** — Planned Maintenance – Nutanix Oracle Non‑Prod Cluster Upgrade (CHG‑2371)
-  > Hi team, good afternoon. As part of change request CHG‑2371, we are planning to upgrade the Nutanix Oracle Non‑Prod Cluster on Monday, March 30 from 10:00 AM – 4:00 PM EST This is 
 - `2026-04-01 08:53` **Deborah Bria** — PLEASE READ:   MONGODB QA  migration from Community edition to ATLAS  4/9/26
   > Good morning, everyone, I wanted to share some important details regarding the upcoming MongoDB QA database migration scheduled for Thursday, April 9th, 2026. Beginning at 8:00 am 
 - `2026-04-01 08:57` **Deborah Bria** — RE: PLEASE READ:   MONGODB QA  migration from Community edition to ATLAS  4/9/26
@@ -542,8 +536,6 @@
   > Hi Tim The following is the information relevant to the current situation affecting shd-pr-ora06 in PROD environment: 1) The type of issue: Server patching shd-pr-ora06 2) Brief de
 
 **🔧 Changes / Deployments**
-- `2026-03-25 14:57` **Javier Cedeño** — Planned Maintenance – Nutanix Oracle Non‑Prod Cluster Upgrade (CHG‑2371)
-  > Hi team, good afternoon. As part of change request CHG‑2371, we are planning to upgrade the Nutanix Oracle Non‑Prod Cluster on Monday, March 30 from 10:00 AM – 4:00 PM EST This is 
 - `2026-04-01 08:53` **Deborah Bria** — PLEASE READ:   MONGODB QA  migration from Community edition to ATLAS  4/9/26
   > Good morning, everyone, I wanted to share some important details regarding the upcoming MongoDB QA database migration scheduled for Thursday, April 9th, 2026. Beginning at 8:00 am 
 - `2026-04-01 08:57` **Deborah Bria** — RE: PLEASE READ:   MONGODB QA  migration from Community edition to ATLAS  4/9/26
@@ -557,7 +549,7 @@
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 
-## Patching (35 emails)
+## Patching (34 emails)
 
 **🔴 Incidents / Issues**
 - `2026-04-19 15:50` **Technical Operations Center** — RESOLVED - [ERROR] Job #599412 'ESGUnix - Patch Infrastructure-edxl-PR (Full/Reboot)'
@@ -622,8 +614,6 @@
   > Hello, Just a heads up that full outage patching will be occurring Saturday 4/25 beginning around 10am expected to be completed by 2pm at the latest. While we do not expect and pro
 
 **📋 Action Items**
-- `2026-03-25 14:57` **Javier Cedeño** — Planned Maintenance – Nutanix Oracle Non‑Prod Cluster Upgrade (CHG‑2371)
-  > Hi team, good afternoon. As part of change request CHG‑2371, we are planning to upgrade the Nutanix Oracle Non‑Prod Cluster on Monday, March 30 from 10:00 AM – 4:00 PM EST This is 
 - `2026-04-15 10:18` **Technical Operations Center** — FW: [ERROR] Job #597634 'ESGUnix - Patch Infrastructure-BLD-PR (Full/Reboot)'
   > Hi Javier The following is the information relevant to the current situation affecting mb-dv-app02, mb-dv-media02, mb-dv-router02 in PROD environment: 1) The type of issue: Server 
 - `2026-04-21 07:37` **Technical Operations Center** — FW: [ERROR] ans00095 Job #600153 'ESGUnix - Patch Creative-MB-DV-QA (Full/Reboot)'
@@ -640,8 +630,6 @@
   > Hello, Just a heads up that full outage patching will be occurring Saturday 4/25 beginning around 10am expected to be completed by 2pm at the latest. While we do not expect and pro
 
 **🔧 Changes / Deployments**
-- `2026-03-25 14:57` **Javier Cedeño** — Planned Maintenance – Nutanix Oracle Non‑Prod Cluster Upgrade (CHG‑2371)
-  > Hi team, good afternoon. As part of change request CHG‑2371, we are planning to upgrade the Nutanix Oracle Non‑Prod Cluster on Monday, March 30 from 10:00 AM – 4:00 PM EST This is 
 - `2026-03-28 16:05` **Luis Rodríguez** — Re: Scheduled Jenkins Maintenance – Outage Starting Fri, March 27 @ 8 PM ET
   > Hello everyone, The Jenkins upgrade has been successfully completed and the system is now back in service. The upgrade included: * Jenkins core upgrade to Jenkins 2.492.1 * Plugin 
 - `2026-04-15 09:30` **Javier Cedeño** — CHG-2693 Patch Ansible PROD Environment in April
@@ -727,7 +715,7 @@
 - `2026-04-24 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 
-## Windows / AVD (8 emails)
+## Windows / AVD (9 emails)
 
 **🔴 Incidents / Issues**
 - `2026-04-09 21:35` **Berny Vargas** — Patch Summary: Mar 2026 – Unix and Windows Servers.
@@ -746,6 +734,8 @@
   > Hi Tim McGlothin, Your Active Directory (AD) work passphrase is about to expire (7 days after you received the initial notification). L.L.Bean's passphrase policy requirements have
 - `2026-04-15 08:21` **IAM Notifications** — Your Active Directory (AD) passphrase is about to expire
   > Hi Tim McGlothin, Your Active Directory (AD) work passphrase is about to expire (7 days after you received the initial notification). L.L.Bean's passphrase policy requirements have
+- `2026-04-24 16:46` **Technical Operations Center** — Microsoft Security Patches - Requires PCs to restart - 04/28, 04/29, 04/30, 05/02 & 05/03
+  > Hi all, Microsoft Office/Applications and Microsoft Security Updates will be deployed across the company. To minimize disruption, updates are scheduled over five nights. 🗓️ Update 
 
 **📋 Action Items**
 - `2026-04-10 08:20` **IAM Notifications** — Your Active Directory (AD) passphrase is about to expire
@@ -760,6 +750,10 @@
   > Hi Tim McGlothin, Your Active Directory (AD) work passphrase is about to expire (7 days after you received the initial notification). L.L.Bean's passphrase policy requirements have
 - `2026-04-15 08:21` **IAM Notifications** — Your Active Directory (AD) passphrase is about to expire
   > Hi Tim McGlothin, Your Active Directory (AD) work passphrase is about to expire (7 days after you received the initial notification). L.L.Bean's passphrase policy requirements have
+
+**🔧 Changes / Deployments**
+- `2026-04-24 16:46` **Technical Operations Center** — Microsoft Security Patches - Requires PCs to restart - 04/28, 04/29, 04/30, 05/02 & 05/03
+  > Hi all, Microsoft Office/Applications and Microsoft Security Updates will be deployed across the company. To minimize disruption, updates are scheduled over five nights. 🗓️ Update 
 
 **💬 Notable**
 - `2026-04-06 09:30` **David Bernier** — Server Engineer Team Meeting Agenda - Monday, 4/6/2026 @ 1:30 PM US EST / 11:30 AM CR

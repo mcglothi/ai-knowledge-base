@@ -1,26 +1,26 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-24 19:39 UTC  **Period:** 2026-03-25 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-24 23:39 UTC  **Period:** 2026-03-26 → today  **Source:** Local Teams cache
 
-**Stats:** 2457 signal messages extracted from Teams local cache
+**Stats:** 2449 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
 | # | Channel | Msgs | Signal | Last Active |
 |---|---------|------|--------|-------------|
 | 1 | AI Nerds | 353 | 61 | 2026-04-24 |
-| 2 | Claude initial setup | 247 | 49 | 2026-04-24 |
+| 2 | Claude initial setup | 250 | 52 | 2026-04-24 |
 | 3 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 180 | 28 | 2026-04-01 |
 | 4 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
-| 5 | GitHub Copilot Devs | 146 | 32 | 2026-04-23 |
+| 5 | GitHub Copilot Devs | 145 | 32 | 2026-04-23 |
 | 6 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 136 | 17 | 2026-04-24 |
 | 7 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
 | 8 | Unix Server and Storage Team | 126 | 49 | 2026-04-24 |
 | 9 | IS Connect Hub | 123 | 38 | 2026-04-24 |
 | 10 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
 | 11 | Unix Server | TOC Team Chat | 77 | 29 | 2026-04-23 |
-| 12 | Server Engineering Team - ALL | 72 | 24 | 2026-04-24 |
+| 12 | Server Engineering Team - ALL | 71 | 24 | 2026-04-24 |
 | 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 60 | 16 | 2026-04-23 |
-| 14 | Change Management Weekly Meeting | 60 | 21 | 2026-04-23 |
+| 14 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 60 | 21 | 2026-04-23 |
 | 15 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 50 | 11 | 2026-04-17 |
 | 16 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
 | 17 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
@@ -103,7 +103,7 @@
 - `2026-04-24 19:15` **Tim McGlothin:** https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/
 
 ### Claude initial setup
-**247 messages** · 2026-04-10 → 2026-04-24 · 49 signal msgs
+**250 messages** · 2026-04-10 → 2026-04-24 · 52 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-13 17:30` **Tim McGlothin:** But they have locked it down so much. Can't even use it with opencode
@@ -121,6 +121,7 @@
 - `2026-04-24 19:03` **Andrew Skvorak:** Josh Andrews The shell sandbox still isn't coming back up — I've retried a bunch of times and it's consistently returning "Workspace unavailable." Without it, I don't have a way to programmatically extract the sl… Can yo…
 - `2026-04-24 19:16` **Andrew Skvorak:** IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows????�
 - `2026-04-24 19:18` **Josh Andrews:** Andrew Skvorak IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows???? Yea but I wonde…
+- `2026-04-24 20:02` **Ben Hoisington:** I think I found the root of the sandbox issue. On my win 11 pc the Virtual Machine platform feature was enabled, but the Windows Hypervisor Platform was not. Enabled it, rebooted, and the Claude Cowork session was able t…
 
 **✅ Resolved / Complete**
 - `2026-04-15 15:10` **Tim McGlothin:** could be resolved now.. checking
@@ -130,8 +131,6 @@
 - `2026-04-24 19:03` **Andrew Skvorak:** Josh Andrews The shell sandbox still isn't coming back up — I've retried a bunch of times and it's consistently returning "Workspace unavailable." Without it, I don't have a way to programmatically extract the sl… Can yo…
 
 **📋 Action Items**
-- `2026-04-14 14:01` **Tim McGlothin:** At dfw airport now.. I'll be in on Thursday
-- `2026-04-15 13:13` **Jason Mills:** I will look. The only thing I saw so far was a toggle that sounded like it was a org level permission�
 - `2026-04-15 13:20` **Tim McGlothin:** thats a good point, you should be able to.. .I'll have to play around with that idea, keeping it under one roof rather than cross platform
 - `2026-04-15 13:22` **Tim McGlothin:** once I settle on the local LLMs and gain more trust in them I'll switch it from gemini to opencode calling the right model
 - `2026-04-15 19:50` **Ben Hoisington:** SSO has been configured. If you go to claude.ai and put in your email address you should now get the option to sign in with SSO.
@@ -150,6 +149,8 @@
 - `2026-04-24 19:11` **Josh Andrews:** Says I can manually provide the content, but kinda defeats what I am trying to do. I will take a peak in the Zscaler logs too. Andrew � Skvorak �are there guidelines for using your claude LLBean account on personal devic…
 - `2026-04-24 19:14` **Tim McGlothin:** Not sure if they're going to target team plans or not..they really want everyone paying api pricing
 - `2026-04-24 19:14` **Andrew Skvorak:** Josh Andrews Says I can manually provide the content, but kinda defeats what I am trying to do. I will take a peak in the Zscaler logs too. Andrew Skvorak are there guidelines for using your claude LLBean account… No. Gi…
+- `2026-04-24 20:03` **Andrew Skvorak:** Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
+- `2026-04-24 20:07` **Ben Hoisington:** I'll reach out to get it added to the instructions.
 
 **🏛 Decisions**
 - `2026-04-21 16:53` **Tim McGlothin:** Enterprises manage Model Context Protocol (MCP) connections by moving away from ad-hoc, local, developer-driven setups toward centralized, governed MCP gateways and managed platforms . This evolution is driven by the nee…
@@ -162,6 +163,7 @@
 - `2026-04-22 18:18` **Andrew Skvorak:** I looked at Claude's support docs and found that our Team license level DOES support Web Search so I went into our Org settings and was able to flip the switch to enable it. I am thinking that Ben's problem might have be…
 - `2026-04-24 19:16` **Andrew Skvorak:** IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows????�
 - `2026-04-24 19:18` **Josh Andrews:** Andrew Skvorak IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows???? Yea but I wonde…
+- `2026-04-24 20:03` **Andrew Skvorak:** Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
 
 **💬 Notable Exchanges**
 - `2026-04-22 19:00` **Josh Andrews:** Let me send an e-mail about this to our Infra support teams and see if they have a preference. Packaging this wouldn't be a quick turnaround.�
@@ -263,7 +265,7 @@
 - `2026-04-21 16:50` **Brooke Curtin-Johnson:** Here is some documentation on single node cluster firmware updates- I still have a few questions out to David S. on process.
 
 ### GitHub Copilot Devs
-**146 messages** · 2026-03-25 → 2026-04-23 · 32 signal msgs
+**145 messages** · 2026-03-27 → 2026-04-23 · 32 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-01 16:50` **Andrew Skvorak:** Chase Allen Yeah CLI won't authenticate currently 🙂 Yup, according to the docs, you'll get that error if it's not enabled.
@@ -453,7 +455,7 @@
 - `2026-04-23 18:54` **Berny Vargas:** In outlook there is a patching calendar for example Manhattan servers, however the patching calendar for public access is located in share point: � https://llbean.sharepoint.com/sites/Infrastructure/Lists/Unix%20Patching…
 
 ### Server Engineering Team - ALL
-**72 messages** · 2026-03-25 → 2026-04-24 · 24 signal msgs
+**71 messages** · 2026-03-26 → 2026-04-24 · 24 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-03-27 18:03` **Hank Uhl:** FYI, the 2-node cluster has an issue with the witness VM.... i noticed yesterday when i was doing pre-checks that the web UI wasn't working on it and it had 208 days of uptime, so it hadn't been rebooted after the big is…
@@ -504,7 +506,7 @@
 
 ## Today (2026-04-24)
 
-### Claude initial setup (16 msgs)
+### Claude initial setup (19 msgs)
 - `2026-04-24 19:00` **Josh Andrews:** `[incident]` Seems like overall usability issues between all platforms... "My sandbox shell isn't coming up right now" claude issue
 - `2026-04-24 19:00` **Ben Hoisington:** I wonder if the common thread there is Anthropic. M365 Cowork is relying on them as well.
 - `2026-04-24 19:01` **Josh Andrews:** `[resolved]` The shell sandbox still isn't coming back up — I've retried a bunch of times and it's consistently returning "Workspace unavailable." Without it, I don't have a way to programmatic…
@@ -521,6 +523,9 @@
 - `2026-04-24 19:18` **Tim McGlothin:** It's a soft test right now, seeing it start to hit social media circles
 - `2026-04-24 19:18` **Josh Andrews:** `[incident,knowledge]` Andrew Skvorak IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't…
 - `2026-04-24 19:19` **Andrew Skvorak:** Always worth a try to find out
+- `2026-04-24 20:02` **Ben Hoisington:** `[incident]` I think I found the root of the sandbox issue. On my win 11 pc the Virtual Machine platform feature was enabled, but the Windows Hypervisor Platform was not. Enabled it, rebooted, …
+- `2026-04-24 20:03` **Andrew Skvorak:** `[action,knowledge]` Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
+- `2026-04-24 20:07` **Ben Hoisington:** `[action]` I'll reach out to get it added to the instructions.
 
 ### Unix Server and Storage Team (12 msgs)
 - `2026-04-24 14:07` **Steven Foxe:** Morning Tim. �Are you familiar with server pbx-aads01-v10? �Nick did some storage vmotion work for me and reported that it is not pingable (which it isn't). �He wasn't sure if it w…
@@ -536,12 +541,11 @@
 - `2026-04-24 16:32` **Tim McGlothin:** trying to ping it from GZ
 - `2026-04-24 16:32` **Tim McGlothin:** makes firewall grumpy
 
-### 19:71cc5bfd-ddf3-4c3f-84c7-d22f953af688_ (10 msgs)
+### 19:71cc5bfd-ddf3-4c3f-84c7-d22f953af688_ (9 msgs)
 - `2026-04-24 18:03` **David Niesner:** Hi TIm. Saw disk utilization jump up to about 90% and stay there around 9am today on wms-pr-sci01. Looked at some of the large files and it looks like there might be 2 core dumps f…
 - `2026-04-24 18:03` **Tim McGlothin:** sure.. give me a sec
 - `2026-04-24 18:05` **David Niesner:** /apps/scope/sci/cognos/c10_64/bin64
 - `2026-04-24 18:05` **Tim McGlothin:** [14:05:43]root@wms-pr-sci01[/apps/scope/sci/cognos/c10_64/bin64] >>du -hsx -- * | sort -rh | head -10 2.4G��� core.20250108.013127.230492.0004.dmp 2.2G��� core.20260424.090620.1045…
-- `2026-04-24 18:06` **Tim McGlothin:** [14:05:46]root@wms-pr-sci01[/apps/scope/sci/cognos/c10_64/bin64] >>file core.20250108.013127.230492.0004.dmp core.20250108.013127.230492.0004.dmp: ELF 64-bit LSB core file x86-64, …
 - `2026-04-24 18:06` **Tim McGlothin:** [14:05:46]root@wms-pr-sci01[/apps/scope/sci/cognos/c10_64/bin64] >>file core.20250108.013127.230492.0004.dmp core.20250108.013127.230492.0004.dmp: ELF 64-bit LSB core file x86-64, …
 - `2026-04-24 18:06` **Tim McGlothin:** looks like you'll have to read it with the application.. its not a text dump
 - `2026-04-24 18:07` **Tim McGlothin:** `[action]` what was the service name? �I'll see if journalctl has any logs around it
@@ -585,10 +589,6 @@
 ### 19:b75fb26a-9966-4668-833b-798a02974ad6_ (2 msgs)
 - `2026-04-24 15:43` **Tim McGlothin:** `[action]` is pbx-aads01-v10 supposed to be online? Nick was working on some vmotions and may have killed it
 - `2026-04-24 15:58` **Tim McGlothin:** lemme see whats up with it.. one sec
-
-### 48:drafts (2 msgs)
-- `2026-04-24 18:06` **<Undefined> <Undefined>:** [14:05:46]root@wms-pr-sci01[/apps/scope/sci/cognos/c10_64/bin64] >>file core.20250108.013127.230492.0004.dmp core.20250108.013127.230492.0004.dmp: ELF 64-bit LSB core file x86-64, …
-- `2026-04-24 19:01` **<Undefined> <Undefined>:** no hits on downdetector
 
 ### 48:notifications (1 msgs)
 - `2026-04-24 01:45` **<Undefined> <Undefined>:** Hank Uhl, Tim McGlothin , several hosts are close to the /boot limit even with only 2 kernels installed. Removing the 2nd kernel would free space but leave only one bootable kernel…
