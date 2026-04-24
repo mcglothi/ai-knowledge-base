@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-23 19:40 UTC  **Period:** 2026-03-24 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-24 11:42 UTC  **Period:** 2026-03-25 → today  **Source:** Local Teams cache
 
-**Stats:** 2519 signal messages extracted from Teams local cache
+**Stats:** 2460 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -12,21 +12,21 @@
 | 3 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 180 | 28 | 2026-04-01 |
 | 4 | GitHub Copilot Devs | 164 | 37 | 2026-04-23 |
 | 5 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
-| 6 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
-| 7 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 126 | 18 | 2026-04-22 |
-| 8 | Unix Server and Storage Team | 119 | 43 | 2026-04-23 |
-| 9 | 19:069489e1b6d741ac9f7151a322c46e5c@thre | 92 | 24 | 2026-04-03 |
-| 10 | IS Connect Hub | 86 | 20 | 2026-04-23 |
-| 11 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 84 | 0 | 2026-04-23 |
-| 12 | Server Engineering Team - ALL | 80 | 29 | 2026-04-22 |
-| 13 | Unix Server | TOC Team Chat | 76 | 29 | 2026-04-23 |
-| 14 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 60 | 16 | 2026-04-23 |
+| 6 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 135 | 18 | 2026-04-23 |
+| 7 | Primary Major Incident Management Bridge | 130 | 33 | 2026-04-22 |
+| 8 | IS Connect Hub | 123 | 38 | 2026-04-24 |
+| 9 | Unix Server and Storage Team | 118 | 43 | 2026-04-23 |
+| 10 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 84 | 0 | 2026-04-23 |
+| 11 | Unix Server | TOC Team Chat | 77 | 29 | 2026-04-23 |
+| 12 | Server Engineering Team - ALL | 73 | 25 | 2026-04-22 |
+| 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 60 | 16 | 2026-04-23 |
+| 14 | Change Management Weekly Meeting | 60 | 21 | 2026-04-23 |
 | 15 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 50 | 11 | 2026-04-17 |
-| 16 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
+| 16 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 40 | 11 | 2026-04-23 |
 | 17 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
 | 18 | 19:7aa2c1dd-7d68-47ed-b04e-6c45a257dcc0_ | 38 | 18 | 2026-04-22 |
-| 19 | 19:656213c4-135f-42d8-9ec2-e98c8440fa72_ | 37 | 9 | 2026-04-01 |
-| 20 | 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ | 33 | 9 | 2026-04-22 |
+| 19 | 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ | 33 | 9 | 2026-04-22 |
+| 20 | 19:meeting_ZGQzM2JlYWMtZWQ3Ny00NDY0LWE4Y | 33 | 0 | 2026-04-22 |
 
 ## Infrastructure Channels
 
@@ -314,8 +314,76 @@
 - `2026-04-10 15:52` **Steven Foxe:** Ok, thank you! �
 - `2026-04-21 16:50` **Brooke Curtin-Johnson:** Here is some documentation on single node cluster firmware updates- I still have a few questions out to David S. on process.
 
+### Primary Major Incident Management Bridge
+**130 messages** · 2026-03-30 → 2026-04-22 · 33 signal msgs
+
+**🔴 Incidents / Issues**
+- `2026-03-30 16:11` **Jen Marquis:** Root cause: �GCP Patch restarted pods, pods were missing a deployment. �That's what caused the issue: �after restart a 'bad deployment' took over.
+- `2026-03-30 16:13` **Jim Greene:** Jen Marquis Root cause: GCP Patch restarted pods, pods were missing a deployment. That's what caused the issue: after restart a 'bad deployment' took over. Bad deployment of... ah, that.
+- `2026-03-30 16:24` **Jen Marquis:** https://llbean.atlassian.net/jira/servicedesk/projects/CHG/queues/issue/CHG-2462
+- `2026-03-30 16:37` **Jen Marquis:** https://llbean.quantummetric.com/#/dimension/error/details?teamID=771cdf0e-75bd-11ec-96cb-42010a800…
+- `2026-03-30 16:41` **Jim Greene:** The deployed pods for app-ecom-pci-udal in prod GCP were missing some YAML updates. �After a GCP patch this morning, the pods were restarted. �When they came back up, we had removed secrets from the secrets vault, but th…
+- `2026-04-09 15:55` **Missy Burke:** loyalty is the only thing that is not normal and started at 10:30am yesterday. �had a couple huge spikes on the 7th but came right back down then
+- `2026-04-09 16:42` **Brian Antonelli:** Jesús Moreira https://llbean.atlassian.net/browse/ITS-9032 📄 Jesús Moreira Regarding this ticket -- For clarification, this incident did not affect an Ecom customer’s ability to view or apply Bean Bucks to an order, as n…
+- `2026-04-09 17:09` **Jes�s Moreira:** Brian Antonelli Jesús Moreira Regarding this ticket -- For clarification, this incident did not affect an Ecom customer’s ability to view or apply Bean Bucks to an order, as noted in the ITS ticket. The issue speci… Than…
+- `2026-04-09 17:25` **Sundar Sivashunmugam:** Jes�s Moreira Thank you for the details. I ensured the ticket reflects the correct context. Gonzalo � S�nchez �Can we send an updated ALL CLEAR email with the Ecom impact mentioned above also stating no order impact? �Al…
+- `2026-04-09 22:52` **Curt Combar:** Actions taken earlier today on the MF for this issue: Actions Taken: The issue was resolved by terminating (purging/killing) a runaway KM12 transaction in the OLT1 CICS region that was consuming excessive CPU. A long‑run…
+- `2026-04-09 22:54` **Curt Combar:** Issue was occurring from 6:09PM to about 6:43PM but has since subsided.
+- `2026-04-09 23:02` **Raju Rai:** 11.57.53 STC14629� DSNB260I� -DBP1 DSNB1PCK WARNING - A READER HAS BEEN� 149���� �� 149������������ RUNNING FOR 1582 MINUTES������������������������������������� �� 149����������������������� CORRELATION NAME=POOLKM12000…
+- `2026-04-10 14:11` **Curt Combar:** Still seeing occasional timeout spikes with rewards lookup this morning. � � Raju � Rai � Jay � Seiler �I see no one is assigned https://llbean.atlassian.net/browse/ITS-9032?assignee=557058%3A28bdf4be-c8c9-4bc2-b519-4535…
+- `2026-04-10 14:17` **Jay Seiler:** Curt Combar Still seeing occasional timeout spikes with rewards lookup this morning. 📷 Raju Rai Jay Seiler I see no one is assigned https://llbean.atlassian.net/browse/ITS-9032?assignee=557058%3A28bdf4be-c8c9… This would…
+- `2026-04-10 14:27` **Cliff Anderson:** Curt Combar Still seeing occasional timeout spikes with rewards lookup this morning. 📷 Raju Rai Jay Seiler I see no one is assigned https://llbean.atlassian.net/browse/ITS-9032?assignee=557058%3A28bdf4be-c8c9… Are you ge…
+- `2026-04-10 14:30` **Curt Combar:** Not sustained, so not a major concern for this morning, but tells me there's still a problem?
+- `2026-04-10 15:31` **Jay Seiler:** Is there currently an ongoing issue? My understanding was we just had a burp and things are operating within normal parameters.�
+- `2026-04-10 15:33` **Gonzalo S�nchez:** Hello team, can we please create a separate chat to TS this issue?�
+- `2026-04-22 13:27` **Fred O'Farrell:** What's the issue?
+- `2026-04-22 13:29` **Alonso Bonilla:** Fred O'Farrell What's the issue? Sorry, that was a misclick
+
+**✅ Resolved / Complete**
+- `2026-03-30 16:11` **Jen Marquis:** Root cause: �GCP Patch restarted pods, pods were missing a deployment. �That's what caused the issue: �after restart a 'bad deployment' took over.
+- `2026-03-30 16:13` **Jim Greene:** Jen Marquis Root cause: GCP Patch restarted pods, pods were missing a deployment. That's what caused the issue: after restart a 'bad deployment' took over. Bad deployment of... ah, that.
+- `2026-03-30 16:16` **Allan Mendoza:** created the incident using "llb.com" as the asset, but could you confirm if there's something more specific I should use as the root cause for this one?
+- `2026-03-30 16:41` **Jim Greene:** The deployed pods for app-ecom-pci-udal in prod GCP were missing some YAML updates. �After a GCP patch this morning, the pods were restarted. �When they came back up, we had removed secrets from the secrets vault, but th…
+- `2026-04-09 17:25` **Sundar Sivashunmugam:** Jes�s Moreira Thank you for the details. I ensured the ticket reflects the correct context. Gonzalo � S�nchez �Can we send an updated ALL CLEAR email with the Ecom impact mentioned above also stating no order impact? �Al…
+- `2026-04-09 17:54` **Pablo Rodr�guez:** Sundar Sivashunmugam Gonzalo Sánchez Can we send an updated ALL CLEAR email with the Ecom impact mentioned above also stating no order impact? Also any details on the Loyalty Membeship Lookup services degradation due… Wi…
+- `2026-04-09 22:52` **Curt Combar:** Actions taken earlier today on the MF for this issue: Actions Taken: The issue was resolved by terminating (purging/killing) a runaway KM12 transaction in the OLT1 CICS region that was consuming excessive CPU. A long‑run…
+
+**📋 Action Items**
+- `2026-03-30 16:05` **Jen Marquis:** Please feel free to create one.
+- `2026-03-30 16:16` **Allan Mendoza:** created the incident using "llb.com" as the asset, but could you confirm if there's something more specific I should use as the root cause for this one?
+- `2026-03-30 16:26` **Allan Mendoza:** Of course! I'll do it right now!�
+- `2026-03-30 16:52` **Jim Greene Jr:** note: Harness does a kubectl apply, this looks like it would need a kubectl apply --prune or a replace.. I will discuss this with Platform team as well. This is not the first time we have seen this
+- `2026-04-09 15:43` **Jes�s Moreira:** Working on it. Cliff stated he had one, but seems to be a work item in a project. https://llbean.atlassian.net/browse/DBA-324
+- `2026-04-09 17:54` **Pablo Rodr�guez:** Sundar Sivashunmugam Gonzalo Sánchez Can we send an updated ALL CLEAR email with the Ecom impact mentioned above also stating no order impact? Also any details on the Loyalty Membeship Lookup services degradation due… Wi…
+- `2026-04-10 15:33` **Gonzalo S�nchez:** Hello team, can we please create a separate chat to TS this issue?�
+- `2026-04-10 15:34` **Jay Seiler:** Ah that makes perfect sense. I should have known.�
+
+**🏛 Decisions**
+- `2026-04-10 14:17` **Cliff Anderson:** Jay Seiler Mainframe is not the bottleneck. It's just idling. Plenty of juice there. Agreed. Our max query response time has stayed ~100ms with the 99% percentile < 50ms
+- `2026-04-10 14:23` **Curt Combar:** Cliff Anderson Agreed. Our max query response time has stayed ~100ms with the 99% percentile < 50ms "our" being the rewards service?
+
+**💡 Knowledge / Findings**
+- `2026-03-30 16:11` **Jen Marquis:** Root cause: �GCP Patch restarted pods, pods were missing a deployment. �That's what caused the issue: �after restart a 'bad deployment' took over.
+- `2026-03-30 16:13` **Jim Greene:** Jen Marquis Root cause: GCP Patch restarted pods, pods were missing a deployment. That's what caused the issue: after restart a 'bad deployment' took over. Bad deployment of... ah, that.
+- `2026-03-30 16:16` **Allan Mendoza:** created the incident using "llb.com" as the asset, but could you confirm if there's something more specific I should use as the root cause for this one?
+- `2026-03-30 16:48` **Jim Greene Jr:** kubectl apply works by doing a 3‑way merge : Why? Because: This is a strategic merge patch Lists don’t imply “these are the only items” Kubernetes can’t safely assume deletion unless explicitly told This applies to: env …
+- `2026-04-09 22:52` **Curt Combar:** Actions taken earlier today on the MF for this issue: Actions Taken: The issue was resolved by terminating (purging/killing) a runaway KM12 transaction in the OLT1 CICS region that was consuming excessive CPU. A long‑run…
+- `2026-04-10 14:17` **Jay Seiler:** Curt Combar Still seeing occasional timeout spikes with rewards lookup this morning. 📷 Raju Rai Jay Seiler I see no one is assigned https://llbean.atlassian.net/browse/ITS-9032?assignee=557058%3A28bdf4be-c8c9… This would…
+
+**💬 Notable Exchanges**
+- `2026-04-22 13:26` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-22 13:26` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-22 13:26` **<Undefined> <Undefined>:** {\"scopeId\":\"bc94a84f-e304-4ec0-9913-9b053ab0bbd6\",\"storageId\":\"cf744f44-227e-4438-83fd-58977f7c541f@c9dca46c-3aac-42fa-bd2a-82b27c3b1a5a\",\"callId\":\"bc94a84f-e304-4ec0-9913-9b053ab0bbd6\",\"iCalUid\":\"04000000…
+- `2026-04-22 13:27` **Alejandro Hidalgo:** Hi team, CSC here. Let us know if you need anything from our end
+- `2026-04-22 13:29` **Fred O'Farrell:** Excellent! Class dismissed!
+- `2026-04-22 13:29` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-22 13:29` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-22 13:29` **Nathan Hoy:** Good to test response every now and again. Good job everyone.
+- `2026-04-22 13:29` **Andy Mosca:** Great job everyone!
+- `2026-04-22 13:32` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+
 ### Unix Server and Storage Team
-**119 messages** · 2026-03-24 → 2026-04-23 · 43 signal msgs
+**118 messages** · 2026-03-25 → 2026-04-23 · 43 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-01 15:15` **Javier Cede�o:** Hi team, got a quick question. � ecwcmq01 and ecwcmp01 are recently having issues with disk space on root, the problem is log rotate not working fine for splunk (Mark is working on that) � But /opt is not on its own file…
@@ -384,65 +452,8 @@
 - `2026-04-23 13:58` **Hank Uhl:** Tim � McGlothin �when you get online, can you please let me know the status of the 2 patch failures from last night? �i assume TOC contacted you since I see you logged into both servers last night... they both look good,…
 - `2026-04-23 13:59` **Hank Uhl:** i see both were /boot again
 
-### Server Engineering Team - ALL
-**80 messages** · 2026-03-24 → 2026-04-22 · 29 signal msgs
-
-**🔴 Incidents / Issues**
-- `2026-03-24 21:16` **Tim McGlothin:** also - on single node clusters the VMs have to stay down the whole time, not just during reboots.. host has to be in MM and it wont go in with them still online
-- `2026-03-25 11:37` **Steven Foxe:** Tim McGlothin also - on single node clusters the VMs have to stay down the whole time, not just during reboots.. host has to be in MM and it wont go in with them still online I've updated the Nutanix Bi-Annual Patching d…
-- `2026-03-25 13:19` **Tim McGlothin:** The upgrade went pretty smooth for the most part, but I did note a few things: � Started at 3, upgrade wrapped up right at 5 so it took a little longer than expected. �This was due to AHV needing to bounce through a midd…
-- `2026-03-27 18:03` **Hank Uhl:** FYI, the 2-node cluster has an issue with the witness VM.... i noticed yesterday when i was doing pre-checks that the web UI wasn't working on it and it had 208 days of uptime, so it hadn't been rebooted after the big is…
-- `2026-04-02 11:23` **Jason Mills:** Chris Montgomery 📷 Skill issue clearly...
-- `2026-04-06 12:13` **Steven Foxe:** I've been looking at it this morning. �The CVM on that host is down. �I went throught the linked KB but it needs a ticket opened with Nutanix. �
-- `2026-04-06 13:50` **Brooke Curtin-Johnson:** Might have found an issue with JSM and not having assignment groups set lol�
-- `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
-
-**✅ Resolved / Complete**
-- `2026-03-24 21:15` **Tim McGlothin:** ntx-dc2-ahv03 upgrade complete... its still spamming about that weird USB device though
-- `2026-03-25 11:23` **Steven Foxe:** Tim McGlothin ntx-dc2-ahv03 upgrade complete... its still spamming about that weird USB device though Keep us updated on what you find with this one and don't hesitate to open a case with Nutanix if needed. �Thanks Tim!
-- `2026-03-25 11:37` **Steven Foxe:** Tim McGlothin also - on single node clusters the VMs have to stay down the whole time, not just during reboots.. host has to be in MM and it wont go in with them still online I've updated the Nutanix Bi-Annual Patching d…
-- `2026-03-25 13:19` **Tim McGlothin:** The upgrade went pretty smooth for the most part, but I did note a few things: � Started at 3, upgrade wrapped up right at 5 so it took a little longer than expected. �This was due to AHV needing to bounce through a midd…
-- `2026-03-26 15:06` **Brooke Curtin-Johnson:** DC2-AHV02 cluster is updated
-- `2026-04-01 14:58` **Javier Cede�o:** David Bernier lets correct this - David S - LOL Fixed....in case HR get his hands on this chat
-- `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
-- `2026-04-07 18:47` **David Bernier:** No obligation here, but saw this and wanted to point it out. For those of you that want Nutanix certification (who dont already have their NCP-MCI - sorry...) there is a self paced opportunity to get it. Please remember,…
-- `2026-04-22 12:30` **Tim McGlothin:** ive done un-pixely things to it and its protesting
-
-**📋 Action Items**
-- `2026-03-25 12:47` **Brooke Curtin-Johnson:** Anyone around on Sunday just in case we need anyone at datacenter? �I am on call and going to be in MA but will have my laptop...
-- `2026-03-26 15:10` **Jason Mills:** I just got an email that the SAML Certificate for Nutanix expires on 5/24. Is there someone over there that I should forward this to so they can work with Daniel on the renewal?
-- `2026-03-27 18:03` **Hank Uhl:** FYI, the 2-node cluster has an issue with the witness VM.... i noticed yesterday when i was doing pre-checks that the web UI wasn't working on it and it had 208 days of uptime, so it hadn't been rebooted after the big is…
-- `2026-03-27 18:05` **Hank Uhl:** i was hoping a reboot would correct it, but it has not. �i feel like I could deploy a new witness node and attach the nodes to it, but that would require some firewall rules be adjusted, which im not going to bother with…
-- `2026-03-27 20:57` **Henry Corrales:** Jason Mills I just got an email that the SAML Certificate for Nutanix expires on 5/24. Is there someone over there that I should forward this to so they can work with Daniel on the renewal? please send me the information
-- `2026-04-01 21:15` **Tim McGlothin:** they should import to edge/chrome/FF
-- `2026-04-06 12:15` **Brooke Curtin-Johnson:** Nicholas � Hopson �when were you going to do the cluster update on that one?
-- `2026-04-06 12:23` **Brooke Curtin-Johnson:** I will thank you
-- `2026-04-06 13:52` **Hank Uhl:** i have a couple witness VMs that i stood up, but i plan to delete at least one... do you care about those?
-- `2026-04-06 13:55` **Hank Uhl:** i will likely be deleting both of them
-- `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
-- `2026-04-07 18:58` **Chris Montgomery:** What the heck... I'll play! Enrolled
-- `2026-04-09 12:30` **David Bernier:** Naggy-McGee here....sorry - but need everyone to go in to Open Incidents and at the very least take a look again and update with some notes and status change - especially the highlighted pretty old ones where there has b…
-- `2026-04-13 13:25` **Nicholas Hopson:** I've already had everything going around so hoping I should be good for a while!�
-- `2026-04-22 12:26` **Brooke Curtin-Johnson:** Hi guys, can you send any new servers you build over to Casey Bowser so he can set assignment groups in JSM? �Until we can come up with a better solution
-
-**💡 Knowledge / Findings**
-- `2026-04-22 13:43` **Tim McGlothin:** its probably mad because I have remote adb shell debugging on and let my AIs noodle around in there
-- `2026-04-22 18:04` **Steven Foxe:** I dealt with those same errors a couple days ago using the KB article. �Looks like they came back to probably need a ticket with Nutanix.
-
-**💬 Notable Exchanges**
-- `2026-04-22 12:27` **Brooke Curtin-Johnson:** I was thinking about adding him to the email in the Ansible playbook but didn't do that yet
-- `2026-04-22 12:28` **Tim McGlothin:** anybody having trouble logging into Ansible this morning? not getting the mfa prompt
-- `2026-04-22 12:28` **Brooke Curtin-Johnson:** It just worked for me!
-- `2026-04-22 12:29` **Tim McGlothin:** maybe my phone.. gonna reboot it
-- `2026-04-22 12:29` **Brooke Curtin-Johnson:** That damn pixel�
-- `2026-04-22 13:40` **Hank Uhl:** Stupid expensive AI foldable phone with 50x the horse power than what we sent to the moon and it still needs to be rebooted!
-- `2026-04-22 17:59` **Brooke Curtin-Johnson:** Anyone already looking at these?�
-- `2026-04-22 18:04` **Brooke Curtin-Johnson:** On Prism Central as well?
-- `2026-04-22 18:05` **Brooke Curtin-Johnson:** Was that Monday or last week?
-- `2026-04-22 18:05` **Brooke Curtin-Johnson:** Ya seems like Monday never cleared
-
 ### Unix Server | TOC Team Chat
-**76 messages** · 2026-04-07 → 2026-04-23 · 29 signal msgs
+**77 messages** · 2026-04-07 → 2026-04-23 · 29 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-07 10:37` **Hank Uhl:** Josu� � Real �upgrades are still running on the linux Nutanix cluster.. which ntx-dc1-2401 is a part of. �the expected upgrade time is 18 hours, and the logs i see look pretty normal, and i checked OC as well, the only c…
@@ -491,7 +502,6 @@
 - `2026-04-22 10:54` **Hank Uhl:** both failed because /boot was too full for kernel install
 
 **💬 Notable Exchanges**
-- `2026-04-23 07:32` **Jonathan Jim�nez:** Perfect I can set the jobs to okay then right
 - `2026-04-23 07:33` **Jonathan Jim�nez:** Perfect, thanks Tim for your help tonight
 - `2026-04-23 07:36` **Jonathan Jim�nez:** This is what we got today
 - `2026-04-23 07:36` **Tim McGlothin:** can you copy those host names? somce got cut off there
@@ -501,160 +511,77 @@
 - `2026-04-23 18:26` **Berny Vargas:** I think having a clean up step during patching sounds good ...
 - `2026-04-23 18:27` **Tim McGlothin:** we were just talking about that... I think so but we may want to put some logic behind it so it only runs the cleanup if the boto fs is at a certain threshold...�
 - `2026-04-23 18:47` **Tim McGlothin:** is there still an outlook calendar with the patching schedule? or has that moved?
+- `2026-04-23 18:54` **Berny Vargas:** In outlook there is a patching calendar for example Manhattan servers, however the patching calendar for public access is located in share point: � https://llbean.sharepoint.com/sites/Infrastructure/Lists/Unix%20Patching…
 
-## Today (2026-04-23)
+### Server Engineering Team - ALL
+**73 messages** · 2026-03-25 → 2026-04-22 · 25 signal msgs
 
-### 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ (59 msgs)
-- `2026-04-23 16:55` **Tim McGlothin:** `[incident,action,resolved]` ok... sanity check.. I may have a plan for /boot - add a new disk for boot, move the bootfs to it and point grub at it... When you get a sec, sanity check my plan before I write a …
-- `2026-04-23 17:18` **Hank Uhl:** conceptually, it seems sound, but honestly, i dont know that im onboard with modifying /boot on enterprise servers... we've had these discussions in the past and i thought that was…
-- `2026-04-23 17:19` **Tim McGlothin:** `[incident,resolved]` it is a risk, but with a snapshot in place we can fail right back.. would have to be done during a maintenance window
-- `2026-04-23 17:20` **Tim McGlothin:** `[incident]` plus the old sda1 partition we remain in tact so if it caused an issues down to road we could swap back to the old one
-- `2026-04-23 17:20` **Hank Uhl:** i know... but the bigger picture is what i dont want to lose sight of... i dont want the servers to remain
-- `2026-04-23 17:20` **Tim McGlothin:** true, but I also want to sleep through kernel updates
-- `2026-04-23 17:20` **Hank Uhl:** and we can do that by cleaning up old kernels
-- `2026-04-23 17:21` **Tim McGlothin:** maybe another approach. when we get these tickets we have management (David) approach the team that has that old server to schedule a rebuild... pressure from the top
-- `2026-04-23 17:21` **Tim McGlothin:** `[incident]` force the refresh on the problem children
-- `2026-04-23 17:22` **Hank Uhl:** i'd be happier with that option... and one of the conditions when we upgraded to RHEL8 we had discussed... and Josh was onboard with this... is that we would upgrade to RHEL8 on th…
-- `2026-04-23 17:22` **Hank Uhl:** `[knowledge]` because i balked at the inplace upgrade to 8
-- `2026-04-23 17:23` **Hank Uhl:** and we sold that messing with /boot was a technical limitation that was too risky to address with partitioning tools
-- `2026-04-23 17:23` **Hank Uhl:** basically, what we sold is that we can do this stuff with home equipment, but did not want to risk the enterprise by trying it
-- `2026-04-23 17:24` **Tim McGlothin:** right.. thats why I didn't approach it as 'move the partition with gpartd' which could work also.. this is cleaner, keep boot on its own drive and remaps grub
-- `2026-04-23 17:25` **Tim McGlothin:** you could even have a second grub entry to points back to sda1�
-- `2026-04-23 17:25` **Hank Uhl:** `[knowledge]` and i understand, but you know full well, that if we give the business an opening to workaround what we deemed to be too risky to keep going foward, they will take it
-- `2026-04-23 17:26` **Hank Uhl:** and we will be doing inplace upgrades to RHEL9
-- `2026-04-23 17:26` **Hank Uhl:** `[action,knowledge]` the other concern i have with this, is i have to provide a ton of exceptions to CIS compliance because i dont know what i'll break
-- `2026-04-23 17:26` **Tim McGlothin:** `[incident]` true. we'd have to preface the process - this is a problem server - emergency triage is to move boot but phase 2 must also be that the app owner prepares for a rebuild on a certain…
-- `2026-04-23 17:28` **Tim McGlothin:** true. for now, maybe we stick to reducing # of kernels and collect data ... have mgmt. push on the app owners to prepare for new builds and not wait till 2029 which will be here be…
-- `2026-04-23 17:29` **Hank Uhl:** im fully onboard with pushing management to begin the process of working out how to get off RHEL8 into newer, probably RHEL10 by that time... so if you want to raise hell, be my gu…
-- `2026-04-23 17:29` **Tim McGlothin:** they've essentially moved the workload from the app owners re-deploying to waking us up in the middle of the night
-- `2026-04-23 17:29` **Hank Uhl:** you'll get no disagreement with me on that... which is partly why i resisted the RHEL8 inplace upgrade... but i couldn't get Josh or Carolyn to support me on that
-- `2026-04-23 17:30` **Hank Uhl:** thankfully we only have to deal with this 4 times a year as opposed to 12
-- `2026-04-23 17:31` **Hank Uhl:** 4 weeks per year
-- `2026-04-23 17:31` **Hank Uhl:** plus the occasional outlier i guess
-- `2026-04-23 17:31` **Tim McGlothin:** some months get kernel updates on security months
-- `2026-04-23 17:31` **Hank Uhl:** `[knowledge]` i think having berny put together an ansible playbook to clean this stuff up every month is a workable solution
-- `2026-04-23 17:31` **Hank Uhl:** or whoever ends up doing it
-- `2026-04-23 17:31` **Hank Uhl:** `[incident]` we jsut have to stop kicking the can down the road
-- `2026-04-23 17:33` **Tim McGlothin:** we could lower the install limit in the configmgmt job also so it only keeps 1 old kernel instead�
-- `2026-04-23 17:34` **Hank Uhl:** can we be sure that cleans up /boot too though? �it's really the ramdisk that hogs the space
-- `2026-04-23 17:34` **Hank Uhl:** often there is a rescue version of it as well
-- `2026-04-23 17:35` **Hank Uhl:** though maybe RPM cleans that up through upgrades
-- `2026-04-23 17:35` **Hank Uhl:** guess i cant say ive watched it clsoely enough to know
-- `2026-04-23 17:35` **Tim McGlothin:** I believe it does when it uninstalls the old one.. thats why the cleanup works�
-- `2026-04-23 17:35` **Tim McGlothin:** /etc/dnf/dnf.conf under the [main] section: � � [main] � installonly_limit=2�
-- `2026-04-23 17:36` **Tim McGlothin:** then once we clean them up dnf wont keep adding the 3rd one.. just like it doesn't add a 4th, 5th, etc now
-- `2026-04-23 17:37` **Hank Uhl:** That makes sense
-- `2026-04-23 17:42` **Tim McGlothin:** `[action]` you know what.. I think we already have a playbook that sets the # of kernels.. probably just need to schedule it
-- `2026-04-23 17:43` **Tim McGlothin:** UTILITY_Set_number_of_kernels.yml
-- `2026-04-23 17:43` **Tim McGlothin:** � � ---� -� name: � Set � the � number � of � kernels � to � keep � and � clean � up � old � entries hosts: � all become: �true gather_facts: �true tasks: �� -� name: � Configure �…
-- `2026-04-23 17:44` **Tim McGlothin:** `[action]` need to put in the dnf file as well as yum
-- `2026-04-23 17:44` **Tim McGlothin:** could break out the yum.conf/dnf.conf into a play that runs with nightly configmgmt
-- `2026-04-23 17:45` **Hank Uhl:** im good with that
-- `2026-04-23 17:46` **Hank Uhl:** install limit i assume means the current and 1 older one
-- `2026-04-23 17:46` **Tim McGlothin:** `[action]` I let berny know about that playbook and we may just need to schedule it
-- `2026-04-23 17:47` **Hank Uhl:** `[incident,resolved,knowledge]` i think the problem is 2 is still too many for the upgraded servers... once the upgrade is done, we will have to lower it to only the active kernel
-- `2026-04-23 17:47` **Hank Uhl:** `[knowledge]` because temporarily there will be 3
-- `2026-04-23 17:48` **Tim McGlothin:** hrm.. good point.. could roll some logic into the update playbook, detect size of bootfs, run cleanup prior to patch
-- `2026-04-23 17:48` **Hank Uhl:** or just make it part of the daily, how often do we ever have to roll back
-- `2026-04-23 17:48` **Hank Uhl:** really oracle servers are the only ones that have ever required it.. maybe MQ
-- `2026-04-23 17:49` **Tim McGlothin:** we never do. if we did we could easily roll back the dnf transaction and exclude the kernel
-- `2026-04-23 17:51` **Tim McGlothin:** or.. another patch pattern - first step - snapshot the server... if the patch fails, call a playbook that restores that VM to the snapshot and log the ticket for us to look at next…
-- `2026-04-23 17:51` **Tim McGlothin:** fix during business hours and reschedule the patch
-- `2026-04-23 17:52` **Hank Uhl:** im good with that idea as well
-- `2026-04-23 17:52` **Tim McGlothin:** patch succeds- remove the snapshot so we dont swamp the storage containers with them
-- `2026-04-23 17:54` **Hank Uhl:** i canceled tomorrow's meeting, but we could always use the Monday meeting that i always cancel to have this discussion if you'd like... or it wait until our next normal meeting
-- `2026-04-23 18:03` **Hank Uhl:** i meant i canceled today's meeting, of course
+**🔴 Incidents / Issues**
+- `2026-03-25 13:19` **Tim McGlothin:** The upgrade went pretty smooth for the most part, but I did note a few things: � Started at 3, upgrade wrapped up right at 5 so it took a little longer than expected. �This was due to AHV needing to bounce through a midd…
+- `2026-03-27 18:03` **Hank Uhl:** FYI, the 2-node cluster has an issue with the witness VM.... i noticed yesterday when i was doing pre-checks that the web UI wasn't working on it and it had 208 days of uptime, so it hadn't been rebooted after the big is…
+- `2026-04-02 11:23` **Jason Mills:** Chris Montgomery 📷 Skill issue clearly...
+- `2026-04-06 12:13` **Steven Foxe:** I've been looking at it this morning. �The CVM on that host is down. �I went throught the linked KB but it needs a ticket opened with Nutanix. �
+- `2026-04-06 13:50` **Brooke Curtin-Johnson:** Might have found an issue with JSM and not having assignment groups set lol�
+- `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
 
-### Unix Server | TOC Team Chat (22 msgs)
-- `2026-04-23 06:30` **Tim McGlothin:** Hi TOC, what's up
-- `2026-04-23 06:31` **Jonathan Jim�nez:** Hello Tim, good morning, I got a patch in PROD
-- `2026-04-23 06:31` **Jonathan Jim�nez:** https://llbean.atlassian.net/browse/ITS-10596
-- `2026-04-23 06:32` **Jonathan Jim�nez:** There are 2 of them Im sending the information of the second one through email as well.
-- `2026-04-23 06:32` **Tim McGlothin:** `[action]` Thanks... I'll take a look
-- `2026-04-23 06:40` **Tim McGlothin:** I see the one for etl-pr-ora02, what's the other one?
-- `2026-04-23 06:41` **Jonathan Jim�nez:** Patch DBA-SHD_PAIR2-PR (FULL REBOOT) �
-- `2026-04-23 06:43` **Tim McGlothin:** `[incident,action]` Looks like shd-pr-ora07..had an issue with 01 this morning and the DBs didn't come up after.. I'll see what I can find
-- `2026-04-23 07:19` **Tim McGlothin:** `[incident,resolved]` shd-pr-ora07 and etl-pr-ora08 are patched and rebooted. �I did a check and I see grid11 up with ASM on both (these were a problem on shd-pr-ora01 earlier today but they seem ok her…
-- `2026-04-23 07:32` **Jonathan Jim�nez:** Perfect I can set the jobs to okay then right
-- `2026-04-23 07:33` **Jonathan Jim�nez:** Perfect, thanks Tim for your help tonight
-- `2026-04-23 07:35` **Tim McGlothin:** `[action]` thanks! are there other patches running tonight? I'll check the boot FS on them so we dont hit that wall again
-- `2026-04-23 07:36` **Jonathan Jim�nez:** This is what we got today
-- `2026-04-23 07:36` **Tim McGlothin:** can you copy those host names? somce got cut off there
-- `2026-04-23 07:39` **Tim McGlothin:** thanks.. checking these out
-- `2026-04-23 07:41` **Tim McGlothin:** `[action]` ok, should be safe till 10am as far as boot FS being full.. got the early morning ones cleaned up.. will address the others later�
-- `2026-04-23 07:42` **Jonathan Jim�nez:** Great Tim I appreciate you checking on this�
-- `2026-04-23 18:25` **Berny Vargas:** Hi Hank � Uhl , Tim � McGlothin �for the kernel clean up , would be better to add a step on the patching playbook , I think that's an option or do you prefer to do the clean up onc…
-- `2026-04-23 18:26` **Berny Vargas:** I think having a clean up step during patching sounds good ...
-- `2026-04-23 18:27` **Tim McGlothin:** we were just talking about that... I think so but we may want to put some logic behind it so it only runs the cleanup if the boto fs is at a certain threshold...�
-- `2026-04-23 18:29` **Berny Vargas:** `[action]` Sounds good, I'll work on that an implement the logic during patching playbook
-- `2026-04-23 18:47` **Tim McGlothin:** is there still an outlook calendar with the patching schedule? or has that moved?
+**✅ Resolved / Complete**
+- `2026-03-25 13:19` **Tim McGlothin:** The upgrade went pretty smooth for the most part, but I did note a few things: � Started at 3, upgrade wrapped up right at 5 so it took a little longer than expected. �This was due to AHV needing to bounce through a midd…
+- `2026-03-26 15:06` **Brooke Curtin-Johnson:** DC2-AHV02 cluster is updated
+- `2026-04-01 14:58` **Javier Cede�o:** David Bernier lets correct this - David S - LOL Fixed....in case HR get his hands on this chat
+- `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
+- `2026-04-07 18:47` **David Bernier:** No obligation here, but saw this and wanted to point it out. For those of you that want Nutanix certification (who dont already have their NCP-MCI - sorry...) there is a self paced opportunity to get it. Please remember,…
+- `2026-04-22 12:30` **Tim McGlothin:** ive done un-pixely things to it and its protesting
 
-### GitHub Copilot Devs (11 msgs)
-- `2026-04-23 14:31` **Bobby Schleicher Jr:** `[incident]` is github down for anyone else? running into their error page when trying to create a PR
-- `2026-04-23 14:31` **Joshua Jackson:** `[incident]` At least one other person asked that same question, though their status page has all green. Probably a brand new issue
-- `2026-04-23 14:34` **Tim McGlothin:** big spike at downdetector.. not just us: https://downdetector.com/status/github/
-- `2026-04-23 14:34` **Francisco Quarato:** `[incident]` Bobby Schleicher Jr is github down for anyone else? running into their error page when trying to create a PR +1 here
-- `2026-04-23 14:34` **Carlos Alvarado:** Not able to log in
-- `2026-04-23 14:35` **Tim McGlothin:** the angry unicorn of sadness
-- `2026-04-23 14:35` **Bobby Schleicher Jr:** `[incident]` even their contact support page is down
-- `2026-04-23 14:35` **Aaron Scifres:** looks like something just started
-- `2026-04-23 14:35` **Tim McGlothin:** looks like they started playing around with Mythos at Microsoft
-- `2026-04-23 14:42` **Mario Rodr�guez:** `[incident]` even the github status page is down
-- `2026-04-23 14:55` **Carlos Alvarado:** seems to be back now
+**📋 Action Items**
+- `2026-03-25 12:47` **Brooke Curtin-Johnson:** Anyone around on Sunday just in case we need anyone at datacenter? �I am on call and going to be in MA but will have my laptop...
+- `2026-03-26 15:10` **Jason Mills:** I just got an email that the SAML Certificate for Nutanix expires on 5/24. Is there someone over there that I should forward this to so they can work with Daniel on the renewal?
+- `2026-03-27 18:03` **Hank Uhl:** FYI, the 2-node cluster has an issue with the witness VM.... i noticed yesterday when i was doing pre-checks that the web UI wasn't working on it and it had 208 days of uptime, so it hadn't been rebooted after the big is…
+- `2026-03-27 18:05` **Hank Uhl:** i was hoping a reboot would correct it, but it has not. �i feel like I could deploy a new witness node and attach the nodes to it, but that would require some firewall rules be adjusted, which im not going to bother with…
+- `2026-03-27 20:57` **Henry Corrales:** Jason Mills I just got an email that the SAML Certificate for Nutanix expires on 5/24. Is there someone over there that I should forward this to so they can work with Daniel on the renewal? please send me the information
+- `2026-04-01 21:15` **Tim McGlothin:** they should import to edge/chrome/FF
+- `2026-04-06 12:15` **Brooke Curtin-Johnson:** Nicholas � Hopson �when were you going to do the cluster update on that one?
+- `2026-04-06 12:23` **Brooke Curtin-Johnson:** I will thank you
+- `2026-04-06 13:52` **Hank Uhl:** i have a couple witness VMs that i stood up, but i plan to delete at least one... do you care about those?
+- `2026-04-06 13:55` **Hank Uhl:** i will likely be deleting both of them
+- `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
+- `2026-04-07 18:58` **Chris Montgomery:** What the heck... I'll play! Enrolled
+- `2026-04-09 12:30` **David Bernier:** Naggy-McGee here....sorry - but need everyone to go in to Open Incidents and at the very least take a look again and update with some notes and status change - especially the highlighted pretty old ones where there has b…
+- `2026-04-13 13:25` **Nicholas Hopson:** I've already had everything going around so hoping I should be good for a while!�
+- `2026-04-22 12:26` **Brooke Curtin-Johnson:** Hi guys, can you send any new servers you build over to Casey Bowser so he can set assignment groups in JSM? �Until we can come up with a better solution
 
-### IS Connect Hub (8 msgs)
-- `2026-04-23 14:37` **Naga Pradeep Koganti:** anyone having issues with git ?
-- `2026-04-23 14:37` **Jim Greene:** `[incident]` Github is down.
-- `2026-04-23 14:37` **Naga Pradeep Koganti:** `[incident]` " No server is currently available to service your request. Sorry about that. Please try refreshing and contact us if the problem persists. "
-- `2026-04-23 14:37` **Tim McGlothin:** Not just us https://downdetector.com/status/github/
-- `2026-04-23 14:44` **Naga Pradeep Koganti:** looks like its up now�
-- `2026-04-23 14:56` **Joshua Jackson:** `[action]` Is it possible to get Confluence to not destroy my page titles with what their AI thinks I should use? It's pretty frustrating to have to retype them every time.
-- `2026-04-23 15:05` **Tatiana Gomez:** `[action]` Joshua Jackson Is it possible to get Confluence to not destroy my page titles with what their AI thinks I should use? It's pretty frustrating to have to retype them every time. Hi …
-- `2026-04-23 15:49` **Joshua Jackson:** It only did it the first time - it changed the title when I clicked the Publish button, so while that modal was up it gave a little popup at the bottom left saying "we changed your…
+**💡 Knowledge / Findings**
+- `2026-04-22 13:43` **Tim McGlothin:** its probably mad because I have remote adb shell debugging on and let my AIs noodle around in there
+- `2026-04-22 18:04` **Steven Foxe:** I dealt with those same errors a couple days ago using the KB article. �Looks like they came back to probably need a ticket with Nutanix.
 
-### 19:6fa035f3-c521-41be-b080-d1f32df74a83_ (8 msgs)
-- `2026-04-23 18:20` **Tim McGlothin:** some pre-llb history
-- `2026-04-23 18:20` **Tim McGlothin:** some pre-llb history
-- `2026-04-23 18:21` **David Bernier:** won another note - when you get a minute, please take the Annual Required Safety Training in Workday - I know I know.....
-- `2026-04-23 18:21` **Tim McGlothin:** the AWS stack I built for APF
-- `2026-04-23 18:22` **Tim McGlothin:** `[action]` ahh, I'll do it now before change
-- `2026-04-23 18:22` **David Bernier:** Tim McGlothin the AWS stack I built for APF 📄 I just fell off my chair trying to follow....LOL
-- `2026-04-23 18:22` **Tim McGlothin:** thats the simplified version
-- `2026-04-23 18:31` **Tim McGlothin:** `[resolved]` David Bernier won another note - when you get a minute, please take the Annual Required Safety Training in Workday - I know I know..... done!
+**💬 Notable Exchanges**
+- `2026-04-22 12:27` **Brooke Curtin-Johnson:** I was thinking about adding him to the email in the Ansible playbook but didn't do that yet
+- `2026-04-22 12:28` **Tim McGlothin:** anybody having trouble logging into Ansible this morning? not getting the mfa prompt
+- `2026-04-22 12:28` **Brooke Curtin-Johnson:** It just worked for me!
+- `2026-04-22 12:29` **Tim McGlothin:** maybe my phone.. gonna reboot it
+- `2026-04-22 12:29` **Brooke Curtin-Johnson:** That damn pixel�
+- `2026-04-22 13:40` **Hank Uhl:** Stupid expensive AI foldable phone with 50x the horse power than what we sent to the moon and it still needs to be rebooted!
+- `2026-04-22 17:59` **Brooke Curtin-Johnson:** Anyone already looking at these?�
+- `2026-04-22 18:04` **Brooke Curtin-Johnson:** On Prism Central as well?
+- `2026-04-22 18:05` **Brooke Curtin-Johnson:** Was that Monday or last week?
+- `2026-04-22 18:05` **Brooke Curtin-Johnson:** Ya seems like Monday never cleared
 
-### Unix Server and Storage Team (6 msgs)
-- `2026-04-23 13:58` **Hank Uhl:** Tim � McGlothin �when you get online, can you please let me know the status of the 2 patch failures from last night? �i assume TOC contacted you since I see you logged into both se…
-- `2026-04-23 13:59` **Hank Uhl:** i see both were /boot again
-- `2026-04-23 14:00` **Tim McGlothin:** `[resolved]` theyre resolved... boot full
-- `2026-04-23 14:00` **Hank Uhl:** `[action]` im going to ask Berny to look at /boot on the rest of the Oracle servers
-- `2026-04-23 14:01` **Tim McGlothin:** `[action]` yeah, I'm going to take a fresh look and see if there is a work around that would allow us to extend it boot
-- `2026-04-23 14:01` **Hank Uhl:** `[incident,action]` we should code an Ansible playbook that runs the 1st of every month to remove the old kernel and associated files from /boot... we've been kicking this can down the road too long
+## Today (2026-04-24)
 
-### 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ (5 msgs)
-- `2026-04-23 14:25` **GitHub Enterprise:** Commit 51cf79d Commit 51cf79d
-- `2026-04-23 14:45` **GitHub Enterprise:** Commit eba0239 Commit eba0239
-- `2026-04-23 14:46` **GitHub Enterprise:** Pull request 721 Pull request 721
-- `2026-04-23 15:13` **GitHub Enterprise:** Commit 45933e6 Commit 45933e6
-- `2026-04-23 15:13` **GitHub Enterprise:** Pull request 721 Pull request 721
+### IS Connect Hub (7 msgs)
+- `2026-04-24 00:00` **Sally Choo:** `[action]` Berny, I think it should be good now since I see jobs completing and there are a lot of connection in EDW. Page me if you need me again. Cool?
+- `2026-04-24 00:02` **Berny Vargas:** `[action]` Sally Choo Berny, I think it should be good now since I see jobs completing and there are a lot of connection in EDW. Page me if you need me again. Cool? I will do, thanks so much …
+- `2026-04-24 00:06` **Ricardo Quesada:** Hi, just got back, let me confirm if they can now connect
+- `2026-04-24 00:07` **Ricardo Quesada:** `[incident]` Hi Sally � Choo , all of them reported this issue:
+- `2026-04-24 00:07` **Ricardo Quesada:** Asking them again, got confirmation of one of them that it is now working
+- `2026-04-24 00:07` **Ricardo Quesada:** `[action]` I will let you know what the others report back
+- `2026-04-24 00:09` **Ricardo Quesada:** Sally, got additional confirmation, all good now. Have a great night, thank you for the help everyone!
 
-### 19:9f2de76c-9672-4459-ae63-ebecb5b90044_ (5 msgs)
-- `2026-04-23 17:46` **Tim McGlothin:** `[action]` Hey Berny! FYI - I think there is a playbook already ... looks like we might just need to schedule it
-- `2026-04-23 17:46` **Tim McGlothin:** UTILITY_Set_number_of_kernels.yml
-- `2026-04-23 17:48` **Berny Vargas:** `[action]` Ohhh really, great Tim, that saves me some time, I'll take a look!!�
-- `2026-04-23 17:49` **Tim McGlothin:** didn't want ya to have to re-invent the wheel
-- `2026-04-23 17:50` **Berny Vargas:** Much appreciated
+### Unix Support (Freeport/CR) (2 msgs)
+- `2026-04-24 01:45` **Berny Vargas:** Hank � Uhl ,� Tim � McGlothin , several hosts are close to the /boot limit even with only 2 kernels installed. Removing the 2nd kernel would free space but leave only one bootable …
+- `2026-04-24 11:14` **Hank Uhl:** Berny � Vargas �I think that is fine in these cases. �we really only need the current kernel anyway.. and yes, I agree, running on the 1st of the month to prevent /boot filling up …
 
-### 48:mentions (2 msgs)
-- `2026-04-23 13:58` **<Undefined> <Undefined>:** Tim McGlothin when you get online, can you please let me know the status of the 2 patch failures from last night? i assume TOC contacted you since I see you logged into both server…
-- `2026-04-23 18:25` **<Undefined> <Undefined>:** Hi Hank Uhl, Tim McGlothin for the kernel clean up , would be better to add a step on the patching playbook , I think that's an option or do you prefer to do the clean up once from…
+### 48:notifications (1 msgs)
+- `2026-04-24 01:45` **<Undefined> <Undefined>:** Hank Uhl, Tim McGlothin , several hosts are close to the /boot limit even with only 2 kernels installed. Removing the 2nd kernel would free space but leave only one bootable kernel…
 
-### 48:notifications (2 msgs)
-- `2026-04-23 13:58` **<Undefined> <Undefined>:** Tim McGlothin when you get online, can you please let me know the status of the 2 patch failures from last night? i assume TOC contacted you since I see you logged into both server…
-- `2026-04-23 18:25` **<Undefined> <Undefined>:** Hi Hank Uhl, Tim McGlothin for the kernel clean up , would be better to add a step on the patching playbook , I think that's an option or do you prefer to do the clean up once from…
-
-### 48:drafts (2 msgs)
-- `2026-04-23 18:20` **<Undefined> <Undefined>:** some pre-llb history
-- `2026-04-23 18:26` **<Undefined> <Undefined>:** we were just talking about that...�
-
-### 19:013f4eb6-c04b-434c-a8f6-80462c3b2efe_ (1 msgs)
-- `2026-04-23 08:22` **Tim McGlothin:** Here's the AWS architecture I put together for the APF site I mentioned
+### 48:mentions (1 msgs)
+- `2026-04-24 01:45` **<Undefined> <Undefined>:** Hank Uhl, Tim McGlothin , several hosts are close to the /boot limit even with only 2 kernels installed. Removing the 2nd kernel would free space but leave only one bootable kernel…
