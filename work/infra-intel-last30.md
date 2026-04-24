@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-24 15:39 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-24 19:39 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 637 raw emails → 421 signal emails
+**Stats:** 639 raw emails → 420 signal emails
 
 ## AAP / Ansible (23 emails)
 
@@ -166,8 +166,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-22 03:19` **Automation for Jira (Jira)** — [JIRA] (ITS-10452) OmniCenter: wmb-prod-005 SUB: PROBLEM Alert - wmb-prod-005 mqsicvp.BRKP01 is CRITICAL
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 03:21` **Automation for Jira (Jira)** — [JIRA] (ITS-10453) OmniCenter: wmb-prod-006 SUB: PROBLEM Alert - wmb-prod-006 mqsicvp.BRKP02 is CRITICAL
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 06:44` **Automation for Jira (Jira)** — [JIRA] (ITS-10462) OmniCenter: shd-pr-ora01 SUB: PROBLEM Alert - shd-pr-ora01 Check the Oracle Listener is running is CR
@@ -196,6 +194,8 @@
   > Bernie, I know it's been a while, but If you have the time, I would like to ask a favor on behalf of the Unix Server Team. If you can do this, I'll create an incident or something 
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
   > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00 Incident: ITS-10652
+- `2026-04-24 12:20` **Automation for Jira (Jira)** — [JIRA] (ITS-10709) OmniCenter: sec-scan-ta08 SUB: sec-scan-ta08 - Threshold CRITICAL - CPU Utilization for sec-scan-ta08
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 
 **✅ Resolved**
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
@@ -401,7 +401,7 @@
 - `2026-04-24 11:01` **Expedient** — The infrastructure moves that unlock AI advantage
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Coffee chat with Expedient and Nutanix.️ Can't see
 
-## Nutanix Storage / SAN (14 emails)
+## Nutanix Storage / SAN (15 emails)
 
 **🔴 Incidents / Issues**
 - `2026-04-06 14:14` **Javier Cedeño** — RE: [ERROR] Job #592673 'ESGUnix - Patch Saviynt-Non-Prod (Full/Reboot)'
@@ -432,6 +432,8 @@
   > Hi Tim, Thanks again for covering these at the Change Management meeting. Here are links to the tickets and a quick blurb on each in case you need to talk to it. FSA3DG9 - System u
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
+- `2026-04-24 12:08` **Blue Yonder** — Beyond Expectations: More Reasons to Join Us at ICON 2026
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Meet with our advisory team, experience the Innova
 
 **✅ Resolved**
 - `2026-04-06 14:14` **Javier Cedeño** — RE: [ERROR] Job #592673 'ESGUnix - Patch Saviynt-Non-Prod (Full/Reboot)'
