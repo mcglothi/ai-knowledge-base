@@ -1,26 +1,26 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-25 14:03 UTC  **Period:** 2026-03-26 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-25 18:02 UTC  **Period:** 2026-03-26 → today  **Source:** Local Teams cache
 
-**Stats:** 2449 signal messages extracted from Teams local cache
+**Stats:** 2401 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
 | # | Channel | Msgs | Signal | Last Active |
 |---|---------|------|--------|-------------|
-| 1 | AI Nerds | 353 | 61 | 2026-04-24 |
+| 1 | AI Nerds | 318 | 53 | 2026-04-24 |
 | 2 | Claude initial setup | 250 | 52 | 2026-04-24 |
 | 3 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 180 | 28 | 2026-04-01 |
 | 4 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
 | 5 | GitHub Copilot Devs | 145 | 32 | 2026-04-23 |
-| 6 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 136 | 17 | 2026-04-24 |
-| 7 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
+| 6 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
+| 7 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 129 | 17 | 2026-04-24 |
 | 8 | Unix Server and Storage Team | 126 | 49 | 2026-04-24 |
 | 9 | IS Connect Hub | 123 | 38 | 2026-04-24 |
 | 10 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
 | 11 | Unix Server | TOC Team Chat | 77 | 29 | 2026-04-23 |
-| 12 | Server Engineering Team - ALL | 71 | 24 | 2026-04-24 |
-| 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 60 | 16 | 2026-04-23 |
-| 14 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 60 | 21 | 2026-04-23 |
+| 12 | Server Engineering Team - ALL | 69 | 22 | 2026-04-24 |
+| 13 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 60 | 21 | 2026-04-23 |
+| 14 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 59 | 15 | 2026-04-23 |
 | 15 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 50 | 11 | 2026-04-17 |
 | 16 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
 | 17 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
@@ -31,11 +31,9 @@
 ## Infrastructure Channels
 
 ### AI Nerds
-**353 messages** · 2026-03-26 → 2026-04-24 · 61 signal msgs
+**318 messages** · 2026-03-26 → 2026-04-24 · 53 signal msgs
 
 **🔴 Incidents / Issues**
-- `2026-03-26 15:02` **Jason Mills:** Apparently accessing an ngrok tunnel sets off some alert
-- `2026-03-26 15:04` **Aaron Smiley:** Jason Mills Apparently accessing an ngrok tunnel sets off some alert Honestly I love to hear that
 - `2026-03-31 14:17` **Tim McGlothin:** have you looked into turboquant yet? �I have not gone down that rabbit hole yet
 - `2026-03-31 14:24` **Jason Mills:** My first attempt was to take the Codex instance and just port it over, but that ran into issues with memory and embedding (This is all 100% because I am trying to fail fast and will not RTFM).�
 - `2026-04-01 18:26` **Tim McGlothin:** I hope so! i fly down to TX in the morning and wanted to get this online tonight
@@ -78,7 +76,6 @@
 - `2026-04-22 13:53` **Tim McGlothin:** yeah I have the dense model in there too but kept running into a wall with it.. probably need to go back to that and re-download it ... seems everything is moving away from dense and to MoE
 
 **💡 Knowledge / Findings**
-- `2026-03-26 15:02` **Aaron Smiley:** lol same. I had trouble in TSA yesterday because I was bringing 3 laptops to work
 - `2026-03-31 14:24` **Jason Mills:** My first attempt was to take the Codex instance and just port it over, but that ran into issues with memory and embedding (This is all 100% because I am trying to fail fast and will not RTFM).�
 - `2026-04-06 14:57` **Aaron Smiley:** As for tasks, I'm not depending on them much yet. I mostly use Claude because the model is so much better
 - `2026-04-08 19:58` **Aaron Smiley:** This is where something like AI KB comes in handy... I spend quite a few tokens asking the same thing I asked it a few weeks ago because my brain filled up like 12 years ago
@@ -455,7 +452,7 @@
 - `2026-04-23 18:54` **Berny Vargas:** In outlook there is a patching calendar for example Manhattan servers, however the patching calendar for public access is located in share point: � https://llbean.sharepoint.com/sites/Infrastructure/Lists/Unix%20Patching…
 
 ### Server Engineering Team - ALL
-**71 messages** · 2026-03-26 → 2026-04-24 · 24 signal msgs
+**69 messages** · 2026-03-27 → 2026-04-24 · 22 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-03-27 18:03` **Hank Uhl:** FYI, the 2-node cluster has an issue with the witness VM.... i noticed yesterday when i was doing pre-checks that the web UI wasn't working on it and it had 208 days of uptime, so it hadn't been rebooted after the big is…
@@ -465,7 +462,6 @@
 - `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
 
 **✅ Resolved / Complete**
-- `2026-03-26 15:06` **Brooke Curtin-Johnson:** DC2-AHV02 cluster is updated
 - `2026-04-01 14:58` **Javier Cede�o:** David Bernier lets correct this - David S - LOL Fixed....in case HR get his hands on this chat
 - `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
 - `2026-04-07 18:47` **David Bernier:** No obligation here, but saw this and wanted to point it out. For those of you that want Nutanix certification (who dont already have their NCP-MCI - sorry...) there is a self paced opportunity to get it. Please remember,…
@@ -473,7 +469,6 @@
 - `2026-04-24 12:15` **David Bernier:** GM - just keeping everyone up to speed this morning. We have a few people out today, however, we do have plenty of coverage.� So everyone is aware, below if who is out today: Joel - PTO Devin - PTO Hank - PTO Chris - Aft…
 
 **📋 Action Items**
-- `2026-03-26 15:10` **Jason Mills:** I just got an email that the SAML Certificate for Nutanix expires on 5/24. Is there someone over there that I should forward this to so they can work with Daniel on the renewal?
 - `2026-03-27 18:03` **Hank Uhl:** FYI, the 2-node cluster has an issue with the witness VM.... i noticed yesterday when i was doing pre-checks that the web UI wasn't working on it and it had 208 days of uptime, so it hadn't been rebooted after the big is…
 - `2026-03-27 18:05` **Hank Uhl:** i was hoping a reboot would correct it, but it has not. �i feel like I could deploy a new witness node and attach the nodes to it, but that would require some firewall rules be adjusted, which im not going to bother with…
 - `2026-03-27 20:57` **Henry Corrales:** Jason Mills I just got an email that the SAML Certificate for Nutanix expires on 5/24. Is there someone over there that I should forward this to so they can work with Daniel on the renewal? please send me the information
@@ -503,18 +498,3 @@
 - `2026-04-24 12:27` **Brooke Curtin-Johnson:** You can have a review without getting paid...
 - `2026-04-24 12:31` **Nicholas Hopson:** I'm just here for pickleball...�
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
-
-### Secondary Major Incident Management Bridge
-**13 messages** · 2026-03-30 → 2026-04-09 · 0 signal msgs
-
-**💬 Notable Exchanges**
-- `2026-03-30 16:02` **<Undefined> <Undefined>:** {\"scopeId\":\"cc97ed67-a4ce-4c26-ad55-fd9c6fc286d2\",\"storageId\":\"cf744f44-227e-4438-83fd-58977f7c541f@c9dca46c-3aac-42fa-bd2a-82b27c3b1a5a\",\"callId\":\"cc97ed67-a4ce-4c26-ad55-fd9c6fc286d2\",\"iCalUid\":\"04000000…
-- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
-- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
-- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
-- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
-- `2026-03-30 16:02` **<Undefined> <Undefined>:** {\"scopeId\":\"4bc1fbaf-1762-4f30-99e7-d7fd8b5b7e97\",\"storageId\":\"cf744f44-227e-4438-83fd-58977f7c541f@c9dca46c-3aac-42fa-bd2a-82b27c3b1a5a\",\"callId\":\"4bc1fbaf-1762-4f30-99e7-d7fd8b5b7e97\",\"iCalUid\":\"04000000…
-- `2026-03-30 16:03` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
-- `2026-03-30 16:03` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
-- `2026-03-30 16:05` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
-- `2026-04-09 20:16` **Josh Andrews:** FYI There are Verizon issues in Freeport currently. Cellular connectivity may be sporadic. Gonzalo � S�nchez �

@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-25 14:03 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-25 18:02 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 639 raw emails → 426 signal emails
+**Stats:** 637 raw emails → 423 signal emails
 
 ## AAP / Ansible (24 emails)
 
@@ -116,8 +116,6 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 
 **💬 Notable**
-- `2026-04-22 13:58` **Karla Adams** — Interview for Network Security Architect
-  > Hi Tim, I am going to be setting up an interview for Josh’s role. It will be an in person 1-hour interview. I took a look at your calendar and it looks like the panel (listed below
 - `2026-04-22 14:00` **Tim McGlothin** — RE: Interview for Network Security Architect
   > Thank you!! Looking forward to it! Hi Tim, I am going to be setting up an interview for Josh’s role. It will be an in person 1-hour interview. I took a look at your calendar and it
 - `2026-04-23 07:03` **Microsoft** — Reduce risk with a secure AI strategy
@@ -146,6 +144,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Community news today in Portland, Maine Has someon
 - `2026-04-24 11:27` **Discount Programs** — Deals on Tech That Does More
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Smart picks across electronics, appliances & softw
+- `2026-04-25 10:44` **Daily Portland** — ☀️ Tim, 11 Breaking Stories in Portland Today: Saturday, April 25th
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Were you forwa
 
 ## GitHub / Copilot (7 emails)
 
