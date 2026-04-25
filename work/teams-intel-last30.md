@@ -1,5 +1,5 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-25 10:02 UTC  **Period:** 2026-03-26 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-25 11:38 UTC  **Period:** 2026-03-26 → today  **Source:** Local Teams cache
 
 **Stats:** 2449 signal messages extracted from Teams local cache
 
@@ -503,3 +503,18 @@
 - `2026-04-24 12:27` **Brooke Curtin-Johnson:** You can have a review without getting paid...
 - `2026-04-24 12:31` **Nicholas Hopson:** I'm just here for pickleball...�
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
+
+### Secondary Major Incident Management Bridge
+**13 messages** · 2026-03-30 → 2026-04-09 · 0 signal msgs
+
+**💬 Notable Exchanges**
+- `2026-03-30 16:02` **<Undefined> <Undefined>:** {\"scopeId\":\"cc97ed67-a4ce-4c26-ad55-fd9c6fc286d2\",\"storageId\":\"cf744f44-227e-4438-83fd-58977f7c541f@c9dca46c-3aac-42fa-bd2a-82b27c3b1a5a\",\"callId\":\"cc97ed67-a4ce-4c26-ad55-fd9c6fc286d2\",\"iCalUid\":\"04000000…
+- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
+- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
+- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
+- `2026-03-30 16:02` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
+- `2026-03-30 16:02` **<Undefined> <Undefined>:** {\"scopeId\":\"4bc1fbaf-1762-4f30-99e7-d7fd8b5b7e97\",\"storageId\":\"cf744f44-227e-4438-83fd-58977f7c541f@c9dca46c-3aac-42fa-bd2a-82b27c3b1a5a\",\"callId\":\"4bc1fbaf-1762-4f30-99e7-d7fd8b5b7e97\",\"iCalUid\":\"04000000…
+- `2026-03-30 16:03` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
+- `2026-03-30 16:03` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
+- `2026-03-30 16:05` **<Undefined> <Undefined>:** Secondary Major Incident Management Bridge Play
+- `2026-04-09 20:16` **Josh Andrews:** FYI There are Verizon issues in Freeport currently. Cellular connectivity may be sporadic. Gonzalo � S�nchez �

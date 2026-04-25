@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-25 10:02 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-25 11:38 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 642 raw emails → 425 signal emails
+**Stats:** 641 raw emails → 426 signal emails
 
 ## AAP / Ansible (24 emails)
 
@@ -112,6 +112,8 @@
 **⚙️ AAP Job Activity**
 - `2026-04-23 07:33` **Confluence** — Daily digest: updates from Service OC - Confluence
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
+- `2026-04-25 06:13` **Confluence** — Daily digest: updates from Service OC - Confluence
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 
 **💬 Notable**
 - `2026-04-22 13:58` **Karla Adams** — Interview for Network Security Architect
@@ -166,8 +168,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-22 08:48` **Josué Real (Jira)** — [JIRA] (ITS-10452) OmniCenter: wmb-prod-005 SUB: PROBLEM Alert - wmb-prod-005 mqsicvp.BRKP01 is CRITICAL
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
 - `2026-04-22 16:03` **Automation for Jira (Jira)** — [JIRA] (ITS-10547) OmniCenter: wmb-prod-006 SUB: PROBLEM Alert - wmb-prod-006 mqsicvp.BRKP02 is CRITICAL
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira and Berny Vargas made 2 update
 - `2026-04-22 18:01` **Javier Cedeño** — Control‑M QA Environment Upgrade – Planned Activity & Timeline
@@ -196,6 +196,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-24 17:00` **Javier Cedeño (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
+- `2026-04-25 06:18` **Automation for Jira (Jira)** — [JIRA] (ITS-10772) OmniCenter: wms-qa-mif02 SUB: wms-qa-mif02 - Threshold CRITICAL - /apps Percent Used Space
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 
 **✅ Resolved**
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
