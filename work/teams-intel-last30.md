@@ -1,26 +1,26 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-25 18:02 UTC  **Period:** 2026-03-26 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-25 22:02 UTC  **Period:** 2026-03-27 → today  **Source:** Local Teams cache
 
-**Stats:** 2401 signal messages extracted from Teams local cache
+**Stats:** 2311 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
 | # | Channel | Msgs | Signal | Last Active |
 |---|---------|------|--------|-------------|
-| 1 | AI Nerds | 318 | 53 | 2026-04-24 |
+| 1 | AI Nerds | 317 | 53 | 2026-04-24 |
 | 2 | Claude initial setup | 250 | 52 | 2026-04-24 |
-| 3 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 180 | 28 | 2026-04-01 |
-| 4 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
-| 5 | GitHub Copilot Devs | 145 | 32 | 2026-04-23 |
-| 6 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
-| 7 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 129 | 17 | 2026-04-24 |
-| 8 | Unix Server and Storage Team | 126 | 49 | 2026-04-24 |
-| 9 | IS Connect Hub | 123 | 38 | 2026-04-24 |
+| 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
+| 4 | GitHub Copilot Devs | 145 | 32 | 2026-04-23 |
+| 5 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
+| 6 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 129 | 17 | 2026-04-24 |
+| 7 | Unix Server and Storage Team | 126 | 49 | 2026-04-24 |
+| 8 | IS Connect Hub | 123 | 38 | 2026-04-24 |
+| 9 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 120 | 21 | 2026-04-01 |
 | 10 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
 | 11 | Unix Server | TOC Team Chat | 77 | 29 | 2026-04-23 |
 | 12 | Server Engineering Team - ALL | 69 | 22 | 2026-04-24 |
-| 13 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 60 | 21 | 2026-04-23 |
-| 14 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 59 | 15 | 2026-04-23 |
+| 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 59 | 15 | 2026-04-23 |
+| 14 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 57 | 21 | 2026-04-23 |
 | 15 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 50 | 11 | 2026-04-17 |
 | 16 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
 | 17 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
@@ -31,7 +31,7 @@
 ## Infrastructure Channels
 
 ### AI Nerds
-**318 messages** · 2026-03-26 → 2026-04-24 · 53 signal msgs
+**317 messages** · 2026-03-27 → 2026-04-24 · 53 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-03-31 14:17` **Tim McGlothin:** have you looked into turboquant yet? �I have not gone down that rabbit hole yet
