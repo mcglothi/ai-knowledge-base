@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-25 11:38 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-25 14:03 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 641 raw emails → 426 signal emails
+**Stats:** 639 raw emails → 426 signal emails
 
 ## AAP / Ansible (24 emails)
 
