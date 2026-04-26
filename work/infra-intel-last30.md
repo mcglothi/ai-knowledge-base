@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-25 22:02 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-26 02:02 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 629 raw emails → 416 signal emails
+**Stats:** 623 raw emails → 411 signal emails
 
 ## AAP / Ansible (24 emails)
 
@@ -287,7 +287,7 @@
 - `2026-04-21 11:04` **Cisco Product & Engineering** — Reminder: Shape the future of Cisco Identity Services Engine (ISE) in 3 minutes
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Help us serve you better today and tomorrow. ͏‌ ͏‌
 
-## Nutanix (33 emails)
+## Nutanix (29 emails)
 
 **🔴 Incidents / Issues**
 - `2026-03-30 16:29` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
@@ -344,8 +344,6 @@
   > Hello Jason, New certificate is in place now. Regards, Henry Hello Jason, I will reach out to the IAM team to complete the request. Regards, Henry Good Morning, Here is the notific
 
 **🔧 Changes / Deployments**
-- `2026-03-26 14:42` **David Snyder** — Re: Nutanix Errors/Alerts after upgrade
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Could you run the LCM Inventory again on this clus
 - `2026-03-30 16:29` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hello Javier Cedeño, Thank you for contacting Nuta
 - `2026-03-30 16:47` **Nutanix Support** — NTNX Case 02505157 | P2 - Critical | CVM not showing on element and can't access on SSH or Console after BIOS upgrade [ 
@@ -376,8 +374,6 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ We are just days away from our session with Nick G
 
 **⚙️ AAP Job Activity**
-- `2026-03-26 14:42` **David Snyder** — Re: Nutanix Errors/Alerts after upgrade
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Could you run the LCM Inventory again on this clus
 - `2026-03-31 12:43` **David Snyder** — Re: Nutanix Errors/Alerts after upgrade
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Afternoon Tim, By chance did you have an opportuni
 - `2026-04-01 13:00` **Tim McGlothin** — RE: Nutanix Errors/Alerts after upgrade
