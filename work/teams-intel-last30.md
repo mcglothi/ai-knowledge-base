@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-26 08:12 UTC  **Period:** 2026-03-27 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-26 12:24 UTC  **Period:** 2026-03-27 → today  **Source:** Local Teams cache
 
-**Stats:** 2311 signal messages extracted from Teams local cache
+**Stats:** 2308 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -10,7 +10,7 @@
 | 1 | AI Nerds | 317 | 53 | 2026-04-24 |
 | 2 | Claude initial setup | 250 | 52 | 2026-04-24 |
 | 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
-| 4 | GitHub Copilot Devs | 145 | 32 | 2026-04-23 |
+| 4 | GitHub Copilot Devs | 142 | 32 | 2026-04-23 |
 | 5 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
 | 6 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 129 | 17 | 2026-04-24 |
 | 7 | Unix Server and Storage Team | 126 | 49 | 2026-04-24 |
@@ -262,7 +262,7 @@
 - `2026-04-21 16:50` **Brooke Curtin-Johnson:** Here is some documentation on single node cluster firmware updates- I still have a few questions out to David S. on process.
 
 ### GitHub Copilot Devs
-**145 messages** · 2026-03-27 → 2026-04-23 · 32 signal msgs
+**142 messages** · 2026-03-31 → 2026-04-23 · 32 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-01 16:50` **Andrew Skvorak:** Chase Allen Yeah CLI won't authenticate currently 🙂 Yup, according to the docs, you'll get that error if it's not enabled.
