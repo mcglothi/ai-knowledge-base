@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-26 12:24 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-26 16:19 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 623 raw emails → 411 signal emails
+**Stats:** 628 raw emails → 411 signal emails
 
 ## AAP / Ansible (24 emails)
 
@@ -114,10 +114,10 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 - `2026-04-25 06:13` **Confluence** — Daily digest: updates from Service OC - Confluence
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
+- `2026-04-26 07:47` **Confluence** — Daily digest: updates from Service OC - Confluence
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 
 **💬 Notable**
-- `2026-04-22 14:00` **Tim McGlothin** — RE: Interview for Network Security Architect
-  > Thank you!! Looking forward to it! Hi Tim, I am going to be setting up an interview for Josh’s role. It will be an in person 1-hour interview. I took a look at your calendar and it
 - `2026-04-23 07:03` **Microsoft** — Reduce risk with a secure AI strategy
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hello from Microsoft. Having trouble viewing this 
 - `2026-04-23 08:22` **David Bernier** — Year End @ 11 AM Today
@@ -145,6 +145,8 @@
 - `2026-04-24 11:27` **Discount Programs** — Deals on Tech That Does More
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Smart picks across electronics, appliances & softw
 - `2026-04-25 10:44` **Daily Portland** — ☀️ Tim, 11 Breaking Stories in Portland Today: Saturday, April 25th
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Were you forwa
+- `2026-04-26 10:25` **Daily Portland** — ☀️ Tim, 12 Breaking Stories in Portland Today: Sunday, April 26th
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Were you forwa
 
 ## GitHub / Copilot (7 emails)
@@ -654,8 +656,6 @@
 ## Splunk (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-17 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-17 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-18 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
@@ -683,6 +683,8 @@
 - `2026-04-25 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-25 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
+- `2026-04-26 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 
 **⚙️ AAP Job Activity**
