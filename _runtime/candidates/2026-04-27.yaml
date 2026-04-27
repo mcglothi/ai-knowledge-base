@@ -22,8 +22,25 @@ candidates:
       - evt_20260427_140311_235255_a6b381
       - evt_20260427_144944_816161_f963d4
       - evt_20260427_145543_944192_865ff3
+      - evt_20260427_145745_717526_678236
     target_file: AIKB
-    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:3; branch=master; cwd=AIKB; events=6; candidates=3; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:2; branch=master; cwd=AIKB; events=9; candidates=3; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    confidence: 0.70
+    class: needs-review
+    status: queued
+  - id: cand_20260427_004
+    source_events:
+      - evt_20260427_145641_171899_009257
+    target_file: projects/zscaler-training.md
+    proposed_change: "[decision] Built and deployed Zscaler Training Platform: 7-module self-paced training site (HTML/CSS/JS + nginx) covering ZPA/ZIA fundamentals, Terraform automation, and LLB-specific implementation details (naming conventions, 544 app segments, SCIM scale, known bugs). Private GitHub repo tmcglothin_llbean/zscaler-training. Deployed to inf-dv-tim01:8080 via rootless Podman + systemd user service."
+    confidence: 0.85
+    class: needs-review
+    status: queued
+  - id: cand_20260427_005
+    source_events:
+      - evt_20260427_145712_480239_413251
+    target_file: zscaler-training
+    proposed_change: "[observation] Closeout captured for task 'work in zscaler-training'; repo=dirty:5; branch=master; cwd=zscaler-training; events=8; candidates=3; queue=0; approvals=0; session_age=unknown; trigger='lets wrap up'"
     confidence: 0.70
     class: needs-review
     status: queued
