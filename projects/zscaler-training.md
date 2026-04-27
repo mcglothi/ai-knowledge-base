@@ -1,9 +1,10 @@
 # Zscaler Training Platform
 
-**Status:** ✅ Built — v1.0
+**Status:** ✅ Deployed — v1.0
 **Last Updated:** 2026-04-27
-**Location:** `/home/tmcglothin/code/Personal/zscaler-training/`
-**Serve:** `docker compose up -d` → http://localhost:8080
+**Repo:** https://github.com/tmcglothin_llbean/zscaler-training (private)
+**Local dev:** `docker compose up -d` → http://localhost:8080
+**Server:** `inf-dv-tim01:8080` — podman rootless via systemd user service
 
 ## Purpose
 
@@ -101,10 +102,38 @@ Module 7 documents known issues:
 - Commented-out TF code with no explanation
 - No documentation in either repo
 
-## To Deploy Remotely
+## Deployment — inf-dv-tim01
 
-Copy entire directory to target server, install Docker + compose, then:
+**Running on:** RHEL 8.10, rootless Podman 4.9.4 (no Docker)
+**SSH:** `ssh -i ~/.ssh/svc-ansible_id_rsa -o IdentitiesOnly=yes svc-ansible@inf-dv-tim01`
+**Files:** `/home/svc-ansible/zscaler-training/`
+**Service:** `~/.config/systemd/user/zscaler-training.service` (enabled, survives reboots)
+
+**Update deployment:**
 ```bash
+rsync -avz --exclude='.git' \
+  -e "ssh -i ~/.ssh/svc-ansible_id_rsa -o IdentitiesOnly=yes -o BatchMode=yes" \
+  /home/tmcglothin/code/Personal/zscaler-training/ \
+  svc-ansible@inf-dv-tim01:/home/svc-ansible/zscaler-training/
+# No restart needed — nginx serves files directly from the volume
+```
+
+**Restart container if needed:**
+```bash
+ssh -i ~/.ssh/svc-ansible_id_rsa -o IdentitiesOnly=yes svc-ansible@inf-dv-tim01 \
+  "systemctl --user restart zscaler-training.service"
+```
+
+## To Deploy to Another Server
+
+Server needs: Podman (RHEL 8+) or Docker. Rsync files, then:
+```bash
+# Podman
+podman run -d --name zscaler-training -p 8080:80 \
+  -v /path/to/zscaler-training:/usr/share/nginx/html:ro,z \
+  -v /path/to/zscaler-training/nginx.conf:/etc/nginx/conf.d/default.conf:ro,z \
+  docker.io/nginx:alpine
+
+# Docker
 docker compose up -d
 ```
-No other dependencies. Nginx serves all static files.
