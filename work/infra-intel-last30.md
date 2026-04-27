@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-27 12:18 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-27 14:02 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 627 raw emails → 409 signal emails
+**Stats:** 631 raw emails → 413 signal emails
 
 ## AAP / Ansible (25 emails)
 
@@ -104,6 +104,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ AI Is Ready to Act: What’s Changed for Mainframe O
 - `2026-04-23 15:01` **llbean** — Workday Inbox - Your Daily Digest
   > You don't often get email from llbean@myworkday.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links or open
+- `2026-04-27 09:24` **David Bernier** — Server Engineer Team Meeting Agenda - Monday, 4/27/2026 @ 1:30 PM US EST / 11:30 AM CR
+  > Server Engineer Team Meeting Agenda - Monday, 4/27/2026 @ 1:30 PM US EST / 11:30 AM CR HOUSEKEEPING * 2026 GOALS - These are going to be due Mid-May (specifically May 15) and there
 
 **🔧 Changes / Deployments**
 - `2026-04-22 13:20` **Tim McGlothin** — Modification Resolution
@@ -118,8 +120,6 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 
 **💬 Notable**
-- `2026-04-23 07:03` **Microsoft** — Reduce risk with a secure AI strategy
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hello from Microsoft. Having trouble viewing this 
 - `2026-04-23 08:22` **David Bernier** — Year End @ 11 AM Today
   > Tim - see the attached 2025 Year End Review - we can discuss in our 11 AM meeting today. *Please see attached and let me know if you cannot open for some reason. Thanks! David B @ 
 - `2026-04-23 09:06` **Good Shepherd Food Bank** — Timothy, which food is a space pioneer? 🪐
@@ -148,6 +148,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Were you forwa
 - `2026-04-26 10:25` **Daily Portland** — ☀️ Tim, 12 Breaking Stories in Portland Today: Sunday, April 26th
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Were you forwa
+- `2026-04-27 09:00` **support@appviewx.com** — L.L.Bean - Cert Expiry by 10 days
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://pages.appviewx.com/rs/249-TWN-899/images/
 
 ## GitHub / Copilot (7 emails)
 
@@ -170,10 +172,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-23 02:42` **Technical Operations Center** — [ERROR] Job #600902 'ESGUnix - Patch DBA-SHD_PAIR2-PR (Full/Reboot)'
-  > Hello Please see the information below in regards of Patching problems. 1) The type of issue (operational failure, patching, etc.): Patch DBA-SHD_PAIR2-PR (FULL REBOOT) 2) Brief de
-- `2026-04-23 05:19` **Automation for Jira (Jira)** — [JIRA] (ITS-10598) OmniCenter: by-qa-sre02 SUB: by-qa-sre02 - Threshold CRITICAL - /JDA Percent Used Space
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-23 08:44` **Josué Real (Jira)** — [JIRA] (ITS-10598) OmniCenter: by-qa-sre02 SUB: by-qa-sre02 - Threshold CRITICAL - /JDA Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
 - `2026-04-23 10:07` **Hank Uhl** — /boot Fixes on Oracle Servers
@@ -200,14 +198,16 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-27 07:09` **Automation for Jira (Jira)** — [JIRA] (ITS-10864) OmniCenter: was-prod-109 SUB: PROBLEM Alert - was-prod-109 containerchk is CRITICAL
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
+- `2026-04-27 08:39` **Josué Real (Jira)** — [JIRA] (ITS-10864) OmniCenter: was-prod-109 SUB: PROBLEM Alert - was-prod-109 containerchk is CRITICAL
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
+- `2026-04-27 08:40` **Josué Real (Jira)** — [JIRA] (ITS-10857) OmniCenter: was-prod-109 SUB: PROBLEM Alert - was-prod-109 wxsprocesschk is CRITICAL
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
 
 **✅ Resolved**
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
   > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00 Incident: ITS-10652
 
 **📋 Action Items**
-- `2026-04-22 01:50` **Technical Operations Center** — FW: [ERROR] ans00006 Job #600479 'ESGUnix - Patch DBA-SHD_01-PR (Full/Reboot)'
-  > Hi Tim The following is the information relevant to the current situation affecting shd-pr-ora06 in QA environment: 1) The type of issue: Server patching shd-pr-ora06 2) Brief desc
 - `2026-04-22 02:31` **Technical Operations Center** — FW: [ERROR] ans00144 Job #600488 'ESGUnix - Patch DBA-TAB_01/02-PR (Full/Reboot)'
   > Hi Tim The following is the information relevant to the current situation affecting tab-pr-api01 in PROD environment: 1) The type of issue: Server patching tab-pr-api01 2) Brief de
 - `2026-04-22 02:35` **Technical Operations Center** — FW: [ERROR] ans00142 Job #600487 'ESGUnix - Patch DBA-SHD_PAIR1-PR (Full/Reboot)'
@@ -226,8 +226,6 @@
   > Bernie, I know it's been a while, but If you have the time, I would like to ask a favor on behalf of the Unix Server Team. If you can do this, I'll create an incident or something 
 
 **💬 Notable**
-- `2026-04-22 01:43` **Automation for Jira (Jira)** — [JIRA] (ITS-10445) Control-M: ans00006 ENDED NOTOK! - Production - Abend Code  99
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 02:22` **Automation for Jira (Jira)** — [JIRA] (ITS-10446) Control-M: ans00144 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 02:24` **Automation for Jira (Jira)** — [JIRA] (ITS-10447) Control-M: ans00142 ENDED NOTOK! - Production - Abend Code  99

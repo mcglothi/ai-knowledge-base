@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-27 12:18 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-27 14:02 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2253 signal messages extracted from Teams local cache
+**Stats:** 2267 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -10,8 +10,8 @@
 | 1 | AI Nerds | 305 | 53 | 2026-04-24 |
 | 2 | Claude initial setup | 250 | 52 | 2026-04-24 |
 | 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
-| 4 | GitHub Copilot Devs | 142 | 32 | 2026-04-23 |
-| 5 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 130 | 33 | 2026-04-22 |
+| 4 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 144 | 34 | 2026-04-27 |
+| 5 | GitHub Copilot Devs | 142 | 32 | 2026-04-23 |
 | 6 | Unix Server and Storage Team | 126 | 49 | 2026-04-24 |
 | 7 | IS Connect Hub | 123 | 38 | 2026-04-24 |
 | 8 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 121 | 15 | 2026-04-24 |
@@ -496,6 +496,22 @@
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
 
 ## Today (2026-04-27)
+
+### 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y (14 msgs)
+- `2026-04-27 12:27` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-27 12:27` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-27 12:27` **<Undefined> <Undefined>:** {\"scopeId\":\"504fa826-c439-40f3-9493-cc558c7d0aad\",\"storageId\":\"cf744f44-227e-4438-83fd-58977f7c541f@c9dca46c-3aac-42fa-bd2a-82b27c3b1a5a\",\"callId\":\"504fa826-c439-40f3-94…
+- `2026-04-27 12:28` **Josu� Real:** https://llbean.atlassian.net/browse/ITS-10860
+- `2026-04-27 12:30` **Missy Burke:** Middleware has restarted some of our caches and we are reloading now..�
+- `2026-04-27 12:33` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-27 12:33` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-27 12:37` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-27 13:03` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-27 13:03` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
+- `2026-04-27 13:04` **Daniel Coto:** Alonso � Bonilla �or Josu� � Real Could you please run ECM00753 and INT00034 and INT00035 �
+- `2026-04-27 13:06` **Bernal P�rez:** Hi team, was the bridge opened by mistake again a second ago? Just want to make sure, in case something is needed
+- `2026-04-27 13:09` **Jim Greene:** Yes: mistake or accidental join. �I joined for a moment after someone else did. �Shiny. �Nothing of note going on at present.
+- `2026-04-27 13:12` **Alonso Bonilla:** `[resolved]` Daniel Coto Alonso Bonilla or Josu� Real Could you please run ECM00753 and INT00034 and INT00035 The jobs completed successfully�
 
 ### Unix Server | TOC Team Chat (1 msgs)
 - `2026-04-27 06:37` **Josu� Real:** FYI � https://llbean.atlassian.net/browse/ITS-10855
