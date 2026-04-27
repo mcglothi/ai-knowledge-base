@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-27 04:19 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-27 08:19 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2252 signal messages extracted from Teams local cache
+**Stats:** 2253 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -17,7 +17,7 @@
 | 8 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 121 | 15 | 2026-04-24 |
 | 9 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 110 | 20 | 2026-04-01 |
 | 10 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
-| 11 | Unix Server | TOC Team Chat | 77 | 29 | 2026-04-23 |
+| 11 | Unix Server | TOC Team Chat | 78 | 29 | 2026-04-27 |
 | 12 | Server Engineering Team - ALL | 65 | 19 | 2026-04-24 |
 | 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 59 | 15 | 2026-04-23 |
 | 14 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 57 | 21 | 2026-04-23 |
@@ -391,7 +391,7 @@
 - `2026-04-24 16:32` **Tim McGlothin:** makes firewall grumpy
 
 ### Unix Server | TOC Team Chat
-**77 messages** · 2026-04-07 → 2026-04-23 · 29 signal msgs
+**78 messages** · 2026-04-07 → 2026-04-27 · 29 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-07 10:37` **Hank Uhl:** Josu� � Real �upgrades are still running on the linux Nutanix cluster.. which ntx-dc1-2401 is a part of. �the expected upgrade time is 18 hours, and the logs i see look pretty normal, and i checked OC as well, the only c…
@@ -440,7 +440,6 @@
 - `2026-04-22 10:54` **Hank Uhl:** both failed because /boot was too full for kernel install
 
 **💬 Notable Exchanges**
-- `2026-04-23 07:33` **Jonathan Jim�nez:** Perfect, thanks Tim for your help tonight
 - `2026-04-23 07:36` **Jonathan Jim�nez:** This is what we got today
 - `2026-04-23 07:36` **Tim McGlothin:** can you copy those host names? somce got cut off there
 - `2026-04-23 07:39` **Tim McGlothin:** thanks.. checking these out
@@ -450,6 +449,7 @@
 - `2026-04-23 18:27` **Tim McGlothin:** we were just talking about that... I think so but we may want to put some logic behind it so it only runs the cleanup if the boto fs is at a certain threshold...�
 - `2026-04-23 18:47` **Tim McGlothin:** is there still an outlook calendar with the patching schedule? or has that moved?
 - `2026-04-23 18:54` **Berny Vargas:** In outlook there is a patching calendar for example Manhattan servers, however the patching calendar for public access is located in share point: � https://llbean.sharepoint.com/sites/Infrastructure/Lists/Unix%20Patching…
+- `2026-04-27 06:37` **Josu� Real:** FYI � https://llbean.atlassian.net/browse/ITS-10855
 
 ### Server Engineering Team - ALL
 **65 messages** · 2026-04-01 → 2026-04-24 · 19 signal msgs
@@ -494,3 +494,8 @@
 - `2026-04-24 12:27` **Brooke Curtin-Johnson:** You can have a review without getting paid...
 - `2026-04-24 12:31` **Nicholas Hopson:** I'm just here for pickleball...�
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
+
+## Today (2026-04-27)
+
+### Unix Server | TOC Team Chat (1 msgs)
+- `2026-04-27 06:37` **Josu� Real:** FYI � https://llbean.atlassian.net/browse/ITS-10855

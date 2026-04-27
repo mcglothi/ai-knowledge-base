@@ -1,13 +1,11 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-27 04:19 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-27 08:19 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 619 raw emails → 404 signal emails
+**Stats:** 626 raw emails → 408 signal emails
 
-## AAP / Ansible (24 emails)
+## AAP / Ansible (25 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-14 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-15 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-15 09:30` **Javier Cedeño** — CHG-2693 Patch Ansible PROD Environment in April
@@ -36,6 +34,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-25 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
+- `2026-04-27 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 
 **✅ Resolved**
 - `2026-04-15 09:30` **Javier Cedeño** — CHG-2693 Patch Ansible PROD Environment in April
@@ -54,8 +54,6 @@
   > Good morning, Patch completed, thank you for your time. Regards, Javier Cedeño R. | Systems Engineer L.L.Bean, Inc. Escazu Corporate Center, 9th Floor San José, Costa Rica 10201 Of
 
 **⚙️ AAP Job Activity**
-- `2026-04-15 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-15 09:30` **Javier Cedeño** — CHG-2693 Patch Ansible PROD Environment in April
   > Good morning, The production Ansible environment will be patched this morning at 10am. If you have any concerns with this change, feel free to reach out as soon as possible Regards
 - `2026-04-15 10:43` **Javier Cedeño** — RE: CHG-2693 Patch Ansible PROD Environment in April
@@ -83,6 +81,8 @@
 - `2026-04-24 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-25 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
+- `2026-04-27 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 
 ## General (40 emails)
@@ -170,8 +170,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-22 16:03` **Automation for Jira (Jira)** — [JIRA] (ITS-10547) OmniCenter: wmb-prod-006 SUB: PROBLEM Alert - wmb-prod-006 mqsicvp.BRKP02 is CRITICAL
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira and Berny Vargas made 2 update
 - `2026-04-22 18:01` **Javier Cedeño** — Control‑M QA Environment Upgrade – Planned Activity & Timeline
   > Hello IS Team, We will be performing a planned upgrade of the Control‑M QA environment as part of our preparation and planning for the upcoming Production upgrade. Below is the pla
 - `2026-04-23 02:27` **Technical Operations Center** — [ERROR] Job #600901 'ESGUnix - Patch DBA-ETL-PR-02 (Full/Reboot)'
@@ -200,6 +198,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-25 06:18` **Automation for Jira (Jira)** — [JIRA] (ITS-10772) OmniCenter: wms-qa-mif02 SUB: wms-qa-mif02 - Threshold CRITICAL - /apps Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
+- `2026-04-27 02:36` **Technical Operations Center** — FW: [ERROR] ans00251 Job #602632 'ESGUnix - Patch Middleware - wmq-prod-105 (Full/Reboot)'
+  > Hi Tim The following is the information relevant to the current situation affecting wmq-prod-105 in QA environment: 1) The type of issue: Server patching wmq-prod-105 2) Brief desc
 
 **✅ Resolved**
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
@@ -214,6 +214,8 @@
   > Hi Tim The following is the information relevant to the current situation affecting shd-pr-ora06 in PROD environment: 1) The type of issue: Server patching shd-pr-ora06 2) Brief de
 - `2026-04-22 18:01` **Javier Cedeño** — Control‑M QA Environment Upgrade – Planned Activity & Timeline
   > Hello IS Team, We will be performing a planned upgrade of the Control‑M QA environment as part of our preparation and planning for the upcoming Production upgrade. Below is the pla
+- `2026-04-27 02:36` **Technical Operations Center** — FW: [ERROR] ans00251 Job #602632 'ESGUnix - Patch Middleware - wmq-prod-105 (Full/Reboot)'
+  > Hi Tim The following is the information relevant to the current situation affecting wmq-prod-105 in QA environment: 1) The type of issue: Server patching wmq-prod-105 2) Brief desc
 
 **🔧 Changes / Deployments**
 - `2026-04-22 18:01` **Javier Cedeño** — Control‑M QA Environment Upgrade – Planned Activity & Timeline
@@ -248,6 +250,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-24 16:54` **Javier Cedeño (Jira)** — [JIRA] (ITS-10595) Control-M: ans00140 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
+- `2026-04-27 02:26` **Automation for Jira (Jira)** — [JIRA] (ITS-10855) Control-M: ans00251 ENDED NOTOK! - Production - Abend Code  99
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 
 ## Network (9 emails)
 
@@ -549,11 +553,9 @@
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 
-## Patching (34 emails)
+## Patching (35 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-19 15:50` **Technical Operations Center** — RESOLVED - [ERROR] Job #599412 'ESGUnix - Patch Infrastructure-edxl-PR (Full/Reboot)'
-  > Hi Team, Issue has been resolved and condition "SVTOMF_EDXL_AVAIL" has been added back. It seems the patch timeout during EDXL server reboot, did it manually and all ended OK. Than
 - `2026-04-21 07:37` **Technical Operations Center** — FW: [ERROR] ans00095 Job #600153 'ESGUnix - Patch Creative-MB-DV-QA (Full/Reboot)'
   > Hi Tim The following is the information relevant to the current situation affecting mb-dv-router02 in PROD environment: 1) The type of issue: Server patching mb-dv-router02 2) Brie
 - `2026-04-21 21:44` **Technical Operations Center** — RESOLVED -  [ERROR] Job #600394 'ESGUnix - Patch UCD-PROD (Full/Reboot)'
@@ -582,6 +584,8 @@
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 - `2026-04-23 16:44` **David Niesner** — Manhattan Full Outage Patching - 4/25
   > Hello, Just a heads up that full outage patching will be occurring Saturday 4/25 beginning around 10am expected to be completed by 2pm at the latest. While we do not expect and pro
+- `2026-04-27 02:36` **Technical Operations Center** — FW: [ERROR] ans00251 Job #602632 'ESGUnix - Patch Middleware - wmq-prod-105 (Full/Reboot)'
+  > Hi Tim The following is the information relevant to the current situation affecting wmq-prod-105 in QA environment: 1) The type of issue: Server patching wmq-prod-105 2) Brief desc
 
 **✅ Resolved**
 - `2026-03-28 16:05` **Luis Rodríguez** — Re: Scheduled Jenkins Maintenance – Outage Starting Fri, March 27 @ 8 PM ET
@@ -628,6 +632,8 @@
   > Good afternoon everyone, I hope everyone is doing well. I have cleaned up Rack 5N at Stonewood for new servers, I have removed all the patch panels and copper cabling and mounted P
 - `2026-04-23 16:44` **David Niesner** — Manhattan Full Outage Patching - 4/25
   > Hello, Just a heads up that full outage patching will be occurring Saturday 4/25 beginning around 10am expected to be completed by 2pm at the latest. While we do not expect and pro
+- `2026-04-27 02:36` **Technical Operations Center** — FW: [ERROR] ans00251 Job #602632 'ESGUnix - Patch Middleware - wmq-prod-105 (Full/Reboot)'
+  > Hi Tim The following is the information relevant to the current situation affecting wmq-prod-105 in QA environment: 1) The type of issue: Server patching wmq-prod-105 2) Brief desc
 
 **🔧 Changes / Deployments**
 - `2026-03-28 16:05` **Luis Rodríguez** — Re: Scheduled Jenkins Maintenance – Outage Starting Fri, March 27 @ 8 PM ET
@@ -656,10 +662,6 @@
 ## Splunk (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-17 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
-- `2026-04-18 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-19 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-20 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
@@ -686,10 +688,12 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-26 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
+- `2026-04-27 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
+- `2026-04-27 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 
 **⚙️ AAP Job Activity**
-- `2026-04-01 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-02 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-03 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
@@ -715,6 +719,8 @@
 - `2026-04-24 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-25 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
+- `2026-04-27 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 
 ## Windows / AVD (9 emails)
