@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-27 18:02 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-27 22:01 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 644 raw emails → 417 signal emails
+**Stats:** 647 raw emails → 420 signal emails
 
 ## AAP / Ansible (25 emails)
 
@@ -102,6 +102,8 @@
   > You don't often get email from llbean@myworkday.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links or open
 - `2026-04-27 09:24` **David Bernier** — Server Engineer Team Meeting Agenda - Monday, 4/27/2026 @ 1:30 PM US EST / 11:30 AM CR
   > Server Engineer Team Meeting Agenda - Monday, 4/27/2026 @ 1:30 PM US EST / 11:30 AM CR HOUSEKEEPING * 2026 GOALS - These are going to be due Mid-May (specifically May 15) and there
+- `2026-04-27 15:11` **John McNamara** — Sea Dogs Suite - May 7 - Family night
+  > You don't often get email from john.mcnamara@rubrik.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links or 
 
 **🔧 Changes / Deployments**
 - `2026-04-22 13:20` **Tim McGlothin** — Modification Resolution
@@ -116,8 +118,6 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 
 **💬 Notable**
-- `2026-04-23 10:23` **Rajesh Iyer** — RE: LL Bean, CV Media Refresh - Customer Kick Off Meeting Notes
-  > Some people who received this message don't often get email from rajesh.iyer@cdw.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External 
 - `2026-04-23 11:24` **Discount Programs** — From Big Days to 'Just Because'—Save on Meaningful Gifts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Celebrate Mother’s Day and all the moments that ma
 - `2026-04-23 13:50` **Fidelity Investments** — Make your HSA work harder for you
@@ -146,6 +146,8 @@
   > *sharing on behalf of the Employee Experience Team. Sign up for DIY Delight <https://llbean.sharepoint.com/SitePages/260413-diy-delight-sign-up.aspx> Looking for a fun way to unwin
 - `2026-04-27 11:21` **Daily Portland** — ☀️ Tim, 10 Breaking Stories in Portland Today: Monday, April 27th
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Has our reader
+- `2026-04-27 14:06` **Discount Programs** — Subscribe to More Savings
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Meals, memberships & more that make daily life eas
 
 ## GitHub / Copilot (7 emails)
 
@@ -543,7 +545,7 @@
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 
-## Patching (36 emails)
+## Patching (38 emails)
 
 **🔴 Incidents / Issues**
 - `2026-04-21 07:37` **Technical Operations Center** — FW: [ERROR] ans00095 Job #600153 'ESGUnix - Patch Creative-MB-DV-QA (Full/Reboot)'
@@ -634,6 +636,10 @@
   > Good morning, Patch completed, thank you for your time. Regards, Javier Cedeño R. | Systems Engineer L.L.Bean, Inc. Escazu Corporate Center, 9th Floor San José, Costa Rica 10201 Of
 - `2026-04-27 13:38` **ansible@llbean.com** — New VM Provisioned: sdc-eh-receiver-1
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
+- `2026-04-27 14:02` **ansible@llbean.com** — New VM Provisioned: bdc-eh-receiver-1
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
+- `2026-04-27 17:38` **ansible@llbean.com** — New VM Provisioned: toc-dev-web01
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
 
 **⚙️ AAP Job Activity**
 - `2026-04-15 09:30` **Javier Cedeño** — CHG-2693 Patch Ansible PROD Environment in April
@@ -645,6 +651,10 @@
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 - `2026-04-27 13:38` **ansible@llbean.com** — New VM Provisioned: sdc-eh-receiver-1
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
+- `2026-04-27 14:02` **ansible@llbean.com** — New VM Provisioned: bdc-eh-receiver-1
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
+- `2026-04-27 17:38` **ansible@llbean.com** — New VM Provisioned: toc-dev-web01
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
 
 **💬 Notable**

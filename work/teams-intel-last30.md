@@ -1,18 +1,18 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-27 18:02 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-27 22:01 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2300 signal messages extracted from Teams local cache
+**Stats:** 2325 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
 | # | Channel | Msgs | Signal | Last Active |
 |---|---------|------|--------|-------------|
 | 1 | AI Nerds | 305 | 53 | 2026-04-24 |
-| 2 | Claude initial setup | 257 | 54 | 2026-04-27 |
+| 2 | Claude initial setup | 261 | 55 | 2026-04-27 |
 | 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
 | 4 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 144 | 34 | 2026-04-27 |
 | 5 | GitHub Copilot Devs | 142 | 32 | 2026-04-23 |
-| 6 | Unix Server and Storage Team | 128 | 49 | 2026-04-27 |
+| 6 | Unix Server and Storage Team | 129 | 49 | 2026-04-27 |
 | 7 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 128 | 17 | 2026-04-27 |
 | 8 | IS Connect Hub | 123 | 38 | 2026-04-24 |
 | 9 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 110 | 20 | 2026-04-01 |
@@ -20,9 +20,9 @@
 | 11 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
 | 12 | Server Engineering Team - ALL | 65 | 19 | 2026-04-24 |
 | 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 62 | 17 | 2026-04-27 |
-| 14 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 57 | 21 | 2026-04-23 |
-| 15 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 43 | 8 | 2026-04-17 |
-| 16 | 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ | 42 | 14 | 2026-04-27 |
+| 14 | 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ | 59 | 16 | 2026-04-27 |
+| 15 | Change Management Weekly Meeting | 57 | 21 | 2026-04-23 |
+| 16 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 43 | 8 | 2026-04-17 |
 | 17 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
 | 18 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
 | 19 | 19:7aa2c1dd-7d68-47ed-b04e-6c45a257dcc0_ | 38 | 18 | 2026-04-22 |
@@ -100,7 +100,7 @@
 - `2026-04-24 19:15` **Tim McGlothin:** https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/
 
 ### Claude initial setup
-**257 messages** · 2026-04-10 → 2026-04-27 · 54 signal msgs
+**261 messages** · 2026-04-10 → 2026-04-27 · 55 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-13 17:30` **Tim McGlothin:** But they have locked it down so much. Can't even use it with opencode
@@ -130,7 +130,6 @@
 - `2026-04-24 19:03` **Andrew Skvorak:** Josh Andrews The shell sandbox still isn't coming back up — I've retried a bunch of times and it's consistently returning "Workspace unavailable." Without it, I don't have a way to programmatically extract the sl… Can yo…
 
 **📋 Action Items**
-- `2026-04-15 13:20` **Tim McGlothin:** thats a good point, you should be able to.. .I'll have to play around with that idea, keeping it under one roof rather than cross platform
 - `2026-04-15 13:22` **Tim McGlothin:** once I settle on the local LLMs and gain more trust in them I'll switch it from gemini to opencode calling the right model
 - `2026-04-15 19:50` **Ben Hoisington:** SSO has been configured. If you go to claude.ai and put in your email address you should now get the option to sign in with SSO.
 - `2026-04-17 10:15` **Andrew Skvorak:** New users that we add to the LLB plan and instruct to use SSO should only see the Team plan I should think
@@ -150,6 +149,7 @@
 - `2026-04-24 19:14` **Andrew Skvorak:** Josh Andrews Says I can manually provide the content, but kinda defeats what I am trying to do. I will take a peak in the Zscaler logs too. Andrew Skvorak are there guidelines for using your claude LLBean account… No. Gi…
 - `2026-04-24 20:03` **Andrew Skvorak:** Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
 - `2026-04-24 20:07` **Ben Hoisington:** I'll reach out to get it added to the instructions.
+- `2026-04-27 18:34` **Ben Hoisington:** Ok, I've added plugins for Word, Excel and Powerpoint, scoped to members of the Claude AD groups. Users should start seeing them shortly if they don't already.
 
 **🏛 Decisions**
 - `2026-04-21 16:53` **Tim McGlothin:** Enterprises manage Model Context Protocol (MCP) connections by moving away from ad-hoc, local, developer-driven setups toward centralized, governed MCP gateways and managed platforms . This evolution is driven by the nee…
@@ -165,9 +165,6 @@
 - `2026-04-24 20:03` **Andrew Skvorak:** Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
 
 **💬 Notable Exchanges**
-- `2026-04-24 19:12` **Tim McGlothin:** If Anthropic sticks with this it may be a real deal breaker https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/
-- `2026-04-24 19:15` **Josh Andrews:** cool that will let me test out whether its claude or something specfic to LLB
-- `2026-04-24 19:17` **Andrew Skvorak:** Tim McGlothin If Anthropic sticks with this it may be a real deal breaker https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/ That seems like it would piss a lot of home developers off. Also, I do s…
 - `2026-04-24 19:18` **Tim McGlothin:** It's a soft test right now, seeing it start to hit social media circles
 - `2026-04-24 19:19` **Andrew Skvorak:** Always worth a try to find out
 - `2026-04-27 17:29` **Ben Hoisington:** Looking into it. It looks like it's an LLBean M365 configuration that's blocking users from adding plugins on their own.
@@ -175,6 +172,9 @@
 - `2026-04-27 17:32` **Ben Hoisington:** We typically want to be able to control what users are installing, and actively block Windows/Office Store access.
 - `2026-04-27 17:33` **Ben Hoisington:** Looking into whether we can make it available without giving users the ability to install whatever they want.
 - `2026-04-27 17:53` **Ben Hoisington:** Looks like I can install it in the integrate apps catalogue.
+- `2026-04-27 18:34` **Andrew Skvorak:** Awesome! Thank you Ben!
+- `2026-04-27 18:35` **Ben Hoisington:** You're welcome!
+- `2026-04-27 18:42` **Andrew Skvorak:** That worked! Awesome. Thank you, Ben!
 
 ### Nutanix Bi-Annual Cluster Upgrades
 **148 messages** · 2026-03-30 → 2026-04-21 · 52 signal msgs
@@ -320,7 +320,7 @@
 - `2026-04-23 14:55` **Carlos Alvarado:** seems to be back now
 
 ### Unix Server and Storage Team
-**128 messages** · 2026-03-30 → 2026-04-27 · 49 signal msgs
+**129 messages** · 2026-03-30 → 2026-04-27 · 49 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-01 15:15` **Javier Cede�o:** Hi team, got a quick question. � ecwcmq01 and ecwcmp01 are recently having issues with disk space on root, the problem is log rotate not working fine for splunk (Mark is working on that) � But /opt is not on its own file…
@@ -381,7 +381,6 @@
 - `2026-04-22 15:07` **Tim McGlothin:** from Eric: Oracle gave us commands to start ASM one command at a time� � We usually use crsctl start has� � To fix the problem we ran� � [root]# /oracle/app/19.0.0/grid/bin/afdload start [root]# /oracle/app/19.0.0/grid/b…
 
 **💬 Notable Exchanges**
-- `2026-04-23 13:58` **Hank Uhl:** Tim � McGlothin �when you get online, can you please let me know the status of the 2 patch failures from last night? �i assume TOC contacted you since I see you logged into both servers last night... they both look good,…
 - `2026-04-23 13:59` **Hank Uhl:** i see both were /boot again
 - `2026-04-24 14:07` **Steven Foxe:** Morning Tim. �Are you familiar with server pbx-aads01-v10? �Nick did some storage vmotion work for me and reported that it is not pingable (which it isn't). �He wasn't sure if it was pingable before the vmotion work thou…
 - `2026-04-24 14:08` **Steven Foxe:** Yep. �Ok thank you!
@@ -391,6 +390,7 @@
 - `2026-04-24 16:32` **Tim McGlothin:** makes firewall grumpy
 - `2026-04-27 16:17` **Hank Uhl:** can one of you guys please approve/merge PR430?
 - `2026-04-27 16:35` **Tim McGlothin:** im not seeing one for 430? last one that shows for me was 429
+- `2026-04-27 21:50` **Javier Cede�o:** Hi guys, looks like the new builds don't have the PasswordAuthentication enabled. Tim � McGlothin �when you have a minute can you show me how to modify the disk image? So I can add that
 
 ### Unix Server | TOC Team Chat
 **82 messages** · 2026-04-07 → 2026-04-27 · 30 signal msgs
@@ -501,6 +501,34 @@
 
 ## Today (2026-04-27)
 
+### 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ (26 msgs)
+- `2026-04-27 15:06` **Tim McGlothin:** `[action]` morning! �I'm working on those VMs you need for E/W visibility ... need a good name for them.. this part of an existing app stack or something new?
+- `2026-04-27 15:19` **Tim McGlothin:** `[action]` also, we don't have 10.121.245.0 and 10.122.245.0 wired up in Nutanix yet ... will need to make sure that is all set on the network side and get those VLAN IDs�
+- `2026-04-27 15:51` **Aaron Smiley:** `[action]` Hey! To be perfectly honest, I don’t really care what network they’re on, whatever BZ network you’ve got Linux servers on is fine, I just thought that was the go-to subnet and that…
+- `2026-04-27 15:52` **Tim McGlothin:** `[action]` ok.. 10.120.245/246 are the standard ones in that space. we could ad the others but that's another project I'll get them built
+- `2026-04-27 15:53` **Tim McGlothin:** `[action]` do you know one of the hostnames for estrahop? �I'll try to match up a name for these
+- `2026-04-27 15:56` **Aaron Smiley:** Good call - they're like: sdc-eh-revealx-2 � Why SDC instead of SWDC? SMH IDK.
+- `2026-04-27 15:57` **Aaron Smiley:** Ohhh I must have flubbed the second octet, thanks for catching that
+- `2026-04-27 16:28` **Tim McGlothin:** how about: sdc-eh-receiver-1 bdc-eh-receiver-1
+- `2026-04-27 16:51` **Aaron Smiley:** Sounds good to me!
+- `2026-04-27 18:22` **Tim McGlothin:** `[action]` you should be all set on s dc-eh-receiver-1 and bdc-eh-receiver-1 - you have sudo on both ... let me know if you need to adjust anything .. more cpu/mem/disk etc.
+- `2026-04-27 18:44` **Aaron Smiley:** Thanks so much, Tim! What do I owe you?
+- `2026-04-27 18:46` **Tim McGlothin:** well im saving for another gb10
+- `2026-04-27 18:46` **Tim McGlothin:** well im saving for another gb10
+- `2026-04-27 18:47` **Tim McGlothin:** maybe I can talk beans into getting me one to play with at work
+- `2026-04-27 20:59` **Aaron Smiley:** Hmm… no doubt. GL with that… tho honestly, why not? They’re leaning into AI. It’s a goal setting directive, after all
+- `2026-04-27 20:59` **Tim McGlothin:** I have some big ideas for this year ☺️
+- `2026-04-27 20:59` **Aaron Smiley:** We’ll have to schedule time with JSON’s fleet
+- `2026-04-27 21:00` **Tim McGlothin:** Well start referring to him as json 😂
+- `2026-04-27 21:01` **Tim McGlothin:** Yeah I got a meeting with him about that when he gets back.. Just need a little slice of ram on it
+- `2026-04-27 21:02` **Aaron Smiley:** Ooo what are your plans? Secret?
+- `2026-04-27 21:03` **Tim McGlothin:** Lemme see if I can copy the ppt... Way to have local Ai deal with tickets without giving it the keys to the kingdom
+- `2026-04-27 21:03` **Tim McGlothin:** trusted-ai-ops-exec-summary 2.pptx
+- `2026-04-27 21:03` **Tim McGlothin:** trusted-ai-ops-stack 2.pptx
+- `2026-04-27 21:04` **Aaron Smiley:** Oh man I like the way you think. So glad we’re not reckless. I’ll check that out when I’m back at my computer
+- `2026-04-27 21:06` **Tim McGlothin:** `[decision]` Tldr.. Agent gets the ticket first, can log in and look but the only action it can take is run an approved, idempotent, ansible playbook
+- `2026-04-27 21:06` **Tim McGlothin:** More to it but that's the gist.. Have human reviewed playbooks as the trusted gatekeeper
+
 ### 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y (14 msgs)
 - `2026-04-27 12:27` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
 - `2026-04-27 12:27` **<Undefined> <Undefined>:** Primary Major Incident Management Bridge Play
@@ -517,16 +545,18 @@
 - `2026-04-27 13:09` **Jim Greene:** Yes: mistake or accidental join. �I joined for a moment after someone else did. �Shiny. �Nothing of note going on at present.
 - `2026-04-27 13:12` **Alonso Bonilla:** `[resolved]` Daniel Coto Alonso Bonilla or Josu� Real Could you please run ECM00753 and INT00034 and INT00035 The jobs completed successfully�
 
-### 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ (9 msgs)
-- `2026-04-27 15:06` **Tim McGlothin:** `[action]` morning! �I'm working on those VMs you need for E/W visibility ... need a good name for them.. this part of an existing app stack or something new?
-- `2026-04-27 15:19` **Tim McGlothin:** `[action]` also, we don't have 10.121.245.0 and 10.122.245.0 wired up in Nutanix yet ... will need to make sure that is all set on the network side and get those VLAN IDs�
-- `2026-04-27 15:51` **Aaron Smiley:** `[action]` Hey! To be perfectly honest, I don’t really care what network they’re on, whatever BZ network you’ve got Linux servers on is fine, I just thought that was the go-to subnet and that…
-- `2026-04-27 15:52` **Tim McGlothin:** `[action]` ok.. 10.120.245/246 are the standard ones in that space. we could ad the others but that's another project I'll get them built
-- `2026-04-27 15:53` **Tim McGlothin:** `[action]` do you know one of the hostnames for estrahop? �I'll try to match up a name for these
-- `2026-04-27 15:56` **Aaron Smiley:** Good call - they're like: sdc-eh-revealx-2 � Why SDC instead of SWDC? SMH IDK.
-- `2026-04-27 15:57` **Aaron Smiley:** Ohhh I must have flubbed the second octet, thanks for catching that
-- `2026-04-27 16:28` **Tim McGlothin:** how about: sdc-eh-receiver-1 bdc-eh-receiver-1
-- `2026-04-27 16:51` **Aaron Smiley:** Sounds good to me!
+### Claude initial setup (11 msgs)
+- `2026-04-27 17:14` **Andrew Skvorak:** `[incident]` Hey all - I have a business users who tried to enable Excel, Word and Powerpoint and got an error message. See screenprints below
+- `2026-04-27 17:15` **Andrew Skvorak:** `[incident]` The error on the 2nd one makes it look like a Microsoft config or limitation. Any thoughts?�
+- `2026-04-27 17:29` **Ben Hoisington:** Looking into it. It looks like it's an LLBean M365 configuration that's blocking users from adding plugins on their own.
+- `2026-04-27 17:31` **Andrew Skvorak:** Any reason to not enable adding plugins? And if we feel it is ok, who here typically would/could make a change like that?
+- `2026-04-27 17:32` **Ben Hoisington:** We typically want to be able to control what users are installing, and actively block Windows/Office Store access.
+- `2026-04-27 17:33` **Ben Hoisington:** Looking into whether we can make it available without giving users the ability to install whatever they want.
+- `2026-04-27 17:53` **Ben Hoisington:** Looks like I can install it in the integrate apps catalogue.
+- `2026-04-27 18:34` **Ben Hoisington:** `[action]` Ok, I've added plugins for Word, Excel and Powerpoint, scoped to members of the Claude AD groups. Users should start seeing them shortly if they don't already.
+- `2026-04-27 18:34` **Andrew Skvorak:** Awesome! Thank you Ben!
+- `2026-04-27 18:35` **Ben Hoisington:** You're welcome!
+- `2026-04-27 18:42` **Andrew Skvorak:** That worked! Awesome. Thank you, Ben!
 
 ### 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ (7 msgs)
 - `2026-04-27 14:14` **Ben Hoisington:** I printed a Widdle Wadder for Monty. Waiting for the magnets to come in so I can suprise him with it. Gonna leave it on his 4Runner and see if he notices it.
@@ -536,15 +566,6 @@
 - `2026-04-27 14:17` **Tim McGlothin:** I found mine.. got a couple of different sizes, the little buttons ones and the flatter coin style
 - `2026-04-27 15:04` **Ben Hoisington:** Man, it is so nice out.
 - `2026-04-27 15:05` **Tim McGlothin:** `[action]` I haven't been out yet ... need to take a lunch break outside
-
-### Claude initial setup (7 msgs)
-- `2026-04-27 17:14` **Andrew Skvorak:** `[incident]` Hey all - I have a business users who tried to enable Excel, Word and Powerpoint and got an error message. See screenprints below
-- `2026-04-27 17:15` **Andrew Skvorak:** `[incident]` The error on the 2nd one makes it look like a Microsoft config or limitation. Any thoughts?�
-- `2026-04-27 17:29` **Ben Hoisington:** Looking into it. It looks like it's an LLBean M365 configuration that's blocking users from adding plugins on their own.
-- `2026-04-27 17:31` **Andrew Skvorak:** Any reason to not enable adding plugins? And if we feel it is ok, who here typically would/could make a change like that?
-- `2026-04-27 17:32` **Ben Hoisington:** We typically want to be able to control what users are installing, and actively block Windows/Office Store access.
-- `2026-04-27 17:33` **Ben Hoisington:** Looking into whether we can make it available without giving users the ability to install whatever they want.
-- `2026-04-27 17:53` **Ben Hoisington:** Looks like I can install it in the integrate apps catalogue.
 
 ### Unix Server | TOC Team Chat (5 msgs)
 - `2026-04-27 06:37` **Josu� Real:** FYI � https://llbean.atlassian.net/browse/ITS-10855
@@ -558,9 +579,19 @@
 - `2026-04-27 15:49` **Tim McGlothin:** `[incident,action]` yeah I think this is probably a good plan for now, that should solve the problem for today.. maybe it's just a wait-it-out for the old servers to get replaced with RHEL9 builds goi…
 - `2026-04-27 15:50` **Hank Uhl:** ok thanks man... and yea, i hope we actually get to do it... my gut feeling is when we get to 2028, we will be revisiting this and there will be requests for in-place upgrades, but…
 
-### Unix Server and Storage Team (2 msgs)
+### Unix Server and Storage Team (3 msgs)
 - `2026-04-27 16:17` **Hank Uhl:** can one of you guys please approve/merge PR430?
 - `2026-04-27 16:35` **Tim McGlothin:** im not seeing one for 430? last one that shows for me was 429
+- `2026-04-27 21:50` **Javier Cede�o:** Hi guys, looks like the new builds don't have the PasswordAuthentication enabled. Tim � McGlothin �when you have a minute can you show me how to modify the disk image? So I can add…
 
 ### Server Engineer Team Meeting - Bi-Weekly Check-In (1 msgs)
 - `2026-04-27 17:15` **Chris Montgomery:** ITS-6777 is now closed
+
+### 48:drafts (1 msgs)
+- `2026-04-27 18:46` **<Undefined> <Undefined>:** well im saving for another gb10
+
+### 48:mentions (1 msgs)
+- `2026-04-27 21:51` **<Undefined> <Undefined>:** Hi guys, looks like the new builds don't have the PasswordAuthentication enabled. Tim McGlothin when you have a minute can you show me how to modify the disk image? So I can add th…
+
+### 48:notifications (1 msgs)
+- `2026-04-27 21:51` **<Undefined> <Undefined>:** Hi guys, looks like the new builds don't have the PasswordAuthentication enabled. Tim McGlothin when you have a minute can you show me how to modify the disk image? So I can add th…
