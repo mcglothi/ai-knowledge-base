@@ -4,7 +4,7 @@
 
 ---
 
-**Last Updated:** 2026-04-21
+**Last Updated:** 2026-04-27
 **Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
 
 ---
@@ -23,7 +23,7 @@
 
 | Project | Status | Tags | Details |
 |---------|--------|------|---------|
-| *(no projects yet)* | — | — | — |
+| Zscaler Training Platform | 🟢 Active | zscaler, zpa, zia, training, nginx, podman, inf-dv-tim01 | [`projects/zscaler-training.md`](projects/zscaler-training.md) |
 
 ---
 
