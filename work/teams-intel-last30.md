@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-26 20:19 UTC  **Period:** 2026-03-27 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-27 00:19 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2253 signal messages extracted from Teams local cache
+**Stats:** 2252 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -18,7 +18,7 @@
 | 9 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 110 | 20 | 2026-04-01 |
 | 10 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
 | 11 | Unix Server | TOC Team Chat | 77 | 29 | 2026-04-23 |
-| 12 | Server Engineering Team - ALL | 66 | 20 | 2026-04-24 |
+| 12 | Server Engineering Team - ALL | 65 | 19 | 2026-04-24 |
 | 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 59 | 15 | 2026-04-23 |
 | 14 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 57 | 21 | 2026-04-23 |
 | 15 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 43 | 8 | 2026-04-17 |
@@ -452,7 +452,7 @@
 - `2026-04-23 18:54` **Berny Vargas:** In outlook there is a patching calendar for example Manhattan servers, however the patching calendar for public access is located in share point: � https://llbean.sharepoint.com/sites/Infrastructure/Lists/Unix%20Patching…
 
 ### Server Engineering Team - ALL
-**66 messages** · 2026-03-27 → 2026-04-24 · 20 signal msgs
+**65 messages** · 2026-04-01 → 2026-04-24 · 19 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-02 11:23` **Jason Mills:** Chris Montgomery 📷 Skill issue clearly...
@@ -468,7 +468,6 @@
 - `2026-04-24 12:15` **David Bernier:** GM - just keeping everyone up to speed this morning. We have a few people out today, however, we do have plenty of coverage.� So everyone is aware, below if who is out today: Joel - PTO Devin - PTO Hank - PTO Chris - Aft…
 
 **📋 Action Items**
-- `2026-03-27 20:57` **Henry Corrales:** Jason Mills I just got an email that the SAML Certificate for Nutanix expires on 5/24. Is there someone over there that I should forward this to so they can work with Daniel on the renewal? please send me the information
 - `2026-04-01 21:15` **Tim McGlothin:** they should import to edge/chrome/FF
 - `2026-04-06 12:15` **Brooke Curtin-Johnson:** Nicholas � Hopson �when were you going to do the cluster update on that one?
 - `2026-04-06 12:23` **Brooke Curtin-Johnson:** I will thank you
