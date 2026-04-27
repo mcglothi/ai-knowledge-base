@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-27 08:19 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-27 10:02 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 626 raw emails → 408 signal emails
+**Stats:** 626 raw emails → 409 signal emails
 
 ## AAP / Ansible (25 emails)
 
@@ -170,8 +170,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-22 18:01` **Javier Cedeño** — Control‑M QA Environment Upgrade – Planned Activity & Timeline
-  > Hello IS Team, We will be performing a planned upgrade of the Control‑M QA environment as part of our preparation and planning for the upcoming Production upgrade. Below is the pla
 - `2026-04-23 02:27` **Technical Operations Center** — [ERROR] Job #600901 'ESGUnix - Patch DBA-ETL-PR-02 (Full/Reboot)'
   > Hello Please see the information below in regards of Patching problems. 1) The type of issue (operational failure, patching, etc.): Patching 2) Brief description of the problem: fa
 - `2026-04-23 02:42` **Technical Operations Center** — [ERROR] Job #600902 'ESGUnix - Patch DBA-SHD_PAIR2-PR (Full/Reboot)'
@@ -200,6 +198,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-27 02:36` **Technical Operations Center** — FW: [ERROR] ans00251 Job #602632 'ESGUnix - Patch Middleware - wmq-prod-105 (Full/Reboot)'
   > Hi Tim The following is the information relevant to the current situation affecting wmq-prod-105 in QA environment: 1) The type of issue: Server patching wmq-prod-105 2) Brief desc
+- `2026-04-27 05:29` **Automation for Jira (Jira)** — [JIRA] (ITS-10857) OmniCenter: was-prod-109 SUB: PROBLEM Alert - was-prod-109 wxsprocesschk is CRITICAL
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 
 **✅ Resolved**
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
@@ -226,8 +226,6 @@
   > Bernie, I know it's been a while, but If you have the time, I would like to ask a favor on behalf of the Unix Server Team. If you can do this, I'll create an incident or something 
 
 **💬 Notable**
-- `2026-04-21 21:24` **Automation for Jira (Jira)** — [JIRA] (ITS-10438) Control-M: ans00200 ENDED NOTOK! - Production - Abend Code  99
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 01:43` **Automation for Jira (Jira)** — [JIRA] (ITS-10445) Control-M: ans00006 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 02:22` **Automation for Jira (Jira)** — [JIRA] (ITS-10446) Control-M: ans00144 ENDED NOTOK! - Production - Abend Code  99
