@@ -1,31 +1,31 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-27 14:02 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-27 18:02 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2267 signal messages extracted from Teams local cache
+**Stats:** 2300 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
 | # | Channel | Msgs | Signal | Last Active |
 |---|---------|------|--------|-------------|
 | 1 | AI Nerds | 305 | 53 | 2026-04-24 |
-| 2 | Claude initial setup | 250 | 52 | 2026-04-24 |
+| 2 | Claude initial setup | 257 | 54 | 2026-04-27 |
 | 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
 | 4 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 144 | 34 | 2026-04-27 |
 | 5 | GitHub Copilot Devs | 142 | 32 | 2026-04-23 |
-| 6 | Unix Server and Storage Team | 126 | 49 | 2026-04-24 |
-| 7 | IS Connect Hub | 123 | 38 | 2026-04-24 |
-| 8 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 121 | 15 | 2026-04-24 |
+| 6 | Unix Server and Storage Team | 128 | 49 | 2026-04-27 |
+| 7 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 128 | 17 | 2026-04-27 |
+| 8 | IS Connect Hub | 123 | 38 | 2026-04-24 |
 | 9 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 110 | 20 | 2026-04-01 |
-| 10 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
-| 11 | Unix Server | TOC Team Chat | 78 | 29 | 2026-04-27 |
+| 10 | Unix Server | TOC Team Chat | 82 | 30 | 2026-04-27 |
+| 11 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
 | 12 | Server Engineering Team - ALL | 65 | 19 | 2026-04-24 |
-| 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 59 | 15 | 2026-04-23 |
+| 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 62 | 17 | 2026-04-27 |
 | 14 | 19:meeting_ZGNhZjJmNzAtMmM4ZC00ZDkxLWE3M | 57 | 21 | 2026-04-23 |
 | 15 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 43 | 8 | 2026-04-17 |
-| 16 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
-| 17 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
-| 18 | 19:7aa2c1dd-7d68-47ed-b04e-6c45a257dcc0_ | 38 | 18 | 2026-04-22 |
-| 19 | 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ | 33 | 9 | 2026-04-22 |
+| 16 | 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ | 42 | 14 | 2026-04-27 |
+| 17 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
+| 18 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
+| 19 | 19:7aa2c1dd-7d68-47ed-b04e-6c45a257dcc0_ | 38 | 18 | 2026-04-22 |
 | 20 | 19:meeting_ZGQzM2JlYWMtZWQ3Ny00NDY0LWE4Y | 33 | 0 | 2026-04-22 |
 
 ## Infrastructure Channels
@@ -100,7 +100,7 @@
 - `2026-04-24 19:15` **Tim McGlothin:** https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/
 
 ### Claude initial setup
-**250 messages** · 2026-04-10 → 2026-04-24 · 52 signal msgs
+**257 messages** · 2026-04-10 → 2026-04-27 · 54 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-13 17:30` **Tim McGlothin:** But they have locked it down so much. Can't even use it with opencode
@@ -119,6 +119,8 @@
 - `2026-04-24 19:16` **Andrew Skvorak:** IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows????�
 - `2026-04-24 19:18` **Josh Andrews:** Andrew Skvorak IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows???? Yea but I wonde…
 - `2026-04-24 20:02` **Ben Hoisington:** I think I found the root of the sandbox issue. On my win 11 pc the Virtual Machine platform feature was enabled, but the Windows Hypervisor Platform was not. Enabled it, rebooted, and the Claude Cowork session was able t…
+- `2026-04-27 17:14` **Andrew Skvorak:** Hey all - I have a business users who tried to enable Excel, Word and Powerpoint and got an error message. See screenprints below
+- `2026-04-27 17:15` **Andrew Skvorak:** The error on the 2nd one makes it look like a Microsoft config or limitation. Any thoughts?�
 
 **✅ Resolved / Complete**
 - `2026-04-15 15:10` **Tim McGlothin:** could be resolved now.. checking
@@ -163,16 +165,16 @@
 - `2026-04-24 20:03` **Andrew Skvorak:** Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
 
 **💬 Notable Exchanges**
-- `2026-04-22 19:00` **Josh Andrews:** Let me send an e-mail about this to our Infra support teams and see if they have a preference. Packaging this wouldn't be a quick turnaround.�
-- `2026-04-22 19:03` **Andrew Skvorak:** Yeah, I don't feel like we have time to package it if it takes more than a day or two, to be honest
-- `2026-04-24 19:00` **Ben Hoisington:** I wonder if the common thread there is Anthropic. M365 Cowork is relying on them as well.
-- `2026-04-24 19:01` **Tim McGlothin:** no hits on downdetector currently https://downdetector.com/status/claude-ai/
-- `2026-04-24 19:05` **Ben Hoisington:** Josh , have you tried rebooting? Any memory issues on your laptop?
 - `2026-04-24 19:12` **Tim McGlothin:** If Anthropic sticks with this it may be a real deal breaker https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/
 - `2026-04-24 19:15` **Josh Andrews:** cool that will let me test out whether its claude or something specfic to LLB
 - `2026-04-24 19:17` **Andrew Skvorak:** Tim McGlothin If Anthropic sticks with this it may be a real deal breaker https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/ That seems like it would piss a lot of home developers off. Also, I do s…
 - `2026-04-24 19:18` **Tim McGlothin:** It's a soft test right now, seeing it start to hit social media circles
 - `2026-04-24 19:19` **Andrew Skvorak:** Always worth a try to find out
+- `2026-04-27 17:29` **Ben Hoisington:** Looking into it. It looks like it's an LLBean M365 configuration that's blocking users from adding plugins on their own.
+- `2026-04-27 17:31` **Andrew Skvorak:** Any reason to not enable adding plugins? And if we feel it is ok, who here typically would/could make a change like that?
+- `2026-04-27 17:32` **Ben Hoisington:** We typically want to be able to control what users are installing, and actively block Windows/Office Store access.
+- `2026-04-27 17:33` **Ben Hoisington:** Looking into whether we can make it available without giving users the ability to install whatever they want.
+- `2026-04-27 17:53` **Ben Hoisington:** Looks like I can install it in the integrate apps catalogue.
 
 ### Nutanix Bi-Annual Cluster Upgrades
 **148 messages** · 2026-03-30 → 2026-04-21 · 52 signal msgs
@@ -318,7 +320,7 @@
 - `2026-04-23 14:55` **Carlos Alvarado:** seems to be back now
 
 ### Unix Server and Storage Team
-**126 messages** · 2026-03-30 → 2026-04-24 · 49 signal msgs
+**128 messages** · 2026-03-30 → 2026-04-27 · 49 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-01 15:15` **Javier Cede�o:** Hi team, got a quick question. � ecwcmq01 and ecwcmp01 are recently having issues with disk space on root, the problem is log rotate not working fine for splunk (Mark is working on that) � But /opt is not on its own file…
@@ -379,8 +381,6 @@
 - `2026-04-22 15:07` **Tim McGlothin:** from Eric: Oracle gave us commands to start ASM one command at a time� � We usually use crsctl start has� � To fix the problem we ran� � [root]# /oracle/app/19.0.0/grid/bin/afdload start [root]# /oracle/app/19.0.0/grid/b…
 
 **💬 Notable Exchanges**
-- `2026-04-22 15:05` **Hank Uhl:** LLORACP1 is the only business DB running on this, and eric is not sure if anyone uses it anymore. �no one has complained. �i have informed Dave, in case something comes his way
-- `2026-04-22 16:48` **Tim McGlothin:** Eric says its good to go
 - `2026-04-23 13:58` **Hank Uhl:** Tim � McGlothin �when you get online, can you please let me know the status of the 2 patch failures from last night? �i assume TOC contacted you since I see you logged into both servers last night... they both look good,…
 - `2026-04-23 13:59` **Hank Uhl:** i see both were /boot again
 - `2026-04-24 14:07` **Steven Foxe:** Morning Tim. �Are you familiar with server pbx-aads01-v10? �Nick did some storage vmotion work for me and reported that it is not pingable (which it isn't). �He wasn't sure if it was pingable before the vmotion work thou…
@@ -389,9 +389,11 @@
 - `2026-04-24 16:29` **Tim McGlothin:** its probably on a funky network also... being part of the telcom stack
 - `2026-04-24 16:32` **Tim McGlothin:** trying to ping it from GZ
 - `2026-04-24 16:32` **Tim McGlothin:** makes firewall grumpy
+- `2026-04-27 16:17` **Hank Uhl:** can one of you guys please approve/merge PR430?
+- `2026-04-27 16:35` **Tim McGlothin:** im not seeing one for 430? last one that shows for me was 429
 
 ### Unix Server | TOC Team Chat
-**78 messages** · 2026-04-07 → 2026-04-27 · 29 signal msgs
+**82 messages** · 2026-04-07 → 2026-04-27 · 30 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-07 10:37` **Hank Uhl:** Josu� � Real �upgrades are still running on the linux Nutanix cluster.. which ntx-dc1-2401 is a part of. �the expected upgrade time is 18 hours, and the logs i see look pretty normal, and i checked OC as well, the only c…
@@ -408,6 +410,7 @@
 - `2026-04-22 12:11` **Josu� Real:** Tim � McGlothin � � I jut get a message from Eric Penza-Clyve that shd-pr-ora01 is affecting Production� seems ASM is down, can you please review the status of the host?
 - `2026-04-23 06:43` **Tim McGlothin:** Looks like shd-pr-ora07..had an issue with 01 this morning and the DBs didn't come up after.. I'll see what I can find
 - `2026-04-23 07:19` **Tim McGlothin:** shd-pr-ora07 and etl-pr-ora08 are patched and rebooted. �I did a check and I see grid11 up with ASM on both (these were a problem on shd-pr-ora01 earlier today but they seem ok here) � � [03:03:54]root@etl-pr-ora02[~] >>…
+- `2026-04-27 16:11` **Hank Uhl:** ok, been looking into this. �the reason is when the VM shuts everything down, it sits at the reboot state for too long and the job times out. �the default wait time is 600 seconds �(10 minutes). �i'm going to increase th…
 
 **✅ Resolved / Complete**
 - `2026-04-12 19:54` **Hank Uhl:** netapps10 had a corrupt /var filesystem... repaired and host is back online... patched well, jsut failed the reboot
@@ -432,6 +435,7 @@
 - `2026-04-23 07:35` **Tim McGlothin:** thanks! are there other patches running tonight? I'll check the boot FS on them so we dont hit that wall again
 - `2026-04-23 07:41` **Tim McGlothin:** ok, should be safe till 10am as far as boot FS being full.. got the early morning ones cleaned up.. will address the others later�
 - `2026-04-23 18:29` **Berny Vargas:** Sounds good, I'll work on that an implement the logic during patching playbook
+- `2026-04-27 16:11` **Hank Uhl:** ok, been looking into this. �the reason is when the VM shuts everything down, it sits at the reboot state for too long and the job times out. �the default wait time is 600 seconds �(10 minutes). �i'm going to increase th…
 
 **🏛 Decisions**
 - `2026-04-22 11:42` **Josu� Real:** I just confirmed with Eric Penza-Clyve the data base integrity and it's fine I'm rerunning affected job�
@@ -440,9 +444,6 @@
 - `2026-04-22 10:54` **Hank Uhl:** both failed because /boot was too full for kernel install
 
 **💬 Notable Exchanges**
-- `2026-04-23 07:36` **Jonathan Jim�nez:** This is what we got today
-- `2026-04-23 07:36` **Tim McGlothin:** can you copy those host names? somce got cut off there
-- `2026-04-23 07:39` **Tim McGlothin:** thanks.. checking these out
 - `2026-04-23 07:42` **Jonathan Jim�nez:** Great Tim I appreciate you checking on this�
 - `2026-04-23 18:25` **Berny Vargas:** Hi Hank � Uhl , Tim � McGlothin �for the kernel clean up , would be better to add a step on the patching playbook , I think that's an option or do you prefer to do the clean up once from all servers at the beginning of t…
 - `2026-04-23 18:26` **Berny Vargas:** I think having a clean up step during patching sounds good ...
@@ -450,6 +451,9 @@
 - `2026-04-23 18:47` **Tim McGlothin:** is there still an outlook calendar with the patching schedule? or has that moved?
 - `2026-04-23 18:54` **Berny Vargas:** In outlook there is a patching calendar for example Manhattan servers, however the patching calendar for public access is located in share point: � https://llbean.sharepoint.com/sites/Infrastructure/Lists/Unix%20Patching…
 - `2026-04-27 06:37` **Josu� Real:** FYI � https://llbean.atlassian.net/browse/ITS-10855
+- `2026-04-27 14:28` **Hank Uhl:** spoke with Tom W, re-running this patch job
+- `2026-04-27 16:11` **Hank Uhl:** the DRDB process takes 6 minutes of the shutdown time
+- `2026-04-27 16:12` **Hank Uhl:** there were a couple other processes with 90 second timeouts... i think the entire app shutdown wait stack is just too long... but if the VM would reboot right when its ready to, it'd prob still make it, but it sits there…
 
 ### Server Engineering Team - ALL
 **65 messages** · 2026-04-01 → 2026-04-24 · 19 signal msgs
@@ -513,5 +517,50 @@
 - `2026-04-27 13:09` **Jim Greene:** Yes: mistake or accidental join. �I joined for a moment after someone else did. �Shiny. �Nothing of note going on at present.
 - `2026-04-27 13:12` **Alonso Bonilla:** `[resolved]` Daniel Coto Alonso Bonilla or Josu� Real Could you please run ECM00753 and INT00034 and INT00035 The jobs completed successfully�
 
-### Unix Server | TOC Team Chat (1 msgs)
+### 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ (9 msgs)
+- `2026-04-27 15:06` **Tim McGlothin:** `[action]` morning! �I'm working on those VMs you need for E/W visibility ... need a good name for them.. this part of an existing app stack or something new?
+- `2026-04-27 15:19` **Tim McGlothin:** `[action]` also, we don't have 10.121.245.0 and 10.122.245.0 wired up in Nutanix yet ... will need to make sure that is all set on the network side and get those VLAN IDs�
+- `2026-04-27 15:51` **Aaron Smiley:** `[action]` Hey! To be perfectly honest, I don’t really care what network they’re on, whatever BZ network you’ve got Linux servers on is fine, I just thought that was the go-to subnet and that…
+- `2026-04-27 15:52` **Tim McGlothin:** `[action]` ok.. 10.120.245/246 are the standard ones in that space. we could ad the others but that's another project I'll get them built
+- `2026-04-27 15:53` **Tim McGlothin:** `[action]` do you know one of the hostnames for estrahop? �I'll try to match up a name for these
+- `2026-04-27 15:56` **Aaron Smiley:** Good call - they're like: sdc-eh-revealx-2 � Why SDC instead of SWDC? SMH IDK.
+- `2026-04-27 15:57` **Aaron Smiley:** Ohhh I must have flubbed the second octet, thanks for catching that
+- `2026-04-27 16:28` **Tim McGlothin:** how about: sdc-eh-receiver-1 bdc-eh-receiver-1
+- `2026-04-27 16:51` **Aaron Smiley:** Sounds good to me!
+
+### 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ (7 msgs)
+- `2026-04-27 14:14` **Ben Hoisington:** I printed a Widdle Wadder for Monty. Waiting for the magnets to come in so I can suprise him with it. Gonna leave it on his 4Runner and see if he notices it.
+- `2026-04-27 14:15` **Tim McGlothin:** I think I have a bunch of neo mags around here.. lemme see
+- `2026-04-27 14:15` **Ben Hoisington:** `[action]` I've got some on the way. Should be coming today.�
+- `2026-04-27 14:16` **Ben Hoisington:** I'm getting 6x2mm
+- `2026-04-27 14:17` **Tim McGlothin:** I found mine.. got a couple of different sizes, the little buttons ones and the flatter coin style
+- `2026-04-27 15:04` **Ben Hoisington:** Man, it is so nice out.
+- `2026-04-27 15:05` **Tim McGlothin:** `[action]` I haven't been out yet ... need to take a lunch break outside
+
+### Claude initial setup (7 msgs)
+- `2026-04-27 17:14` **Andrew Skvorak:** `[incident]` Hey all - I have a business users who tried to enable Excel, Word and Powerpoint and got an error message. See screenprints below
+- `2026-04-27 17:15` **Andrew Skvorak:** `[incident]` The error on the 2nd one makes it look like a Microsoft config or limitation. Any thoughts?�
+- `2026-04-27 17:29` **Ben Hoisington:** Looking into it. It looks like it's an LLBean M365 configuration that's blocking users from adding plugins on their own.
+- `2026-04-27 17:31` **Andrew Skvorak:** Any reason to not enable adding plugins? And if we feel it is ok, who here typically would/could make a change like that?
+- `2026-04-27 17:32` **Ben Hoisington:** We typically want to be able to control what users are installing, and actively block Windows/Office Store access.
+- `2026-04-27 17:33` **Ben Hoisington:** Looking into whether we can make it available without giving users the ability to install whatever they want.
+- `2026-04-27 17:53` **Ben Hoisington:** Looks like I can install it in the integrate apps catalogue.
+
+### Unix Server | TOC Team Chat (5 msgs)
 - `2026-04-27 06:37` **Josu� Real:** FYI � https://llbean.atlassian.net/browse/ITS-10855
+- `2026-04-27 14:28` **Hank Uhl:** spoke with Tom W, re-running this patch job
+- `2026-04-27 16:11` **Hank Uhl:** `[incident,action]` ok, been looking into this. �the reason is when the VM shuts everything down, it sits at the reboot state for too long and the job times out. �the default wait time is 600 seconds …
+- `2026-04-27 16:11` **Hank Uhl:** the DRDB process takes 6 minutes of the shutdown time
+- `2026-04-27 16:12` **Hank Uhl:** there were a couple other processes with 90 second timeouts... i think the entire app shutdown wait stack is just too long... but if the VM would reboot right when its ready to, it…
+
+### 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ (3 msgs)
+- `2026-04-27 15:48` **Hank Uhl:** `[action]` hey tim... jsut wanted to follow up with you about our convo from Thr about /boot... are you happy enough with Berny and the plan he's working on, or did you want me to keep todays…
+- `2026-04-27 15:49` **Tim McGlothin:** `[incident,action]` yeah I think this is probably a good plan for now, that should solve the problem for today.. maybe it's just a wait-it-out for the old servers to get replaced with RHEL9 builds goi…
+- `2026-04-27 15:50` **Hank Uhl:** ok thanks man... and yea, i hope we actually get to do it... my gut feeling is when we get to 2028, we will be revisiting this and there will be requests for in-place upgrades, but…
+
+### Unix Server and Storage Team (2 msgs)
+- `2026-04-27 16:17` **Hank Uhl:** can one of you guys please approve/merge PR430?
+- `2026-04-27 16:35` **Tim McGlothin:** im not seeing one for 430? last one that shows for me was 429
+
+### Server Engineer Team Meeting - Bi-Weekly Check-In (1 msgs)
+- `2026-04-27 17:15` **Chris Montgomery:** ITS-6777 is now closed

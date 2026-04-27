@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-27 14:02 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-27 18:02 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 631 raw emails → 413 signal emails
+**Stats:** 644 raw emails → 417 signal emails
 
 ## AAP / Ansible (25 emails)
 
@@ -96,10 +96,6 @@
   > 8:47:53 Synchronizer Version 16.0.19725 8:47:53 Synchronizing Mailbox 'Tim McGlothin' 8:47:53 Synchronizing Hierarchy 8:48:03 Error in folder 'Inbox' 8:48:03 [0-738] 8:48:03 Additi
 
 **📋 Action Items**
-- `2026-04-22 06:03` **FORTNA Insights** — New Gartner® Report, Compliments of FORTNA
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <http://info.fortna.com/rs/830-HTX-840/images/spac
-- `2026-04-22 08:51` **Nina Papa** — Massage in HQ - open appointments for today!
-  > *forwarding on behalf of Healthy Bean Licensed Massage Therapist, Gabrielle Copeley is offering onsite massage today (4.22) in HQ and still has many open appointments available. Si
 - `2026-04-22 13:33` **BMC Software** — Webinar: Moving AI from Insight to Action in Mainframe Operations
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ AI Is Ready to Act: What’s Changed for Mainframe O
 - `2026-04-23 15:01` **llbean** — Workday Inbox - Your Daily Digest
@@ -120,10 +116,6 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 
 **💬 Notable**
-- `2026-04-23 08:22` **David Bernier** — Year End @ 11 AM Today
-  > Tim - see the attached 2025 Year End Review - we can discuss in our 11 AM meeting today. *Please see attached and let me know if you cannot open for some reason. Thanks! David B @ 
-- `2026-04-23 09:06` **Good Shepherd Food Bank** — Timothy, which food is a space pioneer? 🪐
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Take a moment to guess! ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ 
 - `2026-04-23 10:23` **Rajesh Iyer** — RE: LL Bean, CV Media Refresh - Customer Kick Off Meeting Notes
   > Some people who received this message don't often get email from rajesh.iyer@cdw.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External 
 - `2026-04-23 11:24` **Discount Programs** — From Big Days to 'Just Because'—Save on Meaningful Gifts
@@ -150,6 +142,10 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Were you forwa
 - `2026-04-27 09:00` **support@appviewx.com** — L.L.Bean - Cert Expiry by 10 days
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://pages.appviewx.com/rs/249-TWN-899/images/
+- `2026-04-27 10:51` **Nina Papa** — FW: Sign Up Now - DIY Delight
+  > *sharing on behalf of the Employee Experience Team. Sign up for DIY Delight <https://llbean.sharepoint.com/SitePages/260413-diy-delight-sign-up.aspx> Looking for a fun way to unwin
+- `2026-04-27 11:21` **Daily Portland** — ☀️ Tim, 10 Breaking Stories in Portland Today: Monday, April 27th
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Local news today in Portland, Maine Has our reader
 
 ## GitHub / Copilot (7 emails)
 
@@ -172,8 +168,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-23 08:44` **Josué Real (Jira)** — [JIRA] (ITS-10598) OmniCenter: by-qa-sre02 SUB: by-qa-sre02 - Threshold CRITICAL - /JDA Percent Used Space
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
 - `2026-04-23 10:07` **Hank Uhl** — /boot Fixes on Oracle Servers
   > Bernie, I know it's been a while, but If you have the time, I would like to ask a favor on behalf of the Unix Server Team. If you can do this, I'll create an incident or something 
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
@@ -202,6 +196,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
 - `2026-04-27 08:40` **Josué Real (Jira)** — [JIRA] (ITS-10857) OmniCenter: was-prod-109 SUB: PROBLEM Alert - was-prod-109 wxsprocesschk is CRITICAL
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Josué Real 1 made an update ______________________
+- `2026-04-27 13:43` **Tim McGlothin** — AI Trusted Ops POC proposal
+  > Hey Jason, I talked to David and Josh a bit about this, and David floated the executive summary by Sandy… it sounds like they have some interest in it. I’ve been thinking about how
 
 **✅ Resolved**
 - `2026-04-23 16:23` **Technical Operations Center** — ITS-10652 | Power outage at Store 1010 Adirondack, NY | ETA: 19:00
@@ -226,10 +222,6 @@
   > Bernie, I know it's been a while, but If you have the time, I would like to ask a favor on behalf of the Unix Server Team. If you can do this, I'll create an incident or something 
 
 **💬 Notable**
-- `2026-04-22 02:22` **Automation for Jira (Jira)** — [JIRA] (ITS-10446) Control-M: ans00144 ENDED NOTOK! - Production - Abend Code  99
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
-- `2026-04-22 02:24` **Automation for Jira (Jira)** — [JIRA] (ITS-10447) Control-M: ans00142 ENDED NOTOK! - Production - Abend Code  99
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-22 12:44` **Javier Cedeño (Jira)** — [JIRA] (ITS-10438) Control-M: ans00200 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-22 12:45` **Javier Cedeño (Jira)** — [JIRA] (ITS-10446) Control-M: ans00144 ENDED NOTOK! - Production - Abend Code  99
@@ -248,6 +240,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-27 02:26` **Automation for Jira (Jira)** — [JIRA] (ITS-10855) Control-M: ans00251 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
+- `2026-04-27 11:06` **Michael Mohr** — RSA-7058 Access Request by Daniel Fernández for CN=Unix-sec-pr-art01-sudo,OU=UnixGroups,OU=ISSecurity,DC=llbean,DC=com o
+  > You don't often get email from jira@llbean.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links or open atta
 
 ## Network (9 emails)
 
@@ -549,7 +543,7 @@
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
 
-## Patching (35 emails)
+## Patching (36 emails)
 
 **🔴 Incidents / Issues**
 - `2026-04-21 07:37` **Technical Operations Center** — FW: [ERROR] ans00095 Job #600153 'ESGUnix - Patch Creative-MB-DV-QA (Full/Reboot)'
@@ -638,6 +632,8 @@
   > Good morning, The production Ansible environment will be patched this morning at 10am. If you have any concerns with this change, feel free to reach out as soon as possible Regards
 - `2026-04-15 10:43` **Javier Cedeño** — RE: CHG-2693 Patch Ansible PROD Environment in April
   > Good morning, Patch completed, thank you for your time. Regards, Javier Cedeño R. | Systems Engineer L.L.Bean, Inc. Escazu Corporate Center, 9th Floor San José, Costa Rica 10201 Of
+- `2026-04-27 13:38` **ansible@llbean.com** — New VM Provisioned: sdc-eh-receiver-1
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
 
 **⚙️ AAP Job Activity**
 - `2026-04-15 09:30` **Javier Cedeño** — CHG-2693 Patch Ansible PROD Environment in April
@@ -648,6 +644,8 @@
   > Bernie, I know it's been a while, but If you have the time, I would like to ask a favor on behalf of the Unix Server Team. If you can do this, I'll create an incident or something 
 - `2026-04-23 13:44` **Berny Vargas** — RE: /boot Fixes on Oracle Servers
   > Hi Hank, Absolutely, I’ll take a look on the remaining Oracle servers DB and check on the /boot have enough space, also will work on a playbook to remove the oldest kernel and the 
+- `2026-04-27 13:38` **ansible@llbean.com** — New VM Provisioned: sdc-eh-receiver-1
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
 
 **💬 Notable**
 - `2026-03-30 16:05` **Aaron Smiley** — Lightweight East/West visibility VMs
