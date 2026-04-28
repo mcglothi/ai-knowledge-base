@@ -1,0 +1,9 @@
+candidates:
+  - id: cand_20260428_001
+    source_events:
+      - evt_20260428_131948_655346_d817da
+    target_file: AIKB
+    proposed_change: "[observation] Closeout captured for task 'session start'; repo=dirty:4; branch=master; cwd=AIKB; events=10; candidates=5; queue=0; approvals=0; session_age=22h; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    confidence: 0.70
+    class: needs-review
+    status: queued
