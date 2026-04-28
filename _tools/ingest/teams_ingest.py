@@ -34,7 +34,9 @@ SIGNAL_RULES = {
         r'\b(full|no space|disk|/boot|spool|journal)\b.{0,30}\b(full|0%|capacity)\b',
     ],
     'action': [
-        r"\b(I('ll| will)|going to|need to|should|plan(ning)? to|working on|will (check|look|fix|update|ask|send|create|add|build|implement|code))\b",
+        # Require infra/project context word within 80 chars to avoid casual chat
+        r"\b(I('ll| will)|going to|working on|will (check|look|fix|update|create|build|implement|deploy))\b.{0,80}\b(server|host|vm|playbook|ansible|script|cluster|node|service|ticket|patch|deploy|config|cert|dns|port|volume|disk|lun|job|alert|monitor|repo|pipeline)\b",
+        r"\b(need(s)? to|plan(ning)? to)\b.{0,80}\b(server|host|vm|playbook|ansible|script|cluster|node|service|ticket|patch|deploy|config|cert|dns|port|volume|disk|lun|job|alert)\b",
         r"\b(TODO|action item|follow.?up|assigned to|owner:)\b",
         r"\b(please|can you|could you)\b.{0,40}\b(check|look|fix|update|verify|confirm|send|create)\b",
     ],
@@ -273,12 +275,16 @@ def generate_report(messages, conv_names):
     lines.append("## Channel Volume (Top 20)\n")
     lines.append("| # | Channel | Msgs | Signal | Last Active |")
     lines.append("|---|---------|------|--------|-------------|")
-    for i, (cid, msgs) in enumerate(
-            sorted(convs.items(), key=lambda x: -len(x[1]))[:20], 1):
-        cname = conv_names.get(cid, cid[:40])
-        last = sorted(msgs, key=lambda x: x['ts_raw'])[-1]['ts'][:10]
+    row = 0
+    for cid, msgs in sorted(convs.items(), key=lambda x: -len(x[1])):
+        if row >= 20: break
         signal = len([m for m in msgs if 'info' not in m['cats']])
-        lines.append(f"| {i} | {cname} | {len(msgs)} | {signal} | {last} |")
+        if signal == 0: continue  # skip zero-signal channels
+        cname = conv_names.get(cid, '')
+        if not cname or cname.startswith('19:'): cname = '(Direct/Meeting)'
+        last = sorted(msgs, key=lambda x: x['ts_raw'])[-1]['ts'][:10]
+        row += 1
+        lines.append(f"| {row} | {cname} | {len(msgs)} | {signal} | {last} |")
     lines.append("")
 
     # ── Infrastructure channels ───────────────────────────────────────────────
@@ -298,7 +304,8 @@ def generate_report(messages, conv_names):
         for m in today_msgs:
             today_convs[m['conv_id']].append(m)
         for cid, msgs in sorted(today_convs.items(), key=lambda x: -len(x[1])):
-            cname = conv_names.get(cid, cid[:40])
+            cname = conv_names.get(cid, '')
+            if not cname or cname.startswith('19:'): cname = '(Direct/Meeting)'
             lines.append(f"### {cname} ({len(msgs)} msgs)")
             for m in sorted(msgs, key=lambda x: x['ts_raw']):
                 cats = ','.join(c for c in m['cats'] if c != 'info')

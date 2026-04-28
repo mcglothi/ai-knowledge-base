@@ -18,12 +18,35 @@ DAYS_BACK = 30
 
 NOISE_SUBJECTS = re.compile(
     r'(meeting invitation|accepted:|declined:|tentative:|calendar:|'
-    r'out of office|automatic reply|unsubscribe|newsletter|noreply)',
+    r'out of office|automatic reply|unsubscribe|newsletter|noreply|'
+    r'daily portland|weekly.*digest|your daily digest|workday inbox|'
+    r'sea dogs|mother.?s day|deals on|subscribe to more|hsa work|'
+    r'breaking news|breaking stories|discount programs|diy delight|'
+    r'meaningful gifts|learn how to|register now:|simplify the way|'
+    r'synchronization log)',
     re.IGNORECASE
 )
 
 NOISE_SENDERS = re.compile(
-    r'(noreply|no-reply|donotreply|notifications?@|alerts?@|mailer-daemon)',
+    r'(noreply|no-reply|donotreply|notifications?@|alerts?@|mailer-daemon|'
+    r'discount.programs|fidelity|myworkday\.com|beyondtrust|'
+    r'cyberheistnews|knowbe4|appviewx\.com|bmc\.com|'
+    r'daily.?portland|is.?news@)',
+    re.IGNORECASE
+)
+
+# External vendor/marketing domains — block regardless of subject
+NOISE_DOMAINS = re.compile(
+    r'@(fidelity\.com|myworkday\.com|rubrik\.com|appviewx\.com|'
+    r'path\.cisco\.com|knowbe4\.com|cyberheistnews\.com|bmc\.com|'
+    r'beyondtrust\.com)',
+    re.IGNORECASE
+)
+
+# Confluece/digest subjects — classify as info-only (not incident/change/aap)
+DOWNGRADE_TO_INFO = re.compile(
+    r'(daily digest.*confluence|confluence.*daily digest|'
+    r'updates from.*confluence)',
     re.IGNORECASE
 )
 
@@ -74,12 +97,20 @@ INFRA_GROUPS = {
 INFRA_RE = {k: re.compile(v, re.IGNORECASE) for k, v in INFRA_GROUPS.items()}
 
 
+CAT_PRIORITY = ['incident', 'resolved', 'change', 'aap_job', 'action', 'info']
+
 def classify(text):
     cats = []
     for cat, patterns in SIGNAL_RE.items():
         if any(p.search(text) for p in patterns):
             cats.append(cat)
     return cats or ['info']
+
+def primary_cat(cats):
+    for c in CAT_PRIORITY:
+        if c in cats:
+            return c
+    return 'info'
 
 
 def infra_group(subj, body):
@@ -121,22 +152,30 @@ def main():
     signal_emails = []
     for e in emails:
         subj = e.get('Subject', '')
-        sender = e.get('SenderEmailAddress', '') or e.get('SenderName', '')
+        sender_addr = e.get('SenderEmailAddress', '')
+        sender_name = e.get('SenderName', '') or sender_addr
         if NOISE_SUBJECTS.search(subj): continue
-        if NOISE_SENDERS.search(sender): continue
+        if NOISE_SENDERS.search(sender_addr or sender_name): continue
+        if NOISE_DOMAINS.search(sender_addr): continue
         body = clean_body(e.get('Body', ''))
-        cats = classify(subj + ' ' + body)
+        if DOWNGRADE_TO_INFO.search(subj):
+            cats = ['info']
+        else:
+            cats = classify(subj + ' ' + body)
         groups = infra_group(subj, body)
         signal_emails.append({
             'date': e.get('ReceivedTime', '')[:16],
-            'from': e.get('SenderName', sender)[:40],
+            'from': sender_name[:40],
             'subject': subj[:120],
             'body_snippet': body[:300],
             'cats': cats,
             'groups': groups,
         })
 
-    print(f"  {len(signal_emails)} signal emails after noise filter")
+    ratio = len(signal_emails) / len(emails) if emails else 0
+    print(f"  {len(signal_emails)} signal emails after noise filter ({ratio:.0%} pass-through)")
+    if ratio > 0.5:
+        print(f"  WARNING: pass-through rate {ratio:.0%} — noise filter may be too permissive")
 
     # Group by infra category
     by_group = defaultdict(list)
@@ -169,11 +208,10 @@ def main():
 
         lines.append(f"## {grp} ({len(emails)} emails)\n")
 
-        # Sub-group by category
+        # Sub-group by primary category only (prevents duplicate entries)
         buckets = defaultdict(list)
         for e in emails:
-            for cat in e['cats']:
-                buckets[cat].append(e)
+            buckets[primary_cat(e['cats'])].append(e)
 
         for cat in ['incident','resolved','action','change','aap_job','info']:
             items = buckets.get(cat, [])
