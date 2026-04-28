@@ -1,37 +1,37 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-28 12:11 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-28 16:06 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2325 signal messages extracted from Teams local cache
+**Stats:** 2513 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
 | # | Channel | Msgs | Signal | Last Active |
 |---|---------|------|--------|-------------|
-| 1 | AI Nerds | 305 | 53 | 2026-04-24 |
-| 2 | Claude initial setup | 261 | 55 | 2026-04-27 |
-| 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 52 | 2026-04-21 |
-| 4 | 19:meeting_ZjlmY2FiNmItNDI3NS00ZjdkLWI5Y | 144 | 34 | 2026-04-27 |
-| 5 | GitHub Copilot Devs | 142 | 32 | 2026-04-23 |
-| 6 | Unix Server and Storage Team | 129 | 49 | 2026-04-27 |
-| 7 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 128 | 17 | 2026-04-27 |
-| 8 | IS Connect Hub | 123 | 38 | 2026-04-24 |
-| 9 | 19:2f127f3c-3a92-4a63-b3be-c2e804519744_ | 110 | 20 | 2026-04-01 |
-| 10 | Unix Server | TOC Team Chat | 82 | 30 | 2026-04-27 |
-| 11 | 19:wQX_vY6BHOfrbtFwmG6l1PhcJO8-U3dSSfPiZ | 79 | 0 | 2026-04-23 |
-| 12 | Server Engineering Team - ALL | 65 | 19 | 2026-04-24 |
-| 13 | 19:d60d29c1-76da-4ec7-806f-dcfd57597d1a_ | 62 | 17 | 2026-04-27 |
-| 14 | 19:09ff900c-d264-4ee9-bf67-fbba9ac75f62_ | 59 | 16 | 2026-04-27 |
-| 15 | Change Management Weekly Meeting | 57 | 21 | 2026-04-23 |
-| 16 | 19:a0e6998c-45fa-4005-9859-716783d76fa0_ | 43 | 8 | 2026-04-17 |
-| 17 | 19:6fa035f3-c521-41be-b080-d1f32df74a83_ | 39 | 11 | 2026-04-23 |
-| 18 | 19:5d13cafe-0f97-4196-8858-d9451eb239de_ | 39 | 6 | 2026-04-22 |
-| 19 | 19:7aa2c1dd-7d68-47ed-b04e-6c45a257dcc0_ | 38 | 18 | 2026-04-22 |
-| 20 | 19:meeting_ZGQzM2JlYWMtZWQ3Ny00NDY0LWE4Y | 33 | 0 | 2026-04-22 |
+| 1 | AI Nerds | 305 | 24 | 2026-04-24 |
+| 2 | Claude initial setup | 277 | 28 | 2026-04-28 |
+| 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 47 | 2026-04-21 |
+| 4 | (Direct/Meeting) | 144 | 30 | 2026-04-27 |
+| 5 | GitHub Copilot Devs | 143 | 16 | 2026-04-28 |
+| 6 | Unix Server and Storage Team | 133 | 29 | 2026-04-28 |
+| 7 | (Direct/Meeting) | 128 | 3 | 2026-04-27 |
+| 8 | IS Connect Hub | 123 | 25 | 2026-04-24 |
+| 9 | (Direct/Meeting) | 110 | 4 | 2026-04-01 |
+| 10 | Claude POC Developer group | 104 | 14 | 2026-04-28 |
+| 11 | Unix Server | TOC Team Chat | 83 | 19 | 2026-04-28 |
+| 12 | Server Engineering Team - ALL | 65 | 13 | 2026-04-24 |
+| 13 | (Direct/Meeting) | 62 | 14 | 2026-04-27 |
+| 14 | (Direct/Meeting) | 58 | 7 | 2026-04-27 |
+| 15 | (Direct/Meeting) | 57 | 16 | 2026-04-23 |
+| 16 | Claude POC | 53 | 5 | 2026-04-28 |
+| 17 | (Direct/Meeting) | 43 | 3 | 2026-04-17 |
+| 18 | (Direct/Meeting) | 39 | 5 | 2026-04-23 |
+| 19 | (Direct/Meeting) | 39 | 5 | 2026-04-22 |
+| 20 | (Direct/Meeting) | 38 | 16 | 2026-04-22 |
 
 ## Infrastructure Channels
 
 ### AI Nerds
-**305 messages** · 2026-03-31 → 2026-04-24 · 53 signal msgs
+**305 messages** · 2026-03-31 → 2026-04-24 · 24 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-03-31 14:17` **Tim McGlothin:** have you looked into turboquant yet? �I have not gone down that rabbit hole yet
@@ -54,26 +54,7 @@
 - `2026-04-22 13:52` **Aaron Smiley:** Do you like the a4b variant? I feel like there's no way you haven't done head to head with full-fat... I've just been using full fat because... it seemed too good to be true and I was skeptical, I guess
 
 **📋 Action Items**
-- `2026-04-08 20:03` **Zachary MacDonald:** Just hard to tell my wife I need to spend 6k on a computer for ai
-- `2026-04-10 21:33` **Tim McGlothin:** Not crazy about the branding graphics.. Need to find a better tool for that if you guys got ideas
-- `2026-04-14 14:54` **Aaron Smiley:** I'll have to use that next time I accidentally detach my head
 - `2026-04-14 14:55` **Aaron Smiley:** Ok I'll have to study this dark murky art of maintaining branches for prolonged periods of time before I try to teach anything, but I'll put that on my todo list
-- `2026-04-14 14:56` **Aaron Smiley:** NIce resource, I'll def add it to the confluence page
-- `2026-04-15 14:05` **Aaron Smiley:** I'll have to look into that one 😂
-- `2026-04-15 18:01` **Jason Mills:** I need to take some time and understand the whole ecosystem better, I have just been running the AIKB part
-- `2026-04-16 15:56` **Jason Mills:** Tim McGlothin new mac shiney. new mac fast. still giving birth but I like it already I just sent my "new mac" to the IRS... I could still pull the trigger but I need to be more purposeful with the decision
-- `2026-04-16 16:42` **Tim McGlothin:** gotta build that multi-agent one though.. I'll get my personal one on it now
-- `2026-04-16 16:50` **Tim McGlothin:** hrm... good note... I'm about to set my personal claude loose on this .. i'll include that
-- `2026-04-16 16:55` **Jason Mills:** Dear Claude... if you are going to lie about your model version you should at least be consistent
-- `2026-04-16 17:18` **Jason Mills:** I am at 85% for the week, looks like I am going to have to give Claud a break tomorrow
-- `2026-04-16 17:50` **Tim McGlothin:** or tell claude - this is going to be a big project, instead of doing all the work, pass off the grunt work to subordinates... qwen for coding, gemini for documentation, etc...
-- `2026-04-16 17:50` **Jason Mills:** I am trying to have AI keep a Daily summary of what I am working on in Confluence and I have run out before doing that too many times. Other models seem to do ok at it, but not as good as the model doing it itself
-- `2026-04-16 17:52` **Tim McGlothin:** in flight now, should have an MVP in a bit on gh
-- `2026-04-16 17:59` **Tim McGlothin:** ❯ speaking of window, we're at 98% now resetting in 3 hours. lets wrap this up and pick it up later, I'll work with codex on the branding until then... see if we had this working we would have know to offload some of the…
-- `2026-04-16 19:59` **Aaron Smiley:** Tim � McGlothin �isn't it great when you're working on something that tells you what usage you have left and usage stops working?
-- `2026-04-20 20:06` **Tim McGlothin:** no throttling so far! �I'll have to push it and see�
-- `2026-04-21 17:56` **Tim McGlothin:** well, I was writing that 'runway' tool to track token usage across agents and was fighting with gemini about how to track its usage (which is way more complicated than codex and claude) and I found this... it's works rea…
-- `2026-04-22 13:53` **Tim McGlothin:** yeah I have the dense model in there too but kept running into a wall with it.. probably need to go back to that and re-download it ... seems everything is moving away from dense and to MoE
 
 **💡 Knowledge / Findings**
 - `2026-03-31 14:24` **Jason Mills:** My first attempt was to take the Codex instance and just port it over, but that ran into issues with memory and embedding (This is all 100% because I am trying to fail fast and will not RTFM).�
@@ -88,19 +69,19 @@
 - `2026-04-22 13:52` **Aaron Smiley:** Do you like the a4b variant? I feel like there's no way you haven't done head to head with full-fat... I've just been using full fat because... it seemed too good to be true and I was skeptical, I guess
 
 **💬 Notable Exchanges**
-- `2026-04-21 17:36` **Zachary MacDonald:** they think we are at a gpt 1�
-- `2026-04-21 17:37` **Zachary MacDonald:** Pretty solid listen�
 - `2026-04-21 17:38` **Aaron Smiley:** This is a new channel to me - thanks Zachary � MacDonald
+- `2026-04-21 17:56` **Tim McGlothin:** well, I was writing that 'runway' tool to track token usage across agents and was fighting with gemini about how to track its usage (which is way more complicated than codex and claude) and I found this... it's works rea…
 - `2026-04-22 13:34` **Aaron Smiley:** Anyone here using Hermes agent?
 - `2026-04-22 13:40` **Tim McGlothin:** I am.. I have it running on the Mac and on my gb10 box... playing around with web UIs last night
 - `2026-04-22 13:41` **Tim McGlothin:** got qwen 3.6 backing it, gonna side by side the other one with gemma4
 - `2026-04-22 13:46` **Aaron Smiley:** Nice. Yeah I've tried both, seems like I had more luck with Gemma4 in my limited experience with it... but it's been a great harness. I would probably use it instead of Claude Code if I could run it with my subscription.…
 - `2026-04-22 13:48` **Tim McGlothin:** gemma4 and qwen are both MoE, qwens got 3B active and Gemma 4B at a time.. I'm running Qwen at 35B A3b Q8, and Gemma 26B A4B Q8... eats about half the mem on both 128G boxes so plenty of headroom for context
+- `2026-04-22 13:53` **Tim McGlothin:** yeah I have the dense model in there too but kept running into a wall with it.. probably need to go back to that and re-download it ... seems everything is moving away from dense and to MoE
 - `2026-04-22 13:54` **Tim McGlothin:** qwen doesn't even make a dense model anymore
 - `2026-04-24 19:15` **Tim McGlothin:** https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/
 
 ### Claude initial setup
-**261 messages** · 2026-04-10 → 2026-04-27 · 55 signal msgs
+**277 messages** · 2026-04-10 → 2026-04-28 · 28 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-13 17:30` **Tim McGlothin:** But they have locked it down so much. Can't even use it with opencode
@@ -129,28 +110,6 @@
 - `2026-04-24 19:01` **Josh Andrews:** The shell sandbox still isn't coming back up — I've retried a bunch of times and it's consistently returning "Workspace unavailable." Without it, I don't have a way to programmatically extract the slide contents from the…
 - `2026-04-24 19:03` **Andrew Skvorak:** Josh Andrews The shell sandbox still isn't coming back up — I've retried a bunch of times and it's consistently returning "Workspace unavailable." Without it, I don't have a way to programmatically extract the sl… Can yo…
 
-**📋 Action Items**
-- `2026-04-15 13:22` **Tim McGlothin:** once I settle on the local LLMs and gain more trust in them I'll switch it from gemini to opencode calling the right model
-- `2026-04-15 19:50` **Ben Hoisington:** SSO has been configured. If you go to claude.ai and put in your email address you should now get the option to sign in with SSO.
-- `2026-04-17 10:15` **Andrew Skvorak:** New users that we add to the LLB plan and instruct to use SSO should only see the Team plan I should think
-- `2026-04-20 17:05` **Andrew Skvorak:** Ok. I want to know if there's any guidance we need to provide to new users for connecting to GH.�
-- `2026-04-21 16:34` **Tim McGlothin:** I'll set mine up too
-- `2026-04-21 16:35` **Andrew Skvorak:** Along these lines - I'm looking to add more folks this week - anything else that we should setup beforehand?
-- `2026-04-21 16:36` **Ben Hoisington:** Andrew Skvorak Along these lines - I'm looking to add more folks this week - anything else that we should setup beforehand? I would like to force SSO for all users. I don't have a census of who would be affected though.
-- `2026-04-21 16:38` **Ben Hoisington:** Josh , you should be able to use cowork/M365 connector now.
-- `2026-04-21 16:53` **Tim McGlothin:** Enterprises manage Model Context Protocol (MCP) connections by moving away from ad-hoc, local, developer-driven setups toward centralized, governed MCP gateways and managed platforms . This evolution is driven by the nee…
-- `2026-04-21 20:17` **Josh Andrews:** I should probably take that conversation back about M365 thick client though�
-- `2026-04-22 17:27` **Andrew Skvorak:** Agreed that we don't want everyone to be able to tap into the extra usage. My recollection is that once we've purchased some (which I'm planning to do) we can allocate it appropriately. Again, correct me if I'm wrong.
-- `2026-04-22 17:41` **Ben Hoisington:** I have gone through an curated that list. Feel free to take a look and see if you agree/disagree.� � Right now "Web Search" is disabled. That's a feature that's currently enable for our MS Copilot apps, debating whether …
-- `2026-04-22 18:19` **Andrew Skvorak:** Bottom line, Web Search should now be enabled - you do have to click the + box in your prompt window and add it to your session when you want to use it, fyi
-- `2026-04-22 18:55` **Josh Andrews:** Do you have a number? We would want to give Caro a heads up if we are going to send a bunch of people that way for this purpose
-- `2026-04-24 19:11` **Josh Andrews:** Says I can manually provide the content, but kinda defeats what I am trying to do. I will take a peak in the Zscaler logs too. Andrew � Skvorak �are there guidelines for using your claude LLBean account on personal devic…
-- `2026-04-24 19:14` **Tim McGlothin:** Not sure if they're going to target team plans or not..they really want everyone paying api pricing
-- `2026-04-24 19:14` **Andrew Skvorak:** Josh Andrews Says I can manually provide the content, but kinda defeats what I am trying to do. I will take a peak in the Zscaler logs too. Andrew Skvorak are there guidelines for using your claude LLBean account… No. Gi…
-- `2026-04-24 20:03` **Andrew Skvorak:** Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
-- `2026-04-24 20:07` **Ben Hoisington:** I'll reach out to get it added to the instructions.
-- `2026-04-27 18:34` **Ben Hoisington:** Ok, I've added plugins for Word, Excel and Powerpoint, scoped to members of the Claude AD groups. Users should start seeing them shortly if they don't already.
-
 **🏛 Decisions**
 - `2026-04-21 16:53` **Tim McGlothin:** Enterprises manage Model Context Protocol (MCP) connections by moving away from ad-hoc, local, developer-driven setups toward centralized, governed MCP gateways and managed platforms . This evolution is driven by the nee…
 - `2026-04-22 17:27` **Andrew Skvorak:** Agreed that we don't want everyone to be able to tap into the extra usage. My recollection is that once we've purchased some (which I'm planning to do) we can allocate it appropriately. Again, correct me if I'm wrong.
@@ -163,21 +122,22 @@
 - `2026-04-24 19:16` **Andrew Skvorak:** IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows????�
 - `2026-04-24 19:18` **Josh Andrews:** Andrew Skvorak IIRC, when I asked Claude about the sandbox problem, it told me the sandbox was on their hardware, not mine. So the problem was theirs and switching devices wouldn't help. But who knows???? Yea but I wonde…
 - `2026-04-24 20:03` **Andrew Skvorak:** Cool. Is that a step that we should add to the instructions for folks or do you want to wait to test it out a bit longer?
+- `2026-04-28 15:12` **Andrew Skvorak:** Update: Since the BigQuery connector is desired to connect to EDP, I chatted with Srini about it and he is working on a POV around it. Quick research in Claude suggests that it uses the users' credentials and perms in GC…
 
 **💬 Notable Exchanges**
-- `2026-04-24 19:18` **Tim McGlothin:** It's a soft test right now, seeing it start to hit social media circles
-- `2026-04-24 19:19` **Andrew Skvorak:** Always worth a try to find out
-- `2026-04-27 17:29` **Ben Hoisington:** Looking into it. It looks like it's an LLBean M365 configuration that's blocking users from adding plugins on their own.
-- `2026-04-27 17:31` **Andrew Skvorak:** Any reason to not enable adding plugins? And if we feel it is ok, who here typically would/could make a change like that?
-- `2026-04-27 17:32` **Ben Hoisington:** We typically want to be able to control what users are installing, and actively block Windows/Office Store access.
-- `2026-04-27 17:33` **Ben Hoisington:** Looking into whether we can make it available without giving users the ability to install whatever they want.
-- `2026-04-27 17:53` **Ben Hoisington:** Looks like I can install it in the integrate apps catalogue.
-- `2026-04-27 18:34` **Andrew Skvorak:** Awesome! Thank you Ben!
-- `2026-04-27 18:35` **Ben Hoisington:** You're welcome!
-- `2026-04-27 18:42` **Andrew Skvorak:** That worked! Awesome. Thank you, Ben!
+- `2026-04-28 13:04` **Ben Hoisington:** I noticed this morning by adding the Anthropic apps for Excel and powerpoint, it disables access to Copilot for those specific apps. At lease while I'm in Powerpoint/Excel.�
+- `2026-04-28 13:05` **Ben Hoisington:** Something to be aware of.
+- `2026-04-28 13:07` **Ben Hoisington:** Andrew Skvorak I want more info on Orion from whomever requested it - think I'm going to have to put a question in the group chats. Should we develop a process/risk assessment for how connectors are vetted? I don't want …
+- `2026-04-28 13:10` **Ben Hoisington:** In order to add the BigQuery connector we'll need credentials. This gets into how we may want to manage identities, who has access to them and is responsible for managing connectors.
+- `2026-04-28 14:38` **Andrew Skvorak:** Sorry was in a meeting. Some thoughts/info/responses: I learned from one of the group chat who asked for Orion and it is not something they really need, they just thought it looked cool. I removed it from the requests li…
+- `2026-04-28 15:06` **Ben Hoisington:** Feel free to add me to the business users chat. It would be good to hear what challenges they are facing, and help inform some of the Copilot work I'm doing as well.
+- `2026-04-28 15:08` **Andrew Skvorak:** You guys promise to behave?�
+- `2026-04-28 15:10` **Andrew Skvorak:** There are a couple of IS folks in that chat too, FYI - project managers and such.�
+- `2026-04-28 15:14` **Ben Hoisington:** Noticing a bunch of questions in the business chat around account setup. Do you know if they're getting the prompt to provide cell phone stuff during setup when using the SSO option?�
+- `2026-04-28 15:15` **Andrew Skvorak:** Yes, they are. There have been some issues with a few people, but as far as I know, everyone who has tried has been able to figure it out. So I don't think anyone is actively blocked.
 
 ### Nutanix Bi-Annual Cluster Upgrades
-**148 messages** · 2026-03-30 → 2026-04-21 · 52 signal msgs
+**148 messages** · 2026-03-30 → 2026-04-21 · 47 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-03-31 03:26` **Javier Cede�o:** Final Update: Nutanix Support identified the root cause. We processed each node individually to isolate the issue, and I’m now monitoring the final firmware upgrade. During the upgrade process, the bond configuration tem…
@@ -220,26 +180,16 @@
 - `2026-04-10 15:51` **Nicholas Hopson:** So long story short the updates are complete, I still need to do the networking vNIC component but am holding off now with the payment issues going on I don't want to cause anything to point to this cluster...
 
 **📋 Action Items**
-- `2026-03-31 14:07` **Javier Cede�o:** Thank you Steve, interesting this one failed too. We make the NIC change on the 3 nodes and ran the LCM upgrade on 1 without any issues. � I will call Nutanix in a few minutes, I see they haven't replied to your email.
-- `2026-03-31 14:20` **Steven Foxe:** Hi Henry. �Yes, you should be all set to proceed.
+- `2026-03-30 12:34` **Steven Foxe:** Welcome to the Nutanix Bi-Annual Cluster Upgrades chat. � Let's use this space solely for Nutanix Upgrade related items such as: Communicating & coordinating the upgrade schedule amongst our team. Discuss upgrade problem…
 - `2026-03-31 20:53` **Javier Cede�o:** for the second one we need to run the NIC upgrade 1 host at a time and run the following commands as soon as the host enter phoenix mode (need to monitor the ipmi console) � ethtool -k eth# | grep vlan � We then turned t…
 - `2026-03-31 20:57` **Javier Cede�o:** if your upgrade fails and need to recover the host and CVM start at step 6 (thanks� Brooke � Curtin-Johnson ) � https://portal.nutanix.com/page/documents/kbs/details?targetId=kA00e000000CyF8CAK
 - `2026-03-31 21:06` **Javier Cede�o:** but if we do the ethtool commands while upgrade we don't need to recover the host
 - `2026-03-31 21:48` **Brooke Curtin-Johnson:** reminder for tomorrow: We need to re-visit firmware on the single-node clusters as it's not supported via LCM, thanks for the reminder Javier � Cede�o
-- `2026-04-01 12:35` **Brooke Curtin-Johnson:** ntx-dc2-ahv02 - Firmware updates not available in LCM - need some recommendations. �Not an issue per se but also learned that the physically disconnected NICs being up in Nutanix can cause issues so need to turn those do…
 - `2026-04-01 18:22` **Hank Uhl:** fyi, i have a new witness VM stood up for the 2-node cluster at the OFC... had bagner check the FW rules... going to re-configure the cluster at 4pm today after OFC operations end, just in case there is unexpected behavi…
 - `2026-04-01 20:42` **Hank Uhl:** the cluster wont attach to the witness... i deployed a 7.5 version and wonder if that is not compatible with 7.3... downloading the 7.3 OVA again since i dont seem to have it. �i will try deploying another on 7.3 so it m…
-- `2026-04-02 13:23` **Steven Foxe:** I believe Hank is working out the witness issue. �Let's leave them until his work is done and it should auto clear. �That sound right Hank?
 - `2026-04-07 18:35` **Steven Foxe:** Nutanix has made a some new versions of software available via 1-click upgrades. �For the upcoming cluster upgrades, please verify that you are choosing the correct software versions to install. �Target software versions…
-- `2026-04-08 17:03` **Brooke Curtin-Johnson:** Since the assignment groups are now added to the hosts in JSM - we are going to start getting alerts for the hosts. �Probably a good idea to have TOC put in MW in OC when we do upgrades�
-- `2026-04-09 14:37` **Hank Uhl:** upgrade of cluster NTX-DC3-AHV01 has commenced... i have removed the unused NICs from the virtual switch... i'll let you know how it goes
-- `2026-04-10 12:09` **Steven Foxe:** Morning Dave. �I've considered adding some fields to the spreadsheet, but haven't yet to keep the size of it down. �I also had a suggestion to pull everyone together to get feedback on this process. �I'll set that up and…
-- `2026-04-10 12:12` **David Bernier:** and I agree - we dont need to fill it with a bunch of stuff either - so we could put that somewhere else - historical knowledge etc....
-- `2026-04-10 12:32` **Hank Uhl:** for sure... easy enough to work around this time of year, but will be a bit tougher in the fall... prob going to be a weekend thing in the fall for sure... i think they are usually down from something like 1am Saturday u…
 - `2026-04-10 12:37` **Hank Uhl:** im going to ask the Nutanix rep to take one last look at the cluster, and if Temoc says things look good, have him close the case
 - `2026-04-10 15:44` **Steven Foxe:** Nicholas � Hopson �- When you have a minute, can you post a quick update on the status of the ntx-dc1-ahv03 upgrade? �Are you all set with support or need a hand with anything?
-- `2026-04-10 15:51` **Nicholas Hopson:** So long story short the updates are complete, I still need to do the networking vNIC component but am holding off now with the payment issues going on I don't want to cause anything to point to this cluster...
-- `2026-04-10 18:59` **Nicholas Hopson:** Update on the "Inconsistent Virtual Switch State Detected" error, the solution is the edit the vSwitch which will cause the rolling hypervisor restart so I'm going to make the changes for the uplinks since I already have…
 
 **💡 Knowledge / Findings**
 - `2026-03-30 14:12` **Hank Uhl:** i have already given them remote support access.... there is a problem with the witness... not sure what Nutanix will say, but i have also talked to bagner because i may need new firewall rules, and there is an update to…
@@ -264,7 +214,7 @@
 - `2026-04-21 16:50` **Brooke Curtin-Johnson:** Here is some documentation on single node cluster firmware updates- I still have a few questions out to David S. on process.
 
 ### GitHub Copilot Devs
-**142 messages** · 2026-03-31 → 2026-04-23 · 32 signal msgs
+**143 messages** · 2026-03-31 → 2026-04-28 · 16 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-01 16:50` **Andrew Skvorak:** Chase Allen Yeah CLI won't authenticate currently 🙂 Yup, according to the docs, you'll get that error if it's not enabled.
@@ -283,23 +233,7 @@
 - `2026-04-20 14:55` **Jim Greene:** Tim � McGlothin , if you cared to present over, say, a lunch hour on what you've done and have set up, I bet you'd have many takers/attendees. �I'm on the low side of the AI/ML learning curve; any boosts from those who'v…
 
 **📋 Action Items**
-- `2026-03-31 14:44` **Jim Greene:** Do we have either in this chat or somewhere in Confluence which of the AI-directing tools should be used, and when and where? �
-- `2026-03-31 15:03` **Leandro Soler:** Kristopher Kleva Does anyone else see some potential value in adding more CoPilot checks in CI/CD builds. Kind of like a prompt driven PMD test. I do this today manually. Basically a prompt that says "Does this API I don…
-- `2026-03-31 15:06` **Kristopher Kleva:** Leandro Soler I don't agree with this ... concrete things like "Standards" should be coded using the right tool for it instead of given the responsibility to an Agent based on a prompt Finding “the right tool” has been e…
-- `2026-03-31 19:52` **Jim Greene:** Francisco Quarato I see that the ecom team has a repository where they list their skills: https://github.com/CTAgile/ecom-agent-skills At the moment, I have created a skill specific to the data-sync team, and I want… thi…
-- `2026-04-01 15:58` **Daniel Alvino:** Hi all. Is there licensing needed for Github copilot in VSCode? I vaguely remember a discussion around that but it was a while ago so I am not sure. I am working with a teammate that is getting errors (see below) trying …
-- `2026-04-01 17:25` **Ben Hoisington:** Chase Allen I tried to get WSL on my LLB device to work for a month before I pulled all of my hair out. Zscaler will be the death of me might need to add the Zscaler certs to your local ca-certificates store, if you have…
-- `2026-04-01 17:26` **Chase Allen:** Ben Hoisington might need to add the Zscaler certs to your local ca-certificates store, if you haven't already. SSL inspection wreaks havoc on some traffic. I did this, but every day I get the "this user doesn't have acc…
-- `2026-04-01 17:30` **Tim McGlothin:** I'll add that to the notes! thanks!
-- `2026-04-07 17:18` **Paul Faulstich:** Here's a fun one: https://unit42.paloaltonetworks.com/double-agents-vertex-ai/ � The TL;DR is Palo Alto discovered that Google's out of the box permissioning of Vertex AI agents was far too permissive and demonstrated ho…
 - `2026-04-08 17:25` **Jim Greene:** a snapshot of AI usage: Copilot -- Claude -- is really good at quick, dashed-off scripts to perform specific functions. �I'm working on a bulk update script to retrieve 10M+ records/objects (custom objects) from commerce…
-- `2026-04-08 17:32` **Joshua Jackson:** I need to ask for more memory for my next macbook. This one has 16Gb and I can easily start thrashing if I open a couple large files. My home computer, by comparison, has 192Gb.
-- `2026-04-16 18:24` **Tim McGlothin:** this is pretty handy: https://github.com/SlavomirDurej/claude-usage-widget I'm working on a similar one that works across agents (claude, codex, gemini..)
-- `2026-04-17 15:06` **Jim Greene Jr:** I would be happy at this point if it could remember that running npm run dev followed by a curl, kills the npm dev.. you need to background it or use another term.. It says oh yes, and then forgets 30 seconds later.. �Ev…
-- `2026-04-17 15:14` **Tim McGlothin:** still polishing the plugins and onboarding is still messier than I want... going to try and wrap it up in a pip or brew install... haven't circulated it en mass yet but if anybody is interested paste this into a chatbot …
-- `2026-04-17 16:24` **Andrew Skvorak:** Francisco Quarato Are we permitted to use this tool: https://opencode.ai ? I don't know a ton about OpenCode, but the way I understand it is that it is free and open source and you bring your own model. If you want to ut…
-- `2026-04-20 14:27` **Tim McGlothin:** In regards to the new Qwen 3.6 31B MoE model - it's impressive. �I have a local Hermes agent backed by it running on my personal laptop and it works surprisingly well. �Running some side by side tests against Gemma4 26B …
-- `2026-04-20 14:57` **Tim McGlothin:** absolutely! I've been building a small ecosystem around my home usage. I'll try to put my crazy thoughts into a legible presentation and set something up
 
 **💡 Knowledge / Findings**
 - `2026-03-31 14:53` **Kristopher Kleva:** Aaron Scifres hey folks... what is our practice for sharing skills with others on our teams or on other teams? for example, maybe a repo where we can all contribute skills and clone it for local use? I personally LOVE th…
@@ -308,7 +242,6 @@
 - `2026-04-20 14:55` **Jim Greene:** from a recent article comparing that Qwen model to others: "Anthropic’s deal is simple: hand us the hard work, skip the model operations, and pay by use. Gemma 4 and Qwen3.6 offer another deal: download the weights, choo…
 
 **💬 Notable Exchanges**
-- `2026-04-21 13:51` **Chase Allen:** Apparently Github Copilot has memory built in if you ask it to remember your conversation...� � Stores a .md here:
 - `2026-04-21 17:58` **Tim McGlothin:** I've been testing this out for token tracking across platforms... this is nice: https://github.com/onllm-dev/onwatch / https://github.com/onllm-dev/onwatch ... I was creating my own but this one ticks almost all the boxe…
 - `2026-04-22 18:07` **Jim Greene:** I've been working with Claude on a number of updates to dozens of repos for GCP functions. �In his response in the screenshot below, (1) is good to know or keep in mind as we write prompts and iterate to solution, (3) is…
 - `2026-04-22 19:09` **Mike Stavros:** "It's not you, it's me"
@@ -318,9 +251,10 @@
 - `2026-04-23 14:35` **Aaron Scifres:** looks like something just started
 - `2026-04-23 14:35` **Tim McGlothin:** looks like they started playing around with Mythos at Microsoft
 - `2026-04-23 14:55` **Carlos Alvarado:** seems to be back now
+- `2026-04-28 13:53` **Mario Rodr�guez:** https://github.blog/news-insights/company-news/an-update-on-github-availability/
 
 ### Unix Server and Storage Team
-**129 messages** · 2026-03-30 → 2026-04-27 · 49 signal msgs
+**133 messages** · 2026-03-30 → 2026-04-28 · 29 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-01 15:15` **Javier Cede�o:** Hi team, got a quick question. � ecwcmq01 and ecwcmp01 are recently having issues with disk space on root, the problem is log rotate not working fine for splunk (Mark is working on that) � But /opt is not on its own file…
@@ -339,6 +273,7 @@
 - `2026-04-24 16:06` **Steven Foxe:** Ok. Weird that it doesn't look any different to me, still not pingable, but maybe that's not an issue. If Casey is happy, I'm happy . Thanks Tim.
 - `2026-04-24 16:31` **Steven Foxe:** pinging from rh8test02 and from san-mgmt-hswp01. �Although it wasn't a failed ping so much as this:
 - `2026-04-24 16:31` **Steven Foxe:** I say let's not worry about it until someone says it's a problem.
+- `2026-04-28 14:58` **Tim McGlothin:** if you dont crash the car every now and then you're not really racing
 
 **✅ Resolved / Complete**
 - `2026-04-07 17:04` **Hank Uhl:** when his name came up in the guest star credit... i was like, SHOOTER!
@@ -348,26 +283,11 @@
 - `2026-04-23 14:00` **Tim McGlothin:** theyre resolved... boot full
 
 **📋 Action Items**
-- `2026-04-09 17:01` **Javier Cede�o:** Hank Uhl I'd like to hold off for a little bit.. couple weeks or so... i just pushed the cis v3 playbook to them and going to start a slow rollout soon to non-prod... then they can go Sure we can talk about it later, goi…
-- `2026-04-09 18:05` **Hank Uhl:** Javier � Cede�o �can you please approve/merge PR429? �im heading down to the gym, so i'll check back in a little bit
+- `2026-04-01 15:40` **Javier Cede�o:** going to start with the satellite patch
+- `2026-04-07 15:02` **Steven Foxe:** Tim McGlothin They're appliances, Ron L can help ya with em Ok cool, I'll follow up with him. �Thanks!
 - `2026-04-16 17:35` **Steven Foxe:** and maybe the follow-up call with them will be more like the other vendors call.
 - `2026-04-16 17:43` **Hank Uhl:** yea... i agree. �i'll talk to matt about secret server, because if we can do what we want already and jsut didn't know it, as goofy as it might sound, but i think thats best case, since we dont have to ask for any money
-- `2026-04-16 17:45` **Tim McGlothin:** somebody should send him a side note 'by the way, we're LL Bean, not Land End"
-- `2026-04-16 17:46` **Hank Uhl:** next time we schedule a meeting with them, i'll call them BeyondTrust
-- `2026-04-17 18:02` **Tim McGlothin:** should have been... we swapped it out�
-- `2026-04-17 18:09` **Hank Uhl:** i didn't remove the Centrify-ssh pcakge because it was going to take a bunch of perl with it
-- `2026-04-17 18:11` **Tim McGlothin:** hrm.. now im curious .. will check in a sec
 - `2026-04-17 18:20` **Tim McGlothin:** this was the other finding it mentioned about the config mgmt. script... need to see if it was right about that: Issue: Critical AND-Logic Bug in org/esgunix/tasks/sshd.yml Summary The Ansible task responsible for enabli…
-- `2026-04-17 18:24` **Hank Uhl:** looks like that should be OR logic, not AND, haha
-- `2026-04-17 18:37` **Hank Uhl:** i need to hop off
-- `2026-04-22 14:57` **Hank Uhl:** i'll let dave know
-- `2026-04-22 16:38` **Hank Uhl:** fyi, im going to cancel tomorrow's meeting... steve and Javier are out
-- `2026-04-23 14:00` **Hank Uhl:** im going to ask Berny to look at /boot on the rest of the Oracle servers
-- `2026-04-23 14:01` **Tim McGlothin:** yeah, I'm going to take a fresh look and see if there is a work around that would allow us to extend it boot
-- `2026-04-23 14:01` **Hank Uhl:** we should code an Ansible playbook that runs the 1st of every month to remove the old kernel and associated files from /boot... we've been kicking this can down the road too long
-- `2026-04-24 14:07` **Tim McGlothin:** Part of the avaya stack.. I'll see what I can find out
-- `2026-04-24 16:01` **Tim McGlothin:** yeah, casey says it should be online.. its showing up in OC now
-- `2026-04-24 16:14` **Tim McGlothin:** I'll verify on vcenter... hah haven't been on there in months�
 
 **🏛 Decisions**
 - `2026-04-07 15:00` **Steven Foxe:** Hi. �I'm going with the assumption that the "ibx-pr-*" servers are new Infoblox servers. �I can't ssh into any of them (most don't even give me a login prompt) and I can't open a Nutanix console on any of them. �Does any…
@@ -379,21 +299,62 @@
 - `2026-04-17 18:09` **Hank Uhl:** i didn't remove the Centrify-ssh pcakge because it was going to take a bunch of perl with it
 - `2026-04-17 18:20` **Tim McGlothin:** this was the other finding it mentioned about the config mgmt. script... need to see if it was right about that: Issue: Critical AND-Logic Bug in org/esgunix/tasks/sshd.yml Summary The Ansible task responsible for enabli…
 - `2026-04-22 15:07` **Tim McGlothin:** from Eric: Oracle gave us commands to start ASM one command at a time� � We usually use crsctl start has� � To fix the problem we ran� � [root]# /oracle/app/19.0.0/grid/bin/afdload start [root]# /oracle/app/19.0.0/grid/b…
+- `2026-04-28 14:55` **Hank Uhl:** Just so you can say you've seen this... broke SSHd on one of the DS servers because my CIS script added global directives when there was an open Match at the end of the sshd_config file...
 
 **💬 Notable Exchanges**
-- `2026-04-23 13:59` **Hank Uhl:** i see both were /boot again
-- `2026-04-24 14:07` **Steven Foxe:** Morning Tim. �Are you familiar with server pbx-aads01-v10? �Nick did some storage vmotion work for me and reported that it is not pingable (which it isn't). �He wasn't sure if it was pingable before the vmotion work thou…
-- `2026-04-24 14:08` **Steven Foxe:** Yep. �Ok thank you!
+- `2026-04-24 16:14` **Tim McGlothin:** I'll verify on vcenter... hah haven't been on there in months�
 - `2026-04-24 16:29` **Tim McGlothin:** shows online and good ... pinging from another rserver or your desktop? Zscaler blocks ping
 - `2026-04-24 16:29` **Tim McGlothin:** its probably on a funky network also... being part of the telcom stack
 - `2026-04-24 16:32` **Tim McGlothin:** trying to ping it from GZ
 - `2026-04-24 16:32` **Tim McGlothin:** makes firewall grumpy
 - `2026-04-27 16:17` **Hank Uhl:** can one of you guys please approve/merge PR430?
 - `2026-04-27 16:35` **Tim McGlothin:** im not seeing one for 430? last one that shows for me was 429
-- `2026-04-27 21:50` **Javier Cede�o:** Hi guys, looks like the new builds don't have the PasswordAuthentication enabled. Tim � McGlothin �when you have a minute can you show me how to modify the disk image? So I can add that
+- `2026-04-27 21:50` **Javier Cede�o:** Hi guys, looks like the new builds don't have the PasswordAuthentication enabled.� � Tim � McGlothin �when you have a minute can you show me how to modify the disk image? So I can add that
+- `2026-04-28 11:32` **Tim McGlothin:** We can do that today.. Also, I want to try a fix I may have for ssh keys that should allow MFA
+- `2026-04-28 14:55` **Hank Uhl:** there is no way to "close" it.. you have to return to global directive with another "Match all" line
+
+### Claude POC Developer group
+**104 messages** · 2026-04-24 → 2026-04-28 · 14 signal msgs
+
+**🔴 Incidents / Issues**
+- `2026-04-24 13:56` **Mohamed Ali:** I'm on a mac, and just accepted the invite, and installed the app.� � Mine looks to have worked. Had an error with a prompt, but it worked afterwards.� �
+- `2026-04-24 15:01` **Mohamed Ali:** Carl Hinsman There is no input to prompt, "New Conversation" results in same black screen. 📷 Mohamed, what did you do to invoke a prompt in the desktop app? Carl Hinsman For me it was just through gui, I did not see the …
+- `2026-04-24 15:55` **Carl Hinsman:** Mohamed Ali Carl Hinsman For me it was just through gui, I did not see the black screen that you have. I'm curious if you invoke through claude code cli, if you have the same issue? A reinstall of the deskt… i do not hav…
+- `2026-04-24 16:18` **Mohamed Ali:** Carl Hinsman i do not have the issue with CC cli. i have tried several different approaches now, I was unable to do a clean reinstall because I was blocked from removing the existing install, and tried to force… When app…
+- `2026-04-24 17:04` **Chase Allen:** I've heard that the copilot version of claude models are watered down but cant confirm
+- `2026-04-24 17:41` **Matthew Ruby:** The model is the brain. The tooling/harness around it is what turns that brain into useful action. Same model in Copilot vs Claude Code isn't apples to apples — the harness differs a lot. Claude Code's agentic loop (plan…
+- `2026-04-27 14:39` **Jim Greene:** 2026-04-27 10:35:11 [warn] Blocked redirect to disallowed URL { href: ' https://gateway.zscalertwo.net/_sm_ccik?_sm_rid=RrjQDMHHTcT2q3SR7Q5W5FNRZ0FrbSnM13Wr2W6FrbSnM13Wr2W… } 2026-04-27 10:35:11 [warn] [growthbook] API r…
+- `2026-04-27 16:32` **Chase Allen:** I found this to be handy as well https://dev.to/colocodes/claude-code-crash-course-m3o
+- `2026-04-28 15:05` **Jim Greene:** We have (950+) repositories in Github (GH).�� � Variants of this command are useful for digging in:�� � # show me, with JSON output, all CTAgile repos whose name starts with "leep-", ends with "-serverless", and is not a…
+
+**✅ Resolved / Complete**
+- `2026-04-24 12:53` **Andrew Skvorak:** As I said in my latest email, I messed up and forgot to get the proper AD group populated with your ID's so you should hit a roadblock when you try to login with SSO. I am working to get that resolved now.�
+- `2026-04-24 18:52` **Mohamed Ali:** I'm noticing with Opus 4.7 it eats through the usage limit much faster than Opus 4.6, a couple prompts and it was done. �I don't know how useful the adaptive thinking toggle will be, but so far so good.�
+
+**📋 Action Items**
+- `2026-04-27 20:52` **Andrew Skvorak:** Welcome to the new folks I just added - please take a look through the chat history as people are already sharing learnings and other fun stuff. Welcome!
+
+**💡 Knowledge / Findings**
+- `2026-04-24 14:35` **Michael Hern�ndez:** and it turns out Claude thinks that is not cool
+- `2026-04-24 15:55` **Carl Hinsman:** Mohamed Ali Carl Hinsman For me it was just through gui, I did not see the black screen that you have. I'm curious if you invoke through claude code cli, if you have the same issue? A reinstall of the deskt… i do not hav…
+- `2026-04-24 16:18` **Mohamed Ali:** Carl Hinsman i do not have the issue with CC cli. i have tried several different approaches now, I was unable to do a clean reinstall because I was blocked from removing the existing install, and tried to force… When app…
+- `2026-04-27 14:11` **Jim Greene:** After burning through my allocation with Opus 4.6 in March, I tried Sonnet 4.6 (actually, Auto in VSC, which selected Sonnet for me at a 0.1 discount) and found that it's pretty much (it feels ) just as capable, at least…
+- `2026-04-28 15:05` **Jim Greene:** We have (950+) repositories in Github (GH).�� � Variants of this command are useful for digging in:�� � # show me, with JSON output, all CTAgile repos whose name starts with "leep-", ends with "-serverless", and is not a…
+
+**💬 Notable Exchanges**
+- `2026-04-28 15:06` **Jim Greene:** Aaron Scifres there was a story on NPR this morning where they were talking about corporate AI use and they described the workplace profile of the "token maxers" and i thought, "i know a few of those" 🙂 Let he who has ne…
+- `2026-04-28 15:18` **Jim Greene:** And an answer to that question about sharing workspaces/collections of repos might be "look, Verde, we already do that, with the so-and-so mechanism. �So shut your yapper." �And I might. �In case it's a novel thought, th…
+- `2026-04-28 15:27` **Chase Allen:** This is great, Jim.� � I've heard of other orgs using a shared repo for skills, agents, mcp configs, etc. that would act as the "parent" i would assume.�
+- `2026-04-28 15:28` **Chase Allen:** Although updating said repo and then updating the skills inside of Claude Desktop requires some copying and pasting from what I've heard - a bit clunky�
+- `2026-04-28 15:40` **Tim McGlothin:** I have a homelab MCP registry I spun up at home - wraps other MCPs into a single SSE transport so I can turn them on and off at a single location for all agents ... I dont have it public yet but there are a few similar o…
+- `2026-04-28 15:49` **Aaron Scifres:** claude just told me he doesn't have a way to connect to a SQL server database
+- `2026-04-28 15:50` **Aaron Scifres:** he suggested exporting the data to a file and dropping it in for analysis
+- `2026-04-28 15:59` **Tim McGlothin:** That's just anthropic scheming to burn m your tokens
+- `2026-04-28 15:59` **Aaron Scifres:** i have token maxing FOMO
+- `2026-04-28 16:00` **Aaron Scifres:** i asked it a different way and it told me it did have one but i'd have to connect it via "cowork" as opposed to via the chat
 
 ### Unix Server | TOC Team Chat
-**82 messages** · 2026-04-07 → 2026-04-27 · 30 signal msgs
+**83 messages** · 2026-04-07 → 2026-04-28 · 19 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-07 10:37` **Hank Uhl:** Josu� � Real �upgrades are still running on the linux Nutanix cluster.. which ntx-dc1-2401 is a part of. �the expected upgrade time is 18 hours, and the logs i see look pretty normal, and i checked OC as well, the only c…
@@ -418,22 +379,7 @@
 - `2026-04-23 07:19` **Tim McGlothin:** shd-pr-ora07 and etl-pr-ora08 are patched and rebooted. �I did a check and I see grid11 up with ASM on both (these were a problem on shd-pr-ora01 earlier today but they seem ok here) � � [03:03:54]root@etl-pr-ora02[~] >>…
 
 **📋 Action Items**
-- `2026-04-07 10:06` **Hank Uhl:** Ok, I'll sign in shortly and take a look.��
-- `2026-04-12 19:26` **Hank Uhl:** Ok I'll sign in shortly to have a look
-- `2026-04-12 19:58` **Hank Uhl:** relaunching patch job on wmq-preprod-102... had some filesystem errors... wonder if it had been rebooted since the big issue we had a few weeks ago... going to eat will check on this re-run later on
-- `2026-04-13 00:31` **Hank Uhl:** re-patch failed the appstart... i will let tom w know so he can address tomorrow morning
-- `2026-04-14 14:34` **Javier Cede�o:** I will take a look
-- `2026-04-22 10:06` **Hank Uhl:** I will log in shortly and take a look
-- `2026-04-22 10:53` **Hank Uhl:** oracle was down on both shd-pr-ora01 and shd-pr-ora06 so re-running the patch job, will update you shortly
-- `2026-04-22 11:41` **Tim McGlothin:** I'm going to go through the list and see which ones need extra room in boot this month
-- `2026-04-22 11:43` **Hank Uhl:** im going to start getting ready to head in...� Steven � Foxe �will be in later than usual this morning, but i'll be in
-- `2026-04-22 11:49` **Steven Foxe:** Hank Uhl im going to start getting ready to head in... Steven Foxe will be in later than usual this morning, but i'll be in Ok, see you then. �Thanks Hank.
 - `2026-04-22 11:58` **Josu� Real:** Tim � McGlothin � Please note the following tickets are assigned to you https://llbean.atlassian.net/browse/ITS-10462 https://llbean.atlassian.net/browse/ITS-10453 � Both related to patching servers affected this early m…
-- `2026-04-22 11:58` **Tim McGlothin:** Ok, I'll check it out.. Are these the oracle ones?
-- `2026-04-23 06:32` **Tim McGlothin:** Thanks... I'll take a look
-- `2026-04-23 06:43` **Tim McGlothin:** Looks like shd-pr-ora07..had an issue with 01 this morning and the DBs didn't come up after.. I'll see what I can find
-- `2026-04-23 07:35` **Tim McGlothin:** thanks! are there other patches running tonight? I'll check the boot FS on them so we dont hit that wall again
-- `2026-04-23 07:41` **Tim McGlothin:** ok, should be safe till 10am as far as boot FS being full.. got the early morning ones cleaned up.. will address the others later�
 - `2026-04-23 18:29` **Berny Vargas:** Sounds good, I'll work on that an implement the logic during patching playbook
 - `2026-04-27 16:11` **Hank Uhl:** ok, been looking into this. �the reason is when the VM shuts everything down, it sits at the reboot state for too long and the job times out. �the default wait time is 600 seconds �(10 minutes). �i'm going to increase th…
 
@@ -444,7 +390,6 @@
 - `2026-04-22 10:54` **Hank Uhl:** both failed because /boot was too full for kernel install
 
 **💬 Notable Exchanges**
-- `2026-04-23 07:42` **Jonathan Jim�nez:** Great Tim I appreciate you checking on this�
 - `2026-04-23 18:25` **Berny Vargas:** Hi Hank � Uhl , Tim � McGlothin �for the kernel clean up , would be better to add a step on the patching playbook , I think that's an option or do you prefer to do the clean up once from all servers at the beginning of t…
 - `2026-04-23 18:26` **Berny Vargas:** I think having a clean up step during patching sounds good ...
 - `2026-04-23 18:27` **Tim McGlothin:** we were just talking about that... I think so but we may want to put some logic behind it so it only runs the cleanup if the boto fs is at a certain threshold...�
@@ -454,9 +399,10 @@
 - `2026-04-27 14:28` **Hank Uhl:** spoke with Tom W, re-running this patch job
 - `2026-04-27 16:11` **Hank Uhl:** the DRDB process takes 6 minutes of the shutdown time
 - `2026-04-27 16:12` **Hank Uhl:** there were a couple other processes with 90 second timeouts... i think the entire app shutdown wait stack is just too long... but if the VM would reboot right when its ready to, it'd prob still make it, but it sits there…
+- `2026-04-28 11:04` **Josu� Real:** FYI https://llbean.atlassian.net/browse/ITS-11000
 
 ### Server Engineering Team - ALL
-**65 messages** · 2026-04-01 → 2026-04-24 · 19 signal msgs
+**65 messages** · 2026-04-01 → 2026-04-24 · 13 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-02 11:23` **Jason Mills:** Chris Montgomery 📷 Skill issue clearly...
@@ -472,15 +418,8 @@
 - `2026-04-24 12:15` **David Bernier:** GM - just keeping everyone up to speed this morning. We have a few people out today, however, we do have plenty of coverage.� So everyone is aware, below if who is out today: Joel - PTO Devin - PTO Hank - PTO Chris - Aft…
 
 **📋 Action Items**
-- `2026-04-01 21:15` **Tim McGlothin:** they should import to edge/chrome/FF
 - `2026-04-06 12:15` **Brooke Curtin-Johnson:** Nicholas � Hopson �when were you going to do the cluster update on that one?
-- `2026-04-06 12:23` **Brooke Curtin-Johnson:** I will thank you
-- `2026-04-06 13:52` **Hank Uhl:** i have a couple witness VMs that i stood up, but i plan to delete at least one... do you care about those?
-- `2026-04-06 13:55` **Hank Uhl:** i will likely be deleting both of them
-- `2026-04-07 18:33` **Brooke Curtin-Johnson:** The CVM that was dead is back up, we had to reboot the host. �They think it was a memory issue related to xmount known issues. �I did ask about the upcoming update and they said we should be good to proceed
-- `2026-04-07 18:58` **Chris Montgomery:** What the heck... I'll play! Enrolled
 - `2026-04-09 12:30` **David Bernier:** Naggy-McGee here....sorry - but need everyone to go in to Open Incidents and at the very least take a look again and update with some notes and status change - especially the highlighted pretty old ones where there has b…
-- `2026-04-13 13:25` **Nicholas Hopson:** I've already had everything going around so hoping I should be good for a while!�
 - `2026-04-22 12:26` **Brooke Curtin-Johnson:** Hi guys, can you send any new servers you build over to Casey Bowser so he can set assignment groups in JSM? �Until we can come up with a better solution
 
 **💡 Knowledge / Findings**
@@ -498,3 +437,166 @@
 - `2026-04-24 12:27` **Brooke Curtin-Johnson:** You can have a review without getting paid...
 - `2026-04-24 12:31` **Nicholas Hopson:** I'm just here for pickleball...�
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
+
+### Claude POC
+**53 messages** · 2026-04-24 → 2026-04-28 · 5 signal msgs
+
+**🔴 Incidents / Issues**
+- `2026-04-27 18:13` **Nick Mastors:** Hmmm. �I've been trying for a while now and have been unsuccessful. � Andrew � Skvorak , Claude seems convinced that it's an Access issue (though I'm not sure why it would work for Josh and not me). �Thoughts?
+- `2026-04-27 20:02` **Nick Mastors:** Nick Mastors Hmmm. I've been trying for a while now and have been unsuccessful. Andrew Skvorak, Claude seems convinced that it's an Access issue (though I'm not sure why it would work for Josh and not me). Tho… Claude wa…
+
+**✅ Resolved / Complete**
+- `2026-04-24 11:33` **Andrew Skvorak:** I am almost done adding you all to our llbean account in Claude - just a few more to go. But wanted to get this group chat setup so we have a forum.�
+- `2026-04-28 10:27` **Andrew Skvorak:** Good morning. Can someone who has done this recently answer Christy's email, please? I cannot recall the options or process for 2-factor auth at that step. Thank you.
+
+**📋 Action Items**
+- `2026-04-27 20:52` **Andrew Skvorak:** Welcome to the new folks I just added - please take a look through the chat history as people are already sharing learnings and other fun stuff. Welcome!
+
+**💬 Notable Exchanges**
+- `2026-04-28 12:18` **Andrew Skvorak:** Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it, etc.
+- `2026-04-28 12:22` **Josh McHenry:** Nick Mastors Josh McHenry, were you able to enable claude in excel, powerpoint, AND word? I was able to get it enabled for the first two but not for word. I've tried word and excel but not pptx, so between the two of us,…
+- `2026-04-28 12:22` **Josh McHenry:** I tried designer today to prototype a UPS Address Corrections app. �Since my data live in SharePoint, I asked Designer to prep it for implementation as a PowerApps app. �I'm not sure yet if this is going to work, but my …
+- `2026-04-28 13:00` **Stacy Owen:** Andrew Skvorak Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it, etc. 📷 I did.
+- `2026-04-28 13:29` **Christy van Voorhees:** Stacy Owen Upper right hand corner click filter select manage filtering and check your settings The 2 codes came in at 8:30am, 2+ hours after I requested them and totally useless at that point.�
+- `2026-04-28 13:34` **Christy van Voorhees:** got the code instantaneously this try! sorry for the drama!
+- `2026-04-28 13:38` **Kathleen Corr:** Someone had to have the drama, it was going to be one of us!!
+- `2026-04-28 13:59` **Stacy Owen:** Andrew � Skvorak �you can deny my request for Orion by Gravity. It would be most useful for our business users like data scientist, insights, analytics and Josh � McHenry �IMHO.� I was just so happy to acquire Claude las…
+- `2026-04-28 14:18` **Andrew Skvorak:** I understand. Something like that would take more vetting and consideration than connecting to other things like our Sharepoint or Outlook.
+- `2026-04-28 14:25` **Stacy Owen:** And it connects to Jira.�
+
+### Ansible Weekly Checkin 
+**11 messages** · 2026-03-31 → 2026-04-28 · 0 signal msgs
+
+**💬 Notable Exchanges**
+- `2026-03-31 15:01` **Mark's Loom Notetaker:** Capture thoughts, ideas, and action items with your team during the meeting, and find it summarized in the meeting recap: https://llbean.atlassian.net/wiki/spaces/ESM/pages/5872189461/Ansible+Weekly+Checkin+2026-03-31
+- `2026-03-31 15:21` **Tim McGlothin:** https://www.nutanix.com/products/kubernetes-management-platform
+- `2026-03-31 15:22` **Mark's Loom Notetaker:** The meeting recording is paused. Use the /resume command to continue recording.
+- `2026-04-28 15:00` **Mark's Loom Notetaker:** This meeting is being recorded by Mark Mulligan using Loom AI. Loom will transcribe and store this meeting recording and send a meeting recap to all invitees. It’s the host’s responsibility to ensure that all participant…
+- `2026-04-28 15:00` **Mark's Loom Notetaker:** Capture thoughts, ideas, and action items with your team during the meeting, and find it summarized in the meeting recap: https://llbean.atlassian.net/wiki/spaces/ESM/pages/5986123794/Ansible+Weekly+Checkin+2026-04-28
+- `2026-04-28 15:18` **Hank Uhl:** what is the matrix
+- `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
+- `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
+- `2026-04-28 15:23` **Jay Seiler:** I have to drop at 11:30
+- `2026-04-28 15:25` **Mark's Loom Notetaker:** The meeting recording is paused. Use the /resume command to continue recording.
+
+### Server Engineer Team Meeting - Bi-Weekly Check-In
+**5 messages** · 2026-03-30 → 2026-04-28 · 1 signal msgs
+
+**🏛 Decisions**
+- `2026-04-13 14:47` **Joel Perez:** I confirmed I dont see those emails in Outlook, only the AppviewX ones
+
+**💬 Notable Exchanges**
+- `2026-03-30 15:05` **Chris Montgomery:** Need to drop to talk to Microsoft
+- `2026-04-13 14:46` **Chris Montgomery:** Need to revisit the permissions (Azure/Nerdio) for Security Admins to be able to assign/unassign AVD VMs for end users.
+- `2026-04-27 17:15` **Chris Montgomery:** ITS-6777 is now closed
+- `2026-04-28 15:33` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/NTX/pages/4956455069/Nutanix+Node+Cluster+Creation
+
+## Today (2026-04-28)
+
+### Claude POC Developer group (42 msgs)
+- `2026-04-28 12:20` **Andrew Skvorak:** Morning, folks. Hey, did one of you request that the Orion by Gravity connector be enabled in Claude? I'd like to hear more about your use cases, experience with it, etc
+- `2026-04-28 12:21` **Matthew Ruby:** Whoa, we can ask you for connectors!
+- `2026-04-28 12:21` **Matthew Ruby:** Claude’s teams connector please 🙏
+- `2026-04-28 12:22` **Andrew Skvorak:** Connectors to Microsoft tools like Team should already be enabled.
+- `2026-04-28 12:24` **Andrew Skvorak:** When connectors are requested within Claude, we don't get any info on who requested them or why. If there's something you're interested in then it would help if you could put a lit…
+- `2026-04-28 12:24` **Curt Combar:** How about a database connector? https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-powered-ai-coding-agent-d…
+- `2026-04-28 12:25` **Jim Greene Jr:** Lil Bobby Drop Tables
+- `2026-04-28 13:13` **Sudha Gundapaneni:** Curt Combar How about a database connector? 😮 https://www.tomshardware.com/tech-industry/artificial-intelligence/claude-powered-ai-coding-agent-d… Read-only access might be the way…
+- `2026-04-28 13:25` **Michael Hern�ndez:** Atlassian Rovo (Jira + Confluence) — official, OAuth, 31+ tools. Use as-is. ✓ Microsoft 365 — Anthropic-hosted: Outlook calendar, Outlook email, Teams chat search, SharePoint, OneD…
+- `2026-04-28 13:25` **Michael Hern�ndez:** Claude told me I could use those
+- `2026-04-28 13:27` **Aaron Scifres:** all kidding aside though, i think there's definite opportunities to leverage a database connector for analyzing what's in a database. �giving it read-only credentials of course
+- `2026-04-28 13:28` **Aaron Scifres:** and keeping in mind the data sensitivity guardrails
+- `2026-04-28 13:36` **Jim Greene Jr:** I have managed to use 94% of my 5 hour session limit in less than 2 hours!!!�
+- `2026-04-28 13:36` **Carl Hinsman:** Aaron Scifres and keeping in mind the data sensitivity guardrails The lack of field-level tagging @LLB is a concern. Claude Code can't tell the difference between regular and sensi…
+- `2026-04-28 13:37` **Tim McGlothin:** Jim Greene Jr - time to switch to caveman mode I run '/caveman ultra' first thing now
+- `2026-04-28 13:39` **Tim McGlothin:** https://github.com/juliusbrussee/caveman
+- `2026-04-28 13:40` **Aaron Scifres:** Carl Hinsman The lack of field-level tagging @LLB is a concern. Claude Code can't tell the difference between regular and sensitive data when connecting to a database, so all field…
+- `2026-04-28 13:41` **Aaron Scifres:** Andrew � Skvorak �if we do decide to leverage claude as an enterprise solution after this POC, would we get the same level of data protections that we have with copilot?�
+- `2026-04-28 14:11` **Andrew Skvorak:** No, not even the Enterprise level Claude licenses provide the same protection as Copilot.�
+- `2026-04-28 14:14` **Andrew Skvorak:** AI on top of our data for conversational analytics will be extremely powerful and it is a big focus of the work that Srini and team are doing on EDP. To Carl's point, the EDP does …
+- `2026-04-28 14:16` **Andrew Skvorak:** I also recognize that we're going to have to enable these capabilities in more places than the EDP so we will need to be certain that we know what kind of data we are accessing in …
+- `2026-04-28 14:20` **Chase Allen:** Andrew Skvorak AI on top of our data for conversational analytics will be extremely powerful and it is a big focus of the work that Srini and team are doing on EDP. To Carl's point…
+- `2026-04-28 14:23` **Jim Greene:** Jim Greene Jr I have managed to use 94% of my 5 hour session limit in less than 2 hours!!! Compressing space-time appeared in Claude version... 4.7 ?
+- `2026-04-28 14:24` **Aaron Scifres:** that's when they introduced the flux capacitor
+- `2026-04-28 14:28` **Curt Combar:** So when does usage reset?
+- `2026-04-28 14:35` **Tim McGlothin:** tip: use opus for architecting the solution, have it write a detailed md file, and switch to sonnet to implement the instructions in the md file. �using opus for the heavy lifting …
+- `2026-04-28 14:36` **Andrew Skvorak:** Curt Combar So when does usage reset? 📷 You have a 5-hour rolling window and a 7-day rolling window
+- `2026-04-28 14:37` **Andrew Skvorak:** If you go into Settings > Usage you should info on your current session and when it resets as well your weekly limit
+- `2026-04-28 14:38` **Matthew Ruby:** And in CC it should warn you around 90% usage. �
+- `2026-04-28 14:38` **Tim McGlothin:** if you use multiple platforms (or even just the one) this is handy: https://onwatch.onllm.dev/
+- `2026-04-28 14:55` **Aaron Scifres:** there was a story on NPR this morning where they were talking about corporate AI use and they described the workplace profile of the "token maxers" and i thought, "i know a few of …
+- `2026-04-28 15:05` **Jim Greene:** `[incident,knowledge]` We have (950+) repositories in Github (GH).�� � Variants of this command are useful for digging in:�� � # show me, with JSON output, all CTAgile repos whose name starts with "leep-…
+- `2026-04-28 15:06` **Jim Greene:** Aaron Scifres there was a story on NPR this morning where they were talking about corporate AI use and they described the workplace profile of the "token maxers" and i thought, "i …
+- `2026-04-28 15:18` **Jim Greene:** And an answer to that question about sharing workspaces/collections of repos might be "look, Verde, we already do that, with the so-and-so mechanism. �So shut your yapper." �And I …
+- `2026-04-28 15:27` **Chase Allen:** This is great, Jim.� � I've heard of other orgs using a shared repo for skills, agents, mcp configs, etc. that would act as the "parent" i would assume.�
+- `2026-04-28 15:28` **Chase Allen:** Although updating said repo and then updating the skills inside of Claude Desktop requires some copying and pasting from what I've heard - a bit clunky�
+- `2026-04-28 15:40` **Tim McGlothin:** I have a homelab MCP registry I spun up at home - wraps other MCPs into a single SSE transport so I can turn them on and off at a single location for all agents ... I dont have it …
+- `2026-04-28 15:49` **Aaron Scifres:** claude just told me he doesn't have a way to connect to a SQL server database
+- `2026-04-28 15:50` **Aaron Scifres:** he suggested exporting the data to a file and dropping it in for analysis
+- `2026-04-28 15:59` **Tim McGlothin:** That's just anthropic scheming to burn m your tokens
+- `2026-04-28 15:59` **Aaron Scifres:** i have token maxing FOMO
+- `2026-04-28 16:00` **Aaron Scifres:** i asked it a different way and it told me it did have one but i'd have to connect it via "cowork" as opposed to via the chat
+
+### Claude initial setup (16 msgs)
+- `2026-04-28 12:00` **Andrew Skvorak:** Morning, guys. We have two requests for our Claude org. I can't seem to find any info on who requested them - do you know of any way? �
+- `2026-04-28 12:15` **Andrew Skvorak:** I learned that Josh McHenry requested the BigQuery connector so that he can connect to EDP data. I am ok with enabling that one.�
+- `2026-04-28 12:16` **Andrew Skvorak:** I want more info on Orion from whomever requested it - think I'm going to have to put a question in the group chats.�
+- `2026-04-28 12:16` **Andrew Skvorak:** Speaking of - I have a group chat for the IS developers and one for business users and non-devs in I.S.. You guys want to be added to one or both of those?
+- `2026-04-28 12:23` **Tim McGlothin:** I would.. Always love hearing what others are up to
+- `2026-04-28 13:04` **Ben Hoisington:** I noticed this morning by adding the Anthropic apps for Excel and powerpoint, it disables access to Copilot for those specific apps. At lease while I'm in Powerpoint/Excel.�
+- `2026-04-28 13:05` **Ben Hoisington:** Something to be aware of.
+- `2026-04-28 13:07` **Ben Hoisington:** Andrew Skvorak I want more info on Orion from whomever requested it - think I'm going to have to put a question in the group chats. Should we develop a process/risk assessment for …
+- `2026-04-28 13:10` **Ben Hoisington:** In order to add the BigQuery connector we'll need credentials. This gets into how we may want to manage identities, who has access to them and is responsible for managing connector…
+- `2026-04-28 14:38` **Andrew Skvorak:** Sorry was in a meeting. Some thoughts/info/responses: I learned from one of the group chat who asked for Orion and it is not something they really need, they just thought it looked…
+- `2026-04-28 15:06` **Ben Hoisington:** Feel free to add me to the business users chat. It would be good to hear what challenges they are facing, and help inform some of the Copilot work I'm doing as well.
+- `2026-04-28 15:08` **Andrew Skvorak:** You guys promise to behave?�
+- `2026-04-28 15:10` **Andrew Skvorak:** There are a couple of IS folks in that chat too, FYI - project managers and such.�
+- `2026-04-28 15:12` **Andrew Skvorak:** `[knowledge]` Update: Since the BigQuery connector is desired to connect to EDP, I chatted with Srini about it and he is working on a POV around it. Quick research in Claude suggests that it use…
+- `2026-04-28 15:14` **Ben Hoisington:** Noticing a bunch of questions in the business chat around account setup. Do you know if they're getting the prompt to provide cell phone stuff during setup when using the SSO optio…
+- `2026-04-28 15:15` **Andrew Skvorak:** Yes, they are. There have been some issues with a few people, but as far as I know, everyone who has tried has been able to figure it out. So I don't think anyone is actively block…
+
+### Claude POC (15 msgs)
+- `2026-04-28 10:16` **Christy van Voorhees:** good morning, i followed the link in the anthropic email. i'm at the 2-factor auth stage. i input my cell number, and I haven't received a code. I've tried twice. is that what i'm …
+- `2026-04-28 10:27` **Andrew Skvorak:** `[resolved]` Good morning. Can someone who has done this recently answer Christy's email, please? I cannot recall the options or process for 2-factor auth at that step. Thank you.
+- `2026-04-28 11:49` **Sharlena Biron:** I received a code after I input my cell number and selected to continue.
+- `2026-04-28 11:52` **Stacy Owen:** Do you have a iPhone ? Maybe check the filtering? My code arrived about 2 minutes after entering it
+- `2026-04-28 11:57` **Stacy Owen:** Upper right hand corner click filter select manage filtering and check your settings
+- `2026-04-28 12:18` **Andrew Skvorak:** Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it, etc.
+- `2026-04-28 12:22` **Josh McHenry:** Nick Mastors Josh McHenry, were you able to enable claude in excel, powerpoint, AND word? I was able to get it enabled for the first two but not for word. I've tried word and excel…
+- `2026-04-28 12:22` **Josh McHenry:** I tried designer today to prototype a UPS Address Corrections app. �Since my data live in SharePoint, I asked Designer to prep it for implementation as a PowerApps app. �I'm not su…
+- `2026-04-28 13:00` **Stacy Owen:** Andrew Skvorak Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it…
+- `2026-04-28 13:29` **Christy van Voorhees:** Stacy Owen Upper right hand corner click filter select manage filtering and check your settings The 2 codes came in at 8:30am, 2+ hours after I requested them and totally useless a…
+- `2026-04-28 13:34` **Christy van Voorhees:** got the code instantaneously this try! sorry for the drama!
+- `2026-04-28 13:38` **Kathleen Corr:** Someone had to have the drama, it was going to be one of us!!
+- `2026-04-28 13:59` **Stacy Owen:** Andrew � Skvorak �you can deny my request for Orion by Gravity. It would be most useful for our business users like data scientist, insights, analytics and Josh � McHenry �IMHO.� I…
+- `2026-04-28 14:18` **Andrew Skvorak:** I understand. Something like that would take more vetting and consideration than connecting to other things like our Sharepoint or Outlook.
+- `2026-04-28 14:25` **Stacy Owen:** And it connects to Jira.�
+
+### Ansible Weekly Checkin  (7 msgs)
+- `2026-04-28 15:00` **Mark's Loom Notetaker:** This meeting is being recorded by Mark Mulligan using Loom AI. Loom will transcribe and store this meeting recording and send a meeting recap to all invitees. It’s the host’s respo…
+- `2026-04-28 15:00` **Mark's Loom Notetaker:** Capture thoughts, ideas, and action items with your team during the meeting, and find it summarized in the meeting recap: https://llbean.atlassian.net/wiki/spaces/ESM/pages/5986123…
+- `2026-04-28 15:18` **Hank Uhl:** what is the matrix
+- `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
+- `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
+- `2026-04-28 15:23` **Jay Seiler:** I have to drop at 11:30
+- `2026-04-28 15:25` **Mark's Loom Notetaker:** The meeting recording is paused. Use the /resume command to continue recording.
+
+### Unix Server and Storage Team (4 msgs)
+- `2026-04-28 11:32` **Tim McGlothin:** We can do that today.. Also, I want to try a fix I may have for ssh keys that should allow MFA
+- `2026-04-28 14:55` **Hank Uhl:** `[knowledge]` Just so you can say you've seen this... broke SSHd on one of the DS servers because my CIS script added global directives when there was an open Match at the end of the sshd_config…
+- `2026-04-28 14:55` **Hank Uhl:** there is no way to "close" it.. you have to return to global directive with another "Match all" line
+- `2026-04-28 14:58` **Tim McGlothin:** `[incident]` if you dont crash the car every now and then you're not really racing
+
+### (Direct/Meeting) (3 msgs)
+- `2026-04-28 15:22` **<Undefined> <Undefined>:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
+- `2026-04-28 15:33` **<Undefined> <Undefined>:** https://llbean.atlassian.net/wiki/spaces/NTX/pages/4956455069/Nutanix+Node+Cluster+Creation
+- `2026-04-28 15:37` **<Undefined> <Undefined>:** I have a homela
+
+### Unix Server | TOC Team Chat (1 msgs)
+- `2026-04-28 11:04` **Josu� Real:** FYI https://llbean.atlassian.net/browse/ITS-11000
+
+### GitHub Copilot Devs (1 msgs)
+- `2026-04-28 13:53` **Mario Rodr�guez:** https://github.blog/news-insights/company-news/an-update-on-github-availability/
+
+### Server Engineer Team Meeting - Bi-Weekly Check-In (1 msgs)
+- `2026-04-28 15:33` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/NTX/pages/4956455069/Nutanix+Node+Cluster+Creation
