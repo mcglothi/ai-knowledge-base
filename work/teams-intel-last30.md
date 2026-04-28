@@ -1,5 +1,5 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-28 02:09 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-28 07:09 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
 **Stats:** 2325 signal messages extracted from Teams local cache
 
