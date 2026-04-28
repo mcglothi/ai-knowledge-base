@@ -1,5 +1,5 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-27 22:01 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-28 02:09 UTC  **Source:** Outlook (local COM scrape)
 
 **Stats:** 647 raw emails → 420 signal emails
 
