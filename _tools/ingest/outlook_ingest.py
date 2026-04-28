@@ -23,30 +23,27 @@ NOISE_SUBJECTS = re.compile(
     r'sea dogs|mother.?s day|deals on|subscribe to more|hsa work|'
     r'breaking news|breaking stories|discount programs|diy delight|'
     r'meaningful gifts|learn how to|register now:|simplify the way|'
-    r'synchronization log)',
+    r'synchronization log|daily digest|shape the future of|'
+    r'celebrate her|happening today.*coffee|one last reminder|'
+    r'last chance to join|keynote.*redesigning|redesigning.*workforce)',
     re.IGNORECASE
 )
 
 NOISE_SENDERS = re.compile(
     r'(noreply|no-reply|donotreply|notifications?@|alerts?@|mailer-daemon|'
-    r'discount.programs|fidelity|myworkday\.com|beyondtrust|'
+    r'discount.?programs|fidelity|myworkday\.com|beyondtrust|'
     r'cyberheistnews|knowbe4|appviewx\.com|bmc\.com|'
-    r'daily.?portland|is.?news@)',
+    r'daily.?portland|is.?news@|good shepherd|expedient|'
+    r'cisco product|atlassian$)',
     re.IGNORECASE
 )
 
 # External vendor/marketing domains — block regardless of subject
 NOISE_DOMAINS = re.compile(
     r'@(fidelity\.com|myworkday\.com|rubrik\.com|appviewx\.com|'
-    r'path\.cisco\.com|knowbe4\.com|cyberheistnews\.com|bmc\.com|'
-    r'beyondtrust\.com)',
-    re.IGNORECASE
-)
-
-# Confluece/digest subjects — classify as info-only (not incident/change/aap)
-DOWNGRADE_TO_INFO = re.compile(
-    r'(daily digest.*confluence|confluence.*daily digest|'
-    r'updates from.*confluence)',
+    r'path\.cisco\.com|cisco\.com|knowbe4\.com|cyberheistnews\.com|'
+    r'bmc\.com|beyondtrust\.com|atlassian\.com|expedient\.com|'
+    r'goodshepherdfoodbank\.org)',
     re.IGNORECASE
 )
 
@@ -155,13 +152,10 @@ def main():
         sender_addr = e.get('SenderEmailAddress', '')
         sender_name = e.get('SenderName', '') or sender_addr
         if NOISE_SUBJECTS.search(subj): continue
-        if NOISE_SENDERS.search(sender_addr or sender_name): continue
+        if NOISE_SENDERS.search(sender_addr) or NOISE_SENDERS.search(sender_name): continue
         if NOISE_DOMAINS.search(sender_addr): continue
         body = clean_body(e.get('Body', ''))
-        if DOWNGRADE_TO_INFO.search(subj):
-            cats = ['info']
-        else:
-            cats = classify(subj + ' ' + body)
+        cats = classify(subj + ' ' + body)
         groups = infra_group(subj, body)
         signal_emails.append({
             'date': e.get('ReceivedTime', '')[:16],
