@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-28 16:06 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-28 20:06 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2513 signal messages extracted from Teams local cache
+**Stats:** 2530 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -21,8 +21,8 @@
 | 12 | Server Engineering Team - ALL | 65 | 13 | 2026-04-24 |
 | 13 | (Direct/Meeting) | 62 | 14 | 2026-04-27 |
 | 14 | (Direct/Meeting) | 58 | 7 | 2026-04-27 |
-| 15 | (Direct/Meeting) | 57 | 16 | 2026-04-23 |
-| 16 | Claude POC | 53 | 5 | 2026-04-28 |
+| 15 | Claude POC | 58 | 5 | 2026-04-28 |
+| 16 | (Direct/Meeting) | 57 | 16 | 2026-04-23 |
 | 17 | (Direct/Meeting) | 43 | 3 | 2026-04-17 |
 | 18 | (Direct/Meeting) | 39 | 5 | 2026-04-23 |
 | 19 | (Direct/Meeting) | 39 | 5 | 2026-04-22 |
@@ -349,7 +349,7 @@
 - `2026-04-28 15:40` **Tim McGlothin:** I have a homelab MCP registry I spun up at home - wraps other MCPs into a single SSE transport so I can turn them on and off at a single location for all agents ... I dont have it public yet but there are a few similar o…
 - `2026-04-28 15:49` **Aaron Scifres:** claude just told me he doesn't have a way to connect to a SQL server database
 - `2026-04-28 15:50` **Aaron Scifres:** he suggested exporting the data to a file and dropping it in for analysis
-- `2026-04-28 15:59` **Tim McGlothin:** That's just anthropic scheming to burn m your tokens
+- `2026-04-28 15:59` **Tim McGlothin:** That's just anthropic scheming to burn all your tokens
 - `2026-04-28 15:59` **Aaron Scifres:** i have token maxing FOMO
 - `2026-04-28 16:00` **Aaron Scifres:** i asked it a different way and it told me it did have one but i'd have to connect it via "cowork" as opposed to via the chat
 
@@ -439,7 +439,7 @@
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
 
 ### Claude POC
-**53 messages** · 2026-04-24 → 2026-04-28 · 5 signal msgs
+**58 messages** · 2026-04-24 → 2026-04-28 · 5 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-27 18:13` **Nick Mastors:** Hmmm. �I've been trying for a while now and have been unsuccessful. � Andrew � Skvorak , Claude seems convinced that it's an Access issue (though I'm not sure why it would work for Josh and not me). �Thoughts?
@@ -453,31 +453,16 @@
 - `2026-04-27 20:52` **Andrew Skvorak:** Welcome to the new folks I just added - please take a look through the chat history as people are already sharing learnings and other fun stuff. Welcome!
 
 **💬 Notable Exchanges**
-- `2026-04-28 12:18` **Andrew Skvorak:** Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it, etc.
-- `2026-04-28 12:22` **Josh McHenry:** Nick Mastors Josh McHenry, were you able to enable claude in excel, powerpoint, AND word? I was able to get it enabled for the first two but not for word. I've tried word and excel but not pptx, so between the two of us,…
-- `2026-04-28 12:22` **Josh McHenry:** I tried designer today to prototype a UPS Address Corrections app. �Since my data live in SharePoint, I asked Designer to prep it for implementation as a PowerApps app. �I'm not sure yet if this is going to work, but my …
-- `2026-04-28 13:00` **Stacy Owen:** Andrew Skvorak Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it, etc. 📷 I did.
-- `2026-04-28 13:29` **Christy van Voorhees:** Stacy Owen Upper right hand corner click filter select manage filtering and check your settings The 2 codes came in at 8:30am, 2+ hours after I requested them and totally useless at that point.�
 - `2026-04-28 13:34` **Christy van Voorhees:** got the code instantaneously this try! sorry for the drama!
 - `2026-04-28 13:38` **Kathleen Corr:** Someone had to have the drama, it was going to be one of us!!
 - `2026-04-28 13:59` **Stacy Owen:** Andrew � Skvorak �you can deny my request for Orion by Gravity. It would be most useful for our business users like data scientist, insights, analytics and Josh � McHenry �IMHO.� I was just so happy to acquire Claude las…
 - `2026-04-28 14:18` **Andrew Skvorak:** I understand. Something like that would take more vetting and consideration than connecting to other things like our Sharepoint or Outlook.
 - `2026-04-28 14:25` **Stacy Owen:** And it connects to Jira.�
-
-### Ansible Weekly Checkin 
-**11 messages** · 2026-03-31 → 2026-04-28 · 0 signal msgs
-
-**💬 Notable Exchanges**
-- `2026-03-31 15:01` **Mark's Loom Notetaker:** Capture thoughts, ideas, and action items with your team during the meeting, and find it summarized in the meeting recap: https://llbean.atlassian.net/wiki/spaces/ESM/pages/5872189461/Ansible+Weekly+Checkin+2026-03-31
-- `2026-03-31 15:21` **Tim McGlothin:** https://www.nutanix.com/products/kubernetes-management-platform
-- `2026-03-31 15:22` **Mark's Loom Notetaker:** The meeting recording is paused. Use the /resume command to continue recording.
-- `2026-04-28 15:00` **Mark's Loom Notetaker:** This meeting is being recorded by Mark Mulligan using Loom AI. Loom will transcribe and store this meeting recording and send a meeting recap to all invitees. It’s the host’s responsibility to ensure that all participant…
-- `2026-04-28 15:00` **Mark's Loom Notetaker:** Capture thoughts, ideas, and action items with your team during the meeting, and find it summarized in the meeting recap: https://llbean.atlassian.net/wiki/spaces/ESM/pages/5986123794/Ansible+Weekly+Checkin+2026-04-28
-- `2026-04-28 15:18` **Hank Uhl:** what is the matrix
-- `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
-- `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
-- `2026-04-28 15:23` **Jay Seiler:** I have to drop at 11:30
-- `2026-04-28 15:25` **Mark's Loom Notetaker:** The meeting recording is paused. Use the /resume command to continue recording.
+- `2026-04-28 16:27` **Nick Mastors:** anyone else with that Anthropic had booked more compute for inference? �
+- `2026-04-28 18:10` **Josh McHenry:** Nick Mastors anyone else with that Anthropic had booked more compute for inference? 📷 100%, and good to note when you exhaust the credits. Opus uses tokens much faster than Sonnet - do you know which you were on?
+- `2026-04-28 18:15` **Andrew Skvorak:** The latest Opus model, 4.7, eats tokens even faster than Opus 4.6 so consider that as an alternative, too.
+- `2026-04-28 18:17` **Tim McGlothin:** pro tip: use Opus to design the solution and create a plan (save in an .md file), then switch to sonnet and feed it those instructions for the heavy lifting. Save a ton of tokens that way.
+- `2026-04-28 19:54` **Stacy Owen:** Has anyone setup a Routine?�
 
 ### Server Engineer Team Meeting - Bi-Weekly Check-In
 **5 messages** · 2026-03-30 → 2026-04-28 · 1 signal msgs
@@ -533,9 +518,31 @@
 - `2026-04-28 15:40` **Tim McGlothin:** I have a homelab MCP registry I spun up at home - wraps other MCPs into a single SSE transport so I can turn them on and off at a single location for all agents ... I dont have it …
 - `2026-04-28 15:49` **Aaron Scifres:** claude just told me he doesn't have a way to connect to a SQL server database
 - `2026-04-28 15:50` **Aaron Scifres:** he suggested exporting the data to a file and dropping it in for analysis
-- `2026-04-28 15:59` **Tim McGlothin:** That's just anthropic scheming to burn m your tokens
+- `2026-04-28 15:59` **Tim McGlothin:** That's just anthropic scheming to burn all your tokens
 - `2026-04-28 15:59` **Aaron Scifres:** i have token maxing FOMO
 - `2026-04-28 16:00` **Aaron Scifres:** i asked it a different way and it told me it did have one but i'd have to connect it via "cowork" as opposed to via the chat
+
+### Claude POC (20 msgs)
+- `2026-04-28 10:16` **Christy van Voorhees:** good morning, i followed the link in the anthropic email. i'm at the 2-factor auth stage. i input my cell number, and I haven't received a code. I've tried twice. is that what i'm …
+- `2026-04-28 10:27` **Andrew Skvorak:** `[resolved]` Good morning. Can someone who has done this recently answer Christy's email, please? I cannot recall the options or process for 2-factor auth at that step. Thank you.
+- `2026-04-28 11:49` **Sharlena Biron:** I received a code after I input my cell number and selected to continue.
+- `2026-04-28 11:52` **Stacy Owen:** Do you have a iPhone ? Maybe check the filtering? My code arrived about 2 minutes after entering it
+- `2026-04-28 11:57` **Stacy Owen:** Upper right hand corner click filter select manage filtering and check your settings
+- `2026-04-28 12:18` **Andrew Skvorak:** Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it, etc.
+- `2026-04-28 12:22` **Josh McHenry:** Nick Mastors Josh McHenry, were you able to enable claude in excel, powerpoint, AND word? I was able to get it enabled for the first two but not for word. I've tried word and excel…
+- `2026-04-28 12:22` **Josh McHenry:** I tried designer today to prototype a UPS Address Corrections app. �Since my data live in SharePoint, I asked Designer to prep it for implementation as a PowerApps app. �I'm not su…
+- `2026-04-28 13:00` **Stacy Owen:** Andrew Skvorak Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it…
+- `2026-04-28 13:29` **Christy van Voorhees:** Stacy Owen Upper right hand corner click filter select manage filtering and check your settings The 2 codes came in at 8:30am, 2+ hours after I requested them and totally useless a…
+- `2026-04-28 13:34` **Christy van Voorhees:** got the code instantaneously this try! sorry for the drama!
+- `2026-04-28 13:38` **Kathleen Corr:** Someone had to have the drama, it was going to be one of us!!
+- `2026-04-28 13:59` **Stacy Owen:** Andrew � Skvorak �you can deny my request for Orion by Gravity. It would be most useful for our business users like data scientist, insights, analytics and Josh � McHenry �IMHO.� I…
+- `2026-04-28 14:18` **Andrew Skvorak:** I understand. Something like that would take more vetting and consideration than connecting to other things like our Sharepoint or Outlook.
+- `2026-04-28 14:25` **Stacy Owen:** And it connects to Jira.�
+- `2026-04-28 16:27` **Nick Mastors:** anyone else with that Anthropic had booked more compute for inference? �
+- `2026-04-28 18:10` **Josh McHenry:** Nick Mastors anyone else with that Anthropic had booked more compute for inference? 📷 100%, and good to note when you exhaust the credits. Opus uses tokens much faster than Sonnet …
+- `2026-04-28 18:15` **Andrew Skvorak:** The latest Opus model, 4.7, eats tokens even faster than Opus 4.6 so consider that as an alternative, too.
+- `2026-04-28 18:17` **Tim McGlothin:** pro tip: use Opus to design the solution and create a plan (save in an .md file), then switch to sonnet and feed it those instructions for the heavy lifting. Save a ton of tokens t…
+- `2026-04-28 19:54` **Stacy Owen:** Has anyone setup a Routine?�
 
 ### Claude initial setup (16 msgs)
 - `2026-04-28 12:00` **Andrew Skvorak:** Morning, guys. We have two requests for our Claude org. I can't seem to find any info on who requested them - do you know of any way? �
@@ -555,42 +562,39 @@
 - `2026-04-28 15:14` **Ben Hoisington:** Noticing a bunch of questions in the business chat around account setup. Do you know if they're getting the prompt to provide cell phone stuff during setup when using the SSO optio…
 - `2026-04-28 15:15` **Andrew Skvorak:** Yes, they are. There have been some issues with a few people, but as far as I know, everyone who has tried has been able to figure it out. So I don't think anyone is actively block…
 
-### Claude POC (15 msgs)
-- `2026-04-28 10:16` **Christy van Voorhees:** good morning, i followed the link in the anthropic email. i'm at the 2-factor auth stage. i input my cell number, and I haven't received a code. I've tried twice. is that what i'm …
-- `2026-04-28 10:27` **Andrew Skvorak:** `[resolved]` Good morning. Can someone who has done this recently answer Christy's email, please? I cannot recall the options or process for 2-factor auth at that step. Thank you.
-- `2026-04-28 11:49` **Sharlena Biron:** I received a code after I input my cell number and selected to continue.
-- `2026-04-28 11:52` **Stacy Owen:** Do you have a iPhone ? Maybe check the filtering? My code arrived about 2 minutes after entering it
-- `2026-04-28 11:57` **Stacy Owen:** Upper right hand corner click filter select manage filtering and check your settings
-- `2026-04-28 12:18` **Andrew Skvorak:** Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it, etc.
-- `2026-04-28 12:22` **Josh McHenry:** Nick Mastors Josh McHenry, were you able to enable claude in excel, powerpoint, AND word? I was able to get it enabled for the first two but not for word. I've tried word and excel…
-- `2026-04-28 12:22` **Josh McHenry:** I tried designer today to prototype a UPS Address Corrections app. �Since my data live in SharePoint, I asked Designer to prep it for implementation as a PowerApps app. �I'm not su…
-- `2026-04-28 13:00` **Stacy Owen:** Andrew Skvorak Sorry to switch topics, but did one of you request that the Orion by Gravity connector be enabled? I would like to hear more about your use cases, experience with it…
-- `2026-04-28 13:29` **Christy van Voorhees:** Stacy Owen Upper right hand corner click filter select manage filtering and check your settings The 2 codes came in at 8:30am, 2+ hours after I requested them and totally useless a…
-- `2026-04-28 13:34` **Christy van Voorhees:** got the code instantaneously this try! sorry for the drama!
-- `2026-04-28 13:38` **Kathleen Corr:** Someone had to have the drama, it was going to be one of us!!
-- `2026-04-28 13:59` **Stacy Owen:** Andrew � Skvorak �you can deny my request for Orion by Gravity. It would be most useful for our business users like data scientist, insights, analytics and Josh � McHenry �IMHO.� I…
-- `2026-04-28 14:18` **Andrew Skvorak:** I understand. Something like that would take more vetting and consideration than connecting to other things like our Sharepoint or Outlook.
-- `2026-04-28 14:25` **Stacy Owen:** And it connects to Jira.�
+### (Direct/Meeting) (11 msgs)
+- `2026-04-28 17:01` **<Undefined> <Undefined>:** Bi-weekly IS All Hands Quick Update Play
+- `2026-04-28 17:01` **<Undefined> <Undefined>:** Bi-weekly IS All Hands Quick Update Play
+- `2026-04-28 17:01` **<Undefined> <Undefined>:** {\"scopeId\":\"da5652b3-16f2-486b-bb0b-05e173adec04\",\"storageId\":\"dde2d9e7-c08e-43f9-8b55-ccae45d0116b@c9dca46c-3aac-42fa-bd2a-82b27c3b1a5a\",\"callId\":\"da5652b3-16f2-486b-bb…
+- `2026-04-28 17:03` **Nathan Hoy:** Tony Redzinak Nice picture! Probably from just before BT.
+- `2026-04-28 17:03` **Adriana Elgarrista:** Congratulations Tony!
+- `2026-04-28 17:05` **Michael Doyle:** Shout out to Laurie � Gonyea �for her help updating the numerous Tableau links on SharePoint. Thanks Laurie.
+- `2026-04-28 17:09` **Lyndsay Messner:** https://wooden-sleepers.com/collections/vintage-l-l-bean
+- `2026-04-28 17:19` **Natalie Perkins:** B4B is live with CXOne/CCaaS as of last Tuesday! We are working through a few issues, but overall things are going well!�
+- `2026-04-28 17:19` **<Undefined> <Undefined>:** Bi-weekly IS All Hands Quick Update Play
+- `2026-04-28 17:19` **<Undefined> <Undefined>:** Bi-weekly IS All Hands Quick Update Play
+- `2026-04-28 17:22` **<Undefined> <Undefined>:** Bi-weekly IS All Hands Quick Update Play
 
-### Ansible Weekly Checkin  (7 msgs)
+### (Direct/Meeting) (6 msgs)
 - `2026-04-28 15:00` **Mark's Loom Notetaker:** This meeting is being recorded by Mark Mulligan using Loom AI. Loom will transcribe and store this meeting recording and send a meeting recap to all invitees. It’s the host’s respo…
 - `2026-04-28 15:00` **Mark's Loom Notetaker:** Capture thoughts, ideas, and action items with your team during the meeting, and find it summarized in the meeting recap: https://llbean.atlassian.net/wiki/spaces/ESM/pages/5986123…
 - `2026-04-28 15:18` **Hank Uhl:** what is the matrix
 - `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
-- `2026-04-28 15:22` **Tim McGlothin:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
 - `2026-04-28 15:23` **Jay Seiler:** I have to drop at 11:30
 - `2026-04-28 15:25` **Mark's Loom Notetaker:** The meeting recording is paused. Use the /resume command to continue recording.
+
+### (Direct/Meeting) (5 msgs)
+- `2026-04-28 18:12` **GitHub Enterprise:** Commit 45933e6 Commit 45933e6
+- `2026-04-28 18:15` **GitHub Enterprise:** Commit bc2c4e7 Commit bc2c4e7
+- `2026-04-28 18:15` **GitHub Enterprise:** Pull request 722 Pull request 722
+- `2026-04-28 18:34` **GitHub Enterprise:** Pull request 722 Pull request 722
+- `2026-04-28 18:34` **GitHub Enterprise:** Commit 24516b2 Commit 24516b2
 
 ### Unix Server and Storage Team (4 msgs)
 - `2026-04-28 11:32` **Tim McGlothin:** We can do that today.. Also, I want to try a fix I may have for ssh keys that should allow MFA
 - `2026-04-28 14:55` **Hank Uhl:** `[knowledge]` Just so you can say you've seen this... broke SSHd on one of the DS servers because my CIS script added global directives when there was an open Match at the end of the sshd_config…
 - `2026-04-28 14:55` **Hank Uhl:** there is no way to "close" it.. you have to return to global directive with another "Match all" line
 - `2026-04-28 14:58` **Tim McGlothin:** `[incident]` if you dont crash the car every now and then you're not really racing
-
-### (Direct/Meeting) (3 msgs)
-- `2026-04-28 15:22` **<Undefined> <Undefined>:** https://llbean.atlassian.net/wiki/spaces/WSTD/pages/5626298398/Building+Ansible+Execution+Environme…
-- `2026-04-28 15:33` **<Undefined> <Undefined>:** https://llbean.atlassian.net/wiki/spaces/NTX/pages/4956455069/Nutanix+Node+Cluster+Creation
-- `2026-04-28 15:37` **<Undefined> <Undefined>:** I have a homela
 
 ### Unix Server | TOC Team Chat (1 msgs)
 - `2026-04-28 11:04` **Josu� Real:** FYI https://llbean.atlassian.net/browse/ITS-11000

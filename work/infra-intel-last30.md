@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-28 16:06 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-28 20:06 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 662 raw emails → 352 signal emails
+**Stats:** 671 raw emails → 289 signal emails
 
 ## AAP / Ansible (27 emails)
 
@@ -50,6 +50,14 @@
 ## General (40 emails)
 
 **🔴 Incidents / Issues**
+- `2026-04-10 16:53` **Tim McGlothin** — Out Wednesday afternoon
+  > Hey David! I need to run down to NH the day after I get back (Wednesday afternoon).. New laptop arrived early and they will only hold it for a week. I don't have anything scheduled
+- `2026-04-10 16:57` **David Bernier** — Re: Out Wednesday afternoon
+  > No worries - I will update everyone Monday - excited for your new machine!!! We will take care of Workday stuff when you are back. Enjoy!! Get Outlook for iOS <https://aka.ms/o0uke
+- `2026-04-13 09:25` **David Bernier** — Server Engineer Team Meeting Agenda - Monday, 4/13/2026 @ 10:30 AM US EST / 8:30 AM CR
+  > Server Engineer Team Meeting Agenda - Monday, 4/13/2026 @ 10:30 AM US EST / 8:30 AM CR HOUSEKEEPING * BEANS BEST NOMINATIONS - DEADLINE FOR NOMINATIONS IS THIS FRIDAY, APRIL 17, 20
+- `2026-04-16 10:05` **Steven Foxe** — RE: LL Bean, CV Media Refresh - Customer Kick Off Meeting Notes
+  > Hi Raj, I finally had a chance to look at our new hardware and the HSX design doc that you sent. The configuration of our new servers varies a little from the pictures in the desig
 - `2026-04-20 10:52` **Roger Laplante** — Re: Coordinating Next Steps for Linux Access & Privilege Management
   > Some people who received this message don't often get email from roger.laplante@optiv.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: Exte
 - `2026-04-20 16:16` **Ben O'Brion** — RE: First Responder Walkthroughs - HQ Building / OFC, and DRS
@@ -62,6 +70,10 @@
   > Server Engineer Team Meeting Agenda - Monday, 4/20/2026 @ 1:30 PM US EST / 11:30 AM CR HOUSEKEEPING * YEAR-END Reviews - These have started and should be completed by end of day Th
 
 **📋 Action Items**
+- `2026-04-14 14:01` **Nina Papa** — Massage in HQ - many open appointments for tomorrow!
+  > Forwarding on behalf of Healthy Bean: Licensed Massage Therapist, Gabrielle Copeley is offering onsite massage tomorrow (4.15) in HQ and still has many open appointments available.
+- `2026-04-15 13:21` **Tammy Thomas** — RE: Monthly Manufacturing Touch Base - Notes and Action Items
+  > Notes from today’s meeting: * Rukus is coming back. Do we know when? * Timing is still a TBD * Procurement is getting everything purchased and a second wiring company is providing 
 - `2026-04-20 15:57` **David Bernier** — First Responder Walkthroughs - HQ Building / OFC, and DRS
   > Date: April 20, 2026 On Wednesday, April 22, Corporate Security will be conducting walkthroughs of the OFC and DRS, followed by a tour of the HQ campus. The walkthroughs will begin
 - `2026-04-22 06:03` **FORTNA Insights** — New Gartner® Report, Compliments of FORTNA
@@ -72,40 +84,40 @@
   > Server Engineer Team Meeting Agenda - Monday, 4/27/2026 @ 1:30 PM US EST / 11:30 AM CR HOUSEKEEPING * 2026 GOALS - These are going to be due Mid-May (specifically May 15) and there
 
 **🔧 Changes / Deployments**
+- `2026-04-13 13:00` **Nina Papa** — Wellness this Week - Elder Care & upcoming EAP Peer Support Groups
+  > Forwarding on behalf of Healthy Bean: Our 2026 Elder Care Series continues this Thursday, April 16, from noon–12:30 p.m. with part two of a presentation on Brain Change. Brittany f
 - `2026-04-22 13:20` **Tim McGlothin** — Modification Resolution
   > 13:20:29 Calendar 13:20:29 Message class: {SU:IPM.Appointment} 13:20:29 Appointment Conflict Resolution 13:20:29 Local subject: {SU:Change coverage 4/23} 13:20:29 Remote subject: {
 
 **💬 Notable**
+- `2026-04-21 09:33` **Tim McGlothin** — AIKB on W11 notes
+- `2026-04-21 21:01` **Alcatel-Lucent Enterprise** — Top 3 Ways to Integrate IT and OT Networks
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ View this message online <https://app.conversation
+- `2026-04-22 09:13` **Tim McGlothin** — Modification Resolution
+  > 9:13:14 Calendar 9:13:14 Message class: {SU:IPM.Appointment} 9:13:14 Appointment Conflict Resolution 9:13:14 Local subject: {SU:1x1 - David B & Tim M} 9:13:14 Remote subject: {SU:1
+- `2026-04-22 10:12` **Tim mcglothin** — mestack
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ -- Tim McGlothin timmcg@gmail.com <mailto:timmcg@g
+- `2026-04-22 10:12` **Nasuni** — Your file data strategy is at a crossroads—what’s next?
+  > You don't often get email from customermarketing@nasuni.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links
+- `2026-04-22 10:22` **Tim mcglothin** — mesume
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ -- Tim McGlothin timmcg@gmail.com <mailto:timmcg@g
+- `2026-04-22 11:00` **Annie Beagan** — RE: Infrastructure All Hands
+  > Hi Aaron, Thank you for reaching out and letting me know about the mix-up with the Infrastructure All-Hands meetings. I really appreciate you bringing this to my attention—missing 
+- `2026-04-22 11:02` **The CyberArk Team** — Your TLS Workload Just Doubled. Now What?
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ See how leading teams eliminate blind spots and re
+- `2026-04-22 12:49` **Tim McGlothin** — mesume
 - `2026-04-22 13:58` **Karla Adams** — Interview for Network Security Architect
   > Hi Tim, I am going to be setting up an interview for Josh’s role. It will be an in person 1-hour interview. I took a look at your calendar and it looks like the panel (listed below
 - `2026-04-22 14:00` **Tim McGlothin** — RE: Interview for Network Security Architect
   > Thank you!! Looking forward to it! Hi Tim, I am going to be setting up an interview for Josh’s role. It will be an in person 1-hour interview. I took a look at your calendar and it
 - `2026-04-23 07:03` **Microsoft** — Reduce risk with a secure AI strategy
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hello from Microsoft. Having trouble viewing this 
-- `2026-04-23 07:33` **Confluence** — Daily digest: updates from Service OC - Confluence
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
 - `2026-04-23 08:22` **David Bernier** — Year End @ 11 AM Today
   > Tim - see the attached 2025 Year End Review - we can discuss in our 11 AM meeting today. *Please see attached and let me know if you cannot open for some reason. Thanks! David B @ 
-- `2026-04-23 09:06` **Good Shepherd Food Bank** — Timothy, which food is a space pioneer? 🪐
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Take a moment to guess! ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ 
 - `2026-04-23 10:23` **Rajesh Iyer** — RE: LL Bean, CV Media Refresh - Customer Kick Off Meeting Notes
   > Some people who received this message don't often get email from rajesh.iyer@cdw.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External 
-- `2026-04-23 14:17` **Atlassian** — Team '26 Keynote: redesigning the human+AI workforce
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hear firsthand from Mercedes-Benz CSO + more! Hear
-- `2026-04-23 15:39` **Atlassian** — Team '26 Keynote: redesigning the human+AI workforce
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hear firsthand from Mercedes-Benz CSO + more! Hear
-- `2026-04-25 06:13` **Confluence** — Daily digest: updates from Service OC - Confluence
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
-- `2026-04-26 07:47` **Confluence** — Daily digest: updates from Service OC - Confluence
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
-- `2026-04-28 07:27` **Confluence** — Daily digest: updates from Service OC - Confluence
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://post-office-rml-frontend.prod-east.fronte
-- `2026-04-28 08:33` **Expedient** — Happening today: Coffee chat at 10:30 AM ET
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Last chance to join live.️ Can't see this email? V
-- `2026-04-28 09:06` **Good Shepherd Food Bank** — 🚨 One last reminder: Our Stock the Shelves campaign ends soon
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Donate now to help fill pantries and fridges with 
-- `2026-04-28 11:07` **Discount Programs** — Celebrate Her with the Perfect Getaway
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Charming escapes for rest, fun, and connection ‌ ‌
+- `2026-04-28 12:11` **marketing@hello.hingehealth.com** — Start your program. Get a Stanley®!
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ At no cost to you through L.L.Bean <https://linksv
 
 ## GitHub / Copilot (1 emails)
 
@@ -116,8 +128,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-24 12:20` **Automation for Jira (Jira)** — [JIRA] (ITS-10709) OmniCenter: sec-scan-ta08 SUB: sec-scan-ta08 - Threshold CRITICAL - CPU Utilization for sec-scan-ta08
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-24 16:24` **Automation for Jira (Jira)** — [JIRA] (ITS-10744) OmniCenter: mb-qa-media02 SUB: mb-qa-media02 - Threshold CRITICAL - /home Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-24 16:39` **Automation for Jira (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
@@ -146,6 +156,8 @@
   > Hi Tim The following is the information relevant to the current situation affecting mb-dv-app02, mb-dv-media02, mb-dv-router02 in QA environment: 1) The type of issue: Server patch
 - `2026-04-28 12:02` **Javier Cedeño (Jira)** — [JIRA] (ITS-10709) OmniCenter: sec-scan-ta08 SUB: sec-scan-ta08 - Threshold CRITICAL - CPU Utilization for sec-scan-ta08
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
+- `2026-04-28 12:08` **Javier Cedeño (Jira)** — [JIRA] (ITS-10772) OmniCenter: wms-qa-mif02 SUB: wms-qa-mif02 - Threshold CRITICAL - /apps Percent Used Space
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 
 **💬 Notable**
 - `2026-04-22 12:44` **Javier Cedeño (Jira)** — [JIRA] (ITS-10438) Control-M: ans00200 ENDED NOTOK! - Production - Abend Code  99
@@ -172,8 +184,10 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Service Atlassian Integrations 1 made an update __
 - `2026-04-28 10:04` **Service Atlassian Integrations (Jira)** — [JIRA] (ITS-10595) Control-M: ans00140 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Service Atlassian Integrations 1 made an update __
+- `2026-04-28 12:18` **Javier Cedeño (Jira)** — [JIRA] (ITS-10855) Control-M: ans00251 ENDED NOTOK! - Production - Abend Code  99
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 
-## Network (6 emails)
+## Network (3 emails)
 
 **🔴 Incidents / Issues**
 - `2026-03-31 18:02` **Javier Cedeño** — RE: 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after B
@@ -183,15 +197,7 @@
 - `2026-04-22 17:41` **Tim McGlothin** — Re: Ansible sync job
   > Skipping that host means it did not see that server in the ansible inventory.. We'll check it out tomorrow and get it working. Get Outlook for Android <https://aka.ms/AAb9ysg> ____
 
-**💬 Notable**
-- `2026-04-07 09:38` **Cisco Product & Engineering** — Shape the future of Cisco Identity Services Engine (ISE) in 3 minutes
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Help us serve you better today and tomorrow. ͏‌ ͏‌
-- `2026-04-14 11:10` **Cisco Product & Engineering** — Reminder: Shape the future of Cisco Identity Services Engine (ISE) in 3 minutes
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Help us serve you better today and tomorrow. ͏‌ ͏‌
-- `2026-04-21 11:04` **Cisco Product & Engineering** — Reminder: Shape the future of Cisco Identity Services Engine (ISE) in 3 minutes
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Help us serve you better today and tomorrow. ͏‌ ͏‌
-
-## Nutanix (29 emails)
+## Nutanix (26 emails)
 
 **🔴 Incidents / Issues**
 - `2026-03-30 16:29` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
@@ -248,18 +254,12 @@
 **💬 Notable**
 - `2026-04-07 11:03` **Sophia Lee, Nutanix** — A Clear Path Beyond VMware: Register for April 23
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Rising costs, operational complexity <https://info
-- `2026-04-14 10:09` **Expedient** — Is your infrastructure AI-ready or just AI-adjacent?
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Cut through the hype with Expedient and Nutanix.️ 
 - `2026-04-15 11:31` **Sophia Lee, Nutanix** — Outrun the "rolling boulder" of hardware lead times
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Join us for our upcoming event, Moving at Lightspe
 - `2026-04-16 12:04` **Sophia Lee, Nutanix** — Couldn’t Make It to .NEXT? Catch Up & Pre-Register for 2027
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ We missed you at Nutanix .NEXT 2026 in Chicago, bu
-- `2026-04-21 13:28` **Expedient** — From Nutanix to AI-ready: a practical path forward
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A strategic conversation, not a product pitch.️ Ca
 - `2026-04-22 11:31` **Sophia Lee, Nutanix** — Last Chance: Join us to learn how Markerstudy reduced cloud spend without sacrificing agility
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Cloud costs rising? Compliance pressures increasin
-- `2026-04-24 11:01` **Expedient** — The infrastructure moves that unlock AI advantage
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Coffee chat with Expedient and Nutanix.️ Can't see
 
 ## Nutanix Storage / SAN (17 emails)
 
