@@ -1,7 +1,7 @@
 # Zscaler Training Platform
 
 **Status:** ✅ Deployed — v1.0
-**Last Updated:** 2026-04-27
+**Last Updated:** 2026-04-28
 **Repo:** https://github.com/tmcglothin_llbean/zscaler-training (private)
 **Local dev:** `docker compose up -d` → http://localhost:8080
 **Server:** `inf-dv-tim01:8080` — podman rootless via systemd user service
@@ -28,8 +28,10 @@ Self-paced training platform for onboarding as lead of L.L.Bean's Zscaler progra
 | 5 | `05-llb-zpa` | LLB ZPA Implementation | 4 |
 | 6 | `06-llb-zia` | LLB ZIA Implementation | 3 |
 | 7 | `07-gaps-future` | Gaps, Pain Points & Future | 3 |
+| 8 | `08-pse-compliance` | Private Service Edge & Compliance Zones | 3 |
+| 9 | `09-operational-realities` | Operational Realities & Troubleshooting | 3 |
 
-**Total:** 23 sections, 50+ quiz questions
+**Total:** 29 sections, 74+ quiz questions
 
 ## File Structure
 
