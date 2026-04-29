@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: AIKB Copilot Studio Adapter (Scaffold)
+  version: 0.1.0
+  description: >
+    Scaffold spec for Microsoft Copilot Studio custom connector integration.
+servers:
+  - url: https://example-aikb-adapter.local
+paths:
+  /copilot/remember:
+    post:
+      summary: Remember a memory event
+      responses:
+        '200':
+          description: OK
+  /copilot/recall:
+    post:
+      summary: Recall relevant memory
+      responses:
+        '200':
+          description: OK
+  /copilot/context-pack:
+    post:
+      summary: Build compact prompt context from memory
+      responses:
+        '200':
+          description: OK
