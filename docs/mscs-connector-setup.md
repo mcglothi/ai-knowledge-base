@@ -27,6 +27,21 @@ Use this when your AIKB adapter is hosted (Azure/App Service/Container/etc.) and
 ### Lane B (optional advanced): **WSL/local AIKB runtime**
 Use this when users need to run local AIKB tools/runtime on Windows. Follow `docs/windows-wsl.md` first.
 
+
+## Pre-Install Permission Check (Recommended)
+Before connector setup, run the prereq checker to identify missing access and generate an admin request list.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\_tools\adapters\mscs\prereq-check.ps1 -EnvironmentName "<YourEnvironmentName>"
+```
+
+Outputs:
+- Console table of pass/warn/fail checks
+- JSON report (default: `./mscs-prereq-report.json`)
+- Ready-to-send admin request template if access is missing
+
+If you do not know your environment name yet, run without `-EnvironmentName` first.
+
 ## Product Naming (avoid confusion)
 - **Microsoft Copilot Studio** = enterprise agent orchestration platform
 - **GitHub Copilot CLI** = developer CLI agent
@@ -98,3 +113,4 @@ Keep this layer thin: map directly to AIKB core primitives.
 - `docs/windows-wsl.md`
 - `docs/mcp-setup.md`
 - `docs/agent-im.md`
+- `_tools/adapters/mscs/prereq-check.ps1`
