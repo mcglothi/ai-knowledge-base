@@ -1,27 +1,189 @@
 openapi: 3.0.3
 info:
-  title: AIKB Copilot Studio Adapter (Scaffold)
-  version: 0.1.0
-  description: >
-    Scaffold spec for Microsoft Copilot Studio custom connector integration.
+  title: AIKB Copilot Studio Adapter
+  version: 0.2.0
+  description: |
+    HTTP facade for Microsoft Copilot Studio integration with AIKB memory/search.
 servers:
-  - url: https://example-aikb-adapter.local
+  - url: https://your-adapter-host.example.com
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+  schemas:
+    RememberRequest:
+      type: object
+      required: [text]
+      properties:
+        tenant_id: { type: string }
+        project_id: { type: string }
+        agent_id: { type: string }
+        user_id: { type: string }
+        text: { type: string }
+        tags:
+          type: array
+          items: { type: string }
+        source: { type: string, default: copilot_studio }
+        pii_level: { type: string, default: normal }
+        type: { type: string, default: observation }
+        promote_hint: { type: string, default: candidate }
+    RememberResponse:
+      type: object
+      properties:
+        status: { type: string, example: accepted }
+        event_id: { type: string }
+        stored_at: { type: string, format: date-time }
+        file: { type: string }
+
+    RecallRequest:
+      type: object
+      required: [query]
+      properties:
+        tenant_id: { type: string }
+        project_id: { type: string }
+        query: { type: string }
+        limit: { type: integer, default: 5, minimum: 1, maximum: 10 }
+        filters:
+          type: object
+          properties:
+            tags_any:
+              type: array
+              items: { type: string }
+            min_confidence:
+              type: number
+    RecallItem:
+      type: object
+      properties:
+        memory_id: { type: string }
+        text: { type: string }
+        score: { type: number }
+        timestamp: { type: string }
+        tags:
+          type: array
+          items: { type: string }
+        file: { type: string }
+        section: { type: string }
+    RecallResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecallItem'
+
+    ContextPackRequest:
+      type: object
+      required: [query]
+      properties:
+        tenant_id: { type: string }
+        project_id: { type: string }
+        query: { type: string }
+        limit: { type: integer, default: 5, minimum: 1, maximum: 10 }
+    ContextSource:
+      type: object
+      properties:
+        file: { type: string }
+        section: { type: string }
+        score: { type: number }
+        date: { type: string }
+    ContextPackResponse:
+      type: object
+      properties:
+        summary: { type: string }
+        bullet_context:
+          type: array
+          items: { type: string }
+        context_text: { type: string }
+        token_estimate: { type: integer }
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContextSource'
+
+    ErrorResponse:
+      type: object
+      properties:
+        error: { type: string }
+        message: { type: string }
+
 paths:
+  /health:
+    get:
+      summary: Health check
+      security: []
+      responses:
+        '200':
+          description: Healthy
+
   /copilot/remember:
     post:
-      summary: Remember a memory event
+      summary: Persist a memory event into AIKB runtime events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RememberRequest'
       responses:
         '200':
-          description: OK
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RememberResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /copilot/recall:
     post:
-      summary: Recall relevant memory
+      summary: Retrieve relevant memory/context from AIKB search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecallRequest'
       responses:
         '200':
-          description: OK
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecallResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /copilot/context-pack:
     post:
-      summary: Build compact prompt context from memory
+      summary: Build compact context payload for prompt injection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContextPackRequest'
       responses:
         '200':
-          description: OK
+          description: Context pack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextPackResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
