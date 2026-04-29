@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-29 12:46 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-29 16:40 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 674 raw emails → 291 signal emails
+**Stats:** 676 raw emails → 294 signal emails
 
 ## AAP / Ansible (28 emails)
 
@@ -50,10 +50,6 @@
 ## General (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-10 16:53` **Tim McGlothin** — Out Wednesday afternoon
-  > Hey David! I need to run down to NH the day after I get back (Wednesday afternoon).. New laptop arrived early and they will only hold it for a week. I don't have anything scheduled
-- `2026-04-10 16:57` **David Bernier** — Re: Out Wednesday afternoon
-  > No worries - I will update everyone Monday - excited for your new machine!!! We will take care of Workday stuff when you are back. Enjoy!! Get Outlook for iOS <https://aka.ms/o0uke
 - `2026-04-13 09:25` **David Bernier** — Server Engineer Team Meeting Agenda - Monday, 4/13/2026 @ 10:30 AM US EST / 8:30 AM CR
   > Server Engineer Team Meeting Agenda - Monday, 4/13/2026 @ 10:30 AM US EST / 8:30 AM CR HOUSEKEEPING * BEANS BEST NOMINATIONS - DEADLINE FOR NOMINATIONS IS THIS FRIDAY, APRIL 17, 20
 - `2026-04-16 10:05` **Steven Foxe** — RE: LL Bean, CV Media Refresh - Customer Kick Off Meeting Notes
@@ -90,9 +86,6 @@
   > 13:20:29 Calendar 13:20:29 Message class: {SU:IPM.Appointment} 13:20:29 Appointment Conflict Resolution 13:20:29 Local subject: {SU:Change coverage 4/23} 13:20:29 Remote subject: {
 
 **💬 Notable**
-- `2026-04-21 09:33` **Tim McGlothin** — AIKB on W11 notes
-- `2026-04-21 21:01` **Alcatel-Lucent Enterprise** — Top 3 Ways to Integrate IT and OT Networks
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ View this message online <https://app.conversation
 - `2026-04-22 09:13` **Tim McGlothin** — Modification Resolution
   > 9:13:14 Calendar 9:13:14 Message class: {SU:IPM.Appointment} 9:13:14 Appointment Conflict Resolution 9:13:14 Local subject: {SU:1x1 - David B & Tim M} 9:13:14 Remote subject: {SU:1
 - `2026-04-22 10:12` **Tim mcglothin** — mestack
@@ -118,6 +111,10 @@
   > Some people who received this message don't often get email from rajesh.iyer@cdw.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External 
 - `2026-04-28 12:11` **marketing@hello.hingehealth.com** — Start your program. Get a Stanley®!
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ At no cost to you through L.L.Bean <https://linksv
+- `2026-04-29 06:02` **FORTNA Insights** — What’s Next for Retail Distribution?
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ See how leaders are building resilient supply chai
+- `2026-04-29 12:03` **Databricks Team** — RSVP today for a Hands-On Databricks Workshop
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Don’t miss out,﻿ register now! ‍͏ ͏ ‍͏ ͏ ‍͏ ͏ ‍͏ ͏
 
 ## GitHub / Copilot (1 emails)
 
@@ -128,8 +125,6 @@
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-24 16:24` **Automation for Jira (Jira)** — [JIRA] (ITS-10744) OmniCenter: mb-qa-media02 SUB: mb-qa-media02 - Threshold CRITICAL - /home Percent Used Space
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-24 16:39` **Automation for Jira (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
 - `2026-04-24 16:55` **Javier Cedeño (Jira)** — [JIRA] (ITS-10437) OmniCenter: edw-pr-dbn113 SUB: edw-pr-dbn113 - Threshold CRITICAL - CPU Utilization for edw-pr-dbn113
@@ -158,6 +153,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-28 12:08` **Javier Cedeño (Jira)** — [JIRA] (ITS-10772) OmniCenter: wms-qa-mif02 SUB: wms-qa-mif02 - Threshold CRITICAL - /apps Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
+- `2026-04-29 09:30` **Jason Mills** — Re: AI Trusted Ops POC proposal
+  > Yes! This has been on the top of my list for getting some value from an AI process. I think we are at a good place with the Spark cluster to use that for a POC. Feel free to put so
 
 **💬 Notable**
 - `2026-04-22 12:44` **Javier Cedeño (Jira)** — [JIRA] (ITS-10438) Control-M: ans00200 ENDED NOTOK! - Production - Abend Code  99
@@ -197,7 +194,7 @@
 - `2026-04-22 17:41` **Tim McGlothin** — Re: Ansible sync job
   > Skipping that host means it did not see that server in the ansible inventory.. We'll check it out tomorrow and get it working. Get Outlook for Android <https://aka.ms/AAb9ysg> ____
 
-## Nutanix (26 emails)
+## Nutanix (27 emails)
 
 **🔴 Incidents / Issues**
 - `2026-03-30 16:29` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
@@ -260,6 +257,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ We missed you at Nutanix .NEXT 2026 in Chicago, bu
 - `2026-04-22 11:31` **Sophia Lee, Nutanix** — Last Chance: Join us to learn how Markerstudy reduced cloud spend without sacrificing agility
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Cloud costs rising? Compliance pressures increasin
+- `2026-04-29 10:09` **Todd Thibodeau** — Nutanix X Tour at Treehouse Brewery for Brews, BBQ & Bytes - Hear What you Missed in Chicago - June 2!
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://ngp-op-prod.sfo3.digitaloceanspaces.com/p
 
 ## Nutanix Storage / SAN (17 emails)
 
