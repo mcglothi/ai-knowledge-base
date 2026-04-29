@@ -1,5 +1,5 @@
 # Getting Started with AIKB
-**Last Updated:** 2026-04-21
+**Last Updated:** 2026-04-29
 
 Setup from scratch. Already have a private AIKB and need a new machine? Use [new-machine-onboarding.md](new-machine-onboarding.md).
 
@@ -8,6 +8,7 @@ Setup from scratch. Already have a private AIKB and need a new machine? Use [new
 |----------|--------|
 | Claude Code or Gemini CLI | Follow this guide top to bottom |
 | Cursor or OpenCode | Steps 1–3, then see Cursor/OpenCode section |
+| Microsoft Copilot Studio | Steps 1–3, then [MS Copilot Studio connector setup →](mscs-connector-setup.md) (Windows/no-WSL lane supported) |
 | ChatGPT, Gemini (web), or Grok | Steps 1–2 + 2-minute paste → [web tools](#web-tools) |
 | Windows | [WSL guide first →](windows-wsl.md) |
 
@@ -40,6 +41,8 @@ Optional GitHub MCP for remote access: [docs/mcp-setup.md](mcp-setup.md)
 **Codex CLI:** `cp ~/code/AIKB/_agents/codex.md /path/to/project/AGENTS.md` (per workspace)
 
 **GitHub Copilot:** `./sync-agents.sh --agent copilot /path/to/project` (writes `.github/copilot-instructions.md`)
+
+**Microsoft Copilot Studio (optional addon):** follow [docs/mscs-connector-setup.md](mscs-connector-setup.md) after base install.
 
 **Cursor:** Settings → Cursor Settings → Rules → User Rules → paste `_agents/cursor.md`
 
