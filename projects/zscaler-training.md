@@ -1,7 +1,7 @@
 # Zscaler Training Platform
 
-**Status:** ✅ Deployed — v1.0
-**Last Updated:** 2026-04-28
+**Status:** ✅ Deployed — v1.1
+**Last Updated:** 2026-04-29
 **Repo:** https://github.com/tmcglothin_llbean/zscaler-training (private)
 **Local dev:** `docker compose up -d` → http://localhost:8080
 **Server:** `inf-dv-tim01:8080` — podman rootless via systemd user service
@@ -50,13 +50,15 @@ zscaler-training/
     ├── 04-terraform.json
     ├── 05-llb-zpa.json
     ├── 06-llb-zia.json
-    └── 07-gaps-future.json
+    ├── 07-gaps-future.json
+    ├── 08-pse-compliance.json
+    └── 09-operational-realities.json
 ```
 
 ## Adding Content
 
 To add a new module:
-1. Create `content/08-newmodule.json` following the existing schema
+1. Create `content/10-newmodule.json` following the existing schema
 2. Add entry to `content/modules.json` modules array
 3. Module auto-appears in sidebar on next page load
 
@@ -97,12 +99,16 @@ Module 5 and 6 content derived from exploration of:
 - `APP_Zscaler_Ansible` — naming conventions, SCIM playbooks, broken rename bug
 - `APP_Zscaler_Terraform` — app segment structure, admin roles, forwarding rules, commented-out TF
 
-Module 7 documents known issues:
+Module 7 documents known issues (corrected in v1.1):
 - Broken `rename_app_segment.yml` (missing `body_format: json`)
 - SCIM idempotency bug (409 treated as failure)
-- Empty module directories in Terraform repo
+- TF modules exist in `zpa_test/` but not promoted to `zpa_prod/` (not empty — 4 modules scaffolded)
 - Commented-out TF code with no explanation
-- No documentation in either repo
+- `APP_Zscaler_Terraform` has a README + Confluence link; deeper runbooks still missing
+
+Modules 8-9 added 2026-04-29 (content from Copilot, sourced from Teams/Outlook intel + actual repo inspection):
+- Module 8: PSE architecture, CDE/PCI-DSS connector isolation, `zscalertwo.net` cloud identity
+- Module 9: Troubleshooting methodology, SSL inspection, MCP/API automation frontier
 
 ## Deployment — inf-dv-tim01
 
