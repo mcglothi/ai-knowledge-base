@@ -1,13 +1,11 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-29 02:47 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-29 08:06 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 671 raw emails → 289 signal emails
+**Stats:** 674 raw emails → 291 signal emails
 
-## AAP / Ansible (27 emails)
+## AAP / Ansible (28 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-15 09:30` **Javier Cedeño** — CHG-2693 Patch Ansible PROD Environment in April
-  > Good morning, The production Ansible environment will be patched this morning at 10am. If you have any concerns with this change, feel free to reach out as soon as possible Regards
 - `2026-04-15 10:43` **Javier Cedeño** — RE: CHG-2693 Patch Ansible PROD Environment in April
   > Good morning, Patch completed, thank you for your time. Regards, Javier Cedeño R. | Systems Engineer L.L.Bean, Inc. Escazu Corporate Center, 9th Floor San José, Costa Rica 10201 Of
 - `2026-04-17 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
@@ -36,6 +34,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-28 11:28` **Loom** — Recap: Ansible Weekly Checkin  - April 28, 2026
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ <https://click.e.atlassian.com/?qs=ABB7InYiOjEsImQ
+- `2026-04-29 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 
 **⚙️ AAP Job Activity**
 - `2026-03-31 11:26` **Loom** — Recap: Ansible Weekly Checkin  - March 31, 2026
@@ -390,10 +390,6 @@
 ## Splunk (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-20 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
-- `2026-04-20 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-21 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-22 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
@@ -419,6 +415,10 @@
 - `2026-04-27 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-28 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
+- `2026-04-29 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
+- `2026-04-29 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 
 ## Windows / AVD (9 emails)

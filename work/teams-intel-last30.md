@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-29 02:47 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-29 08:06 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2530 signal messages extracted from Teams local cache
+**Stats:** 2533 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -20,9 +20,9 @@
 | 11 | Unix Server | TOC Team Chat | 83 | 19 | 2026-04-28 |
 | 12 | Server Engineering Team - ALL | 65 | 13 | 2026-04-24 |
 | 13 | (Direct/Meeting) | 62 | 14 | 2026-04-27 |
-| 14 | (Direct/Meeting) | 58 | 7 | 2026-04-27 |
-| 15 | Claude POC | 58 | 5 | 2026-04-28 |
-| 16 | (Direct/Meeting) | 57 | 16 | 2026-04-23 |
+| 14 | Claude POC | 60 | 5 | 2026-04-28 |
+| 15 | (Direct/Meeting) | 58 | 7 | 2026-04-27 |
+| 16 | Change Management Weekly Meeting | 57 | 16 | 2026-04-23 |
 | 17 | (Direct/Meeting) | 43 | 3 | 2026-04-17 |
 | 18 | (Direct/Meeting) | 39 | 5 | 2026-04-23 |
 | 19 | (Direct/Meeting) | 39 | 5 | 2026-04-22 |
@@ -439,7 +439,7 @@
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
 
 ### Claude POC
-**58 messages** · 2026-04-24 → 2026-04-28 · 5 signal msgs
+**60 messages** · 2026-04-24 → 2026-04-28 · 5 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-27 18:13` **Nick Mastors:** Hmmm. �I've been trying for a while now and have been unsuccessful. � Andrew � Skvorak , Claude seems convinced that it's an Access issue (though I'm not sure why it would work for Josh and not me). �Thoughts?
@@ -453,8 +453,6 @@
 - `2026-04-27 20:52` **Andrew Skvorak:** Welcome to the new folks I just added - please take a look through the chat history as people are already sharing learnings and other fun stuff. Welcome!
 
 **💬 Notable Exchanges**
-- `2026-04-28 13:34` **Christy van Voorhees:** got the code instantaneously this try! sorry for the drama!
-- `2026-04-28 13:38` **Kathleen Corr:** Someone had to have the drama, it was going to be one of us!!
 - `2026-04-28 13:59` **Stacy Owen:** Andrew � Skvorak �you can deny my request for Orion by Gravity. It would be most useful for our business users like data scientist, insights, analytics and Josh � McHenry �IMHO.� I was just so happy to acquire Claude las…
 - `2026-04-28 14:18` **Andrew Skvorak:** I understand. Something like that would take more vetting and consideration than connecting to other things like our Sharepoint or Outlook.
 - `2026-04-28 14:25` **Stacy Owen:** And it connects to Jira.�
@@ -463,6 +461,8 @@
 - `2026-04-28 18:15` **Andrew Skvorak:** The latest Opus model, 4.7, eats tokens even faster than Opus 4.6 so consider that as an alternative, too.
 - `2026-04-28 18:17` **Tim McGlothin:** pro tip: use Opus to design the solution and create a plan (save in an .md file), then switch to sonnet and feed it those instructions for the heavy lifting. Save a ton of tokens that way.
 - `2026-04-28 19:54` **Stacy Owen:** Has anyone setup a Routine?�
+- `2026-04-28 20:36` **Nick Mastors:** Josh McHenry 100%, and good to note when you exhaust the credits. Opus uses tokens much faster than Sonnet - do you know which you were on? I was on Opus 4.7 thanks for the tips!
+- `2026-04-28 23:25` **Christy van Voorhees:** Fingers crossed this is not my next dramatic moment: https://www.the-independent.com/tech/claude-ai-agent-deletes-startup-anthropic-b2966176.html
 
 ### Server Engineer Team Meeting - Bi-Weekly Check-In
 **5 messages** · 2026-03-30 → 2026-04-28 · 1 signal msgs
