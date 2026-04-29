@@ -28,6 +28,23 @@ Use this when your AIKB adapter is hosted (Azure/App Service/Container/etc.) and
 Use this when users need to run local AIKB tools/runtime on Windows. Follow `docs/windows-wsl.md` first.
 
 
+## Guided Installer (Windows PowerShell TUI)
+Run the wizard for a guided, step-by-step setup that includes prereq checks, auth prompts, OpenAPI prep, and Copilot Studio action guidance.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\_tools\adapters\mscs\install-wizard.ps1 -EnvironmentName "<YourEnvironmentName>"
+```
+
+Optional flags:
+- `-SkipPrereq` (if prereq already run)
+- `-NonInteractive` (CI/scripted defaults)
+
+Wizard outputs:
+- `./_adapters/ms-copilot-studio/onboarding-output/mscs-prereq-report.json`
+- `./_adapters/ms-copilot-studio/onboarding-output/openapi.effective.yaml`
+- `./_adapters/ms-copilot-studio/onboarding-output/test-payloads.json`
+- `./_adapters/ms-copilot-studio/onboarding-output/copilot-studio-steps.txt`
+
 ## Pre-Install Permission Check (Recommended)
 Before connector setup, run the prereq checker to identify missing access and generate an admin request list.
 
@@ -114,3 +131,17 @@ Keep this layer thin: map directly to AIKB core primitives.
 - `docs/mcp-setup.md`
 - `docs/agent-im.md`
 - `_tools/adapters/mscs/prereq-check.ps1`
+
+
+## Guided Installer (WSL Bash TUI)
+For WSL users, run the Bash wizard with equivalent guided flow:
+
+```bash
+bash _tools/adapters/mscs/install-wizard.sh --environment-name "<YourEnvironmentName>"
+```
+
+Optional flags:
+- `--skip-prereq`
+- `--non-interactive`
+
+If `pwsh` is unavailable in WSL, the wizard still runs but skips tenant/module introspection and tells you to run the PowerShell prereq checker from Windows.
