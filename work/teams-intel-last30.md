@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-29 08:06 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-29 12:46 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
 
-**Stats:** 2533 signal messages extracted from Teams local cache
+**Stats:** 2529 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -9,7 +9,7 @@
 |---|---------|------|--------|-------------|
 | 1 | AI Nerds | 305 | 24 | 2026-04-24 |
 | 2 | Claude initial setup | 277 | 28 | 2026-04-28 |
-| 3 | Nutanix Bi-Annual Cluster Upgrades | 148 | 47 | 2026-04-21 |
+| 3 | Nutanix Bi-Annual Cluster Upgrades | 144 | 46 | 2026-04-21 |
 | 4 | (Direct/Meeting) | 144 | 30 | 2026-04-27 |
 | 5 | GitHub Copilot Devs | 143 | 16 | 2026-04-28 |
 | 6 | Unix Server and Storage Team | 133 | 29 | 2026-04-28 |
@@ -137,7 +137,7 @@
 - `2026-04-28 15:15` **Andrew Skvorak:** Yes, they are. There have been some issues with a few people, but as far as I know, everyone who has tried has been able to figure it out. So I don't think anyone is actively blocked.
 
 ### Nutanix Bi-Annual Cluster Upgrades
-**148 messages** · 2026-03-30 → 2026-04-21 · 47 signal msgs
+**144 messages** · 2026-03-30 → 2026-04-21 · 46 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-03-31 03:26` **Javier Cede�o:** Final Update: Nutanix Support identified the root cause. We processed each node individually to isolate the issue, and I’m now monitoring the final firmware upgrade. During the upgrade process, the bond configuration tem…
@@ -180,7 +180,6 @@
 - `2026-04-10 15:51` **Nicholas Hopson:** So long story short the updates are complete, I still need to do the networking vNIC component but am holding off now with the payment issues going on I don't want to cause anything to point to this cluster...
 
 **📋 Action Items**
-- `2026-03-30 12:34` **Steven Foxe:** Welcome to the Nutanix Bi-Annual Cluster Upgrades chat. � Let's use this space solely for Nutanix Upgrade related items such as: Communicating & coordinating the upgrade schedule amongst our team. Discuss upgrade problem…
 - `2026-03-31 20:53` **Javier Cede�o:** for the second one we need to run the NIC upgrade 1 host at a time and run the following commands as soon as the host enter phoenix mode (need to monitor the ipmi console) � ethtool -k eth# | grep vlan � We then turned t…
 - `2026-03-31 20:57` **Javier Cede�o:** if your upgrade fails and need to recover the host and CVM start at step 6 (thanks� Brooke � Curtin-Johnson ) � https://portal.nutanix.com/page/documents/kbs/details?targetId=kA00e000000CyF8CAK
 - `2026-03-31 21:06` **Javier Cede�o:** but if we do the ethtool commands while upgrade we don't need to recover the host
