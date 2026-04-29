@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-29 16:40 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-29 20:41 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 676 raw emails → 294 signal emails
+**Stats:** 670 raw emails → 291 signal emails
 
 ## AAP / Ansible (28 emails)
 
@@ -50,8 +50,6 @@
 ## General (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-13 09:25` **David Bernier** — Server Engineer Team Meeting Agenda - Monday, 4/13/2026 @ 10:30 AM US EST / 8:30 AM CR
-  > Server Engineer Team Meeting Agenda - Monday, 4/13/2026 @ 10:30 AM US EST / 8:30 AM CR HOUSEKEEPING * BEANS BEST NOMINATIONS - DEADLINE FOR NOMINATIONS IS THIS FRIDAY, APRIL 17, 20
 - `2026-04-16 10:05` **Steven Foxe** — RE: LL Bean, CV Media Refresh - Customer Kick Off Meeting Notes
   > Hi Raj, I finally had a chance to look at our new hardware and the HSX design doc that you sent. The configuration of our new servers varies a little from the pictures in the desig
 - `2026-04-20 10:52` **Roger Laplante** — Re: Coordinating Next Steps for Linux Access & Privilege Management
@@ -86,8 +84,6 @@
   > 13:20:29 Calendar 13:20:29 Message class: {SU:IPM.Appointment} 13:20:29 Appointment Conflict Resolution 13:20:29 Local subject: {SU:Change coverage 4/23} 13:20:29 Remote subject: {
 
 **💬 Notable**
-- `2026-04-22 09:13` **Tim McGlothin** — Modification Resolution
-  > 9:13:14 Calendar 9:13:14 Message class: {SU:IPM.Appointment} 9:13:14 Appointment Conflict Resolution 9:13:14 Local subject: {SU:1x1 - David B & Tim M} 9:13:14 Remote subject: {SU:1
 - `2026-04-22 10:12` **Tim mcglothin** — mestack
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ -- Tim McGlothin timmcg@gmail.com <mailto:timmcg@g
 - `2026-04-22 10:12` **Nasuni** — Your file data strategy is at a crossroads—what’s next?
@@ -115,12 +111,8 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ See how leaders are building resilient supply chai
 - `2026-04-29 12:03` **Databricks Team** — RSVP today for a Hands-On Databricks Workshop
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Don’t miss out,﻿ register now! ‍͏ ͏ ‍͏ ͏ ‍͏ ͏ ‍͏ ͏
-
-## GitHub / Copilot (1 emails)
-
-**💬 Notable**
-- `2026-03-30 10:48` **Josh Andrews** — GitHub CoPilot License
-  > Hi Luis, Please add Tim McGlothin to Github CoPilot. -Josh
+- `2026-04-29 13:07` **Loom** — Record and summarize meetings instantly
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Connect your calendar for meeting recordings and A
 
 ## JSM / ServiceNow (40 emails)
 
@@ -194,7 +186,7 @@
 - `2026-04-22 17:41` **Tim McGlothin** — Re: Ansible sync job
   > Skipping that host means it did not see that server in the ansible inventory.. We'll check it out tomorrow and get it working. Get Outlook for Android <https://aka.ms/AAb9ysg> ____
 
-## Nutanix (27 emails)
+## Nutanix (26 emails)
 
 **🔴 Incidents / Issues**
 - `2026-03-30 16:29` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
@@ -231,8 +223,6 @@
   > Hello Jason, New certificate is in place now. Regards, Henry Hello Jason, I will reach out to the IAM team to complete the request. Regards, Henry Good Morning, Here is the notific
 
 **📋 Action Items**
-- `2026-03-30 09:10` **Jason Mills** — FW: Action required: Renew your application certificate in Microsoft Entra ID
-  > Good Morning, Here is the notification that I received regarding the SAML Certificate for Nutanix. -JM Good morning, The SAML certificate for LLB - Nutanix will expire on May 24, 2
 - `2026-04-01 11:31` **Sophia Lee, Nutanix** — 🎬 Big moves don’t need stunt doubles
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Join us for Moving at Lightspeed, an exclusive eve
 
