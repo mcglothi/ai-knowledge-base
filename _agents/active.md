@@ -10,7 +10,7 @@
 
 | Agent | Machine | Mode | Last Write | Repo | Scope | Task |
 |-------|---------|------|-----------|------|-------|------|
-| Copilot CLI | J9RC8S3-LP | local | 2026-04-27 11:08:33 EDT | AIKB | general | session start |
+| *(no active sessions)* | — | — | — | — | — | — |
 
 ---
 
