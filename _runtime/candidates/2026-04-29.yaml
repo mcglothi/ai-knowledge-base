@@ -1,0 +1,19 @@
+candidates:
+  - id: cand_20260429_001
+    source_events:
+      - evt_20260429_200608_273019_8b0c3d
+    target_file: zscaler-training
+    proposed_change: "[observation] Closeout captured for task 'session start'; repo=dirty:3; branch=master; cwd=zscaler-training; events=11; candidates=1; queue=0; approvals=0; session_age=2d; trigger='lets wrap up'"
+    confidence: 0.70
+    class: needs-review
+    status: queued
+  - id: cand_20260429_002
+    source_events:
+      - evt_20260429_200724_445797_d4007e
+      - evt_20260429_201847_108679_ceb112
+      - evt_20260429_202014_880541_586510
+    target_file: AIKB
+    proposed_change: "[observation] Closeout captured for task 'session start'; repo=dirty:3; branch=master; cwd=AIKB; events=3; candidates=2; queue=0; approvals=0; session_age=2d; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    confidence: 0.70
+    class: needs-review
+    status: queued
