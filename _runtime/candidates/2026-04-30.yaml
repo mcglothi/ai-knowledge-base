@@ -14,8 +14,9 @@ candidates:
       - evt_20260430_172610_530346_9af088
       - evt_20260430_173048_183451_ece7a5
       - evt_20260430_173544_356136_281d3a
+      - evt_20260430_174010_503600_d66546
     target_file: AIKB
-    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:29; branch=master; cwd=AIKB; events=13; candidates=1; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:1; branch=master; cwd=AIKB; events=15; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
     confidence: 0.70
     class: needs-review
     status: queued
@@ -26,4 +27,12 @@ candidates:
     proposed_change: "[change] Migrated personal AIKB content into work AIKB (~/.code/AIKB). Added: personal/TELOS (10 files), personal/PREFERENCES.md, personal/vision.md, personal/ai-services-business.md, personal/DAIDENTITY.md, 6 dev-environment machine files (feynman/tesla/mbp-i9/mbp-m1/latitude/newton), personal-projects/ (35 files including Kyloch, AIKB roadmaps, OpenSoak, Cliparr, LapTime, Runway, etc.), home-lab/ (infrastructure, services, security, automation, runbooks — ~50 files), side-gigs/ (APF client — 5 files), projects/dream-vault.md, projects/aikb-knowledge-graph.md, work/infrastructure-agent-pattern.md. Preserved work-specific profile.md (newer). Updated _index.md. Source: ~/code/AIKB-personal/AIKB (temporary clone, to be removed)."
     confidence: 0.90
     class: auto-promote-safe
+    status: queued
+  - id: cand_20260430_003
+    source_events:
+      - evt_20260430_173952_698907_ccdbea
+    target_file: general
+    proposed_change: "[observation] Closeout captured for task 'work in /home/tmcglothin/code'; repo=dirty:29; branch=-; cwd=/home/tmcglothin/code; events=14; candidates=2; queue=0; approvals=0; session_age=unknown; trigger='lets wrap up'; note='Migrated personal AIKB into work AIKB: personal/TELOS (10 files), PREFERENCES, DAIDENTITY, vision, ai-services-business, 6 dev-environment machine files, personal-projects/ (36 files), home-lab/ (50 files), side-gigs/ (6 files), projects/ additions, work/infrastructure-agent-pattern.md. Updated _index.md. Temp clone ~/code/AIKB-personal removed by user.'"
+    confidence: 0.70
+    class: needs-review
     status: queued
