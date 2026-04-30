@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-29 20:41 UTC  **Period:** 2026-03-30 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-30 02:10 UTC  **Period:** 2026-03-31 → today  **Source:** Local Teams cache
 
-**Stats:** 2508 signal messages extracted from Teams local cache
+**Stats:** 2503 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -10,14 +10,14 @@
 | 1 | AI Nerds | 305 | 24 | 2026-04-24 |
 | 2 | Claude initial setup | 288 | 32 | 2026-04-29 |
 | 3 | GitHub Copilot Devs | 143 | 16 | 2026-04-28 |
-| 4 | Claude POC Developer group | 139 | 22 | 2026-04-29 |
+| 4 | Claude POC Developer group | 140 | 22 | 2026-04-29 |
 | 5 | (Direct/Meeting) | 128 | 3 | 2026-04-27 |
 | 6 | Unix Server and Storage Team | 127 | 29 | 2026-04-28 |
-| 7 | Nutanix Bi-Annual Cluster Upgrades | 125 | 38 | 2026-04-21 |
+| 7 | Nutanix Bi-Annual Cluster Upgrades | 120 | 37 | 2026-04-21 |
 | 8 | IS Connect Hub | 120 | 24 | 2026-04-24 |
 | 9 | (Direct/Meeting) | 98 | 4 | 2026-04-01 |
-| 10 | (Direct/Meeting) | 97 | 19 | 2026-04-27 |
-| 11 | Claude POC | 96 | 18 | 2026-04-29 |
+| 10 | Claude POC | 98 | 18 | 2026-04-29 |
+| 11 | (Direct/Meeting) | 97 | 19 | 2026-04-27 |
 | 12 | Unix Server | TOC Team Chat | 83 | 19 | 2026-04-28 |
 | 13 | Server Engineering Team - ALL | 65 | 13 | 2026-04-24 |
 | 14 | (Direct/Meeting) | 62 | 14 | 2026-04-27 |
@@ -181,7 +181,7 @@
 - `2026-04-28 13:53` **Mario Rodr�guez:** https://github.blog/news-insights/company-news/an-update-on-github-availability/
 
 ### Claude POC Developer group
-**139 messages** · 2026-04-24 → 2026-04-29 · 22 signal msgs
+**140 messages** · 2026-04-24 → 2026-04-29 · 22 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-24 13:56` **Mohamed Ali:** I'm on a mac, and just accepted the invite, and installed the app.� � Mine looks to have worked. Had an error with a prompt, but it worked afterwards.� �
@@ -221,7 +221,6 @@
 - `2026-04-29 20:03` **Ben Hoisington:** That searches the "Connected Tools" for our organization. In this case, because we've enabled the M365 Connector it will be able to query against our M365 tenant, Sharepoint, Outlook, Teams etc.
 
 **💬 Notable Exchanges**
-- `2026-04-29 19:59` **Curt Combar:** Anyone know what's behind this "Ask L.L.Bean" in Claude? �Is that an MCP that queries Sharepoint or something?
 - `2026-04-29 20:05` **Curt Combar:** Curious. �When I enabled it and asked an internal type question, it gave me the face push....
 - `2026-04-29 20:10` **Curt Combar:** Not something I need - was just curious about this integration
 - `2026-04-29 20:11` **Ben Hoisington:** I wonder if that's a client side setting to enable the connector for you. I get very different results. �
@@ -231,6 +230,7 @@
 - `2026-04-29 20:14` **Curt Combar:** So it's in a loop. �Every time I click it, it says it is enabled, but it's not for me, apparently
 - `2026-04-29 20:18` **Curt Combar:** OK, I was able to explicitly enable it in Settings. �So it doesn't seem to enable correctly on the fly, but it does in Settings.
 - `2026-04-29 20:20` **Curt Combar:** Although I have to hit "Confirm" a couple times to get it to use connectors for each question...
+- `2026-04-29 20:40` **Ben Hoisington:** You can modify those in Settings for specific connectors. I try to be cautious when it comes to "Always allow".
 
 ### Unix Server and Storage Team
 **127 messages** · 2026-04-01 → 2026-04-28 · 29 signal msgs
@@ -293,7 +293,7 @@
 - `2026-04-28 14:55` **Hank Uhl:** there is no way to "close" it.. you have to return to global directive with another "Match all" line
 
 ### Nutanix Bi-Annual Cluster Upgrades
-**125 messages** · 2026-03-30 → 2026-04-21 · 38 signal msgs
+**120 messages** · 2026-03-31 → 2026-04-21 · 37 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-03-31 03:26` **Javier Cede�o:** Final Update: Nutanix Support identified the root cause. We processed each node individually to isolate the issue, and I’m now monitoring the final firmware upgrade. During the upgrade process, the bond configuration tem…
@@ -364,7 +364,7 @@
 - `2026-04-21 16:50` **Brooke Curtin-Johnson:** Here is some documentation on single node cluster firmware updates- I still have a few questions out to David S. on process.
 
 ### Claude POC
-**96 messages** · 2026-04-24 → 2026-04-29 · 18 signal msgs
+**98 messages** · 2026-04-24 → 2026-04-29 · 18 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-27 18:13` **Nick Mastors:** Hmmm. �I've been trying for a while now and have been unsuccessful. � Andrew � Skvorak , Claude seems convinced that it's an Access issue (though I'm not sure why it would work for Josh and not me). �Thoughts?
@@ -397,8 +397,6 @@
 - `2026-04-29 20:00` **Nick Mastors:** I've created a documentation agent. �Documentation is worth its weight in gold but it's takes time and its hard to maintain. �I created an agent that interview the person and then summarizes back what it thinks its heard…
 
 **💬 Notable Exchanges**
-- `2026-04-29 18:50` **Tim McGlothin:** I use excalidraw a lot, you can have claude generate an excalidraw file directly and import / adjust: https://excalidraw.com/
-- `2026-04-29 18:51` **Kathleen Corr:** very cool - maybe i will bark up the figma integration tree
 - `2026-04-29 18:58` **Stacy Owen:** Kathleen � Corr �you can set up a folder with Claude for it to output too and ask it to create it in powerpoint without overlapping text
 - `2026-04-29 19:08` **Kathleen Corr:** I'm over in Design, working better!
 - `2026-04-29 19:55` **Andrew Skvorak:** Everyone �- the AI Enablement team has a sponsor meeting tomorrow and I would love to share any quick wins that any of you have realized with Claude. I know it's been a few days, but if there's anything that you got exci…
@@ -407,6 +405,8 @@
 - `2026-04-29 19:59` **Andrew Skvorak:** Did you use Designer for that, Kathleen?
 - `2026-04-29 20:04` **Nick Mastors:** At some point (not right now), I would love to convene this group to share use cases. �This is a really fun pilot to be involved in.
 - `2026-04-29 20:17` **Kathleen Corr:** Andrew Skvorak Did you use Designer for that, Kathleen? Yes!
+- `2026-04-29 21:18` **Marco Hern�ndez:** Andrew Skvorak Everyone - the AI Enablement team has a sponsor meeting tomorrow and I would love to share any quick wins that any of you have realized with Claude. I know it's been a few days, but if there's anythi… I’m …
+- `2026-04-29 21:23` **Christy van Voorhees:** I managed to create a "skill" today. I'm nowhere close to knowing how to operationalize this, but I'm certain Claude will be the tool for it. We field a ton of product labeling questions and I'd like to create a self ser…
 
 ### Unix Server | TOC Team Chat
 **83 messages** · 2026-04-07 → 2026-04-28 · 19 signal msgs
@@ -492,127 +492,3 @@
 - `2026-04-24 12:27` **Brooke Curtin-Johnson:** You can have a review without getting paid...
 - `2026-04-24 12:31` **Nicholas Hopson:** I'm just here for pickleball...�
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
-
-## Today (2026-04-29)
-
-### Claude POC (36 msgs)
-- `2026-04-29 12:13` **Stacy Owen:** Andrew � Skvorak �I'm having issues with Claude desktop app. It is just one big blank screen, yet the service is running.� � � it is working within Word and office file types once …
-- `2026-04-29 12:14` **Ben Hoisington:** Go to claude.ai in a browser, you will most likely get a captive portal about accepting the risk of going to an AI page. Accept and relaunch Claude.
-- `2026-04-29 12:14` **Andrew Skvorak:** Ben beat me to it!!!
-- `2026-04-29 12:15` **Stacy Owen:** `[resolved]` already done and still a blank Claude Claude.ai browser Claude desktop app after browser �log in�
-- `2026-04-29 12:19` **Marco Hern�ndez:** `[incident]` I had the same issue yesterday - I restarted my PC and it worked again
-- `2026-04-29 12:21` **Stacy Owen:** `[incident]` I'll try restarting, I shut down my laptop last night. Maybe is off time was too much and wants to stay on holiday.
-- `2026-04-29 12:28` **Stacy Owen:** Restarting, ensuring I login on the browser first then launch the desktop app worked.�
-- `2026-04-29 14:22` **Josh McHenry:** Just ran into my token limit - the weekly one - about three hours before it resets. �
-- `2026-04-29 14:25` **Josh McHenry:** Marco � Hern�ndez �- it took a little effort but I found a way to have Claude Code help with PowerApps. �It's a preview feature and getting the two things talking to one another wa…
-- `2026-04-29 14:27` **Andrew Skvorak:** Josh � McHenry �- I am interested to hear more about this. Can you, me and Marky meet to discuss?�
-- `2026-04-29 15:56` **Marco Hern�ndez:** `[resolved,knowledge]` Josh � McHenry �and Andrew � Skvorak �Hi - I haven't tested it personally, but Alex did. He mentioned that the final result isn't great, possibly because it's still a preview and i…
-- `2026-04-29 16:53` **Christy van Voorhees:** `[resolved]` hi, can anyone help me with this: i'm in claude desktop, but i wonder if my set up is not complete yet. it looks like i have access to Claude Chat, but not Claude Cowork. Do I need…
-- `2026-04-29 16:54` **Josh McHenry:** `[incident]` Yes, try "Enable" - you may run into an admin rights issue though - I can't remember for this one
-- `2026-04-29 17:02` **Christy van Voorhees:** permission issues... back to the trail head?
-- `2026-04-29 17:02` **Andrew Skvorak:** Yes, ask Paul or Norm to enable the Virtual Machine Platform on your machine.�
-- `2026-04-29 17:02` **Andrew Skvorak:** FYI, this was in the instructions that they were provided, just missed it this time.
-- `2026-04-29 17:14` **Stacy Owen:** `[incident]` FYI: If you have the fun problem I had earlier in the day, you will also have to re-establish all your connection like to jira, word, etc. �
-- `2026-04-29 17:16` **Andrew Skvorak:** Any learnings to share on how to avoid that or ease the pain, Stacy � Owen ?
-- `2026-04-29 17:38` **Stacy Owen:** `[incident]` Give me a few days, I think it may be a Claude setting, to start the app when the laptop is powered on. I'd like to see the behavior be a consistent issue before giving any learnin…
-- `2026-04-29 18:45` **Kathleen Corr:** Asked claude for some help with a journey map but it's overlapping itself here, downloading the SVG is broken and copy pasting isn't working. Anyone know how to work around this?
-- `2026-04-29 18:48` **Tyler Moore:** Kathleen Corr Asked claude for some help with a journey map but it's overlapping itself here, downloading the SVG is broken and copy pasting isn't working. Anyone know how to work …
-- `2026-04-29 18:50` **Tim McGlothin:** I use excalidraw a lot, you can have claude generate an excalidraw file directly and import / adjust: https://excalidraw.com/
-- `2026-04-29 18:51` **Kathleen Corr:** very cool - maybe i will bark up the figma integration tree
-- `2026-04-29 18:58` **Stacy Owen:** Kathleen � Corr �you can set up a folder with Claude for it to output too and ask it to create it in powerpoint without overlapping text
-- `2026-04-29 19:05` **Tyler Moore:** `[knowledge]` Was going to say the same, Stacy! I have found that asking for a live artifact or a file output will fix a lot of formatting issues
-- `2026-04-29 19:07` **Kathleen Corr:** `[incident]` I asked for file outputs but they were also broken sadly. The SVG was saying it had a line error and it doesn't render.
-- `2026-04-29 19:08` **Kathleen Corr:** I'm over in Design, working better!
-- `2026-04-29 19:55` **Andrew Skvorak:** Everyone �- the AI Enablement team has a sponsor meeting tomorrow and I would love to share any quick wins that any of you have realized with Claude. I know it's been a few days, b…
-- `2026-04-29 19:56` **Stacy Owen:** you can set the folder for Claude to output too Ask What are my current global instructions? <let Claude respond> and then ask it to set the global instruction. If you look at the …
-- `2026-04-29 19:58` **Kathleen Corr:** I’d call this journey map output a quick win - the 15 or so questions (decision points) it asked for was already reducing the effort needed to brainstorm the format we want to use.
-- `2026-04-29 19:59` **Andrew Skvorak:** Did you use Designer for that, Kathleen?
-- `2026-04-29 20:00` **Nick Mastors:** `[knowledge]` I've created a documentation agent. �Documentation is worth its weight in gold but it's takes time and its hard to maintain. �I created an agent that interview the person and then …
-- `2026-04-29 20:00` **Tyler Moore:** `[decision]` I have been working with Claude's Marketing and SEO plugins within Cowork to do an audit of our site's crawlability for SEO and GEO. Have been going back and forth and creating a l…
-- `2026-04-29 20:03` **Stacy Owen:** `[incident,resolved]` � Task CoPilot Basic Claude Drafting emails Good Better, minimal rewriting needed with same input Weekly Status report Poor Best, reads across email and jira to provide exactly wha…
-- `2026-04-29 20:04` **Nick Mastors:** At some point (not right now), I would love to convene this group to share use cases. �This is a really fun pilot to be involved in.
-- `2026-04-29 20:17` **Kathleen Corr:** Andrew Skvorak Did you use Designer for that, Kathleen? Yes!
-
-### Claude POC Developer group (35 msgs)
-- `2026-04-29 10:11` **Carl Hinsman:** Bridge Schaad I've been seeing the same thing -- reached out to Paul Lindahl end of Friday and waiting to hear back Bridge , have you been able to resolve the black screen (with Pa…
-- `2026-04-29 10:18` **Chase Allen:** Claude Desktop is having a black screen on Windows now as well.�
-- `2026-04-29 10:54` **Ben Hoisington:** If you go to claude.ai in a browser, do you get a zscaler message to about the site?
-- `2026-04-29 11:07` **Andrew Skvorak:** I also experienced a black screen with Claude this morning. Rebooted and that works now. Went to claude.ai in browser as Ben asked and received no Zscaler popup message.�
-- `2026-04-29 11:15` **Jim Greene:** Ben Hoisington If you go to claude.ai in a browser, do you get a zscaler message to about the site? Site works for me:�
-- `2026-04-29 11:20` **Jim Greene:** `[resolved]` So, when Claude app, which just updated itself on my Mac, starts, it attemps to retrieve account information. �Logging in the macOS "Console" app shows that it receives this respon…
-- `2026-04-29 11:21` **Jim Greene:** (I saved the HTML in the log to a text file, then opened the file in Safari to get this screenshot)
-- `2026-04-29 11:22` **Jim Greene:** `[knowledge]` I think that because it doesn't or can't respond to that page (can't click Continue), the Claude app just sits there, waiting for more.
-- `2026-04-29 11:26` **Carl Hinsman:** Jim Greene Site works for me: 📷 Site works for me. Desktop Claude does not. Reboot has no effect.
-- `2026-04-29 11:26` **Chase Allen:** Ah - you're all correct.� � Seems like Claude Desktop (for windows) is a PWA - so I had to do the "Are you sure you want to visit this site?" in Chrome and now the Desktop App is l…
-- `2026-04-29 11:48` **Carl Hinsman:** `[incident,knowledge]` i used the following to capture the Claude app startup: /Applications/Claude.app/Contents/MacOS/Claude --enable-logging --v=1 2>&1 | tee /tmp/claude_debug.log That log reflects tha…
-- `2026-04-29 12:05` **Bridge Schaad:** `[action]` Carl Hinsman Bridge, have you been able to resolve the black screen (with Paul's help maybe)? I haven't but I'll follow up today and include some of the newer details
-- `2026-04-29 13:32` **Chase Allen:** Planning agent uses very few tokens for those who are hitting limits
-- `2026-04-29 16:27` **Jim Greene:** `[incident,action]` Carl Hinsman i used the following to capture the Claude app startup: /Applications/Claude.app/Contents/MacOS/Claude --enable-logging --v=1 2>&1 | tee /tmp/claude_debug.log That log…
-- `2026-04-29 16:42` **Jim Greene:** Also, sorry to derail/sidetrack the Claude Code conversation. �When Claude is in charge, this sort of thing won't happen.
-- `2026-04-29 16:43` **Carl Hinsman:** `[incident]` Incident reported: https://llbean.atlassian.net/jira/servicedesk/projects/ITS/queues/issue/ITS-11194
-- `2026-04-29 17:03` **Aaron Scifres:** Jim Greene Also, sorry to derail/sidetrack the Claude Code conversation. When Claude is in charge, this sort of thing won't happen. Claude in Charge... sounds like the title of a 9…
-- `2026-04-29 17:13` **Jim Greene:** Aaron Scifres Claude in Charge... sounds like the title of a 90s sitcom
-- `2026-04-29 17:15` **Andrew Skvorak:** Dude, that's spooky. That living room looks a lot like my living room at home! AI is freaking me out right now.�
-- `2026-04-29 17:25` **Jim Greene:** Sort of back on the main track of AI usage, and back to the PocketOS/Claude/Railway/Cursor database deletion event mentioned above... https://daringfireball.net has a couple of rec…
-- `2026-04-29 18:01` **Curt Combar:** Working again. �Thanks Jim
-- `2026-04-29 18:01` **Jim Greene:** Curt Combar Working again. Thanks Jim Bagner FTW.
-- `2026-04-29 19:28` **Jim Greene:** Aaron Scifres claude just told me he doesn't have a way to connect to a SQL server database �(not actually connected to anything.. just showing that it appears to be possible)
-- `2026-04-29 19:59` **Curt Combar:** Anyone know what's behind this "Ask L.L.Bean" in Claude? �Is that an MCP that queries Sharepoint or something?
-- `2026-04-29 20:03` **Ben Hoisington:** `[knowledge]` That searches the "Connected Tools" for our organization. In this case, because we've enabled the M365 Connector it will be able to query against our M365 tenant, Sharepoint, Outlo…
-- `2026-04-29 20:05` **Curt Combar:** Curious. �When I enabled it and asked an internal type question, it gave me the face push....
-- `2026-04-29 20:08` **Ben Hoisington:** `[decision]` That does appear to be misleading. If you clarify those are published in Sharepoint, it will use the M365 Connector to search.
-- `2026-04-29 20:10` **Curt Combar:** Not something I need - was just curious about this integration
-- `2026-04-29 20:11` **Ben Hoisington:** I wonder if that's a client side setting to enable the connector for you. I get very different results. �
-- `2026-04-29 20:12` **Ben Hoisington:** What do you see under your personal settings in the Connectors tab? �
-- `2026-04-29 20:13` **Curt Combar:** OK, I tried the "Askyour org" link in the menu and it prompted me to enable the connector:
-- `2026-04-29 20:13` **Curt Combar:** Then when I ask:
-- `2026-04-29 20:14` **Curt Combar:** So it's in a loop. �Every time I click it, it says it is enabled, but it's not for me, apparently
-- `2026-04-29 20:18` **Curt Combar:** OK, I was able to explicitly enable it in Settings. �So it doesn't seem to enable correctly on the fly, but it does in Settings.
-- `2026-04-29 20:20` **Curt Combar:** Although I have to hit "Confirm" a couple times to get it to use connectors for each question...
-
-### Claude initial setup (11 msgs)
-- `2026-04-29 11:14` **Andrew Skvorak:** Morning gentlemen. I created a quick and dirty app with Claude on my laptop that requires a Claude API key to run it so that it can make API calls to one of the Claude models to pr…
-- `2026-04-29 11:17` **Andrew Skvorak:** This feels like a line to cross, so I wanted to discuss with you guys. I don't mind the costs for the POC as we have the funding. I'm thinking about more long-term stuff - could we…
-- `2026-04-29 11:41` **Tim McGlothin:** `[incident]` Go back to some other longer running chats you've had with claude and ask it to summerize what that conversation would have cost in Api credits. It can be a real eye opener. � One …
-- `2026-04-29 11:43` **Josh Andrews:** I don't know a ton about the setup or management, but would want to make sure they are stored in a secure manner, permissions were appropriately limited, etc. Those are things that…
-- `2026-04-29 11:46` **Tim McGlothin:** When I visited TI in TX a few weeks ago we weere talking about how they use Claude, they give each user a certain dollar amount per week.. General users get 10 bucks, devs get more…
-- `2026-04-29 11:52` **Ben Hoisington:** `[decision]` It feels like most platforms are migrating to the pay by usage model. Looking forward it feels prudent to leverage a platform that allows us to use models from different vendors vs…
-- `2026-04-29 11:54` **Tim McGlothin:** Also, a hybrid approach in the long term.. Leverage local models for day to day runtime work flows. Use the frontier model to design the solution that runs locally to keep recurrin…
-- `2026-04-29 12:22` **Ben Hoisington:** `[incident]` I think we're seeing two different issues with the "black screens". One is the captive portal for AI from Zscaler, the other is not trusting the Zscaler certificate from ssl inspec…
-- `2026-04-29 12:23` **Ben Hoisington:** That allows the app to trust the Zscaler cert.
-- `2026-04-29 12:43` **Andrew Skvorak:** `[decision]` Ben Hoisington It feels like most platforms are migrating to the pay by usage model. Looking forward it feels prudent to leverage a platform that allows us to use models from diffe…
-- `2026-04-29 12:44` **Andrew Skvorak:** I'm sure there's more, too.... I think we need to meet to discuss. Will try to find some time.
-
-### (Direct/Meeting) (8 msgs)
-- `2026-04-29 14:11` **Jason Mills:** `[knowledge]` He probably wont talk about it on this call because I said we would want to get the right audience for it, but David shared this offering that he found for AI/Nutanix (as well as o…
-- `2026-04-29 14:13` **Tim McGlothin:** theyre claiming they have an official MCP connector from Nutanix
-- `2026-04-29 14:14` **Tim McGlothin:** or I wonder if its their own mcp connector using Nutanix APIs
-- `2026-04-29 14:14` **Jason Mills:** Thats what I saw just from a quick glance
-- `2026-04-29 14:15` **Jason Mills:** They have like 150 solutions listed, basically just APIs that they have the understanding of
-- `2026-04-29 14:15` **Jason Mills:** They claim 2 weeks to prod for any updates, or new products requested
-- `2026-04-29 14:16` **Tim McGlothin:** yeah, that we can build ourselves .. there's other open source projects as well.. just worry about support�
-- `2026-04-29 14:16` **Tim McGlothin:** the tech is so young I don't think trust anybody's claims around SLAs
-
-### (Direct/Meeting) (7 msgs)
-- `2026-04-29 14:19` **Ben Hoisington:** There is no official MCP server. He did find an MCP aggregator for Infrastructure teams. It appears they're probably building their own MCP servers based on published api docs.
-- `2026-04-29 14:19` **Jason Mills:** I already told him, lol
-- `2026-04-29 14:20` **Ben Hoisington:** An interesting concept we may bring to the broader AI enablement/infrastructure leadership group.
-- `2026-04-29 14:20` **Tim McGlothin:** yeah, there's a lot of people racing to get something out... easy enough to roll our own too, but the support behind an official connector would provide the real value
-- `2026-04-29 14:22` **Jason Mills:** That is a new lens I have been using for a lot of products, what is the company providing that we couldn't just build ourselves
-- `2026-04-29 14:23` **Jason Mills:** Especially around new, niche offerings
-- `2026-04-29 14:23` **Tim McGlothin:** back to the old build-vs-buy decisions ... selling products at those high saas costs gets harder and harder now
-
-### (Direct/Meeting) (4 msgs)
-- `2026-04-29 15:05` **<Undefined> <Undefined>:** LL Bean, CV Project - Touchpoint Play
-- `2026-04-29 15:05` **<Undefined> <Undefined>:** {\"scopeId\":\"9f0045c7-fd58-4f87-92a8-7055a8d8513a\",\"storageId\":\"ff955118-715e-4d71-a164-9a7eb84fa1b8@de9231de-45f4-4325-ae07-8ae72052517e\",\"callId\":\"9f0045c7-fd58-4f87-92…
-- `2026-04-29 15:13` **<Undefined> <Undefined>:** LL Bean, CV Project - Touchpoint Play
-- `2026-04-29 15:13` **<Undefined> <Undefined>:** LL Bean, CV Project - Touchpoint Play
-
-### (Direct/Meeting) (4 msgs)
-- `2026-04-29 20:12` **Missy Burke:** qq..can you tell me what IP this belongs to? �127.0.0.1
-- `2026-04-29 20:17` **Tim McGlothin:** thats an alias for your local machine
-- `2026-04-29 20:17` **Tim McGlothin:** thats an alias for your local machine
-- `2026-04-29 20:22` **Missy Burke:** so not was-prod109/110? �
-
-### (Direct/Meeting) (1 msgs)
-- `2026-04-29 20:17` **<Undefined> <Undefined>:** thats an alias for your local machine
