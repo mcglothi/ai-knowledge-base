@@ -1,0 +1,140 @@
+name: "Timmcg Homelab"
+description: "Living atlas for infrastructure, services, and agent surfaces."
+
+networks:
+  - id: core_net
+    name: "Core Network (10.10.x.x)"
+    type: "LAN"
+  - id: overlay_net
+    name: "Tailscale Mesh (Headscale)"
+    type: "VPN"
+
+hardware:
+  - id: udm
+    name: "Ubiquiti UDM Pro"
+    role: "Gateway / DHCP"
+    network: core_net
+    link: "2Gb Fiber"
+  - id: agg
+    name: "10G Aggregate Switch"
+    role: "Backbone"
+    network: core_net
+    link: "10G DAC"
+  - id: truenas
+    name: "Babbage (TrueNAS SCALE)"
+    role: "Storage & App Hub"
+    network: core_net
+    link: "Dual 10G Bond"
+  - id: turing
+    name: "Turing VM"
+    role: "AI Hub Surface"
+    network: core_net
+    link: "KVM on Babbage"
+  - id: farnsworth
+    name: "Farnsworth"
+    role: "Secondary Server / Test"
+    network: core_net
+  - id: hopper
+    name: "Hopper (GB10)"
+    role: "Local LLM Sidecar"
+    network: core_net
+    link: "10G Copper"
+  - id: newton
+    name: "Newton (MBP M5 Max)"
+    role: "Primary Agent Orchestrator"
+    network: core_net
+    link: "10G Fiber (via OWC TB5 Dock)"
+  - id: feynman
+    name: "Feynman (Arch Linux)"
+    role: "Primary Workstation"
+    network: core_net
+    link: "10G Fiber"
+  - id: tesla
+    name: "Tesla (MBP M1)"
+    role: "Mobile Dev Machine"
+    network: core_net
+    link: "Wi-Fi"
+  - id: pihole2
+    name: "Pi-hole 2 (Raspberry Pi)"
+    role: "Secondary DNS"
+    network: core_net
+  - id: opensoak
+    name: "OpenSoak Pi"
+    role: "Hot Tub Controller"
+    network: core_net
+  - id: baird
+    name: "Baird (ESP32)"
+    role: "Office TV CEC Controller"
+    network: core_net
+
+services:
+  - id: npm
+    name: "Nginx Proxy Manager"
+    host: truenas
+    type: "Reverse Proxy"
+  - id: vaultwarden
+    name: "Vaultwarden"
+    host: truenas
+    type: "Secrets"
+  - id: pihole
+    name: "Pi-hole (Primary)"
+    host: truenas
+    type: "DNS / Filtering"
+  - id: authentik
+    name: "Authentik SSO"
+    host: truenas
+    type: "Identity"
+  - id: semaphore
+    name: "Ansible / Semaphore"
+    host: truenas
+    type: "Automation"
+  - id: observability
+    name: "Prometheus / Loki / Grafana"
+    host: truenas
+    type: "Observability"
+  - id: nyquist
+    name: "Nyquist (NetAlertX)"
+    host: truenas
+    type: "Security"
+  - id: mcp_hub
+    name: "MCP Command Center"
+    host: truenas
+    type: "Tool Gateway"
+  - id: excalidraw
+    name: "Excalidraw Suite"
+    host: truenas
+    type: "Collaborative Whiteboard"
+  - id: ai_hub
+    name: "Turing AI Hub"
+    host: turing
+    type: "Operator Console"
+  - id: ollama
+    name: "Ollama Fleet"
+    host: hopper
+    type: "Local Inference"
+  - id: open_webui
+    name: "Open WebUI"
+    host: hopper
+    type: "LLM UX"
+  - id: cecmate
+    name: "CECmate"
+    host: baird
+    type: "Embedded Control"
+
+agents:
+  - id: claude
+    name: "Claude Code"
+    host: newton
+    mode: "Frontier"
+  - id: gemini
+    name: "Gemini CLI"
+    host: newton
+    mode: "Frontier"
+  - id: codex
+    name: "Codex CLI"
+    host: newton
+    mode: "Frontier"
+  - id: hermes
+    name: "Local Hermes"
+    host: hopper
+    mode: "Local"

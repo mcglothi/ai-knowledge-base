@@ -1,0 +1,126 @@
+direction: right
+theme: 200
+
+classes: {
+  user: {
+    shape: person
+    style: {
+      fill: "#172033"
+      stroke: "#6ec7ff"
+      font-color: "#f8fafc"
+    }
+  }
+  gateway: {
+    shape: hexagon
+    style: {
+      fill: "#1d4ed8"
+      stroke: "#93c5fd"
+      font-color: "#ffffff"
+    }
+  }
+  service: {
+    shape: rectangle
+    style: {
+      fill: "#0ea5e9"
+      stroke: "#0284c7"
+      font-color: "#ffffff"
+      border-radius: 12
+    }
+  }
+  ai: {
+    shape: parallelogram
+    style: {
+      fill: "#10b981"
+      stroke: "#059669"
+      font-color: "#ffffff"
+    }
+  }
+}
+
+operator: "Operator\n_Human + browser surfaces_" { class: user }
+
+access: {
+  label: "Access & Identity"
+  style: {
+    fill: "#0f172a"
+    stroke: "#334155"
+    border-radius: 18
+  }
+  npm: "Nginx Proxy Manager\n_Reverse Proxy_" { class: gateway }
+  authentik: "Authentik SSO\n_Identity_" { class: service }
+  pihole: "Pi-hole (Primary)\n_DNS / Filtering_" { class: service }
+  pihole2: "Pi-hole 2\n_Secondary DNS_" { class: service }
+}
+
+control: {
+  label: "Control Plane"
+  style: {
+    fill: "#111827"
+    stroke: "#475569"
+    border-radius: 18
+  }
+  mcp_hub: "MCP Command Center\n_Tool Gateway_" { class: gateway }
+  ai_hub: "Turing AI Hub\n_Operator Console_" { class: service }
+  excalidraw: "Excalidraw Suite\n_Collaborative Whiteboard_" { class: service }
+  semaphore: "Ansible / Semaphore\n_Automation_" { class: service }
+  vaultwarden: "Vaultwarden\n_Secrets_" { class: service }
+  observability: "Prometheus / Loki / Grafana\n_Observability_" { class: service }
+  nyquist: "Nyquist (NetAlertX)\n_Security_" { class: service }
+}
+
+ai_stack: {
+  label: "AI Runtime"
+  style: {
+    fill: "#0d1f1a"
+    stroke: "#1f6b58"
+    border-radius: 18
+  }
+  claude: "Claude Code\n_Frontier_" { class: ai }
+  gemini: "Gemini CLI\n_Frontier_" { class: ai }
+  codex: "Codex CLI\n_Frontier_" { class: ai }
+  hermes: "Local Hermes\n_Local_" { class: ai }
+  ollama: "Ollama Fleet\n_Local Inference_" { class: service }
+  open_webui: "Open WebUI\n_LLM UX_" { class: service }
+}
+
+automation: {
+  label: "Automation & Edge"
+  style: {
+    fill: "#151426"
+    stroke: "#4f46e5"
+    border-radius: 18
+  }
+  cecmate: "CECmate\n_Embedded Control_" { class: service }
+  opensoak: "OpenSoak\n_Hot tub control_" { class: service }
+}
+
+operator -> access.npm: HTTPS
+access.npm -> access.authentik: forward auth
+access.authentik -> control.ai_hub: SSO
+access.authentik -> control.excalidraw: SSO
+access.authentik -> control.mcp_hub: SSO / bypass
+access.pihole -> access.npm: DNS
+access.pihole2 -> access.npm: DNS backup
+
+control.ai_hub -> control.mcp_hub: embeds tools
+control.excalidraw -> control.mcp_hub: whiteboard workflows
+control.semaphore -> control.mcp_hub: automation hooks
+control.observability -> control.ai_hub: dashboards
+control.nyquist -> control.observability: telemetry
+
+ai_stack.claude -> control.mcp_hub: tool access
+ai_stack.gemini -> control.mcp_hub: tool access
+ai_stack.codex -> control.mcp_hub: tool access
+ai_stack.hermes -> control.mcp_hub: tool access
+ai_stack.hermes -> ai_stack.ollama: inference
+ai_stack.open_webui -> ai_stack.ollama: chat UI
+operator -> ai_stack.open_webui: local model UX
+
+control.vaultwarden -> ai_stack.claude: secrets
+control.vaultwarden -> ai_stack.gemini: secrets
+control.vaultwarden -> ai_stack.codex: secrets
+control.vaultwarden -> ai_stack.hermes: secrets
+
+control.mcp_hub -> automation.cecmate: device control
+control.mcp_hub -> automation.opensoak: home automation
+

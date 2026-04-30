@@ -1,25 +1,39 @@
 # Home Lab
 
-**Last Updated:** YYYY-MM-DD
-**Summary:** Self-hosted infrastructure, services, and operational runbooks.
+**Last Updated:** 2026-02-20
+**Summary:** Personal home infrastructure built around a UDM Pro gateway, TrueNAS as the primary app/storage server, and Ansible Semaphore for automation. All core services are running and managed by nightly automation.
+
+## Container Management Strategy
+Two-system approach (decided 2026-02-20):
+- **TrueNAS native apps** — catalog apps (Plex, *arr, Nextcloud, NPM, Pi-hole, etc.)
+- **Dockge** — custom compose stacks not in catalog (monitoring stack, and planned: vaultwarden, semaphore, unmanic, maintainerr)
+- **Portainer** — ⚠️ TO REMOVE — redundant, provides no unique value over TrueNAS + Dockge
+- Ad-hoc containers (vaultwarden, semaphore, unmanic, maintainerr) need migrating into Dockge stacks
 
 ---
 
-## Files
+## Subfolders
 
-| File | Status | Description |
-|------|--------|-------------|
-| [`runbooks/operator-intents.md`](runbooks/operator-intents.md) | ⬜ Optional | Phrase-to-action shortcuts for recurring operator requests |
+| Folder | Contents |
+|--------|---------|
+| [`infrastructure/`](infrastructure/) | Server inventory, network topology, DNS configuration |
+| [`services/`](services/) | Self-hosted applications (Vaultwarden, Unmanic, etc.) |
+| [`automation/`](automation/) | Ansible Semaphore, playbook catalog, scheduled tasks |
+| [`security/`](security/) | Service accounts, SSH keys, access strategy |
 
----
+## Quick Reference
 
-## What belongs here
+| System | Address | Role |
+|--------|---------|------|
+| UDM Pro | 10.10.0.1 | Gateway, DHCP |
+| TrueNAS (babbage) | 10.10.10.10 | Primary storage, Docker host, NPM reverse proxy |
+| farnsworth | 10.10.10.100 | Secondary/test server |
+| loki | 10.10.10.151 | Specialized server |
+| Pi-hole (primary) | 10.10.0.2 | DNS (container on TrueNAS) |
+| Pi-hole 2 (pihole2) | 10.10.0.22 | Secondary DNS (Raspberry Pi) |
+| OpenSoak | 10.10.169.191 | Hot tub controller (Raspberry Pi) |
+| Ansible Semaphore | ansible.home.timmcg.net | Automation UI |
+| Vaultwarden | vault.home.timmcg.net | Password manager |
 
-- server inventory and service docs
-- deployment notes and networking details
-- recurring operational runbooks
-- environment-specific shortcuts that save repeated lookup time
-
-## Why Operator Intents Matter
-
-Operator intents turn shorthand requests into repeatable actions. If you often say things like "restart staging", "wake server", or "wrap up for now", capture the exact phrase, execution path, and verification steps once so future sessions are faster and safer.
+## Domain
+Local services resolve under `home.timmcg.net` via Pi-hole. SSL handled by wildcard cert `*.home.timmcg.net` through Nginx Proxy Manager on TrueNAS.

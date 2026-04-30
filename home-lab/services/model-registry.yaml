@@ -1,0 +1,59 @@
+# AI Model Registry — Current Best Tools for the Job
+# Last Updated: 2026-04-11
+# Summary: Mapping of tasks to the best available local and remote models across the home lab.
+# Fluidity Mandate: Update this file whenever a new superior model is benchmarked or deployed.
+
+platforms:
+  tesla:
+    description: "Local M1 MacBook Pro (16GB RAM)"
+    status: active
+    capabilities: [low-latency, private, mobile]
+    tasks:
+      summarization_light: "phi4:14b"
+      coding_light: "qwen2.5-coder:7b"
+      chat: "llama3.1:8b"
+
+  hopper:
+    description: "Remote GB10 Sidecar (128GB RAM)"
+    status: active
+    endpoint: "http://hopper.home.timmcg.net:11434"
+    capabilities: [high-throughput, large-context, heavy-reasoning]
+    tasks:
+      summarization_deep: "qwen3-coder:30b"
+      research: "qwen3-coder:30b"
+      coding_heavy: "qwen3-coder:30b"
+      structured_data: "qwen3-coder:30b"
+      uncensored: "dolphin3.0-r1-mistral:24b"
+
+  turing:
+    description: "Shared Compute Node (64GB RAM)"
+    status: active
+    capabilities: [background-jobs, batch-processing]
+    tasks:
+      maintenance: "phi4:14b"
+
+# ─── Task Routing Rules ──────────────────────────────────────────────────────
+routing:
+  compaction:
+    threshold_tokens: 80000
+    preferred_platform: hopper
+    fallback_platform: tesla
+  
+  research:
+    file_count_threshold: 10
+    preferred_platform: hopper
+
+# ─── Stewardship & Residency ────────────────────────────────────────────────
+# Rules for models that MUST stay warm to prevent reload latency for agents.
+stewardship:
+  protected_models:
+    - name: "qwen3-coder:30b"
+      platform: hopper
+      residency: "24h"
+      reason: "Primary agent offload target for research and coding."
+      keep_warm_mechanism: "systemd timer (ollama-keepwarm-qwen3-coder-30b.timer)"
+
+  policy:
+    max_loaded_hopper: 3  # Configured in /opt/containers/ollama/compose.yaml
+    headroom_mandate: "Always keep at least 1 slot free for temporary experiments."
+    eviction_rule: "Never manually evict protected models unless replacing with a superior version."

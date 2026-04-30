@@ -1,0 +1,18 @@
+services:
+  telegram-ideas-bot:
+    image: python:3.13-slim
+    container_name: telegram-ideas-bot
+    restart: unless-stopped
+    init: true
+    working_dir: /aikb
+    command: ["python3", "_tools/memory-pipeline/telegram_ideas_bot.py"]
+    env_file:
+      - /mnt/Containers/telegram-ideas-bot/env
+    environment:
+      AIKB_ROOT: /aikb
+      AIKB_TELEGRAM_STATE_DIR: /data/state
+      TELEGRAM_NOTE_TAG: telegram
+      TELEGRAM_POLL_TIMEOUT: "30"
+    volumes:
+      - /mnt/VMs/mcglothi/Code/AIKB:/aikb
+      - /mnt/Containers/telegram-ideas-bot:/data

@@ -1,0 +1,46 @@
+{
+  "name": "Timmcg Homelab MCP Registry",
+  "description": "Enterprise-grade local toolset for AI Agents.",
+  "servers": [
+    {
+      "id": "excalidraw",
+      "name": "Excalidraw",
+      "description": "Collaborative whiteboard management.",
+      "category": "Visual",
+      "icon": "🎨",
+      "status": "online"
+    },
+    {
+      "id": "home-assistant",
+      "name": "Home Assistant",
+      "description": "Smart Home IoT control and monitoring.",
+      "category": "IoT",
+      "icon": "🏠",
+      "status": "online"
+    },
+    {
+      "id": "docker",
+      "name": "Docker Explorer",
+      "description": "Container lifecycle management on Babbage.",
+      "category": "Infrastructure",
+      "icon": "🐳",
+      "status": "online"
+    },
+    {
+      "id": "pihole",
+      "name": "Pi-hole",
+      "description": "Local DNS and network filtering.",
+      "category": "Networking",
+      "icon": "🛡️",
+      "status": "online"
+    },
+    {
+      "id": "github-aikb",
+      "name": "GitHub AIKB",
+      "description": "Semantic knowledge base management.",
+      "category": "Knowledge",
+      "icon": "🧠",
+      "status": "online"
+    }
+  ]
+}

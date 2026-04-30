@@ -1,0 +1,185 @@
+direction: right
+theme: 200
+
+classes: {
+  network: {
+    shape: cloud
+    style: {
+      fill: "#172033"
+      stroke: "#6ec7ff"
+      font-color: "#f8fafc"
+    }
+  }
+  hw: {
+    shape: rectangle
+    style: {
+      fill: "#1e293b"
+      stroke: "#94a3b8"
+      font-color: "#f8fafc"
+      border-radius: 10
+    }
+  }
+  svc: {
+    shape: rectangle
+    style: {
+      fill: "#0ea5e9"
+      stroke: "#0284c7"
+      font-color: "#ffffff"
+      border-radius: 10
+    }
+  }
+  agent: {
+    shape: parallelogram
+    style: {
+      fill: "#10b981"
+      stroke: "#059669"
+      font-color: "#ffffff"
+    }
+  }
+}
+
+internet: "Internet\n_2Gb Fiber_" { class: network }
+
+core_net: "Core Network (10.10.x.x)\n_LAN_" { class: network }
+overlay_net: "Tailscale Mesh (Headscale)\n_VPN_" { class: network }
+
+edge: {
+  label: "Network Edge"
+  style: {
+    fill: "#101826"
+    stroke: "#3b4d6b"
+    border-radius: 16
+  }
+  udm: "Ubiquiti UDM Pro\n_Gateway / DHCP_" { class: hw }
+  agg: "10G Aggregate Switch\n_Backbone_" { class: hw }
+}
+
+compute: {
+  label: "Workstations & Compute"
+  style: {
+    fill: "#0b1524"
+    stroke: "#24364d"
+    border-radius: 18
+  }
+  newton: {
+    label: "Newton (MBP M5 Max)"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Newton (MBP M5 Max)\n_Primary Agent Orchestrator_" { class: hw }
+  }
+  feynman: {
+    label: "Feynman (Arch Linux)"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Feynman (Arch Linux)\n_Primary Workstation_" { class: hw }
+  }
+  tesla: {
+    label: "Tesla (MBP M1)"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Tesla (MBP M1)\n_Mobile Dev Machine_" { class: hw }
+  }
+  hopper: {
+    label: "Hopper (GB10)"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Hopper (GB10)\n_Local LLM Sidecar_" { class: hw }
+  }
+}
+
+infrastructure: {
+  label: "Infrastructure"
+  style: {
+    fill: "#0d1422"
+    stroke: "#31445e"
+    border-radius: 18
+  }
+  truenas: {
+    label: "Babbage (TrueNAS SCALE)"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Babbage (TrueNAS SCALE)\n_Storage & App Hub_" { class: hw }
+  }
+  turing: {
+    label: "Turing VM"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Turing VM\n_AI Hub Surface_" { class: hw }
+  }
+  farnsworth: {
+    label: "Farnsworth"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Farnsworth\n_Secondary Server / Test_" { class: hw }
+  }
+  pihole2: {
+    label: "Pi-hole 2 (Raspberry Pi)"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Pi-hole 2 (Raspberry Pi)\n_Secondary DNS_" { class: hw }
+  }
+}
+
+iot: {
+  label: "Devices & Embedded"
+  style: {
+    fill: "#101325"
+    stroke: "#3f4264"
+    border-radius: 18
+  }
+  opensoak: {
+    label: "OpenSoak Pi"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "OpenSoak Pi\n_Hot Tub Controller_" { class: hw }
+  }
+  baird: {
+    label: "Baird (ESP32)"
+    style: {
+      fill: "#0f172a"
+      stroke: "#334155"
+      border-radius: 16
+    }
+    system: "Baird (ESP32)\n_Office TV CEC Controller_" { class: hw }
+  }
+}
+
+internet -> edge.udm: WAN
+edge.udm -> edge.agg: 10G uplink
+edge.agg -> core_net: LAN
+core_net -> compute: clients
+core_net -> infrastructure: servers
+core_net -> iot: devices
+overlay_net -> compute: remote ops
+overlay_net -> infrastructure: admin access
+
+
+infrastructure.turing.system -> infrastructure.truenas.system: hosted on
+
