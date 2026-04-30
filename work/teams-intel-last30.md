@@ -1,7 +1,7 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-30 02:10 UTC  **Period:** 2026-03-31 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-30 12:12 UTC  **Period:** 2026-03-31 → today  **Source:** Local Teams cache
 
-**Stats:** 2503 signal messages extracted from Teams local cache
+**Stats:** 2508 signal messages extracted from Teams local cache
 
 ## Channel Volume (Top 20)
 
@@ -10,13 +10,13 @@
 | 1 | AI Nerds | 305 | 24 | 2026-04-24 |
 | 2 | Claude initial setup | 288 | 32 | 2026-04-29 |
 | 3 | GitHub Copilot Devs | 143 | 16 | 2026-04-28 |
-| 4 | Claude POC Developer group | 140 | 22 | 2026-04-29 |
+| 4 | Claude POC Developer group | 141 | 22 | 2026-04-30 |
 | 5 | (Direct/Meeting) | 128 | 3 | 2026-04-27 |
 | 6 | Unix Server and Storage Team | 127 | 29 | 2026-04-28 |
-| 7 | Nutanix Bi-Annual Cluster Upgrades | 120 | 37 | 2026-04-21 |
-| 8 | IS Connect Hub | 120 | 24 | 2026-04-24 |
-| 9 | (Direct/Meeting) | 98 | 4 | 2026-04-01 |
-| 10 | Claude POC | 98 | 18 | 2026-04-29 |
+| 7 | IS Connect Hub | 120 | 24 | 2026-04-24 |
+| 8 | Nutanix Bi-Annual Cluster Upgrades | 118 | 35 | 2026-04-21 |
+| 9 | Claude POC | 104 | 18 | 2026-04-30 |
+| 10 | (Direct/Meeting) | 98 | 4 | 2026-04-01 |
 | 11 | (Direct/Meeting) | 97 | 19 | 2026-04-27 |
 | 12 | Unix Server | TOC Team Chat | 83 | 19 | 2026-04-28 |
 | 13 | Server Engineering Team - ALL | 65 | 13 | 2026-04-24 |
@@ -181,7 +181,7 @@
 - `2026-04-28 13:53` **Mario Rodr�guez:** https://github.blog/news-insights/company-news/an-update-on-github-availability/
 
 ### Claude POC Developer group
-**140 messages** · 2026-04-24 → 2026-04-29 · 22 signal msgs
+**141 messages** · 2026-04-24 → 2026-04-30 · 22 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-24 13:56` **Mohamed Ali:** I'm on a mac, and just accepted the invite, and installed the app.� � Mine looks to have worked. Had an error with a prompt, but it worked afterwards.� �
@@ -221,7 +221,6 @@
 - `2026-04-29 20:03` **Ben Hoisington:** That searches the "Connected Tools" for our organization. In this case, because we've enabled the M365 Connector it will be able to query against our M365 tenant, Sharepoint, Outlook, Teams etc.
 
 **💬 Notable Exchanges**
-- `2026-04-29 20:05` **Curt Combar:** Curious. �When I enabled it and asked an internal type question, it gave me the face push....
 - `2026-04-29 20:10` **Curt Combar:** Not something I need - was just curious about this integration
 - `2026-04-29 20:11` **Ben Hoisington:** I wonder if that's a client side setting to enable the connector for you. I get very different results. �
 - `2026-04-29 20:12` **Ben Hoisington:** What do you see under your personal settings in the Connectors tab? �
@@ -231,6 +230,7 @@
 - `2026-04-29 20:18` **Curt Combar:** OK, I was able to explicitly enable it in Settings. �So it doesn't seem to enable correctly on the fly, but it does in Settings.
 - `2026-04-29 20:20` **Curt Combar:** Although I have to hit "Confirm" a couple times to get it to use connectors for each question...
 - `2026-04-29 20:40` **Ben Hoisington:** You can modify those in Settings for specific connectors. I try to be cautious when it comes to "Always allow".
+- `2026-04-30 12:01` **Jim Greene Jr:** this is an interesting concept - https://github.com/spiffy-oss/artguard
 
 ### Unix Server and Storage Team
 **127 messages** · 2026-04-01 → 2026-04-28 · 29 signal msgs
@@ -293,11 +293,9 @@
 - `2026-04-28 14:55` **Hank Uhl:** there is no way to "close" it.. you have to return to global directive with another "Match all" line
 
 ### Nutanix Bi-Annual Cluster Upgrades
-**120 messages** · 2026-03-31 → 2026-04-21 · 37 signal msgs
+**118 messages** · 2026-03-31 → 2026-04-21 · 35 signal msgs
 
 **🔴 Incidents / Issues**
-- `2026-03-31 03:26` **Javier Cede�o:** Final Update: Nutanix Support identified the root cause. We processed each node individually to isolate the issue, and I’m now monitoring the final firmware upgrade. During the upgrade process, the bond configuration tem…
-- `2026-03-31 12:06` **Steven Foxe:** Good work Javier and sorry it ran so long. �This morning it looks like the last upgrade failed as well and host ntx-dc1-2511 is offline again. �I'll continue your open case with Nutanix to get the ball rolling.
 - `2026-03-31 14:07` **Javier Cede�o:** Thank you Steve, interesting this one failed too. We make the NIC change on the 3 nodes and ran the LCM upgrade on 1 without any issues. � I will call Nutanix in a few minutes, I see they haven't replied to your email.
 - `2026-04-01 12:32` **David Bernier:** For the ones highlighted below that were already scheduled to happened or have happened, can we put together a list of all the issues each one of you ran into for these. I know some are similar, but I also want to make s…
 - `2026-04-01 12:35` **Brooke Curtin-Johnson:** ntx-dc2-ahv02 - Firmware updates not available in LCM - need some recommendations. �Not an issue per se but also learned that the physically disconnected NICs being up in Nutanix can cause issues so need to turn those do…
@@ -318,7 +316,6 @@
 - `2026-04-10 18:59` **Nicholas Hopson:** Update on the "Inconsistent Virtual Switch State Detected" error, the solution is the edit the vSwitch which will cause the rolling hypervisor restart so I'm going to make the changes for the uplinks since I already have…
 
 **✅ Resolved / Complete**
-- `2026-03-31 03:26` **Javier Cede�o:** Final Update: Nutanix Support identified the root cause. We processed each node individually to isolate the issue, and I’m now monitoring the final firmware upgrade. During the upgrade process, the bond configuration tem…
 - `2026-03-31 20:54` **Javier Cede�o:** working with Henry ntx-dc1-2512 fixed and upgraded ntx-dc1-2513 WIP
 - `2026-04-01 12:40` **Steven Foxe:** Prism Central - The upgrade to 7.3.1.3 completed ok but there are known bugs with this version. �We will have to go to 7.3.1.4 or newer to fix them. �Known bugs are: �- From PC, you can't use "Cluster Quick Access" links…
 - `2026-04-01 17:28` **Chris Montgomery:** Hold my beer, I'm gonna' back up and see what I hit
@@ -345,7 +342,6 @@
 - `2026-04-10 15:44` **Steven Foxe:** Nicholas � Hopson �- When you have a minute, can you post a quick update on the status of the ntx-dc1-ahv03 upgrade? �Are you all set with support or need a hand with anything?
 
 **💡 Knowledge / Findings**
-- `2026-03-31 03:26` **Javier Cede�o:** Final Update: Nutanix Support identified the root cause. We processed each node individually to isolate the issue, and I’m now monitoring the final firmware upgrade. During the upgrade process, the bond configuration tem…
 - `2026-04-01 12:40` **Steven Foxe:** Prism Central - The upgrade to 7.3.1.3 completed ok but there are known bugs with this version. �We will have to go to 7.3.1.4 or newer to fix them. �Known bugs are: �- From PC, you can't use "Cluster Quick Access" links…
 - `2026-04-10 12:26` **Hank Uhl:** OC didnt pick it up because it must have been restored before the next polling, but Matt had to restart the s2000 service on the ship sorter to corect it
 - `2026-04-10 12:29` **Hank Uhl:** no, i only know because Matt reached out to me
@@ -364,7 +360,7 @@
 - `2026-04-21 16:50` **Brooke Curtin-Johnson:** Here is some documentation on single node cluster firmware updates- I still have a few questions out to David S. on process.
 
 ### Claude POC
-**98 messages** · 2026-04-24 → 2026-04-29 · 18 signal msgs
+**104 messages** · 2026-04-24 → 2026-04-30 · 18 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-27 18:13` **Nick Mastors:** Hmmm. �I've been trying for a while now and have been unsuccessful. � Andrew � Skvorak , Claude seems convinced that it's an Access issue (though I'm not sure why it would work for Josh and not me). �Thoughts?
@@ -397,16 +393,16 @@
 - `2026-04-29 20:00` **Nick Mastors:** I've created a documentation agent. �Documentation is worth its weight in gold but it's takes time and its hard to maintain. �I created an agent that interview the person and then summarizes back what it thinks its heard…
 
 **💬 Notable Exchanges**
-- `2026-04-29 18:58` **Stacy Owen:** Kathleen � Corr �you can set up a folder with Claude for it to output too and ask it to create it in powerpoint without overlapping text
-- `2026-04-29 19:08` **Kathleen Corr:** I'm over in Design, working better!
-- `2026-04-29 19:55` **Andrew Skvorak:** Everyone �- the AI Enablement team has a sponsor meeting tomorrow and I would love to share any quick wins that any of you have realized with Claude. I know it's been a few days, but if there's anything that you got exci…
-- `2026-04-29 19:56` **Stacy Owen:** you can set the folder for Claude to output too Ask What are my current global instructions? <let Claude respond> and then ask it to set the global instruction. If you look at the early links from Andrew in this chat or …
-- `2026-04-29 19:58` **Kathleen Corr:** I’d call this journey map output a quick win - the 15 or so questions (decision points) it asked for was already reducing the effort needed to brainstorm the format we want to use.
-- `2026-04-29 19:59` **Andrew Skvorak:** Did you use Designer for that, Kathleen?
 - `2026-04-29 20:04` **Nick Mastors:** At some point (not right now), I would love to convene this group to share use cases. �This is a really fun pilot to be involved in.
 - `2026-04-29 20:17` **Kathleen Corr:** Andrew Skvorak Did you use Designer for that, Kathleen? Yes!
 - `2026-04-29 21:18` **Marco Hern�ndez:** Andrew Skvorak Everyone - the AI Enablement team has a sponsor meeting tomorrow and I would love to share any quick wins that any of you have realized with Claude. I know it's been a few days, but if there's anythi… I’m …
 - `2026-04-29 21:23` **Christy van Voorhees:** I managed to create a "skill" today. I'm nowhere close to knowing how to operationalize this, but I'm certain Claude will be the tool for it. We field a ton of product labeling questions and I'd like to create a self ser…
+- `2026-04-30 10:57` **Andrew Skvorak:** This is ALL great! Thank you all for the quick wins!�
+- `2026-04-30 10:57` **Sharlena Biron:** Andrew � Skvorak �I haven't had time to do much other than install Claude, but I thought I would try a quick test and ask it to create a project plan. I copied Facilitator notes from a meeting and asked it to develop a p…
+- `2026-04-30 11:13` **Andrew Skvorak:** Christy van Voorhees I managed to create a "skill" today. I'm nowhere close to knowing how to operationalize this, but I'm certain Claude will be the tool for it. We field a ton of product labeling questions and I'd like…
+- `2026-04-30 11:20` **Andrew Skvorak:** By the way, all - there are a lot of different names for things that you can build using Claude or Copilot - agents, skills, tools, actions, gpt's, capabilities and more. And each AI provider like Claude, ChatGPT, Copilo…
+- `2026-04-30 11:36` **Stella Cox:** I've just discovered that once you have Claude on your desktop, it will start appears on your other Microsoft desktop apps. I am deep into decks lately and look what I stumbled upon this morning. Can't wait to dive in an…
+- `2026-04-30 11:37` **Stella Cox:** There seems to be an Excel connector too but I haven't tried that yet
 
 ### Unix Server | TOC Team Chat
 **83 messages** · 2026-04-07 → 2026-04-28 · 19 signal msgs
@@ -492,3 +488,16 @@
 - `2026-04-24 12:27` **Brooke Curtin-Johnson:** You can have a review without getting paid...
 - `2026-04-24 12:31` **Nicholas Hopson:** I'm just here for pickleball...�
 - `2026-04-24 14:46` **David Bernier:** taking lunch early to head to appt - call cell if you need me - will be back shortly
+
+## Today (2026-04-30)
+
+### Claude POC (6 msgs)
+- `2026-04-30 10:57` **Andrew Skvorak:** This is ALL great! Thank you all for the quick wins!�
+- `2026-04-30 10:57` **Sharlena Biron:** Andrew � Skvorak �I haven't had time to do much other than install Claude, but I thought I would try a quick test and ask it to create a project plan. I copied Facilitator notes fr…
+- `2026-04-30 11:13` **Andrew Skvorak:** Christy van Voorhees I managed to create a "skill" today. I'm nowhere close to knowing how to operationalize this, but I'm certain Claude will be the tool for it. We field a ton of…
+- `2026-04-30 11:20` **Andrew Skvorak:** By the way, all - there are a lot of different names for things that you can build using Claude or Copilot - agents, skills, tools, actions, gpt's, capabilities and more. And each …
+- `2026-04-30 11:36` **Stella Cox:** I've just discovered that once you have Claude on your desktop, it will start appears on your other Microsoft desktop apps. I am deep into decks lately and look what I stumbled upo…
+- `2026-04-30 11:37` **Stella Cox:** There seems to be an Excel connector too but I haven't tried that yet
+
+### Claude POC Developer group (1 msgs)
+- `2026-04-30 12:01` **Jim Greene Jr:** this is an interesting concept - https://github.com/spiffy-oss/artguard

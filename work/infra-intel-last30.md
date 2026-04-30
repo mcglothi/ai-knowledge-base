@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-30 02:10 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-30 12:12 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 670 raw emails → 291 signal emails
+**Stats:** 661 raw emails → 284 signal emails
 
 ## AAP / Ansible (28 emails)
 
@@ -78,14 +78,10 @@
   > Server Engineer Team Meeting Agenda - Monday, 4/27/2026 @ 1:30 PM US EST / 11:30 AM CR HOUSEKEEPING * 2026 GOALS - These are going to be due Mid-May (specifically May 15) and there
 
 **🔧 Changes / Deployments**
-- `2026-04-13 13:00` **Nina Papa** — Wellness this Week - Elder Care & upcoming EAP Peer Support Groups
-  > Forwarding on behalf of Healthy Bean: Our 2026 Elder Care Series continues this Thursday, April 16, from noon–12:30 p.m. with part two of a presentation on Brain Change. Brittany f
 - `2026-04-22 13:20` **Tim McGlothin** — Modification Resolution
   > 13:20:29 Calendar 13:20:29 Message class: {SU:IPM.Appointment} 13:20:29 Appointment Conflict Resolution 13:20:29 Local subject: {SU:Change coverage 4/23} 13:20:29 Remote subject: {
 
 **💬 Notable**
-- `2026-04-22 10:12` **Tim mcglothin** — mestack
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ -- Tim McGlothin timmcg@gmail.com <mailto:timmcg@g
 - `2026-04-22 10:12` **Nasuni** — Your file data strategy is at a crossroads—what’s next?
   > You don't often get email from customermarketing@nasuni.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links
 - `2026-04-22 10:22` **Tim mcglothin** — mesume
@@ -113,14 +109,12 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Don’t miss out,﻿ register now! ‍͏ ͏ ‍͏ ͏ ‍͏ ͏ ‍͏ ͏
 - `2026-04-29 13:07` **Loom** — Record and summarize meetings instantly
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Connect your calendar for meeting recordings and A
+- `2026-04-29 21:00` **Alcatel-Lucent Enterprise** — IT-OT alignment: Convergence isn’t the only path
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Your operations, your choice: Converge fully, part
 
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-24 16:39` **Automation for Jira (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Automation for Jira 1 made an update _____________
-- `2026-04-24 16:55` **Javier Cedeño (Jira)** — [JIRA] (ITS-10437) OmniCenter: edw-pr-dbn113 SUB: edw-pr-dbn113 - Threshold CRITICAL - CPU Utilization for edw-pr-dbn113
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-24 17:00` **Javier Cedeño (Jira)** — [JIRA] (ITS-10744) OmniCenter: mb-qa-media02 SUB: mb-qa-media02 - Threshold CRITICAL - /home Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-24 17:00` **Javier Cedeño (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
@@ -147,6 +141,10 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-29 09:30` **Jason Mills** — Re: AI Trusted Ops POC proposal
   > Yes! This has been on the top of my list for getting some value from an AI process. I think we are at a good place with the Spark cluster to use that for a POC. Feel free to put so
+- `2026-04-29 20:35` **Technical Operations Center** — ITS-11253 | Store 1180 Partridge Creek, MI | ETA: NONE
+  > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: ITS-11253 | Store 1180 Partridge Creek, MI | ETA: NONE Incident: ITS-11253 <https://ll
+- `2026-04-29 20:41` **Technical Operations Center** — ITS-11253 | Power Outage at Store 1180 Partridge Creek, MI | ETA: NONE
+  > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: ITS-11253 | Power Outage at Store 1180 Partridge Creek, MI | ETA: NONE Incident: ITS-1
 
 **💬 Notable**
 - `2026-04-22 12:44` **Javier Cedeño (Jira)** — [JIRA] (ITS-10438) Control-M: ans00200 ENDED NOTOK! - Production - Abend Code  99
@@ -186,21 +184,9 @@
 - `2026-04-22 17:41` **Tim McGlothin** — Re: Ansible sync job
   > Skipping that host means it did not see that server in the ansible inventory.. We'll check it out tomorrow and get it working. Get Outlook for Android <https://aka.ms/AAb9ysg> ____
 
-## Nutanix (26 emails)
+## Nutanix (20 emails)
 
 **🔴 Incidents / Issues**
-- `2026-03-30 16:29` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hello Javier Cedeño, Thank you for contacting Nuta
-- `2026-03-30 16:47` **Nutanix Support** — NTNX Case 02505157 | P2 - Critical | CVM not showing on element and can't access on SSH or Console after BIOS upgrade [ 
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hello Javier, My name is Vivekanand Koya from the 
-- `2026-03-30 18:43` **Vivekanand Koya** — Re: NTNX Case 02505157 | P2 - Critical | CVM not showing on element and can't access on SSH or Console after BIOS upgrad
-  > Some people who received this message don't often get email from vivekanand.koya@nutanix.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: E
-- `2026-03-30 20:06` **Nutanix Support** — Your case 02505157, Account : L.L. Bean, Inc., Subject : CVM not showing on element and can't access on SSH or Console a
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Your case # 02505157: "CVM not showing on element 
-- `2026-03-30 20:40` **Sakib Ahmed** — Nutanix Case 02505157 | CVM not showing on element and | thread::mtbgHS0LdJms479N0wSowi4::
-  > You don't often get email from sakib.ahmed@nutanix.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links or o
-- `2026-03-30 23:41` **Nutanix Support** — Nutanix Case 02505157 | CVM not showing on element and | ref:00D60000000IUGi.500VO000010lxAe:ref [ thread::mtbgHS0LdJms4
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Hi Javier, Thank you very much for collaborating w
 - `2026-03-31 08:09` **Steven Foxe** — RE: Nutanix Case 02505157 | CVM not showing on element and | ref:00D60000000IUGi.500VO000010lxAe:ref [ thread::mtbgHS0Ld
   > Good Morning Nutanix support, I’ll be continuing with Javier’s case this morning. It appears that the last upgrade that was started has also failed and the host/CVM are down and of
 - `2026-03-31 10:49` **Nutanix Support** — 02505157 | Account: L.L. Bean, Inc. | Subject: CVM not showing on element and can't access on SSH or Console after BIOS 
@@ -324,7 +310,7 @@
 - `2026-04-08 10:00` **Deborah Bria** — REMINDER: PLEASE READ:   MONGODB QA  migration from Community edition to ATLAS  4/9/26
   > Good morning, everyone, I wanted to share some important details regarding the upcoming MongoDB QA database migration scheduled for Thursday, April 9th, 2026. Beginning at 8:00 am 
 
-## Patching (39 emails)
+## Patching (38 emails)
 
 **🔴 Incidents / Issues**
 - `2026-04-22 01:50` **Technical Operations Center** — FW: [ERROR] ans00006 Job #600479 'ESGUnix - Patch DBA-SHD_01-PR (Full/Reboot)'
@@ -371,16 +357,12 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ A new virtual machine has been provisioned with th
 
 **💬 Notable**
-- `2026-03-30 16:05` **Aaron Smiley** — Lightweight East/West visibility VMs
-  > Hey guys, I was wondering if Systems Management could get a couple of lightweight VMs set up for "automated infrastructure visibility validation" - one in each datacenter? Shouldn’
 - `2026-04-23 12:09` **Tiffany Pepe** — RE: SWDC Rack 5N Ready for new servers
   > Great work Asif! Thank you for jumping on it so quickly. Much appreciation! Thank you! Tiffany Pepe Importance: High Good afternoon everyone, I hope everyone is doing well. I have 
 
 ## Splunk (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-21 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 - `2026-04-22 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-22 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
@@ -408,6 +390,8 @@
 - `2026-04-29 01:07` **splunk@llbean.com** — Splunk Alert: Ansible Unreachable Hosts
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Ansible Unreachable Hosts
 - `2026-04-29 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
+- `2026-04-30 02:17` **splunk@llbean.com** — Splunk Alert: Unix Syslog Report
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ The alert condition for 'Unix Syslog Report' was t
 
 ## Windows / AVD (9 emails)
