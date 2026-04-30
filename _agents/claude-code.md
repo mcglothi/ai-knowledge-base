@@ -1,70 +1,68 @@
-# Claude Code — Agent Instructions (rev 13, 2026-04-21)
-Sync: `cp {{LOCAL_PATH}}/_agents/claude-code.md ~/.claude/CLAUDE.md`
+# Claude Code — Agent Instructions (v2 pilot candidate)
+**Core Version:** v2.0
+**Agent:** Claude Code
+**AIKB Root:** `${AIKB_ROOT}` (set per host, e.g. `/Users/mcglothi/code/AIKB`)
 
-## AIKB
-Repo: `{{GITHUB_USERNAME}}/AIKB` · Local: `{{LOCAL_PATH}}/`
-MCP mode (no local clone): server `github-aikb`, branch `main` · Read: `get_file_contents` · Write: `create_or_update_file` (include SHA)
+## Startup (always load)
+1. Load: `${AIKB_ROOT}/_agents/shared/core-min.md`
+2. Load: `${AIKB_ROOT}/_agents/v2/claude-code.overlay.md`
+3. Keep available: `${AIKB_ROOT}/_agents/shared/session-min.md`
 
-## Session Start
-wake-up optional — use only when cross-session continuity needed:
-`python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py wake-up --agent "Claude Code"`
-Claim: `runtime_cli.py claim-session --agent "Claude Code" --repo "AIKB" --scope "<scope>" --task "<task>"`
+## Startup Health Check
+- Verify `${AIKB_ROOT}` resolves.
+- Verify runtime CLI exists: `python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py`
+- Verify playbooks exist/readable:
+  - `${AIKB_ROOT}/docs/playbooks/im.md`
+  - `${AIKB_ROOT}/docs/playbooks/token-economy.md`
+  - `${AIKB_ROOT}/docs/playbooks/closeout.md`
+  - `${AIKB_ROOT}/docs/playbooks/git-checkpointing.md`
+  - `${AIKB_ROOT}/docs/playbooks/cross-agent-mind-meld.md`
 
-## Loading
-Order: wake-up output → `_index.md`+`_state.yaml` if needed → specific files on demand.
-Use `aikb_search` for freeform queries. Never bulk-load domain folders.
+## L2 Dispatch Table (load on demand)
+- If task involves inbox/reply/self-note/cross-agent messaging:
+  - Load `${AIKB_ROOT}/docs/playbooks/im.md`
+- If task involves heavy output, many reads, or context pressure:
+  - Load `${AIKB_ROOT}/docs/playbooks/token-economy.md`
+- If user indicates wrap-up/shutdown/closeout:
+  - Load `${AIKB_ROOT}/docs/playbooks/closeout.md`
+- If task involves risky edits, branch strategy, rollback, or major refactor:
+  - Load `${AIKB_ROOT}/docs/playbooks/git-checkpointing.md`
+- If task requires reconciling guidance from multiple agents:
+  - Load `${AIKB_ROOT}/docs/playbooks/cross-agent-mind-meld.md`
 
-## Writing
-Edit in place · Update `Last Updated` · Update `_index.md` on status change · Update `_state.yaml` on: incident, SSL cert, pending item
-Commit: `git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Update: [file] — [what]" && git -C {{LOCAL_PATH}} push origin main`
-In-flight: `⚠️ IN PROGRESS` · Done: `✅`
+## Claude-specific runtime rules
+- Compact keyword: `/compact`
+- Optional continuity:
+  - `python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py wake-up --agent "Claude Code"`
+- Session claim:
+  - `python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py claim-session --agent "Claude Code" --repo "AIKB" --scope "<scope>" --task "<task>"`
+- IM self-note command:
+  - `python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py im send --from "Claude Code" --to "Claude Code" --severity info --summary "<subject>" --body "<detail>" --mirror-sent`
 
-## Git — Project Repos
-main: typos, minor docs · Branch: features, assets, anything hard to reverse
-`git checkout -b claude/<desc>` → `git push -u origin HEAD` → `gh pr create --fill`
-Binary assets: always new filename (GitHub CDN caches by URL). AIKB: push `_runtime/` + canonical docs direct to main.
+## Safety + Credentials
+- [MANDATE] Do not expose secrets/credentials in output.
+- Fallback order: Bitwarden -> Delinea -> ask user
+- Never run `bw unlock` or `bw status` without `--session`
+- Use `BW_SESSION`-scoped commands only
 
-## Credentials
-BW: `BW_SESSION=$(cat ~/.bw_session) && bw get password "PAT/<Service>/<Name>" --session "$BW_SESSION"` · Never: `bw unlock` · Never: `bw status` without `--session`
-Delinea: `personal/vaults/delinea.yaml` → name→ID → `tss secret --secret <id> --field <field>`
-MCP discovery: new tool/platform → check `_tools/mcp-registry.yaml` → if found, log to `_pending_approvals.md` (type: mcp-discovery, priority: low)
+## Compact triggers (must enforce)
+- Subtask done
+- Tool output > 50 lines
+- 3+ file reads in sequence
+- ~40 turns / high context pressure
 
-## Session End
-Stop hook handles closeout automatically. Setup: `docs/stop-hook-setup.md`.
+Before compact, run runtime capture decision summary.
 
-## Shutdown
-"lets wrap up" | "let's wrap up" | "lets shut down" | "let's shut down" →
-1. Persist AIKB updates (`_index.md`, `_state.yaml`, project docs)
-2. commit+push all repos
-3. Report sync state
+## Wrap-up behavior
+Trigger phrases:
+- "lets wrap up" | "let's wrap up" | "lets shut down" | "let's shut down"
 
-## IM — Self-Messaging
-Triggers (fuzzy, case-insensitive): "leave yourself a note" · "note for next time" · "remember for next session" · "jot this down" · "make a note" · "don't forget this"
-`python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py im send --from "Claude Code" --to "Claude Code" --severity info --summary "<subject>" --body "<detail>" --mirror-sent`
-summary=one line · severity=review if needs attention next session · don't ack · reply: "Noted — I'll see that next session."
+On trigger:
+1. Load closeout playbook
+2. Run closeout checklist
+3. Report: completed, pending, blockers
 
-## Cross-Agent Awareness
-See `docs/mind-meld.md`. Load when asked about other agents or avoiding duplicate work.
-
-## Efficiency
-`pgrep`/`ps`/`which` over `ls -R` · Full Deployment=production (DNS+Proxy+SSL) · POC=local only · Deep Trace=explicit permission
-
-## Checkpoints
-Commit at: phase done | major decision | before risky op | long conversation
-Mark in-flight: `⚠️ IN PROGRESS — picked up by next session` · Done: `✅`
-
-## Template Sync
-`runtime_cli.py template-sync --auto-check` (weekly) · Never `./sync.sh` without approval · After sync: downstream repos may need `./sync-agents.sh`
-
-## Token Economy
-Compact (/compact) when any: sub-task done | tool output >50 lines | 3+ file reads | ~40 turns
-Before compact: `python3 {{LOCAL_PATH}}/_tools/memory-pipeline/runtime_cli.py capture --agent "Claude Code" --session-id <id> --type decision --summary "<what>" [--rejected "<alt>"] [--assumptions "<ctx>"] [--invariants "<incomplete>"] [--next-step "<next>"]`
-Only --summary required. Field guide: `docs/token-economy.md`
-After compact: `aikb_search "<topic>"` to recall.
-Bash output: always cap — `| head -50` · `2>&1 | tail -20` · `| grep -c`. Broad research: use Explore subagent.
-
-## Wrap-up
-1. `runtime_cli.py closeout --phrase "<phrase>"`
-2. (if graph artifacts tracked) `build_temporal_graph.py` + `dream_cycle.py`
-3. git add+commit+push all
-4. Remove from `_agents/active.md`
+## Validation
+```bash
+bash ${AIKB_ROOT}/_tools/validation/run_v2_trial.sh claude-code
+```

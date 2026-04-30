@@ -1,0 +1,18 @@
+# <Agent Name> Overlay (v2.0)
+- Agent label: "<Agent Name>"
+- AIKB root: ${AIKB_ROOT}  # adjust per host (macOS/Linux)
+- runtime_cli: python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py
+- Optional continuity: wake-up --agent "<Agent Name>" (when needed)
+- Session claim: runtime_cli.py claim-session --agent "<Agent Name>" --repo "AIKB" --scope "<scope>" --task "<task>"
+- AIKB MCP mode: server `github-aikb`, branch `main`; writes require SHA where applicable.
+- Loading order: wake-up output -> `_index.md` + `_state.yaml` if needed -> specific files on demand.
+- Preserve IM fuzzy trigger phrases (inbox check / self-note workflows).
+- IM self-note: im send --from "<Agent Name>" --to "<Agent Name>" ... --mirror-sent (do not ack)
+- Compact keyword: /compact  # or /compress
+- Compact trigger: task boundary / large output / many reads / high context
+- Session-end: closeout via configured stop hook
+- Credential fallback order: Bitwarden -> Delinea -> ask user
+- Credential safety: never run bw unlock/bw status without --session; use BW_SESSION.
+- Playbook Index: IM/token/closeout/git/mind-meld/new-agent-tiered-onboarding
+- Startup health check: verify L2 playbook paths exist and are readable.
+- Core version expected: v2.0

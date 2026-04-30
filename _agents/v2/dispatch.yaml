@@ -1,0 +1,62 @@
+version: "v2.0"
+default_load:
+  - _agents/shared/core-min.md
+  - _agents/shared/session-min.md
+agent_overlays:
+  claude-code: _agents/v2/claude-code.overlay.md
+  codex: _agents/v2/codex.overlay.md
+  gemini-cli: _agents/v2/gemini-cli.overlay.md
+
+rules:
+  - id: im
+    when_any:
+      - inbox
+      - reply
+      - self-note
+      - cross-agent message
+      - leave yourself a note
+      - note for next time
+      - remember for next session
+      - jot this down
+      - make a note
+      - don't forget this
+    load: docs/playbooks/im.md
+
+  - id: token-economy
+    when_any:
+      - heavy output
+      - large output
+      - many file reads
+      - context pressure
+      - compact
+    load: docs/playbooks/token-economy.md
+
+  - id: closeout
+    when_any:
+      - lets wrap up
+      - let's wrap up
+      - lets shut down
+      - let's shut down
+      - closeout
+      - shutdown
+    load: docs/playbooks/closeout.md
+
+  - id: git-checkpointing
+    when_any:
+      - risky edit
+      - rollback
+      - branch strategy
+      - major refactor
+      - checkpoint
+    load: docs/playbooks/git-checkpointing.md
+
+  - id: cross-agent-mind-meld
+    when_any:
+      - reconcile agent feedback
+      - conflicting feedback
+      - multi-agent synthesis
+      - avoid duplicate work
+    load: docs/playbooks/cross-agent-mind-meld.md
+  - id: new-agent-onboarding
+    trigger: "adding or migrating an agent to v2"
+    load: "docs/playbooks/new-agent-tiered-onboarding.md"
