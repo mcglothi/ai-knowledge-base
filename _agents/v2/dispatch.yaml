@@ -6,6 +6,7 @@ agent_overlays:
   claude-code: _agents/v2/claude-code.overlay.md
   codex: _agents/v2/codex.overlay.md
   gemini-cli: _agents/v2/gemini-cli.overlay.md
+  copilot: _agents/v2/copilot.overlay.md
 
 rules:
   - id: im
