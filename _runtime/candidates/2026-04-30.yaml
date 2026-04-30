@@ -5,8 +5,9 @@ candidates:
       - evt_20260430_163529_615117_b13c50
       - evt_20260430_164010_691043_1f2542
       - evt_20260430_164400_891222_4936e7
+      - evt_20260430_164651_355316_2af07a
     target_file: AIKB
-    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:1; branch=master; cwd=AIKB; events=3; candidates=1; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
+    proposed_change: "[observation] Closeout captured for task 'work in AIKB'; repo=dirty:1; branch=master; cwd=AIKB; events=4; candidates=1; queue=0; approvals=0; session_age=unknown; trigger='Stop hook fired'; note='Automatic end-of-session capture via Claude Code Stop hook'"
     confidence: 0.70
     class: needs-review
     status: queued
