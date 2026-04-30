@@ -1,7 +1,7 @@
 # Infra Intelligence — Email Last 30 Days
-**Generated:** 2026-04-30 12:40 UTC  **Source:** Outlook (local COM scrape)
+**Generated:** 2026-04-30 16:07 UTC  **Source:** Outlook (local COM scrape)
 
-**Stats:** 661 raw emails → 284 signal emails
+**Stats:** 666 raw emails → 286 signal emails
 
 ## AAP / Ansible (28 emails)
 
@@ -82,8 +82,6 @@
   > 13:20:29 Calendar 13:20:29 Message class: {SU:IPM.Appointment} 13:20:29 Appointment Conflict Resolution 13:20:29 Local subject: {SU:Change coverage 4/23} 13:20:29 Remote subject: {
 
 **💬 Notable**
-- `2026-04-22 10:12` **Nasuni** — Your file data strategy is at a crossroads—what’s next?
-  > You don't often get email from customermarketing@nasuni.com. Learn why this is important <https://aka.ms/LearnAboutSenderIdentification> CAUTION: External email. Do not click links
 - `2026-04-22 10:22` **Tim mcglothin** — mesume
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ -- Tim McGlothin timmcg@gmail.com <mailto:timmcg@g
 - `2026-04-22 11:00` **Annie Beagan** — RE: Infrastructure All Hands
@@ -111,12 +109,12 @@
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Connect your calendar for meeting recordings and A
 - `2026-04-29 21:00` **Alcatel-Lucent Enterprise** — IT-OT alignment: Convergence isn’t the only path
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Your operations, your choice: Converge fully, part
+- `2026-04-30 11:02` **The CyberArk Team** — AI Agents Have Your Keys. What Next?
+  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ See how attackers exploit agentic identities and h
 
 ## JSM / ServiceNow (40 emails)
 
 **🔴 Incidents / Issues**
-- `2026-04-24 17:00` **Javier Cedeño (Jira)** — [JIRA] (ITS-10744) OmniCenter: mb-qa-media02 SUB: mb-qa-media02 - Threshold CRITICAL - /home Percent Used Space
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-24 17:00` **Javier Cedeño (Jira)** — [JIRA] (ITS-10748) OmniCenter: mb-qa-app02 SUB: mb-qa-app02 - Threshold CRITICAL - /home Percent Used Space
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-25 06:18` **Automation for Jira (Jira)** — [JIRA] (ITS-10772) OmniCenter: wms-qa-mif02 SUB: wms-qa-mif02 - Threshold CRITICAL - /apps Percent Used Space
@@ -145,10 +143,10 @@
   > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: ITS-11253 | Store 1180 Partridge Creek, MI | ETA: NONE Incident: ITS-11253 <https://ll
 - `2026-04-29 20:41` **Technical Operations Center** — ITS-11253 | Power Outage at Store 1180 Partridge Creek, MI | ETA: NONE
   > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: ITS-11253 | Power Outage at Store 1180 Partridge Creek, MI | ETA: NONE Incident: ITS-1
+- `2026-04-30 09:06` **Technical Operations Center** — Major Incident Technical Update: All Clear | ITS-11253 | Power Outage at Store 1180 Partridge Creek, MI | Fixed at 9:15 
+  > This update is for IS Team Members only. Please do not forward outside of IS. Forthcoming LP: All Clear | ITS-11253 | Power Outage at Store 1180 Partridge Creek, MI | Fixed at 9:15
 
 **💬 Notable**
-- `2026-04-22 12:44` **Javier Cedeño (Jira)** — [JIRA] (ITS-10438) Control-M: ans00200 ENDED NOTOK! - Production - Abend Code  99
-  > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-22 12:45` **Javier Cedeño (Jira)** — [JIRA] (ITS-10446) Control-M: ans00144 ENDED NOTOK! - Production - Abend Code  99
   > CAUTION: External email. Do not click links or open attachments unless you recognize the sender. ________________________________ Javier Cedeño 1 made an update ___________________
 - `2026-04-22 12:49` **Javier Cedeño (Jira)** — [JIRA] (ITS-10447) Control-M: ans00142 ENDED NOTOK! - Production - Abend Code  99
