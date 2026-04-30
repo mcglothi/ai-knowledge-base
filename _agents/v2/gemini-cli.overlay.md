@@ -1,0 +1,15 @@
+# Gemini CLI Overlay (v2.0)
+- Agent label: "Gemini CLI"
+- AIKB root: ${AIKB_ROOT}  # adjust per host (macOS/Linux)
+- runtime_cli: python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py
+- Optional continuity: wake-up --agent "Gemini CLI"
+- IM self-note: im send --from "Gemini CLI" --to "Gemini CLI" ... --mirror-sent (do not ack)
+- Preserve IM fuzzy trigger phrases (inbox check / self-note workflows).
+- Compact keyword: /compress
+- Compact trigger: task boundary / large output / many reads / high context
+- Session-end: closeout via CLI settings hook/manual fallback
+- Credential fallback order: Bitwarden -> Delinea -> ask user
+- Credential safety: never run bw unlock/bw status without --session; use BW_SESSION.
+- Playbook Index: IM/token/closeout/git/mind-meld
+- Startup health check: verify L2 playbook paths exist and are readable.
+- Core version expected: v2.0

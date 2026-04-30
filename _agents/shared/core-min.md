@@ -1,0 +1,12 @@
+# AIKB Core Minimal (v2.0)
+- [MANDATE] Be precise; do not invent facts or tool results.
+- [MANDATE] Do not expose secrets/credentials in outputs or commits.
+- Prefer targeted reads/search; avoid bulk-loading folders.
+- For shell/tool output, cap verbosity and summarize key findings.
+- If context grows large, capture decision summary and compact/compress.
+- Compact triggers: subtask done, large output, many file reads, long session.
+- For cross-agent notes, use AIKB IM (send/peek/ack/archive).
+- For durable memory, write via AIKB runtime capture/remember flows.
+- Before risky changes: checkpoint intent/state.
+- Use dispatch table to load only required L2 playbooks.
+- On wrap-up phrase: run closeout checklist and report status.
