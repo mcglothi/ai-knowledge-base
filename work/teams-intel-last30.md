@@ -1,5 +1,5 @@
 # Teams Intelligence — Last 30 Days
-**Generated:** 2026-04-30 12:12 UTC  **Period:** 2026-03-31 → today  **Source:** Local Teams cache
+**Generated:** 2026-04-30 12:40 UTC  **Period:** 2026-03-31 → today  **Source:** Local Teams cache
 
 **Stats:** 2508 signal messages extracted from Teams local cache
 
@@ -15,7 +15,7 @@
 | 6 | Unix Server and Storage Team | 127 | 29 | 2026-04-28 |
 | 7 | IS Connect Hub | 120 | 24 | 2026-04-24 |
 | 8 | Nutanix Bi-Annual Cluster Upgrades | 118 | 35 | 2026-04-21 |
-| 9 | Claude POC | 104 | 18 | 2026-04-30 |
+| 9 | Claude POC | 105 | 18 | 2026-04-30 |
 | 10 | (Direct/Meeting) | 98 | 4 | 2026-04-01 |
 | 11 | (Direct/Meeting) | 97 | 19 | 2026-04-27 |
 | 12 | Unix Server | TOC Team Chat | 83 | 19 | 2026-04-28 |
@@ -360,7 +360,7 @@
 - `2026-04-21 16:50` **Brooke Curtin-Johnson:** Here is some documentation on single node cluster firmware updates- I still have a few questions out to David S. on process.
 
 ### Claude POC
-**104 messages** · 2026-04-24 → 2026-04-30 · 18 signal msgs
+**105 messages** · 2026-04-24 → 2026-04-30 · 18 signal msgs
 
 **🔴 Incidents / Issues**
 - `2026-04-27 18:13` **Nick Mastors:** Hmmm. �I've been trying for a while now and have been unsuccessful. � Andrew � Skvorak , Claude seems convinced that it's an Access issue (though I'm not sure why it would work for Josh and not me). �Thoughts?
@@ -393,7 +393,6 @@
 - `2026-04-29 20:00` **Nick Mastors:** I've created a documentation agent. �Documentation is worth its weight in gold but it's takes time and its hard to maintain. �I created an agent that interview the person and then summarizes back what it thinks its heard…
 
 **💬 Notable Exchanges**
-- `2026-04-29 20:04` **Nick Mastors:** At some point (not right now), I would love to convene this group to share use cases. �This is a really fun pilot to be involved in.
 - `2026-04-29 20:17` **Kathleen Corr:** Andrew Skvorak Did you use Designer for that, Kathleen? Yes!
 - `2026-04-29 21:18` **Marco Hern�ndez:** Andrew Skvorak Everyone - the AI Enablement team has a sponsor meeting tomorrow and I would love to share any quick wins that any of you have realized with Claude. I know it's been a few days, but if there's anythi… I’m …
 - `2026-04-29 21:23` **Christy van Voorhees:** I managed to create a "skill" today. I'm nowhere close to knowing how to operationalize this, but I'm certain Claude will be the tool for it. We field a ton of product labeling questions and I'd like to create a self ser…
@@ -403,6 +402,7 @@
 - `2026-04-30 11:20` **Andrew Skvorak:** By the way, all - there are a lot of different names for things that you can build using Claude or Copilot - agents, skills, tools, actions, gpt's, capabilities and more. And each AI provider like Claude, ChatGPT, Copilo…
 - `2026-04-30 11:36` **Stella Cox:** I've just discovered that once you have Claude on your desktop, it will start appears on your other Microsoft desktop apps. I am deep into decks lately and look what I stumbled upon this morning. Can't wait to dive in an…
 - `2026-04-30 11:37` **Stella Cox:** There seems to be an Excel connector too but I haven't tried that yet
+- `2026-04-30 12:30` **Stacy Owen:** Another quick win I've been using Workflows with Teams, I tried this with Claude as a Skill.� Workflows, easy to use for basic items and tasks that would normal consume my time at end of day or beginning. It is a challen…
 
 ### Unix Server | TOC Team Chat
 **83 messages** · 2026-04-07 → 2026-04-28 · 19 signal msgs
@@ -491,13 +491,14 @@
 
 ## Today (2026-04-30)
 
-### Claude POC (6 msgs)
+### Claude POC (7 msgs)
 - `2026-04-30 10:57` **Andrew Skvorak:** This is ALL great! Thank you all for the quick wins!�
 - `2026-04-30 10:57` **Sharlena Biron:** Andrew � Skvorak �I haven't had time to do much other than install Claude, but I thought I would try a quick test and ask it to create a project plan. I copied Facilitator notes fr…
 - `2026-04-30 11:13` **Andrew Skvorak:** Christy van Voorhees I managed to create a "skill" today. I'm nowhere close to knowing how to operationalize this, but I'm certain Claude will be the tool for it. We field a ton of…
 - `2026-04-30 11:20` **Andrew Skvorak:** By the way, all - there are a lot of different names for things that you can build using Claude or Copilot - agents, skills, tools, actions, gpt's, capabilities and more. And each …
 - `2026-04-30 11:36` **Stella Cox:** I've just discovered that once you have Claude on your desktop, it will start appears on your other Microsoft desktop apps. I am deep into decks lately and look what I stumbled upo…
 - `2026-04-30 11:37` **Stella Cox:** There seems to be an Excel connector too but I haven't tried that yet
+- `2026-04-30 12:30` **Stacy Owen:** Another quick win I've been using Workflows with Teams, I tried this with Claude as a Skill.� Workflows, easy to use for basic items and tasks that would normal consume my time at …
 
 ### Claude POC Developer group (1 msgs)
 - `2026-04-30 12:01` **Jim Greene Jr:** this is an interesting concept - https://github.com/spiffy-oss/artguard
