@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [newton, macbook-pro, apple-silicon, m5-max, dev-environment]
 last_updated: 2026-04-22
 ---

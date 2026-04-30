@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # AIKB Drift Detection Policy
 
 ## Overview

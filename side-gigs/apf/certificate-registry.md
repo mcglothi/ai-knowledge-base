@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [apf, certificates, ec2, mariadb, s3, ocr, tesseract, php, bacb, lookup, aws, ssh, bastion, database, t2-micro, dns, dkim, spf]
 hosts: [ec2-apf-cert]
 services: [mariadb, apache]

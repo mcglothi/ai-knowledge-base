@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Machine Profile: J9RC8S3-LP
 
 **Last Updated:** 2026-04-16

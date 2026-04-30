@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [tesla, mbp-m1, macbook-pro, apple-silicon, dev-environment]
 last_updated: 2026-03-31
 canonical_target: mbp-m1.md

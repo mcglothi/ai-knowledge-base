@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [kyloch, jarvis-alias, architecture, runtime-fabric, voice, hopper, turing, home-assistant, ai-hub, aikb, orchestration, agents, stt, tts, session, api]
 status: active
 last_updated: 2026-04-16

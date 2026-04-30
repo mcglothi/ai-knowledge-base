@@ -1,3 +1,6 @@
+---
+context: llbean-work
+---
 # Nutanix Ops Intelligence — Alert Patterns
 
 **Last Updated:** 2026-04-23

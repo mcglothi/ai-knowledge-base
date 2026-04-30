@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [kyloch, jarvis-alias, personal-ai, vision, local-llm, frontier-api, voice, aikb, multi-device]
 status: active
 last_updated: 2026-04-16

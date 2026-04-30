@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [feynman, denon, samsung, cec, hdmi, esp32, avr, tv, automation, startup, shutdown, av]
 status: in-progress
 last_updated: 2026-02-27

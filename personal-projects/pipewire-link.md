@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [pipewire, audio, feynman, systemd, linux, usb, dac, sound]
 hosts: [feynman]
 last_updated: 2026-02-19

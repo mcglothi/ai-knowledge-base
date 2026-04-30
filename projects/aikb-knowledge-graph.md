@@ -1,4 +1,5 @@
 ---
+context: shared
 tags: [aikb, graph, backlinks, search, ui, publish, obsidian]
 status: in-progress
 last_updated: 2026-03-04

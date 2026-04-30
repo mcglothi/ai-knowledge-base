@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [hardware, raspberry-pi, opensoak, undervoltage, power, home-lab, newton, sonnet, 10gbe]
 hosts: [opensoak, newton]
 last_updated: 2026-04-22

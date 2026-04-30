@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [svc_ansible, svc_gemini, svc_claude, svc_codex, service-accounts, ssh-keys, sudo, authentik, agents, semaphore, permissions, api-tokens]
 hosts: [truenas, babbage, farnsworth, pihole, pihole2, opensoak, hopper]
 last_updated: 2026-04-09

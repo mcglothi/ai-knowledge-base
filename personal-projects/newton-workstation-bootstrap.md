@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [newton, macbook-pro, bootstrap, workstation, apple-silicon, local-llm, ollama, llama.cpp, mlx, brew]
 last_updated: 2026-04-22
 ---

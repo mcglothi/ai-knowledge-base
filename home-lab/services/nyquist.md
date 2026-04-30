@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [security, monitoring, netalertx, scanning, udm-pro, nyquist]
 hosts: [truenas, babbage]
 services: [nyquist, netalertx]

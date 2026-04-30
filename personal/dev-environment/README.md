@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Development Environments
 **Last Updated:** 2026-04-17
 **Summary:** Overview of all machines used for development. Each machine file is an execution profile — it tells an agent what's available and how to operate on that machine. Project files describe what a project needs; machine files describe what's here. Agents compose them at session start.

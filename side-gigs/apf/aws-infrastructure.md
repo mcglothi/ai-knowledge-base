@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [apf, aws, ec2, alb, nat, s3, route53, costs, simplification, cloudformation, t2-micro, mariadb, rds-snapshots, phpmyadmin]
 last_updated: 2026-02-25
 ---

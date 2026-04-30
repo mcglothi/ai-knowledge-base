@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [mcp, infrastructure, home-lab, architecture, automation, mcp-hub, custom-built]
 last_updated: 2026-04-28
 ---

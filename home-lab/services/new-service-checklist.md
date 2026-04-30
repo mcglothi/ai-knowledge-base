@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [checklist, onboarding, dns, npm, ssl, vaultwarden, ansible, homepage, authentik, monitoring, new-service]
 status: reference
 last_updated: 2026-03-05

@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [newton, jarvis, local-llm, model-routing, ollama, llama.cpp, mlx, voice, monetization, ai-top-atom, spark]
 status: active
 last_updated: 2026-04-22

@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Homelab Platform Ops Stack — Session Closeout (2026-04-28)
 
 ## Executive Summary

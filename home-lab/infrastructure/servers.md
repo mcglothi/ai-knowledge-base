@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [truenas, babbage, turing, farnsworth, hopper, servers, ips, 10.10.10.10, svc_ansible, ssh, workstations, feynman, tesla, raspberry-pi, opensoak, baird, cecmate, esp32, cec, iot]
 hosts: [truenas, babbage, turing, farnsworth, hopper, pihole, pihole2, opensoak, tesla, feynman, matilda, baird]
 last_updated: 2026-04-24

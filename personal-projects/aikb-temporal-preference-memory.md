@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [aikb, memory, temporal, preferences, retrieval, ranking, user-model, design]
 status: planning
 last_updated: 2026-04-17

@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [turing, ai-hub, ttyd, code-server, claude-code, gemini-cli, docker, dockge, kvm, vm, truenas, terminal, web-terminal, vscode, ansible, ai, local-llm, chat-wrapper, operator-console, mobile-chat, hermes, mcpo, openshell]
 hosts: [turing, truenas]
 last_updated: 2026-04-28

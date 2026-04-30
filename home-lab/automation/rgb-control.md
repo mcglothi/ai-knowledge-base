@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [rgb, feynman, openrgb, systemd, timers, lighting, linux, arch, scripts]
 hosts: [feynman]
 last_updated: 2026-02-19

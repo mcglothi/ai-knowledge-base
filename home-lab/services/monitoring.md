@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [prometheus, grafana, loki, promtail, truenas, monitoring, metrics, cadvisor, node-exporter, homepage, dashboards, exportarr, sonarr, radarr, prowlarr, blackbox-exporter, pihole-exporter, farnsworth, pihole2, opensoak, alertmanager, discord, zfs, alerting, rules, sense, energy, power, hopper, nvidia, gpu, ai]
 hosts: [truenas, babbage, farnsworth, pihole2, opensoak, sense, hopper]
 services: [prometheus, grafana, loki, promtail, node-exporter, cadvisor, homepage, blackbox-exporter, pihole-exporter, alertmanager, sense-exporter, nvidia-textfile-collector]

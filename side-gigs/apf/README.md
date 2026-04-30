@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [apf, autism-partnership, wordpress, aws, migration, costs, nonprofit, freelance, certificate-registry, ec2]
 last_updated: 2026-02-18
 ---

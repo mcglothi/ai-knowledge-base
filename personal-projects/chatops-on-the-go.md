@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [chatops, telegram, home-assistant, on-the-go, mobile, wear-os, pixel-fold, pixel-watch, ai-agents, automation]
 status: in progress
 last_updated: 2026-04-23

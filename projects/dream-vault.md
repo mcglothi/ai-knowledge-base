@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Project: Dream Vault (Somnium / Remnant)
 **Last Updated:** 2026-04-04
 **Status:** ✅ DESIGN PHASE (In-Progress)

@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [project, ai-tools, claude-code, gemini-cli, tui, token-optimization, context-window]
 status: partial — interim pattern operational, TUI not started
 last_updated: 2026-04-14

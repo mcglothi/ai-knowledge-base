@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [lldap, ldap, authentik, truenas, identity, directory, babbage]
 status: active
 last_updated: 2026-04-03

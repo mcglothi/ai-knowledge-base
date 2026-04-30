@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Personal Projects
 
 **Last Updated:** 2026-04-11

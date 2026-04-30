@@ -1,3 +1,6 @@
+---
+context: llbean-work
+---
 # ESGUnix Ops Intelligence — Email-Derived
 
 **Last Updated:** 2026-04-23

@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [aikb-bootstrap, aikb.timmcg.net, firebase-hosting, bootstrap, codex, claude, gemini]
 last_updated: 2026-03-04
 ---

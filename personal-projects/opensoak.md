@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [opensoak, raspberry-pi, fastapi, vite, hot-tub, authentik, npm, nginx, home.timmcg.net, python, ssh, systemd]
 hosts: [opensoak]
 last_updated: 2026-04-12

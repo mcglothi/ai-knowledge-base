@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Home Lab
 
 **Last Updated:** 2026-02-20

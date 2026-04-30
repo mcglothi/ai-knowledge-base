@@ -1,4 +1,5 @@
 ---
+context: llbean-work
 tags: [agent, ansible, work, infrastructure, automation, security, jira, self-learning, risks, aikb, memory]
 last_updated: 2026-04-18
 ---

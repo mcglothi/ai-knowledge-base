@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [vaultwarden, passwords, secrets, bitwarden, bw, truenas, docker, litestream, gcs, vault.home.timmcg.net, api-keys, dockge, backup, failover]
 hosts: [truenas]
 services: [vaultwarden, litestream]

@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # AIKB LoRA Integration
 **Last Updated:** 2026-03-25
 **Status:** 🔬 Planning

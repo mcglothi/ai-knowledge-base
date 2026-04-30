@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [pixel, android, adb, wireless-adb, tailscale, phone, remote-control]
 status: active
 last_updated: 2026-02-23

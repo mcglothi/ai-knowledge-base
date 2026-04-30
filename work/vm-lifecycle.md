@@ -1,3 +1,6 @@
+---
+context: llbean-work
+---
 # VM Lifecycle — VMDEPLOY & VMDECOM (ESGUnix)
 
 **Last Updated:** 2026-04-21 (rev 2 — new stack design decisions added)

@@ -1,3 +1,6 @@
+---
+context: llbean-work
+---
 # Zscaler Training Platform
 
 **Status:** ✅ Deployed — v1.1

@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Security
 
 **Last Updated:** 2026-02-18

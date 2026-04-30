@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [hermes, alertmanager, prometheus, loki, ansible, automation, homelab]
 last_updated: 2026-04-20
 status: in-progress

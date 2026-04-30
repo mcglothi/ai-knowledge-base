@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [aikb, memory, roadmap, implementation, retrieval, graph, memory-core, governance]
 status: planning
 last_updated: 2026-04-13

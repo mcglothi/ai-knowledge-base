@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [project, terminal, ssh, sftp, macos, linux, session-management, automation, macros, remote-ops]
 status: planning
 last_updated: 2026-03-31

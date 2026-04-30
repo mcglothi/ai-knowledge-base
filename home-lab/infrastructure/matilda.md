@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [matilda, laptop, dell-precision, rtx-2000, kate]
 last_updated: 2026-04-24
 ---

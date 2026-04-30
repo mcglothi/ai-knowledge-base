@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [scripts, bash, python, feynman, auto-update, btrfs, pacman, vpn, bitwarden, bw, arch, snapshots, dotfiles, rgb]
 hosts: [feynman, any-linux]
 last_updated: 2026-04-21

@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [aikb, memory, retrieval, scoring, ranking, conflicts, jarvis]
 status: planning
 last_updated: 2026-03-12

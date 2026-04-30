@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [kyloch, jarvis-alias, architecture, failure-contract, hopper, turing, reliability]
 status: active
 last_updated: 2026-04-18

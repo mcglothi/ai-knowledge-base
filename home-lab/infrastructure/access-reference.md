@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [access, quick-reference, ssh, api, urls, credentials, truenas, pihole, grafana, npm, vaultwarden, semaphore, authentik, headscale, portainer]
 hosts: [truenas, babbage, farnsworth, pihole, pihole2, opensoak, tesla, feynman]
 last_updated: 2026-03-07

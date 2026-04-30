@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Mac Migration Plan
 
 **Last Updated:** 2026-04-23

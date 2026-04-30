@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [aikb, memory, metadata, schema, governance, retrieval]
 status: planning
 last_updated: 2026-03-07

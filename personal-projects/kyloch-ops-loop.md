@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [kyloch, jarvis-alias, operating-model, roadmap, experimentation, decision-hygiene, architecture]
 status: active
 last_updated: 2026-04-27

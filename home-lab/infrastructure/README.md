@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Infrastructure
 
 **Last Updated:** 2026-04-19

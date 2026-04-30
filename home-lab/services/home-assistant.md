@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [home-assistant, homeassistant, zwave, z-wave, zigbee, hubz, husbzb-1, smart-home, babbage, truenas, docker, dockge, lovelace, zwave-js-ui, zwavejs, authentik, sso]
 hosts: [babbage]
 last_updated: 2026-04-29

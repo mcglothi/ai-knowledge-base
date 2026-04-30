@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Goose-AIKB Integration
 
 **Status:** 🔬 Researching

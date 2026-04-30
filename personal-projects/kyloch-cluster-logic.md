@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Kyloch Phase 1.5: Heterogeneous Cluster Logic
 **Status:** Technical Design
 **Last Updated:** 2026-03-21

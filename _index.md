@@ -6,6 +6,7 @@
 
 **Last Updated:** 2026-04-30
 **Purpose:** Single-read orientation for AI agents. One row per project/system with current status. Load the linked file for full details — never bulk-load files that aren't relevant to the current task.
+**Context Guide:** See [`CONTEXT-GUIDE.md`](CONTEXT-GUIDE.md) before using credentials or infrastructure references — personal homelab and LLBean work environments are distinct.
 
 ---
 
@@ -34,7 +35,6 @@
 
 | Project | Status | Tags | Details |
 |---------|--------|------|---------|
-| Zscaler Training Platform | 🟢 Active | zscaler, zpa, zia, training, nginx, podman, inf-dv-tim01 | [`projects/zscaler-training.md`](projects/zscaler-training.md) |
 | Dream Vault (Somnium / Remnant) | 🔨 Designing | dreams, ai, local-llm, privacy, box, hardware, astrology, cultures | [`projects/dream-vault.md`](projects/dream-vault.md) |
 | AIKB Knowledge Graph | 🔨 In Progress | aikb, knowledge-graph, retrieval, graph | [`projects/aikb-knowledge-graph.md`](projects/aikb-knowledge-graph.md) |
 
@@ -119,6 +119,7 @@
 | LLBean Infrastructure | 🟢 Active | llbean, ansible, nutanix, rhel, aap, infoblox, satellite, crowdstrike | [`work/llbean-infrastructure.md`](work/llbean-infrastructure.md) |
 | VM Lifecycle (VMDEPLOY/VMDECOM) | 🟢 Active | vmdeploy, vmdecom, nutanix, vm-build, vm-decom, esgunix, jsm, roadmap, pain-points | [`work/vm-lifecycle.md`](work/vm-lifecycle.md) |
 | Safe Infrastructure Agent Pattern | 🟢 Active | infrastructure, agents, safety, ansible, automation, pattern | [`work/infrastructure-agent-pattern.md`](work/infrastructure-agent-pattern.md) |
+| Zscaler Training Platform | 🟢 Active | zscaler, zpa, zia, training, nginx, podman, inf-dv-tim01, llbean | [`work/zscaler-training.md`](work/zscaler-training.md) |
 
 ---
 

@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [pysudoers, python, sudoers, linux, feynman, permissions, sysadmin]
 hosts: [feynman, any-linux]
 last_updated: 2026-02-19

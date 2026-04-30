@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [mkdocs, material, docs, documentation, diagrams, mermaid, babbage, docker, dockge, home.timmcg.net]
 hosts: [babbage]
 last_updated: 2026-04-28

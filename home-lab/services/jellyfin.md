@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [jellyfin, media-server, truenas, k8s, mpv, sso, authentik]
 services: [jellyfin]
 last_updated: 2026-02-26

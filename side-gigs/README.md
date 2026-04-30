@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Side Gigs
 
 **Last Updated:** 2026-02-18

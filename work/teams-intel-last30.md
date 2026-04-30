@@ -1,3 +1,6 @@
+---
+context: llbean-work
+---
 # Teams Intelligence — Last 30 Days
 **Generated:** 2026-04-30 16:07 UTC  **Period:** 2026-03-31 → today  **Source:** Local Teams cache
 

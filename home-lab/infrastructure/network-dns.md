@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [dns, ssl, certificates, nginx, pi-hole, tailscale, truenas, proxy-hosts, home.timmcg.net, npm, reverse-proxy, wildcard-cert, udm-pro]
 hosts: [truenas, pihole, pihole2, udm-pro]
 services: [nginx-proxy-manager, pi-hole, tailscale]

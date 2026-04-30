@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Dev Environment: feynman (Arch Desktop)
 **Last Updated:** 2026-04-22
 **Summary:** Primary Linux workstation running Arch Linux with KDE Plasma. x86_64.

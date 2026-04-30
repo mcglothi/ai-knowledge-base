@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Goose Telegram Reliability Migration Plan (Newton → Turing/Hopper)
 
 **Last Updated:** 2026-04-29  

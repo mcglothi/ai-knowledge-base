@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [aikb-memory-core, aikb, memory, extensions, truenas, dockge, sqlite, fastapi, ingestion, search]
 hosts: [babbage]
 last_updated: 2026-04-22

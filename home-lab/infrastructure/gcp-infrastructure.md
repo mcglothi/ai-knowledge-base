@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [gcp, google-cloud, firebase, cloud-dns, cloud-sql, billing, projects, opensoak, gemini-api, timmcg-net]
 last_updated: 2026-02-18
 ---

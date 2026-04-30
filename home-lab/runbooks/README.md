@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Runbooks
 
 **Last Updated:** 2026-03-05

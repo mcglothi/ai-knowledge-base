@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Dev Environment: mbp-m1
 **Last Updated:** 2026-04-22
 **Summary:** MacBook Pro M1 13" (Apple Silicon). Hostname: `tesla`. macOS Sequoia. Canonical content file retained for backward compatibility; hostname alias entrypoint lives at [`tesla.md`](tesla.md).

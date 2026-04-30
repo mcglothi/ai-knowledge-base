@@ -11,8 +11,11 @@
 - Compact keyword: /compact
 - Compact trigger: task boundary / large output / many reads / high context
 - Session-end: closeout via configured stop hook
-- Credential fallback order: Bitwarden -> Delinea -> ask user
+- Credential fallback order depends on context (see AIKB `CONTEXT-GUIDE.md`):
+  - Personal/homelab: Bitwarden (vault.home.timmcg.net) -> Delinea -> ask user
+  - LLBean work: Delinea only -> ask user (Bitwarden/Vaultwarden is homelab-only, not present at LLBean)
 - Credential safety: never run bw unlock/bw status without --session; use BW_SESSION.
+- Context signals: working dir under ~/code (non-AIKB work repos) = likely LLBean context; home-lab/ AIKB content = personal-homelab context.
 - Playbook Index: IM/token/closeout/git/mind-meld
 - Startup health check: verify L2 playbook paths exist and are readable.
 - Core version expected: v2.0

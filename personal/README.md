@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Personal
 
 **Last Updated:** YYYY-MM-DD

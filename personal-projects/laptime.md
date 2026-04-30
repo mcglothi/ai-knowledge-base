@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [laptime, local-llm, benchmarks, simulator, hardware, affiliate, react, vite]
 last_updated: 2026-04-11
 ---

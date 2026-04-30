@@ -1,3 +1,6 @@
+---
+context: shared
+---
 # Projects
 
 **Last Updated:** YYYY-MM-DD

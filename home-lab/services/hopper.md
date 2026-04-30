@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [hopper, gb10, gigabyte-ai-top-atom, local-llm, nvidia, home-lab, llama-server]
 hosts: [hopper]
 last_updated: 2026-04-27

@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [apf, invoice, search-tool, ocr, freelance]
 last_updated: 2026-03-04
 ---

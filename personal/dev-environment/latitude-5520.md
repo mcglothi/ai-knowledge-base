@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Dev Environment: latitude-5520
 **Last Updated:** 2026-02-19
 **Summary:** Dell Latitude 5520 — Testbed for various Linux distros. Environment profile varies by current OS install.

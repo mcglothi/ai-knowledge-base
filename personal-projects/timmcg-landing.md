@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [timmcg.net, landing-page, firebase, gcp, react, vite, cloudflare, dns, typescript, hosting]
 last_updated: 2026-03-07
 ---

@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [ansible, playbooks, automation, truenas, pi-hole, backups, opensoak, nightly-update, midclt, dockge, containers, pihole-sync, turing, chat-wrapper, ai]
 hosts: [truenas, pihole, pihole2, opensoak, turing]
 last_updated: 2026-03-03

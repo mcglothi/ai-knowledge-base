@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [home-assistant, lovelace, dashboard, mushroom, bubble-card, hacs, frontend, ui]
 hosts: [babbage]
 last_updated: 2026-03-01

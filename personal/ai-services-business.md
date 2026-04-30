@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # AI Services Business Ideas
 
 **Last Updated:** 2026-03-21

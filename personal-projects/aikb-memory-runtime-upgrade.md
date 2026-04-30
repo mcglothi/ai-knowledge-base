@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [aikb, memory, runtime-memory, ingestion, promotion-pipeline, governance, jarvis, dreaming]
 status: planning
 last_updated: 2026-04-12

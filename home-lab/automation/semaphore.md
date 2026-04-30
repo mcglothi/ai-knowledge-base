@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [ansible, semaphore, automation, truenas, svc_ansible, scheduled-tasks, github, backups, nightly, pihole, dockge, containers]
 hosts: [truenas]
 services: [ansible-semaphore]

@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [runway, ai-tools, quota, tracking, electron, macos, menu-bar]
 last_updated: 2026-04-19
 ---

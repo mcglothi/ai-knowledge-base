@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [telegram, ideas, inbox, truenas, dockge, chatops, mobile, launchd-fallback]
 hosts: [babbage]
 last_updated: 2026-04-23

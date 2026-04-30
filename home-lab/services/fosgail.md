@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [pdf, fosgail, service, babbage, tool]
 status: active
 last_updated: 2026-04-25

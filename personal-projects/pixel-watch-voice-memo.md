@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [pixel-watch, wear-os, voice, memo, telegram, sideload, chatops, aikb]
 status: planning
 last_updated: 2026-04-23

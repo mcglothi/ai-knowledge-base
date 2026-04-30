@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Automation
 
 **Last Updated:** 2026-02-18

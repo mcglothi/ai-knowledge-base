@@ -1,3 +1,6 @@
+---
+context: llbean-work
+---
 # L.L. Bean — Infrastructure Engineering
 
 **Last Updated:** 2026-04-21

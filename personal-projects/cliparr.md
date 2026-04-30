@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [cliparr, coupons, browser-extension, truenas, dockge, automation, playwright, mv3, hannaford, shaws]
 status: active
 last_updated: 2026-03-04

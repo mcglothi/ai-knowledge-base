@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Dev Environment: mbp-i9
 **Last Updated:** 2026-02-19
 **Summary:** MacBook Pro i9 15" (Intel). ⬜ Partially filled — verify on next active session.

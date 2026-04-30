@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [authentik, sso, oauth, oidc, forward-auth, truenas, identity, nginx, proxy-auth, svc_claude, svc_gemini, postgres, redis, dockge]
 hosts: [truenas]
 services: [authentik, postgres, redis]

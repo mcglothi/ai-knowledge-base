@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [security-agents, shannon, keygraph, pentest, appsec, homelab, hermes, defensive-security, automation]
 status: planning
 last_updated: 2026-04-23

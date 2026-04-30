@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [auth, sso, oidc, oauth2, forward-auth, authentik, lldap, passkeys, biometrics, webauthn, truenas, unifi, vaultwarden, hardening]
 hosts: [truenas, babbage, feynman, tesla, opensoak, pihole2, udm-pro]
 services: [authentik, nginx-proxy-manager, lldap, vaultwarden, nextcloud, grafana, truenas]

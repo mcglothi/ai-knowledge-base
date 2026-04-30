@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Personal Profile
 
 **Last Updated:** 2026-04-16

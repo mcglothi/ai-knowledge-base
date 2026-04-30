@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # User Preferences
 
 **Last Updated:** 2026-03-29

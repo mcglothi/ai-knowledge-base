@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 title: Blurt + Dropzone — Watch-to-AIKB Capture Stack
 Last Updated: 2026-04-24 (verified 2026-04-24)
 Summary: WearOS app (blurt) + FastAPI relay (dropzone) that captures voice/typed notes from the watch and writes them into AIKB ideas/inbox/.

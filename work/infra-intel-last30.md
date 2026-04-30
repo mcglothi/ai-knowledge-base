@@ -1,3 +1,6 @@
+---
+context: llbean-work
+---
 # Infra Intelligence — Email Last 30 Days
 **Generated:** 2026-04-30 16:07 UTC  **Source:** Outlook (local COM scrape)
 

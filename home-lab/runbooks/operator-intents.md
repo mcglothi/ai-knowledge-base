@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [operator-intents, shortcuts, runbook, wol, restart, repetitive-ops, phrase-map]
 status: active
 last_updated: 2026-03-09

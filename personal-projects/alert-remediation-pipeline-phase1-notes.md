@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # Phase 1 — Discovery Notes
 
 **Date:** 2026-04-20

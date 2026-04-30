@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [kyloch, jarvis-alias, roadmap, implementation, voice, hopper, turing, ai-hub, aikb, planning]
 status: active
 last_updated: 2026-04-12

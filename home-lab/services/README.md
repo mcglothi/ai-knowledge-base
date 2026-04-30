@@ -1,3 +1,6 @@
+---
+context: personal-homelab
+---
 # Services
 
 **Last Updated:** 2026-04-23

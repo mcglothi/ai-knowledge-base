@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [unmanic, transcoding, plex, hevc, nvidia, babbage]
 hosts: [babbage]
 last_updated: 2026-04-05

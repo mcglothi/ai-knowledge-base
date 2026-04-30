@@ -1,3 +1,6 @@
+---
+context: personal
+---
 # BELIEFS.md
 
 **Last Updated:** 2026-03-29

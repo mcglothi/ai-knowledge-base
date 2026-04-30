@@ -1,4 +1,5 @@
 ---
+context: personal
 tags: [headscale, vpn, gcp, tailscale, networking, derp, pixel, tesla, truenas]
 status: active
 last_updated: 2026-04-03

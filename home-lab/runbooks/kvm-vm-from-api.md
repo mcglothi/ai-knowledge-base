@@ -1,4 +1,5 @@
 ---
+context: personal-homelab
 tags: [truenas, kvm, vm, ansible, debian, cloud-image, runbook, api]
 hosts: [truenas, babbage]
 last_updated: 2026-03-01
