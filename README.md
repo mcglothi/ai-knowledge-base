@@ -71,23 +71,19 @@ Session ends   → AIKB preserves continuity for next time
 
 ## Key Features
 
-- **Shared context across agentic tools** — one memory layer for Claude Code, Gemini CLI, Codex, OpenCode, Cursor, and similar tool-using agents
-- **Local-first and Git-backed** — durable memory in files you can inspect, diff, sync, and own
-- **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
-- **Advanced search & context expansion** — `aikb_search` MCP tool for natural-language queries; hybrid BM25 + vector retrieval with **Graph-RAG relationship expansion**, intent-aware priors, and 14-day recency decay
-- **In-session memory indexing** — `aikb_remember` captures durable memories from within a session; the search indexer automatically scans these event logs, making memories searchable instantly
-- **Session-end automation** — Claude Code and Gemini CLI can run the AIKB Stop hook automatically; Codex can use the shipped wrapper or manual fallback
-- **Session-start briefing** — `runtime_cli.py wake-up --agent "<Name>"` synthesizes a compact briefing from recent events and current state, and automatically surfaces any unread IM messages, so agents orient in seconds, not minutes
-- **Interactive candidate review** — `aikb_review.py` presents queued memory candidates one-by-one for approve/reject/skip with source event drill-down
-- **Retention enforcement** — `retention_check.py` flags stale docs, forgotten pending items, and terminal candidate bundles for cleanup
-- **Runtime memory pipeline** — `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, promotion, review, and governed memory updates
-- **Agent IM** — lightweight inbox/ack/archive workflow for explicit cross-agent coordination; see `docs/agent-im.md`
-- **Mind Meld** — shared awareness protocol so agents can see what other agents are doing and avoid duplicate work
-- **Operator HUD + approvals log** — `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
-- **Operator intents** — runbooks that teach your agents how to execute your shorthand requests and recurring workflows
-- **Layered loading** — agents read only what they need, preserving context window budget
-- **Checkpoint commits** — agents save progress during long sessions so memory survives interruptions
-- **Token economy** — compact triggers, AIKB-as-memory-buffer pattern, and bash output discipline keep API costs under control across long sessions; see `docs/token-economy.md`
+- **Shared memory across tools** — one memory layer for Claude Code, Gemini CLI, Codex, OpenCode, Cursor, Copilot, and other agentic tools
+- **Stored in files you control** — AIKB is local-first and Git-backed, so memory is easy to inspect, diff, sync, and correct when something goes wrong
+- **Search before asking** — agents are expected to check AIKB for prior context before asking you to repeat project background, decisions, or machine details
+- **Wake-up on demand** — say **"wake up"** or **"what was I working on?"** and the agent can pull recent context, current state, and unread notes so it gets oriented quickly
+- **Remember important things naturally** — say **"remember that..."** and the agent can capture a durable decision, fact, blocker, or next step for later
+- **Wrap up cleanly** — say **"let's wrap up"** before ending or clearing a session and the agent can run closeout so the next session starts informed
+- **Cross-agent notes** — say things like **"send Claude a note..."** or **"leave Gemini a message..."** and agents can hand off context cleanly across tools and sessions
+- **Shared awareness across agents** — say **"take a look at what Gemini is working on"** or **"check what Claude was doing"** and agents can review recent activity before repeating work or asking you to restate context
+- **Keeps memory from getting stale** — AIKB can surface stale docs, forgotten pending items, and cleanup opportunities so the memory base stays useful over time
+- **Structured memory, not random notes** — useful working context can be captured during sessions and the durable parts can be promoted into organized long-term memory instead of becoming one giant chat log
+- **Mostly automatic once installed** — agents can pick up on cues, remember useful things, search AIKB before asking you to repeat yourself, and handle bookkeeping in the background
+- **Editable with normal tools** — one of AIKB's biggest advantages is that memory is editable with ordinary tools. If the agent learns something wrong, you don't need a proprietary console — just open the repo, find the bad memory, and correct it
+- **Token-efficient by design** — AIKB helps move important context out of the live chat so compaction is less lossy and more of the context window is available for actual work
 - **Secrets-safe** — credentials stay in your secrets manager; AIKB stores references only
 - **Machine-aware** — each machine gets a profile so the agent uses the right paths, tools, and conventions
 
