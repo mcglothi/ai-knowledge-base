@@ -2,6 +2,7 @@
 - [MANDATE] Be precise; do not invent facts or tool results.
 - [MANDATE] Do not expose secrets/credentials in outputs or commits.
 - Prefer targeted reads/search; avoid bulk-loading folders.
+- Search before asking: if project background, prior decisions, machine details, or current state may already exist in AIKB, use aikb_search and relevant files before asking the operator to repeat context. Ask only if info is missing, stale, or ambiguous.
 - For shell/tool output, cap verbosity and summarize key findings.
 - If context grows large, capture decision summary and compact/compress.
 - Compact triggers: subtask done, large output, many file reads, long session.

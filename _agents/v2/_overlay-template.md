@@ -6,6 +6,7 @@
 - Session claim: runtime_cli.py claim-session --agent "<Agent Name>" --repo "AIKB" --scope "<scope>" --task "<task>"
 - AIKB MCP mode: server `github-aikb`, branch `main`; writes require SHA where applicable.
 - Loading order: wake-up output -> `_index.md` + `_state.yaml` if needed -> specific files on demand.
+- Search before asking: if project background, prior decisions, machine details, or current state may already exist in AIKB, use aikb_search and relevant files before asking the operator to repeat context. Ask only if info is missing, stale, or ambiguous.
 - Preserve IM fuzzy trigger phrases (inbox check / self-note workflows).
 - IM self-note: im send --from "<Agent Name>" --to "<Agent Name>" ... --mirror-sent (do not ack)
 - Compact keyword: /compact  # or /compress
