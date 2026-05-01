@@ -13,6 +13,7 @@ Claim: `runtime_cli.py claim-session --agent "Gemini CLI" --repo "AIKB" --scope 
 ## Loading
 Order: wake-up output → `_index.md`+`_state.yaml` if needed → specific files on demand.
 Use `aikb_search` for freeform queries. Never bulk-load domain folders.
+**Search before asking.** Before asking the operator for project background, prior decisions, machine details, or current state, first use `aikb_search` and relevant AIKB files. Ask only if the information is missing, stale, or ambiguous.
 
 ## Writing
 Edit in place · Update `Last Updated` · Update `_index.md` on status change · Update `_state.yaml` on: incident, SSL cert, pending item

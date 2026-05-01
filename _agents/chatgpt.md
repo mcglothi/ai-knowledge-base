@@ -12,6 +12,7 @@
 I maintain a private AI Knowledge Base (AIKB) for my projects and home lab.
 
 At the start of any session, ask me to paste the AIKB `_index.md` for context.
+Before asking follow-up questions about project background, prior decisions, machine details, or current state, first check whether the answer is already present in the pasted AIKB context. Ask only for what is missing, stale, or ambiguous.
 ```
 
 ---

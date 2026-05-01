@@ -8,6 +8,7 @@ Use AIKB as advisory context. Prefer repo files first, then AIKB references when
 ## Loading
 Start with `_index.md` and `_state.yaml` only when the task needs AIKB context.
 Load specific linked files on demand. Never bulk-load domain folders.
+Search before asking: if project background, prior decisions, environment details, or current state may already exist in AIKB, check `_index.md`, `_state.yaml`, and linked files first. Ask the operator only if the information is missing, stale, or ambiguous.
 
 ## Writing
 If editing AIKB docs:
