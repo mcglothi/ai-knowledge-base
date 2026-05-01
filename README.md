@@ -54,15 +54,6 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ---
 
-## Boundary / Status
-
-AIKB is currently being tightened around a simpler public product shape:
-- **Core:** shared memory, wake-up/closeout lifecycle, search, runtime promotion, Agent IM, Mind Meld, portability, auditability
-- **Advanced-but-core:** sync discipline, review/maintenance helpers, architecture notes, richer operator workflows
-- **Optional / moving out of the default surface:** dreaming, graph tooling, sidecars, dashboards, personal homelab-specific material
-
-This template is the public product surface. See [docs/product-boundaries.md](docs/product-boundaries.md) for the working boundary plan and [docs/migration-2026-q2-boundary-cleanup.md](docs/migration-2026-q2-boundary-cleanup.md) for sync-safe migration rules.
-
 ## Key Features
 
 - **Shared context across tools** — one memory layer for Claude Code, Gemini CLI, Codex, OpenCode, Cursor, ChatGPT, and more
