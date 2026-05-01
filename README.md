@@ -90,7 +90,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ## Feature Status
 
-What's built, what's a prototype, and what's planned. No vague "coming soon."
+Current capabilities in the public template.
 
 | Feature | Status | How to use |
 |---------|--------|------------|
@@ -113,7 +113,7 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 | Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
 | Mind Meld (cross-agent awareness) | ✅ Built | Read `_runtime/events/YYYY-MM-DD.ndjson`; see agent instruction files |
 | Agent IM (cross-agent + self-messaging) | ✅ Built | `runtime_cli.py im send/peek/ack/archive/gc` + `docs/agent-im.md` |
-| Dream cycle consolidation | ✅ Built (Extension) | Optional capability; boundary cleanup will move it under extensions |
+| Dream cycle consolidation | ✅ Built (Optional Extension) | Optional nightly consolidation capability |
 
 ---
 
@@ -168,7 +168,6 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 - **Retention Enforcer** (`retention_check.py`) — Scans for stale docs (>90 days), forgotten `_state.yaml` pending items without priority, complete/decommissioned index entries linked to old docs, and fully-terminal candidate bundles ready for deletion. Run with `--delete-terminal-candidates` to clean up automatically.
 - **Hybrid Search** (`memory_search.py`) — Keyword, semantic (requires `sentence-transformers`), or hybrid mode. Run `memory_search.py --rebuild-index` to build the vector index after install.
 - **MCP Search + Memory** (`_tools/aikb-search/server.py`) — Registers `aikb_search` and `aikb_remember` as MCP tools. Implements advanced retrieval with **Graph-RAG**, intent-aware priors, temporal filters, and linear recency decay.
-- **Local Model Offload** (`sidecar.py`) — Optional helper that routes scoring, briefing synthesis, and patch drafting to a local Ollama instance. Set `AIKB_SIDECAR_URL` to your Ollama endpoint (default: `http://localhost:11434`). Falls back silently to rule-based behavior when unreachable. Keeps frontier model context budget for reasoning, not document processing.
 - **Ambient Context Injection** (`ambient_ask.sh`) — A wrapper for your AI CLI that automatically injects relevant facts from your AIKB into your prompt *before* the agent starts.
 - **Temporal Knowledge Graph** (`build_temporal_graph.py`) — Generates a structured JSON graph of your knowledge, extracting entities like IPs and tools to track how they change over time.
 
