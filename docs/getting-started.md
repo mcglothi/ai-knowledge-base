@@ -87,11 +87,13 @@ One habit: end sessions with "Let's wrap up" — captures context for the next s
 
 **New domain:**
 ```bash
-mkdir -p ~/code/AIKB/home-lab
-cp ~/code/AIKB/_templates/domain-readme.md ~/code/AIKB/home-lab/README.md
+mkdir -p ~/code/AIKB/clients
+cp ~/code/AIKB/_templates/domain-readme.md ~/code/AIKB/clients/README.md
 ```
-Common: `personal/` · `projects/` · `work/` · `home-lab/` · `clients/`
+Common: `personal/` · `projects/` · `work/` · `clients/`
 After adding: update `_index.md` and re-sync agent files.
+
+If you maintain private environment-specific areas like homelab or family operations, keep them as companion domains in your private instance rather than treating them as the default public AIKB shape.
 
 **Staleness:** `Last Updated` is the primary signal. Mark ended projects `✅ Complete` — don't delete. Run `git log --since="30 days ago" --name-only --pretty=""` to find untouched files.
 

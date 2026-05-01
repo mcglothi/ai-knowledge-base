@@ -25,11 +25,13 @@
 
 ---
 
-### Persistent memory for your AI tools.
+### Shared, persistent, inspectable memory for your AI tools.
 
 AIKB gives your agents shared context that survives across sessions, tools, and machines. It stays local-first, Git-backed, and fully inspectable, so your memory system feels like infrastructure you control instead of a black box you hope is right.
 
 > Your AI tools should not start from zero.
+
+AIKB is designed as a **cross-agent, cross-machine memory layer** — owned by the operator, not the platform.
 
 [**Get Started**](#quick-start) • [**How It Works**](#how-it-works) • [**Tool Support**](#ai-tool-compatibility)
 
@@ -52,6 +54,15 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ---
 
+## Boundary / Status
+
+AIKB is currently being tightened around a simpler public product shape:
+- **Core:** shared memory, wake-up/closeout lifecycle, search, runtime promotion, Agent IM, Mind Meld, portability, auditability
+- **Advanced-but-core:** sync discipline, review/maintenance helpers, architecture notes, richer operator workflows
+- **Optional / moving out of the default surface:** dreaming, graph tooling, sidecars, dashboards, personal homelab-specific material
+
+This template is the public product surface. See [docs/product-boundaries.md](docs/product-boundaries.md) for the working boundary plan and [docs/migration-2026-q2-boundary-cleanup.md](docs/migration-2026-q2-boundary-cleanup.md) for sync-safe migration rules.
+
 ## Key Features
 
 - **Shared context across tools** — one memory layer for Claude Code, Gemini CLI, Codex, OpenCode, Cursor, ChatGPT, and more
@@ -63,8 +74,9 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Session-start briefing** — `runtime_cli.py wake-up --agent "<Name>"` synthesizes a compact briefing from recent events and current state, and automatically surfaces any unread IM messages, so agents orient in seconds, not minutes
 - **Interactive candidate review** — `aikb_review.py` presents queued memory candidates one-by-one for approve/reject/skip with source event drill-down
 - **Retention enforcement** — `retention_check.py` flags stale docs, forgotten pending items, and terminal candidate bundles for cleanup
-- **Local model offload** — `sidecar.py` optional helper routes scoring, briefing synthesis, and patch drafting to a local Ollama instance; configurable via env vars, falls back silently when unavailable
-- **Runtime memory pipeline** — `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, candidate review, nightly maintenance, and dream-style consolidation
+- **Runtime memory pipeline** — `_runtime/` staging and `_tools/memory-pipeline/` helpers for event capture, promotion, review, and governed memory updates
+- **Agent IM** — lightweight inbox/ack/archive workflow for explicit cross-agent coordination; see `docs/agent-im.md`
+- **Mind Meld** — shared awareness protocol so agents can see what other agents are doing and avoid duplicate work
 - **Operator HUD + approvals log** — `runtime_cli.py` and `_pending_approvals.md` workflows for focus, verification, and sign-off visibility
 - **Operator intents** — runbooks that teach your agents how to execute your shorthand requests and recurring workflows
 - **Layered loading** — agents read only what they need, preserving context window budget
@@ -82,6 +94,7 @@ Session ends   → Agent writes updates → Next session picks up where this one
 | Inspectable storage | Trust the memory because it lives in Markdown + Git |
 | Cross-tool continuity | Switch tools without losing your working context |
 | Structured updates | Capture decisions, gotchas, blockers, and state changes cleanly |
+| Cross-agent coordination | Keep multiple agents aligned through shared memory, IM, and mind-meld patterns |
 | Optional dream consolidation | Turn noisy daily memory into bundled, reviewable nightly summaries |
 
 ## Feature Status
@@ -107,13 +120,9 @@ What's built, what's a prototype, and what's planned. No vague "coming soon."
 | Operator intents / runbooks | ✅ Built | `_templates/operator-intent-template.md` |
 | Template sync / self-update | ✅ Built | `./sync.sh`, `runtime_cli.py template-sync` |
 | Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
-| Local model offload (sidecar) | ✅ Built | `sidecar.py` + `AIKB_SIDECAR_URL` env var |
 | Mind Meld (cross-agent awareness) | ✅ Built | Read `_runtime/events/YYYY-MM-DD.ndjson`; see agent instruction files |
 | Agent IM (cross-agent + self-messaging) | ✅ Built | `runtime_cli.py im send/peek/ack/archive/gc` + `docs/agent-im.md` |
-| Dream cycle consolidation | 🔨 Prototype | `dream_cycle.py` (outputs not yet auto-promoted) |
-| Automatic conflict detection | 🔨 Prototype | `conflict_scan.py` (offline, not wired to writes) |
-| Sidecar-enriched pipeline scoring | 🔨 In progress | `build_candidates.py` + `sidecar.py` |
-| LoRA fine-tuning from memory | 🔬 Research | Future roadmap |
+| Dream cycle consolidation | ✅ Built (Extension) | Optional capability; boundary cleanup will move it under extensions |
 
 ---
 
@@ -230,15 +239,25 @@ Once done, agents won't ask "what's your stack?" or "what machine are you on?" e
 
 ---
 
+## What AIKB Is Not
+
+AIKB is not:
+- a hosted SaaS memory platform
+- a black-box memory API
+- a full autonomous agent runtime
+- a homelab operating environment
+- a benchmark lab as part of the core product story
+
 ### Go deeper
 
 | Goal | Where to look |
 |------|--------------|
 | Full setup walkthrough | [docs/getting-started.md](docs/getting-started.md) |
+| Understand the product boundary | [docs/product-boundaries.md](docs/product-boundaries.md) |
+| Understand extensions vs core | [docs/extension-model.md](docs/extension-model.md) |
 | Add MCP search + in-session memory | [docs/mcp-setup.md](docs/mcp-setup.md) |
 | Set up session-end automation | [docs/stop-hook-setup.md](docs/stop-hook-setup.md) |
 | Configure the runtime memory workflow | [docs/search-setup.md](docs/search-setup.md) |
-| Connect a local model sidecar | [docs/getting-started.md#local-model](docs/getting-started.md) |
 | Learn the operator loop | [docs/operator-loop.md](docs/operator-loop.md) |
 | Windows / WSL setup | [docs/windows-wsl.md](docs/windows-wsl.md) |
 
