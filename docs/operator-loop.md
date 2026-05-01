@@ -3,6 +3,8 @@
 No commands to remember — just talk to your agent.
 
 ## Quick Reference
+AIKB is meant to work mostly through normal conversation. Once installed, the agent should do the tool-calling for you.
+
 | What you want | What to say |
 |---|---|
 | Explicit session summary | "What was I working on last time?" |
@@ -11,6 +13,10 @@ No commands to remember — just talk to your agent.
 | Flag for sign-off | "Ask me before you do X" |
 | Wrap up | "Let's wrap up" |
 | Capture a decision | "Remember that we switched to PostgreSQL — SQLite deadlocked" |
+
+The two most useful phrases to remember are:
+- **"Remember that..."** for durable memory
+- **"Let's wrap up"** for an explicit closeout before ending, clearing, or switching sessions
 
 ## Daily Rhythm
 
@@ -24,7 +30,7 @@ No commands to remember — just talk to your agent.
 
 **Capturing decisions:** Say it out loud — the agent handles the rest. Include rejected alternatives and next steps for mid-implementation captures.
 
-**Wrapping up:** "Let's wrap up" or "Let's shut down" → agent captures closeout, syncs AIKB, releases session claim.
+**Wrapping up:** "Let's wrap up" or "Let's shut down" → agent captures closeout, syncs AIKB, releases session claim. If you clear or end a session and want to be sure AIKB closes out cleanly first, say "Let's wrap up" before you do it.
 
 ## What Good Capture Looks Like
 

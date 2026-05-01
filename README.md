@@ -37,26 +37,41 @@ AIKB is designed as a **cross-agent, cross-machine memory layer** — owned by t
 
 ---
 
-## Why AIKB
+## What AIKB Is
 
-Every AI session starts from zero. You re-explain your projects, your stack, your preferences, and your constraints every time. Context windows are finite, sessions end, and the useful working memory disappears with them.
+AIKB is shared memory for your AI tools. It helps Claude Code, Gemini CLI, Codex, OpenCode, Cursor, and similar agent-style tools keep context across sessions and machines without making you repeat yourself every time.
 
-If you use multiple tools, the problem gets worse. Claude, Gemini, Codex, Cursor, ChatGPT, and web copilots all end up relearning the same context from scratch.
+The memory lives in plain markdown files in a Git-backed repo you control, so it is easy to inspect, search, and fix when something goes wrong. One of AIKB's biggest advantages is that memory is editable with ordinary tools. If the agent learns something wrong, you don't need a proprietary console — just open the repo, find the bad memory, and correct it.
 
-## The Solution
+## Why People Use It
 
-AIKB is a structured knowledge base stored in a private GitHub repo. Your agents read it at the start of a session to orient themselves, and write back to it when they learn something durable. The result is memory that stays inspectable, portable, and under your control.
+Every AI session tends to start from zero. You re-explain your projects, your stack, your preferences, and your constraints every time. Context windows are finite, sessions end, and useful working memory disappears with them.
+
+If you use multiple tools, the problem gets worse. Different agents end up relearning the same context from scratch unless you give them a shared memory layer.
+
+## The Basic Model
+
+Once AIKB is installed, the goal is for it to feel mostly automatic:
+- the agent picks up on cues
+- the agent searches AIKB before asking you to restate context
+- the agent remembers useful things in the background
+- the stop hooks handle closeout when configured
+
+In practice, the two phrases worth remembering are:
+- **"remember that..."** when something should stick
+- **"Let's wrap up"** before ending or clearing a session when you want to be sure closeout runs
 
 ```text
-Session starts → Agent reads AIKB → Agent knows everything
-Session ends   → Agent writes updates → Next session picks up where this one left off
+Session starts → Agent reads AIKB → Agent knows what matters
+Do work        → Agent captures decisions and useful context
+Session ends   → AIKB preserves continuity for next time
 ```
 
 ---
 
 ## Key Features
 
-- **Shared context across tools** — one memory layer for Claude Code, Gemini CLI, Codex, OpenCode, Cursor, ChatGPT, and more
+- **Shared context across agentic tools** — one memory layer for Claude Code, Gemini CLI, Codex, OpenCode, Cursor, and similar tool-using agents
 - **Local-first and Git-backed** — durable memory in files you can inspect, diff, sync, and own
 - **Two access modes** — local clone for speed, or GitHub MCP for remote sessions and new machines
 - **Advanced search & context expansion** — `aikb_search` MCP tool for natural-language queries; hybrid BM25 + vector retrieval with **Graph-RAG relationship expansion**, intent-aware priors, and 14-day recency decay
@@ -72,7 +87,6 @@ Session ends   → Agent writes updates → Next session picks up where this one
 - **Operator intents** — runbooks that teach your agents how to execute your shorthand requests and recurring workflows
 - **Layered loading** — agents read only what they need, preserving context window budget
 - **Checkpoint commits** — agents save progress during long sessions so memory survives interruptions
-- **Mind Meld** — agents read the shared runtime event log to see what other agents are doing right now; no extra infrastructure required
 - **Token economy** — compact triggers, AIKB-as-memory-buffer pattern, and bash output discipline keep API costs under control across long sessions; see `docs/token-economy.md`
 - **Secrets-safe** — credentials stay in your secrets manager; AIKB stores references only
 - **Machine-aware** — each machine gets a profile so the agent uses the right paths, tools, and conventions
@@ -90,30 +104,32 @@ Session ends   → Agent writes updates → Next session picks up where this one
 
 ## Feature Status
 
-Current capabilities in the public template.
+Current capabilities in the public template. Most of these should feel automatic in day-to-day use: you talk to the agent, and the agent calls the right AIKB tools behind the scenes.
 
-| Feature | Status | How to use |
-|---------|--------|------------|
-| Session start briefing + IM inbox check | ✅ Built | `runtime_cli.py wake-up --agent "<Name>"` |
-| Manual memory capture | ✅ Built | `runtime_cli.py capture` |
-| In-session memory writes (MCP) | ✅ Built | `aikb_remember` MCP tool |
-| Session HUD | ✅ Built | `runtime_cli.py hud` |
-| Candidate pipeline | ✅ Built | `build_candidates.py` → `review_candidates.py` |
-| Interactive candidate review | ✅ Built | `aikb_review.py` |
-| Session closeout capture | ✅ Built | `runtime_cli.py closeout` |
-| Claude Code Stop hook | ✅ Built | `aikb-session-stop.sh` + `docs/stop-hook-setup.md` |
-| Gemini CLI Stop hook | ✅ Built | `aikb-session-stop.sh` + `docs/stop-hook-setup.md` |
-| Codex closeout workaround | ✅ Built | `codex-wrapper.sh` or manual `aikb-session-stop.sh` |
-| Keyword search | ✅ Built | `memory_search.py --mode keyword` |
-| Semantic / hybrid search | ✅ Built | `memory_search.py --mode hybrid` (requires `sentence-transformers`) |
-| MCP search tool | ✅ Built | `aikb_search` via `_tools/aikb-search/` |
-| Retention policy enforcement | ✅ Built | `retention_check.py` |
-| Operator intents / runbooks | ✅ Built | `_templates/operator-intent-template.md` |
-| Template sync / self-update | ✅ Built | `./sync.sh`, `runtime_cli.py template-sync` |
-| Nightly maintenance | ✅ Built | `nightly_maintenance.py`, cron/launchd installers |
-| Mind Meld (cross-agent awareness) | ✅ Built | Read `_runtime/events/YYYY-MM-DD.ndjson`; see agent instruction files |
-| Agent IM (cross-agent + self-messaging) | ✅ Built | `runtime_cli.py im send/peek/ack/archive/gc` + `docs/agent-im.md` |
-| Dream cycle consolidation | ✅ Built (Optional Extension) | Optional nightly consolidation capability |
+If you only remember one thing, remember to say **"Let's wrap up"** before ending or clearing a session. That gives AIKB a clean chance to preserve end-state and continuity for the next session.
+
+| Feature | Status | How it shows up in practice |
+|---------|--------|----------------------------|
+| Session start briefing + IM inbox check | ✅ Built | Ask the agent to **wake up**, or just begin a normal session and let it orient itself |
+| Manual memory capture | ✅ Built | Say **"remember that..."** when you make a durable decision or learn something important |
+| In-session memory writes (MCP) | ✅ Built | The agent can save durable memories during work without you editing files directly |
+| Session HUD | ✅ Built | Ask **"what's the current state?"** or **"what was I working on?"** |
+| Candidate pipeline | ✅ Built | AIKB stages raw runtime signal and turns it into reviewable memory updates behind the scenes |
+| Interactive candidate review | ✅ Built | Power-user or maintainer workflow for reviewing queued memory updates |
+| Session closeout capture | ✅ Built | Say **"Let's wrap up"** before you end or clear a session |
+| Claude Code Stop hook | ✅ Built | Closeout can happen automatically at the end of a Claude Code session once configured |
+| Gemini CLI Stop hook | ✅ Built | Closeout can happen automatically at the end of a Gemini CLI session once configured |
+| Codex closeout workaround | ✅ Built | Use the wrapper or say **"Let's wrap up"** before the session is cleared |
+| Keyword search | ✅ Built | The agent can look up prior context instead of asking you to restate it |
+| Semantic / hybrid search | ✅ Built | The agent can retrieve relevant context even when the wording changes |
+| MCP search tool | ✅ Built | AIKB can answer questions like **"what did we decide about auth?"** from memory |
+| Retention policy enforcement | ✅ Built | Helps maintainers keep stale or low-value memory from piling up over time |
+| Operator intents / runbooks | ✅ Built | You can teach shorthand workflows once, then reuse them naturally in conversation |
+| Template sync / self-update | ✅ Built | Existing AIKB instances can pull framework improvements without overwriting personal content |
+| Nightly maintenance | ✅ Built | Optional background cleanup and housekeeping for mature AIKB instances |
+| Mind Meld (cross-agent awareness) | ✅ Built | Agents can see what neighboring agents are doing and avoid duplicate work |
+| Agent IM (cross-agent + self-messaging) | ✅ Built | Agents can leave notes for each other — or for their future selves — across sessions |
+| Dream cycle consolidation | ✅ Built (Optional Extension) | Optional background summarization and consolidation layer for power users |
 
 ---
 
@@ -128,7 +144,7 @@ Wrap up        -> Stop hook, wrapper, or manual closeout records the end state
 Next session   -> wake-up synthesizes what changed, agent starts informed
 ```
 
-**You don't run any of this yourself.** There are no commands to memorize, no files to manually edit. You just talk to your agent:
+**You don't run any of this yourself.** Once AIKB is installed, the agent handles the mechanics in the background. There are no commands to memorize and no files you normally need to touch. You just talk to your agent:
 
 | What you want | What you say |
 |---|---|
@@ -159,9 +175,9 @@ By default, raw runtime event files are local working memory. Promote durable si
 
 ---
 
-## Intelligence Tools
+## Under the Hood
 
-The AIKB includes a set of optional CLI tools to help automate knowledge curation and retrieval:
+AIKB does use CLI tools under the hood, but once installed you should mostly interact with it through normal conversation. The tools below are for power users, maintainers, and people who want to understand the plumbing:
 
 - **Session Briefing** (`runtime_cli.py wake-up`) — Synthesizes a compact session-start briefing from recent events and current state. Agents orient in seconds instead of reading through full docs.
 - **Interactive Candidate Review** (`aikb_review.py`) — Presents queued memory candidates one-by-one with `[a]pprove / [r]eject / [s]kip / [?]events` prompts. Shows source events on demand, tracks progress, offers to run `propose_patches.py` at the end.
@@ -175,6 +191,10 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 
 ## AI Tool Compatibility
 
+AIKB is primarily built for agentic tools that can load instructions, read files, search memory, and participate in session lifecycle workflows.
+
+### Primary AIKB lane
+
 | Tool | Integration | AIKB Access Mode |
 |------|-------------|-----------------|
 | Claude Code | `~/.claude/CLAUDE.md` auto-loaded | Local clone or GitHub MCP |
@@ -183,9 +203,16 @@ The AIKB includes a set of optional CLI tools to help automate knowledge curatio
 | GitHub Copilot | `.github/copilot-instructions.md` in project root | Local workspace context |
 | OpenCode | `instructions` array in `~/.config/opencode/opencode.json` | Local clone or GitHub MCP |
 | Cursor | User Rules (Settings UI) | Local clone |
-| ChatGPT | Custom Instructions (Settings UI) | Manual paste at session start |
-| Google Gemini | Custom Instructions (Settings UI) | Manual paste at session start |
-| Grok | Customise Grok (Settings UI) | Manual paste at session start |
+
+### Future-agent lane
+
+If you are wiring up a new agent in the future — such as Goose, Hermes, OpenClaw, or another model-specific tool — the docs in this repo are meant to be sufficient for the agent to configure itself appropriately.
+
+The key expectations are:
+- load the AIKB instruction file or equivalent system guidance
+- use AIKB search before asking the operator to restate context
+- participate in wake-up / memory capture / closeout workflows
+- treat AIKB as the durable source of shared context across sessions and machines
 
 ---
 
@@ -223,9 +250,15 @@ Open Claude Code (or your preferred agent) and say:
 
 > "I just set up AIKB — let's fill in my profile."
 
+From there, AIKB is meant to feel natural:
+- agents pick up on phrases like "remember that..."
+- agents search AIKB before asking you to repeat context they should already know
+- stop hooks and closeout automation run behind the scenes once configured
+- "Let's wrap up" is the one phrase worth remembering when you want to be sure a session closes out cleanly before ending, clearing, or switching contexts
+
 The agent will ask about your background, skills, stack, and machine — and write `personal/profile.md` and `personal/dev-environment/[hostname].md` directly from the conversation. No manual editing required.
 
-Once done, agents won't ask "what's your stack?" or "what machine are you on?" ever again.
+Once done, agents should stop asking "what's your stack?" or "what machine are you on?" unless something is missing, stale, or ambiguous.
 
 ---
 

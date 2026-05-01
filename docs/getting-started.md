@@ -7,9 +7,9 @@ Setup from scratch. Already have a private AIKB and need a new machine? Use [new
 | I use... | Setup |
 |----------|--------|
 | Claude Code or Gemini CLI | Follow this guide top to bottom |
+| Codex CLI | Steps 1–3, then add `AGENTS.md` to each workspace |
 | Cursor or OpenCode | Steps 1–3, then see Cursor/OpenCode section |
 | Microsoft Copilot Studio | Steps 1–3, then [MS Copilot Studio connector setup →](mscs-connector-setup.md) (Windows/no-WSL lane supported) |
-| ChatGPT, Gemini (web), or Grok | Steps 1–2 + 2-minute paste → [web tools](#web-tools) |
 | Windows | [WSL guide first →](windows-wsl.md) |
 
 ## Step 1 — Create your private repo
@@ -33,6 +33,8 @@ Optional walkthroughs: `bash _tools/tutorial.sh` · `bash _tools/feature-tour.sh
 
 ## Step 3 — Configure your AI tool
 
+AIKB is meant for agentic tools that can load instructions, read files, search memory, and participate in session lifecycle workflows. It is not primarily designed around web UI chatbots.
+
 **Claude Code:** `cp ~/code/AIKB/_agents/claude-code.md ~/.claude/CLAUDE.md`
 Optional GitHub MCP for remote access: [docs/mcp-setup.md](mcp-setup.md)
 
@@ -46,16 +48,7 @@ Optional GitHub MCP for remote access: [docs/mcp-setup.md](mcp-setup.md)
 
 **Cursor:** Settings → Cursor Settings → Rules → User Rules → paste `_agents/cursor.md`
 
-**ChatGPT / Gemini (web) / Grok:** Settings → Custom Instructions → paste matching `_agents/` file.
-
-### Web tools {#web-tools}
-| Tool | Location |
-|------|----------|
-| ChatGPT | Settings → Customize ChatGPT → Custom Instructions |
-| Gemini | Settings → Custom Instructions |
-| Grok | Customize Grok → System Prompt |
-
-Web tools can't read your repo directly — paste `_index.md` at the start of each session.
+**Future agents:** If you are adding a new agent such as Goose, Hermes, OpenClaw, or another model-specific tool, point it at this repo's docs and existing `_agents/` patterns, then let it configure itself appropriately for your environment.
 
 ## Step 4 — Fill in your profile
 
@@ -72,7 +65,7 @@ Add row to `_index.md`: `| My Project | 🟢 Active | tags | [path] |`
 Commit: `git add . && git commit -m "Add my-project to AIKB" && git push`
 
 ## Step 6 — Let agents maintain it
-After setup, agents handle maintenance. At session end, a configured agent will update project files, add gotchas, mark tasks, update `_state.yaml`, and commit.
+After setup, AIKB is meant to feel mostly automatic. Agents handle maintenance in the background: they search before asking you to restate context, remember useful things as they go, and at session end a configured agent can update project files, add gotchas, mark tasks, update `_state.yaml`, and commit.
 
 | What you want | What to say |
 |---|---|
