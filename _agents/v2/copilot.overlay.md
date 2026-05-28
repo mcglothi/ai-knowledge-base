@@ -1,6 +1,6 @@
 # GitHub Copilot Overlay (v2.0)
 - Agent label: "GitHub Copilot"
-- AIKB root: ${AIKB_ROOT}  # adjust per host (e.g. /home/tmcglothin/code/AIKB)
+- AIKB root: ${AIKB_ROOT}  # adjust per host (e.g. ~/code/AIKB)
 - runtime_cli: python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py
 - Optional continuity: wake-up --agent "GitHub Copilot" (only when cross-session continuity needed, requires agent/workspace mode with terminal)
 - Session claim: runtime_cli.py claim-session --agent "GitHub Copilot" --repo "AIKB" --scope "<scope>" --task "<task>"

@@ -2,12 +2,12 @@
 Sync: `./sync-agents.sh` in AIKB root to propagate to project repos
 
 ## AIKB
-Repo: `mcglothi/AIKB` · Local: `/home/mcglothi/code/AIKB/`
+Repo: `<your-username>/AIKB` · Local: `${AIKB_ROOT}/`
 MCP mode (no local clone): server `github-aikb`, branch `main` · Read: `get_file_contents` · Write: `create_or_update_file` (include SHA)
 
 ## Session Start
 wake-up optional — use only when cross-session continuity needed:
-`python3 /home/mcglothi/code/AIKB/_tools/memory-pipeline/runtime_cli.py wake-up --agent "Codex CLI"`
+`python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py wake-up --agent "Codex CLI"`
 Claim: `runtime_cli.py claim-session --agent "Codex CLI" --repo "AIKB" --scope "<scope>" --task "<task>"`
 
 ## Loading
@@ -16,7 +16,7 @@ Use `aikb_search` for freeform queries. Never bulk-load domain folders.
 
 ## Writing
 Edit in place · Update `Last Updated` · Update `_index.md` on status change · Update `_state.yaml` on: incident, SSL cert, pending item
-Commit: `git -C /home/mcglothi/code/AIKB add . && git -C /home/mcglothi/code/AIKB commit -m "AI Update: [file] — [what]" && git -C /home/mcglothi/code/AIKB push origin main`
+Commit: `git -C ${AIKB_ROOT} add . && git -C ${AIKB_ROOT} commit -m "AI Update: [file] — [what]" && git -C ${AIKB_ROOT} push origin main`
 In-flight: `⚠️ IN PROGRESS` · Done: `✅`
 
 ## Git — Project Repos
@@ -31,7 +31,7 @@ MCP discovery: new tool/platform → check `_tools/mcp-registry.yaml` → if fou
 ## Session End
 No native stop hook. Options:
 1. Preferred: source `codex-wrapper.sh` from shell config → `aikb-session-stop.sh` runs on exit
-2. Fallback: `bash /home/mcglothi/code/AIKB/_tools/memory-pipeline/aikb-session-stop.sh` before finishing
+2. Fallback: `bash ${AIKB_ROOT}/_tools/memory-pipeline/aikb-session-stop.sh` before finishing
 Setup: `docs/stop-hook-setup.md`
 Mid-session capture: `runtime_cli.py capture --agent "Codex CLI" --session-id <id> --type decision --summary "<what>" [--rejected "<alt>"] [--assumptions "<ctx>"] [--invariants "<incomplete>"] [--next-step "<next>"]`
 
@@ -39,12 +39,12 @@ Mid-session capture: `runtime_cli.py capture --agent "Codex CLI" --session-id <i
 "lets wrap up" | "let's wrap up" | "lets shut down" | "let's shut down" →
 1. Persist AIKB updates (`_index.md`, `_state.yaml`, project docs)
 2. commit+push all repos
-3. `bash /home/mcglothi/code/AIKB/_tools/memory-pipeline/aikb-session-stop.sh` (unless wrapper installed)
+3. `bash ${AIKB_ROOT}/_tools/memory-pipeline/aikb-session-stop.sh` (unless wrapper installed)
 4. Report sync state
 
 ## IM — Self-Messaging
 Triggers (fuzzy, case-insensitive): "leave yourself a note" · "note for next time" · "remember for next session" · "jot this down" · "make a note" · "don't forget this"
-`python3 /home/mcglothi/code/AIKB/_tools/memory-pipeline/runtime_cli.py im send --from "Codex CLI" --to "Codex CLI" --severity info --summary "<subject>" --body "<detail>" --mirror-sent`
+`python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py im send --from "Codex CLI" --to "Codex CLI" --severity info --summary "<subject>" --body "<detail>" --mirror-sent`
 summary=one line · severity=review if needs attention next session · don't ack · reply: "Noted — I'll see that next session."
 
 ## Cross-Agent Awareness

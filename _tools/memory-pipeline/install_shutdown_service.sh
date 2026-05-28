@@ -10,7 +10,7 @@ fi
 
 ROOT="${AIKB_ROOT:-$HOME/code/AIKB}"
 if [[ ! -d "$ROOT/.git" ]]; then
-  for p in "$HOME/Code/AIKB" "/home/mcglothi/code/AIKB" "/home/mcglothi/code/AIKB"; do
+  for p in "$HOME/Code/AIKB" "$HOME/code/AIKB"; do
     if [[ -d "$p/.git" ]]; then
       ROOT="$p"
       break

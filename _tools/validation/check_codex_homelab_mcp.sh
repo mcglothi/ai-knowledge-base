@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 CONF="$HOME/.codex/config.toml"
-URL_DEFAULT="https://mcp.home.timmcg.net/mcp"
+URL_DEFAULT="https://mcp.your-homelab.example.com/mcp"
 
 if [[ ! -f "$CONF" ]]; then
   echo "ERROR: missing $CONF"
@@ -24,7 +24,7 @@ from pathlib import Path
 p=Path.home()/'.codex'/'config.toml'
 s=p.read_text() if p.exists() else ''
 m=re.search(r'--url",\s*"([^"]+)"', s)
-print(m.group(1) if m else 'https://mcp.home.timmcg.net/mcp')
+print(m.group(1) if m else 'https://mcp.your-homelab.example.com/mcp')
 PY
 )
 
@@ -54,8 +54,8 @@ echo "[codex-homelab] probing current configured URL"
 probe "$URL"
 
 echo "[codex-homelab] probing common alternatives"
-probe "https://mcp.home.timmcg.net/sse"
-probe "https://mcp.home.timmcg.net/mcp"
-probe "https://mcp.home.timmcg.net/"
+probe "https://mcp.your-homelab.example.com/sse"
+probe "https://mcp.your-homelab.example.com/mcp"
+probe "https://mcp.your-homelab.example.com/"
 
 echo "[codex-homelab] NOTE: readiness requires final content-type text/event-stream without HTML login redirect."
