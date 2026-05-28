@@ -1,20 +1,22 @@
-# <Agent Name> Overlay (v2.0)
-- Agent label: "<Agent Name>"
-- AIKB root: ${AIKB_ROOT}  # adjust per host (macOS/Linux)
+# GitHub Copilot Overlay (v2.0)
+- Agent label: "GitHub Copilot"
+- AIKB root: ${AIKB_ROOT}  # adjust per host (e.g. /home/tmcglothin/code/AIKB)
 - runtime_cli: python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py
-- Optional continuity: wake-up --agent "<Agent Name>" (when needed)
-- Session claim: runtime_cli.py claim-session --agent "<Agent Name>" --repo "AIKB" --scope "<scope>" --task "<task>"
+- Optional continuity: wake-up --agent "GitHub Copilot" (only when cross-session continuity needed, requires agent/workspace mode with terminal)
+- Session claim: runtime_cli.py claim-session --agent "GitHub Copilot" --repo "AIKB" --scope "<scope>" --task "<task>"
 - AIKB MCP mode: server `github-aikb`, branch `main`; writes require SHA where applicable.
 - Loading order: wake-up output -> `_index.md` + `_state.yaml` if needed -> specific files on demand.
 - **Search before working:** On task start, use aikb_search to find project context, recent decisions, blockers, and prior work related to the current project or task before exploring code or starting implementation.
 - **Search before asking:** If project background, prior decisions, machine details, or current state may already exist in AIKB, search before asking the operator to repeat context. Ask only if info is missing, stale, or ambiguous.
 - Preserve IM fuzzy trigger phrases (inbox check / self-note workflows).
-- IM self-note: im send --from "<Agent Name>" --to "<Agent Name>" ... --mirror-sent (do not ack)
-- Compact keyword: /compact  # or /compress
+- IM self-note: im send --from "GitHub Copilot" --to "GitHub Copilot" ... --mirror-sent (do not ack)
+- Compact keyword: /compact  # or context-trim when near limit
 - Compact trigger: task boundary / large output / many reads / high context
-- Session-end: closeout via configured stop hook
+- Session-end: capture decision summary before session closes
 - Credential fallback order: Bitwarden -> Delinea -> ask user
 - Credential safety: never run bw unlock/bw status without --session; use BW_SESSION.
-- Playbook Index: IM/token/closeout/git/mind-meld/new-agent-tiered-onboarding
+- Playbook Index: IM/token/closeout/git/mind-meld
 - Startup health check: verify L2 playbook paths exist and are readable.
 - Core version expected: v2.0
+- Shell availability: only in agent/workspace mode — skip CLI steps if terminal unavailable
+- Primary instruction target: .github/copilot-instructions.md (per repo, populated by sync-agents.sh)
