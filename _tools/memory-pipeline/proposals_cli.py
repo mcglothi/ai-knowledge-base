@@ -16,7 +16,7 @@ from urllib import parse, request
 
 
 def resolve_server() -> str:
-    return os.environ.get("MEMORY_CORE_URL", "https://memory.home.timmcg.net")
+    return os.environ.get("MEMORY_CORE_URL", "http://localhost:8080")
 
 
 def resolve_api_key(arg_api_key: str) -> str:
@@ -74,7 +74,7 @@ def api_call(
 
 
 def find_aikb_root() -> Path:
-    cands = [Path("/home/mcglothi/code/AIKB"), Path.home() / "Code" / "AIKB"]
+    cands = [Path.home() / "code" / "AIKB", Path.home() / "Code" / "AIKB"]
     for cand in cands:
         if cand.exists() and (cand / "_index.md").exists():
             return cand

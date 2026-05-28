@@ -3,10 +3,10 @@ set -euo pipefail
 
 # Fast best-effort maintenance for shutdown on intermittently-online hosts.
 
-HOME_DIR="${HOME:-/home/mcglothi}"
+HOME_DIR="${HOME:-$HOME}"
 ROOT="${AIKB_ROOT:-$HOME_DIR/code/AIKB}"
 if [[ ! -d "$ROOT/.git" ]]; then
-  for p in "$HOME_DIR/Code/AIKB" "$HOME_DIR/code/AIKB" "/home/mcglothi/code/AIKB" "/home/mcglothi/code/AIKB"; do
+  for p in "$HOME_DIR/Code/AIKB" "$HOME_DIR/code/AIKB"; do
     if [[ -d "$p/.git" ]]; then
       ROOT="$p"
       break

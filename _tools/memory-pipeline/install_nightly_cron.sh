@@ -9,7 +9,7 @@ SCHEDULE_HOUR="${SCHEDULE_HOUR:-2}"
 if [[ -n "${AIKB_ROOT:-}" ]]; then
   ROOT="$AIKB_ROOT"
 else
-  for p in "$HOME/code/AIKB" "$HOME/Code/AIKB" "/home/svc_ansible/AIKB" "/home/mcglothi/AIKB"; do
+  for p in "$HOME/code/AIKB" "$HOME/Code/AIKB"; do
     if [[ -d "$p/.git" ]]; then
       ROOT="$p"
       break

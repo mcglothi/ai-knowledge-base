@@ -71,7 +71,7 @@ python3 _tools/memory-pipeline/nightly_maintenance.py
 ```bash
 bash _tools/memory-pipeline/install_nightly_launchd.sh
 # Manual trigger after install:
-launchctl start com.timmcg.aikb-nightly-maintenance
+launchctl start net.aikb.nightly-maintenance
 ```
 
 ## Cron Hook (Linux/macOS)
@@ -91,7 +91,7 @@ systemctl status aikb-shutdown-finalize.service --no-pager
 
 - If the shutdown finalizer exits immediately under systemd, check whether `HOME` is set in the service environment.
 - A prior failure mode came from launching the hook under `set -u` without `HOME`, which caused shell expansion to abort before any useful work ran.
-- `install_shutdown_service.sh` now writes `Environment=HOME=...`, and `shutdown_finalize.sh` also falls back to `/home/mcglothi` when `HOME` is missing.
+- `install_shutdown_service.sh` now writes `Environment=HOME=...`, and `shutdown_finalize.sh` also falls back to `$HOME` when `HOME` is missing.
 
 ## Notes
 

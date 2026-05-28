@@ -6,7 +6,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SCRIPT="$ROOT/_tools/memory-pipeline/nightly_maintenance.py"
 PY_BIN="${PY_BIN:-$(command -v python3)}"
-LABEL="com.timmcg.aikb-nightly-maintenance"
+LABEL="net.aikb.nightly-maintenance"
 PLIST_DIR="$HOME/Library/LaunchAgents"
 PLIST_PATH="$PLIST_DIR/$LABEL.plist"
 LOG_DIR="$ROOT/_runtime/maintenance"

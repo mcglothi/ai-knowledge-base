@@ -14,10 +14,10 @@
 set -uo pipefail
 
 # ── Locate AIKB root ─────────────────────────────────────────────────────────
-HOME_DIR="${HOME:-/home/mcglothi}"
+HOME_DIR="${HOME:-$HOME}"
 ROOT="${AIKB_ROOT:-}"
 if [[ -z "$ROOT" ]]; then
-  for candidate in "$HOME_DIR/code/AIKB" "$HOME_DIR/Code/AIKB" "/home/mcglothi/code/AIKB"; do
+  for candidate in "$HOME_DIR/code/AIKB" "$HOME_DIR/Code/AIKB"; do
     if [[ -d "$candidate/.git" ]]; then
       ROOT="$candidate"
       break

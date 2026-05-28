@@ -1,7 +1,7 @@
 # Codex CLI — Agent Instructions (v2 pilot candidate)
 **Core Version:** v2.0
 **Agent:** Codex CLI
-**AIKB Root:** `${AIKB_ROOT}` (set per host, e.g. `/Users/mcglothi/code/AIKB`)
+**AIKB Root:** `${AIKB_ROOT}` (set per host, e.g. `~/code/AIKB`)
 
 ## Startup (always load)
 1. Load: `${AIKB_ROOT}/_agents/shared/core-min.md`
