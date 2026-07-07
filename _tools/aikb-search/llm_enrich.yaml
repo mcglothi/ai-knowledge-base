@@ -1,0 +1,19 @@
+# Optional local-LLM entity enrichment config.
+# The enrichment pass probes these endpoints in order and uses the first one
+# that answers; if none do, llm_enrich.py exits 0 and the deterministic
+# baseline stands alone. No local LLM? No changes needed — this is optional.
+
+endpoints:
+  - name: lm-studio
+    url: "http://localhost:1234/v1"
+  - name: ollama
+    url: "http://localhost:11434/v1"
+  # Add a remote box on your LAN if you have one:
+  # - name: gpu-server
+  #   url: "http://192.168.1.50:11434/v1"
+
+# First available model from this list is used; falls back to the endpoint's
+# first listed model if none match.
+model_preference: []
+
+max_chunks_per_run: 200

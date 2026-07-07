@@ -1,0 +1,14 @@
+# Hand-maintained entity alias map (canonical: [aliases]).
+# Groups are bidirectional: every member links to chunks mentioning any other
+# member. Names are normalized (lowercase, "_" -> "-") at load time.
+# This is the manual lever for retrieval misses — add a line, reindex.
+#
+# Underscore-prefixed keys are config, not alias groups:
+#   _host_domains — domain suffixes whose subdomains index as host entities.
+#
+# Examples (replace with your own):
+#   _host_domains: [example.com, home.arpa]
+#   grafana: [ix-grafana]
+#   k8s: [kubernetes]
+
+_host_domains: []

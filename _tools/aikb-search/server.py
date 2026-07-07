@@ -18,6 +18,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
+import yaml
+
 # Ensure sibling modules are importable regardless of cwd
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -27,8 +29,10 @@ from search import format_results, search
 
 AIKB_ROOT = Path(__file__).resolve().parents[2]
 EVENTS_DIR = AIKB_ROOT / "_runtime" / "events"
+SUPPRESSIONS_PATH = AIKB_ROOT / "_runtime" / "suppressions.yaml"
 
 _SECRET_HINTS = ("password", "api_key", "apikey", "token", "secret", "private key")
+_FEEDBACK_ISSUES = {"stale", "wrong", "incomplete", "duplicate"}
 
 mcp = FastMCP(
     "AIKB Search",
@@ -53,6 +57,9 @@ def aikb_search(
     as_of: str = "",
     before: str = "",
     after: str = "",
+    domain: str = "",
+    project: str = "",
+    kind: str = "",
 ) -> str:
     """
     Search the AIKB knowledge base using hybrid BM25 + semantic retrieval,
@@ -69,17 +76,23 @@ def aikb_search(
         as_of: Snapshot cutoff date (YYYY-MM-DD), equivalent to "as of" queries.
         before: Return chunks dated on/before this date (YYYY-MM-DD).
         after: Return chunks dated on/after this date (YYYY-MM-DD).
+        domain: Filter by top-level directory (e.g. "home-lab", "personal").
+        project: Filter by project name in file path or tags.
+        kind: Filter by content type: doc, event, script, state, candidate.
     """
     top_k = min(max(1, top_k), 10)
 
     as_of = as_of.strip() or None
     before = before.strip() or None
     after = after.strip() or None
+    domain = domain.strip() or None
+    project = project.strip() or None
+    kind = kind.strip() or None
 
     if not DB_PATH.exists():
         return (
             "Index not built yet — building now (downloads ~23 MB model on first run)...\n"
-            + _build_and_search(query, top_k, include_related, as_of, before, after)
+            + _build_and_search(query, top_k, include_related, as_of, before, after, domain, project, kind)
         )
 
     try:
@@ -90,10 +103,14 @@ def aikb_search(
             as_of=as_of,
             before=before,
             after=after,
+            domain=domain,
+            project=project,
+            kind=kind,
         )
+        _log_telemetry(query, top_k, include_related, {"domain": domain, "project": project, "kind": kind, "as_of": as_of, "before": before, "after": after}, results)
         return format_results(results)
     except FileNotFoundError:
-        return _build_and_search(query, top_k, include_related, as_of, before, after)
+        return _build_and_search(query, top_k, include_related, as_of, before, after, domain, project, kind)
 
 
 @mcp.tool()
@@ -192,6 +209,192 @@ def aikb_remember(
     )
 
 
+@mcp.tool()
+def aikb_request_compaction() -> str:
+    """
+    Request the CLI wrapper to compact or clear the current session context.
+    Use this when context is getting too large (e.g., after reading large files, 
+    running commands with massive output, or completing a sub-task).
+    
+    This will create a signal file that the AIKB CLI proxy intercepts to automatically
+    inject the /compact or /compress command into your session.
+    """
+    trigger_file = Path("/tmp/.aikb_compact_request")
+    try:
+        trigger_file.touch(exist_ok=True)
+        return "Compaction requested successfully. The CLI will compact the session momentarily."
+    except Exception as e:
+        return f"Failed to request compaction: {e}"
+
+
+@mcp.tool()
+def aikb_feedback(
+    file: str,
+    issue: str,
+    section: str = "",
+    note: str = "",
+    proposed_correction: str = "",
+) -> str:
+    """
+    Propose feedback about stale, wrong, incomplete, or duplicate AIKB knowledge.
+
+    This does not mutate canonical docs. It appends a feedback event to the
+    governed runtime pipeline for review.
+    """
+    try:
+        issue = issue.strip().lower()
+        if issue not in _FEEDBACK_ISSUES:
+            return f"Refused: issue must be one of {sorted(_FEEDBACK_ISSUES)}, got '{issue}'."
+
+        rel_file = _validate_relative_file(file)
+        if rel_file is None:
+            return f"Refused: file does not exist relative to AIKB root: {file}"
+
+        section = section.strip()
+        note = note.strip()
+        summary = _feedback_summary(f"feedback({issue})", rel_file, section, note)
+        detail = {"issue": issue, "note": note}
+        if proposed_correction.strip():
+            detail["proposed_correction"] = proposed_correction.strip()
+
+        out_file = _append_feedback_event(summary, rel_file, section, detail)
+        return f"Feedback recorded for {rel_file}{_section_suffix(section)} in {out_file.relative_to(AIKB_ROOT)}."
+    except Exception as exc:
+        return f"Failed to record feedback: {exc}"
+
+
+@mcp.tool()
+def aikb_forget(file: str, reason: str, section: str = "") -> str:
+    """
+    Propose suppressing a file or section from retrieval.
+
+    This does not delete canonical content. It appends a reviewable suppression
+    entry and logs a feedback event for the promotion pipeline.
+    """
+    try:
+        rel_file = _validate_relative_file(file)
+        if rel_file is None:
+            return f"Refused: file does not exist relative to AIKB root: {file}"
+
+        section = section.strip()
+        reason = reason.strip()
+        if not reason:
+            return "Refused: reason is required."
+
+        now = datetime.now(timezone.utc)
+        entry = {
+            "file": rel_file,
+            "section": section,
+            "reason": reason,
+            "ts_utc": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "agent": "aikb-search-mcp",
+        }
+        _append_suppression(entry)
+
+        summary = _feedback_summary("forget", rel_file, section, reason)
+        detail = {"issue": "stale", "note": reason, "suppression": entry}
+        out_file = _append_feedback_event(summary, rel_file, section, detail, now=now)
+        return f"Suppression proposed for {rel_file}{_section_suffix(section)} in {SUPPRESSIONS_PATH.relative_to(AIKB_ROOT)}; event logged to {out_file.relative_to(AIKB_ROOT)}."
+    except Exception as exc:
+        return f"Failed to propose suppression: {exc}"
+
+
+def _section_suffix(section: str) -> str:
+    return f" § {section}" if section else ""
+
+
+def _validate_relative_file(file: str) -> str | None:
+    rel = file.strip().lstrip("/")
+    if not rel:
+        return None
+    path = (AIKB_ROOT / rel).resolve()
+    try:
+        path.relative_to(AIKB_ROOT)
+    except ValueError:
+        return None
+    if not path.is_file():
+        return None
+    return str(path.relative_to(AIKB_ROOT))
+
+
+def _feedback_summary(prefix: str, file: str, section: str, note: str) -> str:
+    note_part = note[:120]
+    return f"{prefix}: {file}{_section_suffix(section)} — {note_part}".strip()
+
+
+def _append_feedback_event(
+    summary: str,
+    file: str,
+    section: str,
+    detail: dict,
+    *,
+    now: datetime | None = None,
+) -> Path:
+    now = now or datetime.now(timezone.utc)
+    event = {
+        "ts_utc": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "agent": "aikb-search-mcp",
+        "type": "feedback",
+        "project": file,
+        "summary": summary,
+        "detail": {"file": file, "section": section, **detail},
+    }
+    out_file = EVENTS_DIR / f"{now.strftime('%Y-%m-%d')}.ndjson"
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    with out_file.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(event, ensure_ascii=True) + "\n")
+    return out_file
+
+
+def _append_suppression(entry: dict):
+    SUPPRESSIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    suppressions = []
+    if SUPPRESSIONS_PATH.exists():
+        try:
+            loaded = yaml.safe_load(SUPPRESSIONS_PATH.read_text(encoding="utf-8"))
+            if isinstance(loaded, list):
+                suppressions = loaded
+        except yaml.YAMLError:
+            suppressions = []
+    suppressions.append(entry)
+    text = "# AIKB retrieval suppressions; review before keeping long term.\n"
+    text += yaml.safe_dump(suppressions, sort_keys=False, allow_unicode=True)
+    SUPPRESSIONS_PATH.write_text(text, encoding="utf-8")
+
+
+def _log_telemetry(query: str, top_k: int, include_related: bool, filters: dict, results: list):
+    try:
+        telemetry_dir = AIKB_ROOT / "_runtime" / "telemetry" / "aikb-search"
+        telemetry_dir.mkdir(parents=True, exist_ok=True)
+        now = datetime.now(timezone.utc)
+        out_file = telemetry_dir / f"{now.strftime('%Y-%m-%d')}.ndjson"
+
+        active_filters = {k: v for k, v in filters.items() if v is not None}
+        
+        telemetry_results = []
+        for i, r in enumerate(results):
+            telemetry_results.append({
+                "rank": i + 1,
+                "file": r.get("file"),
+                "section": r.get("section"),
+                "score": r.get("score")
+            })
+            
+        entry = {
+            "ts_utc": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "query": query,
+            "top_k": top_k,
+            "include_related": include_related,
+            "filters": active_filters,
+            "result_count": len(results),
+            "results": telemetry_results
+        }
+        with out_file.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+
+
 def _build_and_search(
     query: str,
     top_k: int,
@@ -199,6 +402,9 @@ def _build_and_search(
     as_of: str | None,
     before: str | None,
     after: str | None,
+    domain: str | None = None,
+    project: str | None = None,
+    kind: str | None = None,
 ) -> str:
     try:
         build_index(verbose=False)
@@ -209,7 +415,11 @@ def _build_and_search(
             as_of=as_of,
             before=before,
             after=after,
+            domain=domain,
+            project=project,
+            kind=kind,
         )
+        _log_telemetry(query, top_k, include_related, {"domain": domain, "project": project, "kind": kind, "as_of": as_of, "before": before, "after": after}, results)
         return format_results(results)
     except Exception as e:
         return f"Error building index or searching: {e}"

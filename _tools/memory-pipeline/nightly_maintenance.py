@@ -50,22 +50,33 @@ def main() -> int:
     root = here.parents[1]
     date_str = resolve_runtime_date(args.date, allow_future=args.allow_future_date)
 
+    compact_step = [sys.executable, str(here / "compact_events.py"), "--older-than-days", str(args.compact_older_than_days)]
+    if args.compact_archive_raw:
+        compact_step.append("--archive-raw")
+
     steps = [
         [sys.executable, str(here / "build_candidates.py"), "--date", date_str],
         [sys.executable, str(here / "dream_cycle.py"), "--date", date_str],
         [sys.executable, str(here / "autonomous_reorg.py"), "--limit", str(args.reorg_limit)],
         [sys.executable, str(here / "queue_reorg_suggestions.py")],
         [sys.executable, str(here / "build_temporal_graph.py")],
-        [sys.executable, str(here / "compact_events.py"), "--older-than-days", str(args.compact_older_than_days)],
+        compact_step,
+        # Refresh access/feedback ranking signals even on commit-free days
+        # (otherwise the access boost never decays between index runs).
+        [sys.executable, str(root / "_tools" / "aikb-search" / "usage_stats.py")],
     ]
+
+    # Optional LLM entity enrichment: exits 0 when no local endpoint is up,
+    # so LLM-less hosts stay green. Needs the aikb-search venv (numpy).
+    enrich_py = root / "_tools" / "aikb-search" / "llm_enrich.py"
+    venv_python = root / "_tools" / "aikb-search" / ".venv" / "bin" / "python"
+    if enrich_py.exists() and venv_python.exists():
+        steps.append([str(venv_python), str(enrich_py)])
 
     if args.run_search_eval:
         eval_py = here / "eval_memory_search.py"
         if eval_py.exists():
             steps.append([sys.executable, str(eval_py), "--k", "5"])
-
-    if args.compact_archive_raw:
-        steps[-1].append("--archive-raw")
 
     log_dir = root / "_runtime" / "maintenance"
     log_dir.mkdir(parents=True, exist_ok=True)
