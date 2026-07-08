@@ -59,6 +59,7 @@ Mark in-flight: `⚠️ IN PROGRESS — picked up by next session` · Done: `✅
 
 ## Template Sync
 `runtime_cli.py template-sync --auto-check` (weekly) · Never `./sync.sh` without approval · After sync: `./sync-agents.sh <project-path>` for downstream repos
+After sync, follow any "Post-sync steps required" in sync output (docs/post-sync-notes.conf). If `_tools/aikb-search/` changed: one-time full reindex — `python3 _tools/aikb-search/indexer.py --force` (venv python if setup.sh created one).
 
 ## Caveman Modes
 Activate: "caveman [lite|full|ultra]" or "less tokens" · Deactivate: "normal mode"

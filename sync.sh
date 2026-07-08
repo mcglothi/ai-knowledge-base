@@ -394,3 +394,24 @@ if [[ ! "$SETUP_GEMINI" =~ ^[Yy] ]]; then
 fi
 echo "   • Re-paste into Cursor/ChatGPT/Gemini/Grok if those are configured"
 echo ""
+
+# Post-sync notes: surface one-time migration steps tied to the framework
+# paths that actually changed (docs/post-sync-notes.conf: `pattern|message`).
+NOTES_FILE="$SCRIPT_DIR/docs/post-sync-notes.conf"
+if [[ -f "$NOTES_FILE" ]]; then
+  PRINTED_NOTES_HEADER=0
+  while IFS='|' read -r pattern note; do
+    [[ -z "$pattern" || "$pattern" == \#* ]] && continue
+    for path in "${CHANGED[@]}"; do
+      if [[ "$path" == $pattern ]]; then
+        if [[ "$PRINTED_NOTES_HEADER" -eq 0 ]]; then
+          header "Post-sync steps required:"
+          PRINTED_NOTES_HEADER=1
+        fi
+        warn "$note"
+        break
+      fi
+    done
+  done < "$NOTES_FILE"
+  [[ "$PRINTED_NOTES_HEADER" -eq 1 ]] && echo ""
+fi
