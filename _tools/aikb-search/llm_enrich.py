@@ -144,7 +144,7 @@ def main() -> int:
         print("llm_enrich: no index present; nothing to do.")
         return 0
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = connect_db()
     try:
         if args.reset:
             cur = conn.execute(

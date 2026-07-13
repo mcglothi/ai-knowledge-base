@@ -108,6 +108,11 @@ def parse_args() -> argparse.Namespace:
         help="Update the saved template-check cadence in days (for example: 3, 7, 14).",
     )
 
+    subparsers.add_parser(
+        "doctor",
+        help="Validate the AIKB installation and print an integration matrix.",
+    )
+
     check_repo = subparsers.add_parser(
         "check-repo",
         help="Check a git repo for active AIKB claims and crash-recovery signals.",
@@ -1350,7 +1355,11 @@ def build_closeout_event(args: argparse.Namespace) -> dict:
         sensitivity="normal",
         promote_hint=promote_hint,
     )
-    return ingest_runtime.build_event(closeout_args)
+    redactions, _hints = ingest_runtime.apply_redaction(closeout_args)
+    event = ingest_runtime.build_event(closeout_args)
+    if redactions:
+        event["redactions"] = redactions
+    return event
 
 
 def run_closeout(args: argparse.Namespace) -> int:
@@ -1455,9 +1464,18 @@ def run_template_sync(args: argparse.Namespace) -> int:
 
 
 def run_capture(args: argparse.Namespace) -> int:
-    if ingest_runtime.looks_sensitive(args.summary):
-        raise SystemExit(
-            "Refusing to log potential secret in summary. Use Vaultwarden reference instead."
+    redactions, hints = ingest_runtime.apply_redaction(args)
+    if redactions:
+        print(
+            f"[runtime] warning: redacted credential-shaped content ({', '.join(redactions)}). "
+            "Store the secret in the password manager and reference it by name.",
+            file=sys.stderr,
+        )
+    elif hints:
+        print(
+            f"[runtime] note: summary mentions {', '.join(hints)} — fine as prose; "
+            "never log actual credential values.",
+            file=sys.stderr,
         )
 
     date_str = args.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -1465,6 +1483,8 @@ def run_capture(args: argparse.Namespace) -> int:
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
     event = ingest_runtime.build_event(args)
+    if redactions:
+        event["redactions"] = redactions
     with out_file.open("a", encoding="utf-8") as f:
         f.write(json.dumps(event, ensure_ascii=True) + "\n")
 
@@ -2196,6 +2216,10 @@ def main() -> int:
     args = parse_args()
     if args.command == "capture":
         return run_capture(args)
+    if args.command == "doctor":
+        import doctor
+
+        return doctor.main()
     if args.command == "check-repo":
         return run_check_repo(args)
     if args.command == "claim-session":

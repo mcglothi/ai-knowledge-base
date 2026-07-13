@@ -22,16 +22,16 @@ import yaml
 
 # Ensure sibling modules are importable regardless of cwd
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "memory-pipeline"))
 
 from fastmcp import FastMCP
 from indexer import DB_PATH, build_index
+from redaction import redact_text
 from search import format_results, search
 
 AIKB_ROOT = Path(__file__).resolve().parents[2]
 EVENTS_DIR = AIKB_ROOT / "_runtime" / "events"
 SUPPRESSIONS_PATH = AIKB_ROOT / "_runtime" / "suppressions.yaml"
-
-_SECRET_HINTS = ("password", "api_key", "apikey", "token", "secret", "private key")
 _FEEDBACK_ISSUES = {"stale", "wrong", "incomplete", "duplicate"}
 
 mcp = FastMCP(
@@ -149,13 +149,16 @@ def aikb_remember(
 
     Returns a confirmation string with the event ID.
     """
-    # Reject potential secrets
-    lower_summary = summary.lower()
-    if any(hint in lower_summary for hint in _SECRET_HINTS):
-        return (
-            "Refused: summary appears to contain a secret. "
-            "Store the credential in your password manager and reference it as "
-            "'[Stored in password manager: <Item Name>]' instead."
+    # Redact credential-shaped content; proceed with redacted text.
+    # Hint words alone (e.g. "the token refresh bug was fixed") never block.
+    redaction = redact_text(summary)
+    summary = redaction.text
+    secret_notice = ""
+    if redaction.redactions:
+        secret_notice = (
+            f" Warning: redacted credential-shaped content ({', '.join(redaction.redactions)}). "
+            "Store the secret in your password manager and reference it as "
+            "'[Stored in password manager: <Item Name>]'."
         )
 
     # Validate type
@@ -187,6 +190,8 @@ def aikb_remember(
         "sensitivity": sensitivity,
         "promote_hint": promote_hint,
     }
+    if redaction.redactions:
+        event["redactions"] = redaction.redactions
 
     date_str = now.strftime("%Y-%m-%d")
     out_file = EVENTS_DIR / f"{date_str}.ndjson"
@@ -206,6 +211,7 @@ def aikb_remember(
         f"  file: {out_file.relative_to(AIKB_ROOT)}\n"
         f"  promote_hint: {promote_hint}\n"
         "Run 'python3 _tools/memory-pipeline/build_candidates.py' to queue for review."
+        + secret_notice
     )
 
 

@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pipeline-tests:
+    name: Pipeline tests (py${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        include:
+          - os: macos-latest
+            python-version: "3.13"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install test dependencies
+        run: python -m pip install --quiet pytest pyyaml
+
+      - name: Run pipeline contract tests
+        run: python -m pytest _tools/tests/ -v
+
+      - name: Smoke-test runtime CLI (capture → candidate → search)
+        run: |
+          python _tools/memory-pipeline/runtime_cli.py capture \
+            --agent "CI" --session-id ci-smoke --type observation \
+            --project general --summary "CI smoke test event" --date 2000-01-01
+          python _tools/memory-pipeline/build_candidates.py --date 2000-01-01
+          python _tools/memory-pipeline/memory_search.py \
+            --query "smoke test event" --scope events --no-semantic --json \
+            | python -c "import json,sys; r=json.load(sys.stdin); assert any('smoke' in x['excerpt'].lower() for x in r), r"

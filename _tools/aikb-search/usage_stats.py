@@ -159,7 +159,7 @@ def main():
     if not DB_PATH.exists():
         print(f"Index not found at {DB_PATH}; run indexer.py first.")
         sys.exit(0)  # not an error: nightly runs on hosts without an index
-    conn = sqlite3.connect(DB_PATH)
+    conn = connect_db()
     try:
         n_access = refresh_usage_stats(conn)
         n_feedback = refresh_feedback_stats(conn)

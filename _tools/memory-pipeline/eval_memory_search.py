@@ -13,6 +13,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
+# Ablation modes. "memory" drives memory_search.py; "mcp" drives the
+# aikb-search hybrid+graph engine (needs its venv / index built).
+MODES: dict[str, dict] = {
+    "keyword": {"engine": "memory", "flags": ["--no-semantic"]},
+    "hybrid": {"engine": "memory", "flags": []},
+    "hybrid-no-recency": {"engine": "memory", "flags": ["--no-recency"]},
+    "mcp-hybrid": {"engine": "mcp", "flags": []},
+    "mcp-no-graph": {"engine": "mcp", "flags": ["--no-graph"]},
+    "mcp-no-usage": {"engine": "mcp", "flags": ["--no-usage"]},
+}
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--dataset", default="", help="Path to eval JSON. Default: _runtime/benchmarks/search-eval-set.json")
@@ -22,6 +34,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--include-rejected", action="store_true")
     p.add_argument("--no-semantic", action="store_true")
     p.add_argument("--runs-per-query", type=int, default=1, help="Run each query multiple times and average latency.")
+    p.add_argument(
+        "--modes",
+        default="",
+        help=f"Comma-separated ablation modes to compare ({', '.join(MODES)}), or 'all'. "
+        "Omit for the classic single-run behavior.",
+    )
     return p.parse_args()
 
 
@@ -42,6 +60,12 @@ def percentile(values: list[float], pct: float) -> float:
     return ordered[idx]
 
 
+def mcp_python(root: Path) -> str:
+    """Prefer the aikb-search venv python (has fastembed etc.), else fall back."""
+    venv_python = root / "_tools" / "aikb-search" / ".venv" / "bin" / "python"
+    return str(venv_python) if venv_python.exists() else sys.executable
+
+
 def run_query(
     root: Path,
     query: str,
@@ -50,22 +74,37 @@ def run_query(
     include_rejected: bool,
     no_semantic: bool,
     runs_per_query: int,
+    engine: str = "memory",
+    extra_flags: list[str] | None = None,
 ) -> tuple[list[dict], float]:
-    cmd = [
-        sys.executable,
-        str(root / "_tools" / "memory-pipeline" / "memory_search.py"),
-        "--query",
-        query,
-        "--limit",
-        str(k),
-        "--scope",
-        scope,
-        "--json",
-    ]
-    if include_rejected:
-        cmd.append("--include-rejected")
-    if no_semantic:
-        cmd.append("--no-semantic")
+    if engine == "mcp":
+        cmd = [
+            mcp_python(root),
+            str(root / "_tools" / "aikb-search" / "search.py"),
+            "--query",
+            query,
+            "--top-k",
+            str(k),
+            "--json",
+        ]
+        cmd.extend(extra_flags or [])
+    else:
+        cmd = [
+            sys.executable,
+            str(root / "_tools" / "memory-pipeline" / "memory_search.py"),
+            "--query",
+            query,
+            "--limit",
+            str(k),
+            "--scope",
+            scope,
+            "--json",
+        ]
+        if include_rejected:
+            cmd.append("--include-rejected")
+        if no_semantic:
+            cmd.append("--no-semantic")
+        cmd.extend(extra_flags or [])
 
     durations_ms: list[float] = []
     payload: list[dict] | None = None
@@ -88,6 +127,8 @@ def evaluate(
     include_rejected: bool,
     no_semantic: bool,
     runs_per_query: int,
+    engine: str = "memory",
+    extra_flags: list[str] | None = None,
 ) -> dict:
     hits = 0
     reciprocal_ranks: list[float] = []
@@ -107,8 +148,11 @@ def evaluate(
             include_rejected,
             no_semantic,
             runs_per_query,
+            engine=engine,
+            extra_flags=extra_flags,
         )
-        result_paths = [r["path"].lower() for r in results]
+        # memory_search emits "path"; the aikb-search engine emits "file".
+        result_paths = [(r.get("path") or r.get("file") or "").lower() for r in results]
         latencies_ms.append(avg_latency_ms)
 
         matched_rank = None
@@ -267,6 +311,58 @@ def write_report(
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def write_comparison_report(
+    path: Path,
+    dataset_path: Path,
+    k: int,
+    results_by_mode: dict[str, dict],
+) -> None:
+    lines = [
+        "# Memory Search Ablation Report",
+        "",
+        f"**Generated:** {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}",
+        f"**Dataset:** `{dataset_path}`",
+        f"**k:** {k}",
+        "",
+        "## Mode Comparison",
+        "",
+        f"| Mode | Engine | hit@{k} | precision@{k} | MRR | avg ms | p95 ms | risky |",
+        "|---|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for mode, result in results_by_mode.items():
+        engine = MODES[mode]["engine"]
+        lines.append(
+            f"| {mode} | {engine} | {result['hit_at_k']:.3f} | {result['precision_at_k']:.3f} "
+            f"| {result['mrr']:.3f} | {result['avg_latency_ms']:.1f} "
+            f"| {result['p95_latency_ms']:.1f} | {result['risky_queries']} |"
+        )
+
+    for mode, result in results_by_mode.items():
+        lines.extend(["", f"## At-Risk Queries — {mode}", ""])
+        risky = result.get("risky_rows", [])
+        if risky:
+            for row in risky:
+                lines.append(
+                    f"- [{row['category']}] {row['query']} :: {', '.join(row['risk_flags'])} "
+                    f":: matched_rank={row['matched_rank']}"
+                )
+        else:
+            lines.append("- None")
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def resolve_modes(spec: str) -> list[str]:
+    if spec.strip().lower() == "all":
+        return list(MODES)
+    modes = [m.strip() for m in spec.split(",") if m.strip()]
+    unknown = [m for m in modes if m not in MODES]
+    if unknown:
+        raise SystemExit(f"Unknown mode(s): {', '.join(unknown)}. Available: {', '.join(MODES)}")
+    return modes
+
+
 def main() -> int:
     args = parse_args()
     root = Path(__file__).resolve().parents[2]
@@ -279,6 +375,37 @@ def main() -> int:
     cases = payload.get("cases", [])
     if not cases:
         raise SystemExit("Dataset has no cases.")
+
+    if args.modes:
+        modes = resolve_modes(args.modes)
+        results_by_mode: dict[str, dict] = {}
+        for mode in modes:
+            spec = MODES[mode]
+            print(f"[{mode}] running {len(cases)} cases via {spec['engine']} engine...")
+            result = evaluate(
+                cases,
+                root=root,
+                k=max(1, args.k),
+                scope=args.scope,
+                include_rejected=args.include_rejected,
+                no_semantic=False,
+                runs_per_query=max(1, args.runs_per_query),
+                engine=spec["engine"],
+                extra_flags=spec["flags"],
+            )
+            results_by_mode[mode] = result
+            print(
+                f"[{mode}] hit@{args.k}={result['hit_at_k']:.3f} "
+                f"precision@{args.k}={result['precision_at_k']:.3f} MRR={result['mrr']:.3f} "
+                f"avg_ms={result['avg_latency_ms']:.1f} risky={result['risky_queries']}"
+            )
+
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        # "search-eval" in the name keeps this out of the index (see indexer SKIP_FILE_RE)
+        out = Path(args.out) if args.out else root / "_runtime" / "benchmarks" / f"memory-search-eval-ablation-{ts}.md"
+        write_comparison_report(out, dataset_path=dataset_path, k=args.k, results_by_mode=results_by_mode)
+        print(f"Report: {out}")
+        return 0
 
     result = evaluate(
         cases,

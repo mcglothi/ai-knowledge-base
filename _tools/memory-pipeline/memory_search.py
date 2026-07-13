@@ -10,7 +10,7 @@ import re
 import sqlite3
 import sys
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
@@ -46,6 +46,7 @@ class Record:
     confidence: float = 0.0
     semantic: float = 0.0
     score: float = 0.0
+    explain: dict = field(default_factory=dict)
 
 
 def parse_args() -> argparse.Namespace:
@@ -60,6 +61,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--mode", default="", choices=["keyword", "semantic", "hybrid"])
     p.add_argument("--rebuild-index", action="store_true", help="Rebuild the semantic embedding index.")
     p.add_argument("--no-semantic", action="store_true", help="Force keyword-only behavior.")
+    p.add_argument("--no-recency", action="store_true", help="Ablation: disable the recency boost.")
+    p.add_argument("--explain", action="store_true", help="Show per-result score component breakdown.")
     p.add_argument("--json", action="store_true", help="Output JSON records")
     args = p.parse_args()
     if not args.query and not args.rebuild_index:
@@ -246,31 +249,39 @@ def path_score(query_tokens: list[str], path: str) -> float:
     return score
 
 
-def score_record(record: Record, query_tokens: list[str]) -> float:
+def score_components(record: Record, query_tokens: list[str], no_recency: bool = False) -> dict[str, float]:
+    """Per-component score breakdown; score_record sums it, --explain exposes it."""
     lowered = record.text.lower()
     phrase = " ".join(query_tokens)
     query_set = set(query_tokens)
     path_parts = [part.lower() for part in Path(record.path).parts]
     in_benchmarks = "_runtime" in path_parts and "benchmarks" in path_parts
     section_tokens = token_counter(record.section_title) if record.section_title else Counter()
-    score = 0.0
-    score += 1.3 * match_score(query_tokens, record.text)
-    score += 2.5 * coverage_score(query_tokens, record.text)
-    score += 3.0 * sum(section_tokens.get(tok, 0) for tok in query_tokens)
+    components: dict[str, float] = {}
+    components["lexical"] = 1.3 * match_score(query_tokens, record.text)
+    components["coverage"] = 2.5 * coverage_score(query_tokens, record.text)
+    section = 3.0 * sum(section_tokens.get(tok, 0) for tok in query_tokens)
     if record.section_title:
         section_present = sum(1 for tok in set(query_tokens) if section_tokens.get(tok, 0) > 0)
-        score += 2.0 * (section_present / max(1, len(set(query_tokens))))
-    score += path_score(query_tokens, record.path)
-    if phrase and phrase in lowered:
-        score += 4.0
-    score += 3.0 * max(0.0, record.semantic)
-    score += status_boost(record.status)
-    score += recency_boost(record.date)
-    score += max(0.0, min(1.0, record.confidence))
-    score += source_boost(record.source)
-    if in_benchmarks and not ({"benchmark", "harness", "eval"} & query_set):
-        score -= 35.0
-    return score
+        section += 2.0 * (section_present / max(1, len(set(query_tokens))))
+    components["section"] = section
+    components["path"] = path_score(query_tokens, record.path)
+    components["phrase"] = 4.0 if phrase and phrase in lowered else 0.0
+    components["semantic"] = 3.0 * max(0.0, record.semantic)
+    components["status"] = status_boost(record.status)
+    components["recency"] = 0.0 if no_recency else recency_boost(record.date)
+    components["confidence"] = max(0.0, min(1.0, record.confidence))
+    components["source"] = source_boost(record.source)
+    components["benchmark_penalty"] = (
+        -35.0 if in_benchmarks and not ({"benchmark", "harness", "eval"} & query_set) else 0.0
+    )
+    return components
+
+
+def score_record(record: Record, query_tokens: list[str], no_recency: bool = False) -> float:
+    components = score_components(record, query_tokens, no_recency=no_recency)
+    record.explain = components
+    return sum(components.values())
 
 
 def within_dates(record: Record, before: datetime | None, after: datetime | None) -> bool:
@@ -460,6 +471,19 @@ def index_db_path(root: Path) -> Path:
     return root / INDEX_DIRNAME / INDEX_FILENAME
 
 
+def connect_db(db_path: Path) -> sqlite3.Connection:
+    """Open the embedding index hardened for concurrent access.
+
+    Hooks, nightly maintenance, and multiple agents can touch this DB at the
+    same time; WAL + busy timeout avoid 'database is locked' failures.
+    """
+    conn = sqlite3.connect(db_path, timeout=30)
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA busy_timeout=30000")
+    conn.execute("PRAGMA synchronous=NORMAL")
+    return conn
+
+
 def ensure_index_schema(conn: sqlite3.Connection) -> None:
     conn.execute(
         """
@@ -568,7 +592,7 @@ def sync_semantic_index(root: Path, records: list[Record], force_rebuild: bool) 
 
     db_path = index_db_path(root)
     db_path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(db_path)
+    conn = connect_db(db_path)
     try:
         ensure_index_schema(conn)
         stored_model = conn.execute("SELECT value FROM metadata WHERE key='model_name'").fetchone()
@@ -616,7 +640,7 @@ def fetch_vectors(root: Path, record_ids: list[str]):
     if not db_path.exists():
         return {}
 
-    conn = sqlite3.connect(db_path)
+    conn = connect_db(db_path)
     try:
         placeholders = ",".join("?" for _ in record_ids)
         query = (
@@ -675,7 +699,9 @@ def apply_date_filters(records: list[Record], before: datetime | None, after: da
     return [record for record in records if within_dates(record, before, after)]
 
 
-def score_keyword_candidates(records: list[Record], query_tokens: list[str], include_rejected: bool) -> list[Record]:
+def score_keyword_candidates(
+    records: list[Record], query_tokens: list[str], include_rejected: bool, no_recency: bool = False
+) -> list[Record]:
     scored: list[Record] = []
     for record in records:
         if record.source == "candidate" and record.status == "rejected" and not include_rejected:
@@ -684,7 +710,7 @@ def score_keyword_candidates(records: list[Record], query_tokens: list[str], inc
         if lexical <= 0:
             continue
         record.semantic = 0.0
-        record.score = score_record(record, query_tokens)
+        record.score = score_record(record, query_tokens, no_recency=no_recency)
         scored.append(record)
     return scored
 
@@ -734,14 +760,14 @@ def main() -> int:
     records = apply_date_filters(records, before, after)
 
     if effective_mode == "keyword":
-        scored = score_keyword_candidates(records, q_tokens, args.include_rejected)
+        scored = score_keyword_candidates(records, q_tokens, args.include_rejected, no_recency=args.no_recency)
     elif effective_mode == "hybrid":
-        scored = score_keyword_candidates(records, q_tokens, args.include_rejected)
+        scored = score_keyword_candidates(records, q_tokens, args.include_rejected, no_recency=args.no_recency)
         rerank = sorted(scored, key=lambda item: item.score, reverse=True)[:SEMANTIC_RERANK_LIMIT]
         sims = semantic_scores(root, args.query, rerank)
         for record in rerank:
             record.semantic = sims.get(record.id, 0.0)
-            record.score = score_record(record, q_tokens)
+            record.score = score_record(record, q_tokens, no_recency=args.no_recency)
     else:
         filtered = [
             record
@@ -755,14 +781,15 @@ def main() -> int:
             lexical = match_score(q_tokens, record.text)
             if lexical <= 0 and record.semantic < 0.18:
                 continue
-            record.score = score_record(record, q_tokens)
+            record.score = score_record(record, q_tokens, no_recency=args.no_recency)
             scored.append(record)
 
     top = choose_top(scored, args.limit)
 
     if args.json:
-        payload = [
-            {
+        payload = []
+        for record in top:
+            item = {
                 "id": record.id,
                 "source": record.source,
                 "path": record.path,
@@ -775,8 +802,9 @@ def main() -> int:
                 "semantic": round(record.semantic, 3),
                 "excerpt": record.text[:240],
             }
-            for record in top
-        ]
+            if args.explain:
+                item["explain"] = {key: round(value, 3) for key, value in record.explain.items()}
+            payload.append(item)
         print(json.dumps(payload, indent=2))
         return 0
 
@@ -797,6 +825,11 @@ def main() -> int:
         )
         print(f"   path: {record.path}")
         print(f"   excerpt: {record.text[:200]}")
+        if args.explain and record.explain:
+            parts = ", ".join(
+                f"{key}={value:+.2f}" for key, value in record.explain.items() if abs(value) >= 0.005
+            )
+            print(f"   explain: {parts}")
     return 0
 
 
