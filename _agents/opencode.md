@@ -26,7 +26,7 @@ main: typos, minor docs · Branch: features, assets, anything hard to reverse
 Binary assets: always new filename (GitHub CDN caches by URL). AIKB: push `_runtime/` + canonical docs direct to main.
 
 ## Credentials
-Secrets manager. Reference: `[Stored in Vaultwarden: <Item Name>]`
+Secrets manager. Reference: `[Stored in {{SECRETS_MANAGER}}: <Item Name>]`
 
 ## Session End
 No native stop hook. Options:

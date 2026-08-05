@@ -41,9 +41,9 @@
 
 ## Safety + Credentials
 - [MANDATE] Do not expose secrets/credentials in output.
-- Fallback order: Bitwarden -> Delinea -> ask user
-- Never run `bw unlock` or `bw status` without `--session`
-- Use `BW_SESSION`-scoped commands only
+- Fallback order: {{SECRETS_MANAGER}} -> ask user
+- Retrieve with: `{{SECRETS_RETRIEVE}}`
+- Never echo secret values or pass them as CLI arguments.
 
 ## Compact triggers (must enforce)
 - Subtask done

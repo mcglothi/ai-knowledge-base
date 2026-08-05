@@ -10,8 +10,9 @@
 - Session-end: wrapper/manual closeout fallback
 - **Search before working:** On task start, use aikb_search to find project context, recent decisions, blockers, and prior work related to the current project or task before exploring code or starting implementation.
 - **Search before asking:** If project background, prior decisions, machine details, or current state may already exist in AIKB, search before asking the operator to repeat context. Ask only if info is missing, stale, or ambiguous.
-- Credential fallback order: Bitwarden -> Delinea -> ask user
-- Credential safety: never run bw unlock/bw status without --session; use BW_SESSION.
+- Credential fallback order: {{SECRETS_MANAGER}} -> ask user
+- Credential retrieval: {{SECRETS_RETRIEVE}}
+- Credential safety: never echo secret values or pass them as CLI arguments.
 - Playbook Index: IM/token/closeout/git/mind-meld
 - Startup health check: verify L2 playbook paths exist and are readable.
 - Core version expected: v2.0

@@ -38,8 +38,11 @@ required_overlay_phrases = [
     'AIKB root: ${AIKB_ROOT}',
     'runtime_cli: python3 ${AIKB_ROOT}/_tools/memory-pipeline/runtime_cli.py',
     'Preserve IM fuzzy trigger phrases',
-    'Credential fallback order: Bitwarden -> Delinea -> ask user',
-    'Credential safety: never run bw unlock/bw status without --session; use BW_SESSION.',
+    # Vendor-neutral: the concrete manager is filled in from
+    # .aikb-config.d/SECRETS_MANAGER at install/sync time.
+    'Credential fallback order:',
+    'Credential retrieval:',
+    'Credential safety: never echo secret values or pass them as CLI arguments.',
     'Startup health check: verify L2 playbook paths exist and are readable.',
     'Core version expected: v2.0',
 ]

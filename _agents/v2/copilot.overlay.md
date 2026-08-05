@@ -13,8 +13,9 @@
 - Compact keyword: /compact  # or context-trim when near limit
 - Compact trigger: task boundary / large output / many reads / high context
 - Session-end: capture decision summary before session closes
-- Credential fallback order: Bitwarden -> Delinea -> ask user
-- Credential safety: never run bw unlock/bw status without --session; use BW_SESSION.
+- Credential fallback order: {{SECRETS_MANAGER}} -> ask user
+- Credential retrieval: {{SECRETS_RETRIEVE}}
+- Credential safety: never echo secret values or pass them as CLI arguments.
 - Playbook Index: IM/token/closeout/git/mind-meld
 - Startup health check: verify L2 playbook paths exist and are readable.
 - Core version expected: v2.0

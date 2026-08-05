@@ -1,7 +1,7 @@
 # Operator Intent Template
 
 **Last Updated:** YYYY-MM-DD
-**Summary:** Template for adding a phrase-to-action shortcut to `home-lab/runbooks/operator-intents.md` or another domain runbook.
+**Summary:** Template for adding a phrase-to-action shortcut to your operator-intents runbook (e.g. `runbooks/operator-intents.md`) or another domain runbook.
 
 ---
 

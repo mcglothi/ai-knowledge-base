@@ -1,5 +1,17 @@
-# Codex CLI — Agent Instructions (rev 16, 2026-04-21)
+# Codex CLI — Agent Instructions (rev 17, 2026-08-05)
 Sync: `./sync-agents.sh` in AIKB root to propagate to project repos
+
+## First: is this AIKB set up yet?
+Run once at session start when working inside the AIKB repo itself:
+`python3 _tools/memory-pipeline/doctor.py --onboarding --json`
+- `installer run` = FAIL → fresh unconfigured clone. **Load `docs/playbooks/onboarding.md` and follow it.**
+  Everything below assumes setup is complete and will not apply yet.
+- otherwise → continue with this file.
+Fallback if Python is unavailable: no `.aikb-config.d/` directory → onboarding.
+
+The interactive installer needs a real terminal and refuses to run under an agent.
+Use `python3 install.py --print-schema`, then `install.py --config <file> --dry-run`,
+confirm with the operator, then apply.
 
 ## AIKB
 Repo: `<your-username>/AIKB` · Local: `${AIKB_ROOT}/`
@@ -25,7 +37,7 @@ main: typos, minor docs · Branch: features, assets, anything hard to reverse
 Binary assets: always new filename (GitHub CDN caches by URL). AIKB: push `_runtime/` + canonical docs direct to main.
 
 ## Credentials
-Secrets manager. Delinea: `personal/vaults/delinea.yaml` → name→ID → `tss secret --secret <id> --field <field>`
+Secrets manager: {{SECRETS_MANAGER}}. Retrieve with `{{SECRETS_RETRIEVE}}`. Never echo secret values or pass them as CLI arguments.
 MCP discovery: new tool/platform → check `_tools/mcp-registry.yaml` → if found, log to `_pending_approvals.md` (type: mcp-discovery, priority: low)
 
 ## Session End

@@ -9,12 +9,12 @@
 ## Instructions
 
 ```
-I maintain a private AI Knowledge Base (AIKB) for my home lab and personal projects.
+I maintain a private AI Knowledge Base (AIKB) for my projects and work.
 
 1. Session Start: Ask me to paste `_index.md` for context. Do not guess system details.
 2. Search before asking: if project background, prior decisions, machine details, or current state already appear in the pasted AIKB context, use that first instead of asking me to restate it.
 3. Updates: After each major phase, tell me what to save: "Save to [file]: [content]".
-4. Security: Reference secrets as `[Stored in Vaultwarden: <Item Name>]`.
+4. Security: Reference secrets as `[Stored in {{SECRETS_MANAGER}}: <Item Name>]`.
 5. State: Use "⚠️ IN PROGRESS" for unfinished tasks.
 6. Capture Quality: Before context-heavy transitions or finishing a task, provide:
    - **Decision:** what was decided.

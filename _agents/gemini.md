@@ -21,7 +21,7 @@ Commit: `git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Upda
 In-flight: `⚠️ IN PROGRESS` · Done: `✅`
 
 ## Credentials
-Secrets manager. Delinea: `personal/vaults/delinea.yaml` → name→ID → `tss secret --secret <id> --field <field>`
+Secrets manager: {{SECRETS_MANAGER}}. Retrieve with `{{SECRETS_RETRIEVE}}`. Never echo secret values or pass them as CLI arguments.
 MCP discovery: new tool/platform → check `_tools/mcp-registry.yaml` → if found, log to `_pending_approvals.md` (type: mcp-discovery, priority: low)
 
 ## Session End
