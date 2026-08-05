@@ -50,6 +50,8 @@ class Check:
     name: str
     status: str
     detail: str = ""
+    # Actionable remedy, surfaced in --json so an agent can self-correct.
+    fix: str = ""
 
 
 def check_python() -> Check:
@@ -189,10 +191,114 @@ def check_git() -> list[Check]:
     return checks
 
 
+def check_onboarding() -> list[Check]:
+    """Is *setup* finished? Distinct from the runtime-health checks above.
+
+    These are the questions an agent needs answered to know what is left to do
+    on a fresh clone, and to verify its own work after running the installer.
+    Each carries a `fix` so the answer is actionable without extra lookup.
+    """
+    checks: list[Check] = []
+
+    config_dir = ROOT / ".aikb-config.d"
+    configured = config_dir.is_dir() and (config_dir / "GITHUB_USERNAME").exists()
+    checks.append(
+        Check(
+            "installer run",
+            OK if configured else FAIL,
+            "" if configured else "no .aikb-config.d/ — run install.sh (or install.py --config)",
+            fix="python3 install.py --print-schema",
+        )
+    )
+
+    # Unsubstituted placeholders mean a partial or failed personalization.
+    stale: list[str] = []
+    targets = list((ROOT / "_agents").rglob("*.md"))
+    for extra in ("AGENTS.md", "CLAUDE.md", ".github/copilot-instructions.md", "_index.md"):
+        p = ROOT / extra
+        if p.exists():
+            targets.append(p)
+    for path in targets:
+        try:
+            if "{{" in path.read_text(encoding="utf-8"):
+                stale.append(str(path.relative_to(ROOT)))
+        except (OSError, UnicodeDecodeError):
+            continue
+    checks.append(
+        Check(
+            "placeholders substituted",
+            OK if not stale else FAIL,
+            "" if not stale else f"{len(stale)} file(s) still contain {{{{...}}}}: {', '.join(sorted(stale)[:3])}",
+            fix="rerun the installer, or ./sync.sh to re-apply saved config",
+        )
+    )
+
+    profile = ROOT / "personal" / "profile.md"
+    if not profile.exists():
+        checks.append(Check("profile filled in", FAIL, "personal/profile.md missing", fix="ask the operator the onboarding interview questions"))
+    else:
+        text = profile.read_text(encoding="utf-8", errors="ignore")
+        placeholder = ("[TODO" in text) or ("[Your " in text) or ("Software engineer with 8 years" in text)
+        checks.append(
+            Check(
+                "profile filled in",
+                WARN if placeholder else OK,
+                "still contains example/placeholder text" if placeholder else "",
+                fix="ask the operator the onboarding interview questions, then rewrite personal/profile.md",
+            )
+        )
+
+    dev_env = ROOT / "personal" / "dev-environment"
+    machines = [p for p in dev_env.glob("*.md") if p.name != "README.md"] if dev_env.is_dir() else []
+    checks.append(
+        Check(
+            "machine profile",
+            OK if machines else WARN,
+            f"{len(machines)} machine profile(s)" if machines else "no per-machine profile yet",
+            fix="cp _templates/machine-profile.md personal/dev-environment/<hostname>.md",
+        )
+    )
+
+    # Which agent front-ends are actually wired up on this machine.
+    wired = []
+    if (Path.home() / ".claude" / "CLAUDE.md").exists():
+        wired.append("claude-code")
+    if (Path.home() / ".gemini" / "GEMINI.md").exists():
+        wired.append("gemini-cli")
+    if (Path.home() / ".config" / "opencode" / "opencode.json").exists():
+        wired.append("opencode")
+    checks.append(
+        Check(
+            "agent files installed",
+            OK if wired else WARN,
+            ", ".join(wired) if wired else "no agent instruction files found in $HOME",
+            fix="rerun the installer and select your tools",
+        )
+    )
+
+    settings = Path.home() / ".claude" / "settings.json"
+    hooked = False
+    if settings.exists():
+        try:
+            hooked = "aikb-session-stop.sh" in settings.read_text(encoding="utf-8")
+        except OSError:
+            hooked = False
+    checks.append(
+        Check(
+            "session stop hook",
+            OK if hooked else WARN,
+            "" if hooked else "not registered — session context is not captured automatically",
+            fix="see docs/stop-hook-setup.md",
+        )
+    )
+
+    return checks
+
+
 def deep_check_hints() -> list[str]:
     hints = []
     for rel, label in [
-        ("_tools/health-check.py", "homelab host health"),
+        ("_tools/health-check.py", "host health"),
         ("_tools/combined-health-check.sh", "combined infra health"),
         ("_tools/validation/run_v2_trial.sh", "agent instruction validation"),
     ]:
@@ -202,14 +308,47 @@ def deep_check_hints() -> list[str]:
 
 
 def main() -> int:
-    checks: list[Check] = [check_python()]
-    checks.extend(check_paths())
-    checks.append(check_event_write())
-    checks.append(check_keyword_search())
-    checks.append(check_semantic_backend())
-    checks.append(check_mcp_search_venv())
-    checks.append(check_search_index())
-    checks.extend(check_git())
+    args = sys.argv[1:]
+    as_json = "--json" in args
+    onboarding_only = "--onboarding" in args
+
+    if onboarding_only:
+        checks = check_onboarding()
+    else:
+        checks = [check_python()]
+        checks.extend(check_paths())
+        checks.append(check_event_write())
+        checks.append(check_keyword_search())
+        checks.append(check_semantic_backend())
+        checks.append(check_mcp_search_venv())
+        checks.append(check_search_index())
+        checks.extend(check_git())
+        checks.extend(check_onboarding())
+
+    if as_json:
+        fails = [c for c in checks if c.status == FAIL]
+        warns = [c for c in checks if c.status == WARN]
+        payload = {
+            "root": str(ROOT),
+            "ok": not fails,
+            "summary": {
+                "total": len(checks),
+                "ok": len(checks) - len(fails) - len(warns),
+                "warn": len(warns),
+                "fail": len(fails),
+            },
+            "checks": [
+                {"name": c.name, "status": c.status, "detail": c.detail, "fix": c.fix}
+                for c in checks
+            ],
+            "next_actions": [
+                {"name": c.name, "status": c.status, "fix": c.fix}
+                for c in checks
+                if c.status in (FAIL, WARN) and c.fix
+            ],
+        }
+        print(json.dumps(payload, indent=2, ensure_ascii=False))
+        return 1 if fails else 0
 
     width = max(len(c.name) for c in checks) + 2
     print(f"AIKB doctor — {ROOT}")
@@ -223,6 +362,12 @@ def main() -> int:
     warns = [c for c in checks if c.status == WARN]
     print()
     print(f"{len(checks)} checks: {len(checks) - len(fails) - len(warns)} ok, {len(warns)} warn, {len(fails)} fail")
+
+    actionable = [c for c in checks if c.status in (FAIL, WARN) and c.fix]
+    if actionable:
+        print("\nSuggested next steps:")
+        for check in actionable:
+            print(f"  - {check.name}: {check.fix}")
 
     hints = deep_check_hints()
     if hints:

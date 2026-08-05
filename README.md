@@ -230,15 +230,25 @@ cd AIKB
 
 **Or manually:** click **Use this template** → name it `AIKB` → set Private → clone it.
 
-### Step 2: Run the installer
+### Step 2: Set it up
+
+**Let your agent do it.** Open the cloned repo in Claude Code or Codex CLI and say:
+
+> set up my AIKB
+
+It detects the unconfigured clone, asks which tools and secrets manager you use, runs
+the installer, and interviews you to write your profile — so you skip Step 4 entirely.
+
+**Or run the installer yourself:**
 
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-The installer will ask a few questions (most are pre-filled) and configure whichever
-AI tools you use. Takes about 3 minutes.
+It asks a few questions (most are pre-filled) and configures whichever AI tools you
+use. Takes about 3 minutes. For scripted or CI setup, it also runs non-interactively —
+see `python3 install.py --print-schema`.
 
 **Windows users:** see [docs/windows-wsl.md](docs/windows-wsl.md) first.
 
@@ -248,9 +258,14 @@ AI tools you use. Takes about 3 minutes.
 git push origin main
 ```
 
-Open Claude Code (or your preferred agent) and say:
+If you ran the installer yourself in Step 2, open your agent and say:
 
 > "I just set up AIKB — let's fill in my profile."
+
+It will ask about your background, skills, stack, and machine, then write
+`personal/profile.md` and `personal/dev-environment/[hostname].md` directly from the
+conversation. No manual editing required. (If you used the agent path in Step 2, this
+already happened.)
 
 From there, AIKB is meant to feel natural:
 - agents pick up on phrases like "remember that..."
@@ -258,9 +273,13 @@ From there, AIKB is meant to feel natural:
 - stop hooks and closeout automation run behind the scenes once configured
 - "Let's wrap up" is the one phrase worth remembering when you want to be sure a session closes out cleanly before ending, clearing, or switching contexts
 
-The agent will ask about your background, skills, stack, and machine — and write `personal/profile.md` and `personal/dev-environment/[hostname].md` directly from the conversation. No manual editing required.
-
 Once done, agents should stop asking "what's your stack?" or "what machine are you on?" unless something is missing, stale, or ambiguous.
+
+**Not sure whether setup finished?**
+```bash
+python3 _tools/memory-pipeline/doctor.py --onboarding
+```
+Every incomplete item comes with the exact command or action that fixes it.
 
 ---
 
