@@ -45,7 +45,7 @@
 
 - Never store secrets in runtime logs.
 - If an event includes sensitive material, replace with references:
-  - `[Stored in Vaultwarden: <Item Name>]`
+  - `[Stored in <your secrets manager>: <Item Name>]`
 - Tag sensitive-but-useful entries as `restricted`.
 - `restricted` items must never be auto-promoted.
 
@@ -116,7 +116,7 @@ python3 _tools/memory-pipeline/propose_patches.py
 
 # Build/query temporal knowledge graph
 python3 _tools/memory-pipeline/build_temporal_graph.py
-python3 _tools/memory-pipeline/query_temporal_graph.py --node truenas --after 2026-01-01
+python3 _tools/memory-pipeline/query_temporal_graph.py --node example-host --after 2026-01-01
 
 # Compact older event logs
 python3 _tools/memory-pipeline/compact_events.py --older-than-days 21 --archive-raw

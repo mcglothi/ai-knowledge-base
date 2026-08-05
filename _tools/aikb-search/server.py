@@ -76,7 +76,7 @@ def aikb_search(
         as_of: Snapshot cutoff date (YYYY-MM-DD), equivalent to "as of" queries.
         before: Return chunks dated on/before this date (YYYY-MM-DD).
         after: Return chunks dated on/after this date (YYYY-MM-DD).
-        domain: Filter by top-level directory (e.g. "home-lab", "personal").
+        domain: Filter by top-level directory (e.g. "projects", "personal").
         project: Filter by project name in file path or tags.
         kind: Filter by content type: doc, event, script, state, candidate.
     """

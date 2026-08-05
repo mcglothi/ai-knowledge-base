@@ -204,24 +204,11 @@ def path_score(query_tokens: list[str], path: str) -> float:
         score += 14.0
     if path == "_state.yaml" and {"wildcard", "cert", "expiration", "expirations", "tracked"} & query_set:
         score += 12.0
-    if path == "home-lab/services/aikb-memory-core.md" and {"memory", "core"} <= query_set:
-        score += 12.0
-    if path == "home-lab/services/aikb-memory-core.md" and (ENDPOINT_QUERY_TOKENS & query_set or ARCHITECTURE_QUERY_TOKENS & query_set):
-        score += 12.0
-    if path == "home-lab/infrastructure/network-dns.md" and {"wildcard", "cert", "expiration", "expirations"} & query_set:
-        score += 10.0
-    if path == "home-lab/infrastructure/servers.md" and {"run", "runs", "truenas", "host", "hosts", "server", "servers"} & query_set:
-        score += 12.0
     if path == "_runtime/promotion-queue.md" and {"promotion", "queue", "runtime"} <= query_set:
         score += 10.0
-    if path.startswith("home-lab/services/") and ENDPOINT_QUERY_TOKENS & query_set:
-        score += 8.0
-    if path.startswith("home-lab/services/") and ARCHITECTURE_QUERY_TOKENS & query_set:
-        score += 4.0
-    if path.startswith("home-lab/infrastructure/") and {"host", "hosts", "server", "servers", "truenas", "turing"} & query_set:
-        score += 5.0
-    if path.startswith("personal-projects/") and "project" in query_set:
-        score += 4.0
+    if "/runbooks/" in path or path.startswith("runbooks/"):
+        if {"runbook", "runbooks", "intent", "intents", "procedure", "shortcut", "workflow"} & query_set:
+            score += 6.0
 
     if path == "_index.md":
         if query_set & OVERVIEW_QUERY_TOKENS:

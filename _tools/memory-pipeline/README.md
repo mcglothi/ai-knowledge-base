@@ -35,7 +35,7 @@ python3 _tools/memory-pipeline/review_candidates.py --id cand_20260306_001 --sta
 python3 _tools/memory-pipeline/memory_search.py --query "promotion policy" --as-of 2026-03-01 --limit 8
 python3 _tools/memory-pipeline/eval_memory_search.py --k 5
 python3 _tools/memory-pipeline/validate_memory_metadata.py
-python3 _tools/memory-pipeline/write_gateway.py --path personal-projects/project-jarvis.md --chunk-id personal-projects/project-jarvis.md#project-jarvis --mode append-to-section --text "## Example" 
+python3 _tools/memory-pipeline/write_gateway.py --path projects/my-project.md --chunk-id projects/my-project.md#my-project --mode append-to-section --text "## Example" 
 python3 _tools/memory-pipeline/conflict_scan.py --scope all
 ```
 
@@ -53,7 +53,7 @@ python3 _tools/memory-pipeline/scratchpad.py --action close --session-id codex-a
 
 # Temporal knowledge graph
 python3 _tools/memory-pipeline/build_temporal_graph.py
-python3 _tools/memory-pipeline/query_temporal_graph.py --node truenas --after 2026-01-01 --limit 10
+python3 _tools/memory-pipeline/query_temporal_graph.py --node example-host --after 2026-01-01 --limit 10
 
 # Context compaction for older event logs
 python3 _tools/memory-pipeline/compact_events.py --older-than-days 21
@@ -110,7 +110,7 @@ systemctl status aikb-shutdown-finalize.service --no-pager
 - `build_candidates.py` now includes automated user preference fact extraction unless `--no-fact-extraction` is passed.
 - `dream_cycle.py` emits non-canonical nightly memory artifacts in `_runtime/dreams/`, including a markdown summary plus JSONL files for facts, procedures, preferences, and rejected/noisy items.
 - `dream_cycle.py` can ingest live Memory Core proposals by status, fall back to local proposal fixtures when the API is unavailable, and writes contradiction snapshots to `_runtime/conflicts/dream-YYYY-MM-DD.json`.
-- `dream_cycle.py` now applies a lightweight canonical signal score so durable project/home-lab docs outrank repo-maintenance churn when summarizing recent canonical git changes.
+- `dream_cycle.py` now applies a lightweight canonical signal score so durable project/domain docs outrank repo-maintenance churn when summarizing recent canonical git changes.
 - `dream_cycle.py` now uses target-file hints, proposal kinds, and imperative/procedure phrasing to better separate `fact`, `procedure`, and `preference` memories.
 - `dream_cycle.py` now emits `dream-bundles-YYYY-MM-DD.json` and `dream-quality-YYYY-MM-DD.json` so the nightly pass can cluster related memories and score the quality of each dream run in a portable, public-template-friendly format.
 - `dream_cycle.py` now emits `dream-distilled-YYYY-MM-DD.md`, a human-readable synthesis of what the system learned, what procedures to keep, what preferences to preserve, and what noise it rejected.

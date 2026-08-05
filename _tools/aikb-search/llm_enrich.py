@@ -4,7 +4,7 @@ Optional local-LLM entity enrichment for the AIKB search index.
 
 The deterministic extraction in indexer.py is the always-on baseline; this
 pass adds LLM-extracted entities ONLY where a local OpenAI-compatible
-endpoint (LM Studio / Ollama / Hopper — see llm_enrich.yaml) is reachable.
+endpoint (LM Studio / Ollama / a LAN GPU box — see llm_enrich.yaml) is reachable.
 No endpoint → exit 0, index untouched, nightly stays green.
 
 LLM-derived rows use kind 'term-llm' so they are distinguishable and fully

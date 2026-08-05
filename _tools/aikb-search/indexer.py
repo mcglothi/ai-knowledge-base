@@ -196,7 +196,7 @@ def _host_re() -> re.Pattern:
     return _host_re_cache
 _IP_RE = re.compile(r"\b((?:\d{1,3}\.){3}\d{1,3})\b")
 _PATH_RE = re.compile(
-    r"\b((?:_tools|_runtime|_agents|_templates|docs|home-lab|side-gigs|projects|personal[\w-]*)"
+    r"\b((?:_tools|_runtime|_agents|_templates|docs|runbooks|projects|personal[\w-]*|work)"
     r"(?:/[\w.-]+)*/[\w.-]+\.(?:py|sh|md|ya?ml|json))\b"
 )
 _BACKTICK_RE = re.compile(r"`([A-Za-z0-9_./:-]{3,40})`")

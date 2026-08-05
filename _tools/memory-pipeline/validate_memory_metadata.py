@@ -9,11 +9,12 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+# Domain folders shipped by the template. Add your own domains here (or pass
+# them explicitly) if your instance uses a different top-level layout.
 DEFAULT_PATHS = [
-    "personal-projects",
+    "personal",
     "projects",
-    "home-lab",
-    "side-gigs",
+    "runbooks",
     "work",
 ]
 

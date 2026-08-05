@@ -53,8 +53,6 @@ AGENT_ALIASES: dict[str, str] = {
     "claude code": "Claude Code",
     "gemini": "Gemini CLI",
     "gemini cli": "Gemini CLI",
-    "hermes": "Hermes",
-    "hopper": "Hopper",
 }
 
 
