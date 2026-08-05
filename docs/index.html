@@ -223,31 +223,61 @@ footer a:hover{color:var(--muted)}
 <section id="get-started">
   <div class="section-label">Get started</div>
   <div class="section-title">Set up your knowledge base</div>
-  <p class="section-sub">Fork the template, run install, and capture your first session event in under a minute.</p>
+  <p class="section-sub">Create your private repo, then let your coding agent configure the whole thing — or run the installer yourself.</p>
   <div class="install-block">
     <div class="install-tabs">
-      <button class="install-tab active" onclick="showTab('fork',this)">Fork template</button>
+      <button class="install-tab active" onclick="showTab('agent',this)">Let your agent set it up</button>
+      <button class="install-tab" onclick="showTab('manual',this)">Install it yourself</button>
       <button class="install-tab" onclick="showTab('mcp',this)">MCP setup</button>
     </div>
-    <div class="install-panel active" id="tab-fork">
-      <div class="install-cmd" id="cmd-fork"># Fork mcglothi/ai-knowledge-base on GitHub, then:
-git clone https://github.com/YOUR_USERNAME/ai-knowledge-base.git
-cd ai-knowledge-base && bash install.sh
+    <div class="install-panel active" id="tab-agent">
+      <div class="install-cmd" id="cmd-agent"># 1. Create your private repo from the template, then clone it:
+gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
+cd AIKB
 
-# Open your AI tool and just start talking — your agent
-# orients itself automatically at the start of every session.</div>
+# 2. Open it in Claude Code or Codex CLI and say:
+#
+#      set up my AIKB
+#
+# Your agent detects the unconfigured clone, asks which AI tools and
+# secrets manager you use, runs the installer, then interviews you and
+# writes your profile — so it already knows you in the next session.</div>
       <div class="install-meta">
-        <span class="install-note">Requires Python 3.8+ and git</span>
-        <button class="copy-btn" onclick="copyCmd('cmd-fork',this)">Copy</button>
+        <span class="install-note">Works with Claude Code and Codex CLI &middot; requires Python 3.8+ and git</span>
+        <button class="copy-btn" onclick="copyCmd('cmd-agent',this)">Copy</button>
+      </div>
+    </div>
+    <div class="install-panel" id="tab-manual">
+      <div class="install-cmd" id="cmd-manual"># Create your private repo from the template, then clone it:
+gh repo create AIKB --template mcglothi/ai-knowledge-base --private --clone
+cd AIKB
+
+# Interactive setup (asks a few mostly pre-filled questions):
+bash install.sh
+
+# Or scripted / CI — no terminal required:
+python3 install.py --print-schema               # accepted fields
+python3 install.py --config setup.json --dry-run
+python3 install.py --config setup.json
+
+# Check what's left at any time:
+python3 _tools/memory-pipeline/doctor.py --onboarding</div>
+      <div class="install-meta">
+        <span class="install-note">No GitHub CLI? Click &ldquo;Use this template&rdquo; on the repo, set it Private, then clone</span>
+        <button class="copy-btn" onclick="copyCmd('cmd-manual',this)">Copy</button>
       </div>
     </div>
     <div class="install-panel" id="tab-mcp">
-      <div class="install-cmd" id="cmd-mcp"># Add to your MCP client config:
+      <div class="install-cmd" id="cmd-mcp"># One-time search setup (builds the local index):
+bash _tools/aikb-search/setup.sh
+
+# It registers the MCP server with Claude Code for you. To wire up
+# another MCP client manually, point it at:
 {
   "mcpServers": {
     "aikb-search": {
       "command": "python3",
-      "args": ["path/to/aikb/_tools/mcp/server.py"]
+      "args": ["/absolute/path/to/AIKB/_tools/aikb-search/server.py"]
     }
   }
 }</div>

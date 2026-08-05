@@ -22,7 +22,7 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from indexer import AIKB_ROOT, DB_PATH, embed
+from indexer import AIKB_ROOT, DB_PATH, connect_db, embed
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -384,7 +384,7 @@ def search(
     temporal = parse_temporal_query(query, as_of=as_of, before=before, after=after)
     normalized_query = temporal.cleaned_query
 
-    conn = sqlite3.connect(db_path)
+    conn = connect_db(db_path)
 
     # 1) BM25 via FTS5
     bm25_ranks: dict[int, int] = {}
@@ -778,3 +778,33 @@ def format_results(results: list[dict]) -> str:
         lines.append("")
 
     return "\n".join(lines).rstrip()
+
+
+def main() -> int:
+    """CLI wrapper so the eval harness (and humans) can drive search() with ablations."""
+    import argparse
+    import json as _json
+
+    parser = argparse.ArgumentParser(description="AIKB hybrid+graph search")
+    parser.add_argument("--query", required=True)
+    parser.add_argument("--top-k", type=int, default=5)
+    parser.add_argument("--no-graph", action="store_true", help="Ablation: disable graph expansion.")
+    parser.add_argument("--no-usage", action="store_true", help="Ablation: disable usage-signal boosts.")
+    parser.add_argument("--json", action="store_true", help="Output JSON records.")
+    args = parser.parse_args()
+
+    results = search(
+        args.query,
+        top_k=args.top_k,
+        include_related=not args.no_graph,
+        use_usage_stats=not args.no_usage,
+    )
+    if args.json:
+        print(_json.dumps(results, indent=2))
+    else:
+        print(format_results(results))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

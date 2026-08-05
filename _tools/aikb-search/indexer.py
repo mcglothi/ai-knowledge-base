@@ -29,6 +29,20 @@ TOOL_DIR  = Path(__file__).parent
 AIKB_ROOT = TOOL_DIR.parent.parent          # _tools/aikb-search/ → AIKB/
 DB_PATH   = TOOL_DIR / "aikb_index.db"
 
+
+def connect_db(db_path: Path = DB_PATH) -> sqlite3.Connection:
+    """Open the index DB hardened for concurrent access.
+
+    Multiple writers touch this DB (MCP server, hooks, nightly maintenance),
+    so every connection needs WAL + a generous busy timeout to avoid
+    'database is locked' failures.
+    """
+    conn = sqlite3.connect(db_path, timeout=30)
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA busy_timeout=30000")
+    conn.execute("PRAGMA synchronous=NORMAL")
+    return conn
+
 # Directories to skip when walking AIKB
 SKIP_DIRS = {".git", ".venv", "venv", "__pycache__", "node_modules"}
 
@@ -182,7 +196,7 @@ def _host_re() -> re.Pattern:
     return _host_re_cache
 _IP_RE = re.compile(r"\b((?:\d{1,3}\.){3}\d{1,3})\b")
 _PATH_RE = re.compile(
-    r"\b((?:_tools|_runtime|_agents|_templates|docs|home-lab|side-gigs|projects|personal[\w-]*)"
+    r"\b((?:_tools|_runtime|_agents|_templates|docs|runbooks|projects|personal[\w-]*|work)"
     r"(?:/[\w.-]+)*/[\w.-]+\.(?:py|sh|md|ya?ml|json))\b"
 )
 _BACKTICK_RE = re.compile(r"`([A-Za-z0-9_./:-]{3,40})`")
@@ -931,7 +945,7 @@ def build_index(force: bool = False, verbose: bool = True):
     Walk AIKB and index any .md file (+ _state.yaml) that is new or modified.
     Pass force=True to reindex everything regardless of mtime.
     """
-    conn = sqlite3.connect(DB_PATH)
+    conn = connect_db()
     init_db(conn)
 
     cached_mtimes = dict(

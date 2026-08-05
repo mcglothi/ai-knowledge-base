@@ -59,7 +59,11 @@ def to_yaml(candidates: list[dict]) -> str:
         for evt_id in c["source_events"]:
             lines.append(f"      - {evt_id}")
         lines.append(f"    target_file: {c['target_file']}")
-        lines.append(f"    proposed_change: \"{c['proposed_change'].replace('"', '\\"')}\"")
+        # Escaping is done outside the f-string: backslashes and same-type
+        # nested quotes inside f-string expressions require Python 3.12+
+        # (PEP 701), and install.sh advertises 3.8+.
+        escaped = c["proposed_change"].replace('"', '\\"')
+        lines.append(f'    proposed_change: "{escaped}"')
         lines.append(f"    confidence: {c['confidence']:.2f}")
         lines.append(f"    class: {c['class']}")
         lines.append(f"    status: {c['status']}")

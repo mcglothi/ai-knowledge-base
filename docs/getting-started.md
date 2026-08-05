@@ -1,7 +1,12 @@
 # Getting Started with AIKB
 **Last Updated:** 2026-04-29
 
-Setup from scratch. Already have a private AIKB and need a new machine? Use [new-machine-onboarding.md](new-machine-onboarding.md).
+Setup from scratch.
+
+**Already have a private AIKB and just need to add a machine?** Clone your repo on the
+new machine and run `./install.sh` there — it detects the existing `origin`, pre-fills
+your settings, and writes a machine profile for the new hostname. You do not need to
+repeat Steps 4-5.
 
 ## Pick Your Path
 | I use... | Setup |
@@ -23,11 +28,35 @@ Setup from scratch. Already have a private AIKB and need a new machine? Use [new
 Windows: clone inside WSL filesystem (not `/mnt/c/...`). See [windows-wsl.md](windows-wsl.md).
 
 ## Step 2 — Run setup
+
+**Option A — let your agent do it (fastest).** Open the cloned repo in Claude Code or
+Codex CLI and say:
+
+> set up my AIKB
+
+The repo's `CLAUDE.md` / `AGENTS.md` detects that setup hasn't run, loads
+[`docs/playbooks/onboarding.md`](playbooks/onboarding.md), asks which tools you use,
+runs the installer for you, and then **interviews you and writes your profile** —
+which is Steps 3 and 4 below. Confirm the config when it shows you the summary.
+
+**Option B — run it yourself:**
 ```bash
 chmod +x install.sh && ./install.sh
 ```
 Asks for GitHub username, repo name, local path → substitutes into agent files → optionally copies to `~/.claude/CLAUDE.md` and `~/.gemini/GEMINI.md`.
 If cloned from your GitHub repo first, `install.sh` pre-fills from `origin`.
+
+**Scripted / CI:** the installer is also non-interactive.
+```bash
+python3 install.py --print-schema              # accepted fields
+python3 install.py --config setup.json --dry-run
+python3 install.py --config setup.json
+```
+
+**Check setup status at any time:**
+```bash
+python3 _tools/memory-pipeline/doctor.py --onboarding
+```
 
 Optional walkthroughs: `bash _tools/tutorial.sh` · `bash _tools/feature-tour.sh`
 

@@ -104,28 +104,34 @@ Current capabilities in the public template. Most of these should feel automatic
 
 If you only remember one thing, remember to say **"Let's wrap up"** before ending or clearing a session. That gives AIKB a clean chance to preserve end-state and continuity for the next session.
 
-| Feature | Status | How it shows up in practice |
-|---------|--------|----------------------------|
-| Session start briefing + IM inbox check | ✅ Built | Ask the agent to **wake up**, or just begin a normal session and let it orient itself |
-| Manual memory capture | ✅ Built | Say **"remember that..."** when you make a durable decision or learn something important |
-| In-session memory writes (MCP) | ✅ Built | The agent can save durable memories during work without you editing files directly |
-| Session HUD | ✅ Built | Ask **"what's the current state?"** or **"what was I working on?"** |
-| Candidate pipeline | ✅ Built | AIKB stages raw runtime signal and turns it into reviewable memory updates behind the scenes |
-| Interactive candidate review | ✅ Built | Power-user or maintainer workflow for reviewing queued memory updates |
-| Session closeout capture | ✅ Built | Say **"Let's wrap up"** before you end or clear a session |
-| Claude Code Stop hook | ✅ Built | Closeout can happen automatically at the end of a Claude Code session once configured |
-| Gemini CLI Stop hook | ✅ Built | Closeout can happen automatically at the end of a Gemini CLI session once configured |
-| Codex closeout workaround | ✅ Built | Use the wrapper or say **"Let's wrap up"** before the session is cleared |
-| Keyword search | ✅ Built | The agent can look up prior context instead of asking you to restate it |
-| Semantic / hybrid search | ✅ Built | The agent can retrieve relevant context even when the wording changes |
-| MCP search tool | ✅ Built | AIKB can answer questions like **"what did we decide about auth?"** from memory |
-| Retention policy enforcement | ✅ Built | Helps maintainers keep stale or low-value memory from piling up over time |
-| Operator intents / runbooks | ✅ Built | You can teach shorthand workflows once, then reuse them naturally in conversation |
-| Template sync / self-update | ✅ Built | Existing AIKB instances can pull framework improvements without overwriting personal content |
-| Nightly maintenance | ✅ Built | Optional background cleanup and housekeeping for mature AIKB instances |
-| Mind Meld (cross-agent awareness) | ✅ Built | Agents can see what neighboring agents are doing and avoid duplicate work |
-| Agent IM (cross-agent + self-messaging) | ✅ Built | Agents can leave notes for each other — or for their future selves — across sessions |
-| Dream cycle consolidation | ✅ Built (Optional Extension) | Optional background summarization and consolidation layer for power users |
+Maturity levels are honest, not aspirational:
+
+- ✅ **Stable** — used daily across agents; behavior is settled and covered by the eval/test surface
+- 🧪 **Beta** — works and is in regular use, but integration details still vary by agent or need occasional hand-holding
+- 🔬 **Experimental** — functional reference implementation; expect rough edges and evolving behavior
+
+| Feature | Maturity | How it shows up in practice |
+|---------|----------|----------------------------|
+| Session start briefing + IM inbox check | ✅ Stable | Ask the agent to **wake up**, or just begin a normal session and let it orient itself |
+| Manual memory capture | ✅ Stable | Say **"remember that..."** when you make a durable decision or learn something important |
+| In-session memory writes (MCP) | ✅ Stable | The agent can save durable memories during work without you editing files directly |
+| Session HUD | ✅ Stable | Ask **"what's the current state?"** or **"what was I working on?"** |
+| Candidate pipeline | ✅ Stable | AIKB stages raw runtime signal and turns it into reviewable memory updates behind the scenes |
+| Interactive candidate review | ✅ Stable | Power-user or maintainer workflow for reviewing queued memory updates |
+| Session closeout capture | ✅ Stable | Say **"Let's wrap up"** before you end or clear a session |
+| Claude Code Stop hook | ✅ Stable | Closeout can happen automatically at the end of a Claude Code session once configured |
+| Gemini CLI Stop hook | 🧪 Beta | Closeout can happen automatically at the end of a Gemini CLI session once configured |
+| Codex closeout workaround | 🧪 Beta | Use the wrapper or say **"Let's wrap up"** before the session is cleared (Codex has no native stop hook) |
+| Keyword search | ✅ Stable | The agent can look up prior context instead of asking you to restate it |
+| Semantic / hybrid search | ✅ Stable | The agent can retrieve relevant context even when the wording changes |
+| MCP search tool | ✅ Stable | AIKB can answer questions like **"what did we decide about auth?"** from memory |
+| Retention policy enforcement | 🧪 Beta | Helps maintainers keep stale or low-value memory from piling up over time |
+| Operator intents / runbooks | 🧪 Beta | You can teach shorthand workflows once, then reuse them naturally in conversation |
+| Template sync / self-update | 🧪 Beta | Existing AIKB instances can pull framework improvements without overwriting personal content |
+| Nightly maintenance | 🧪 Beta | Optional background cleanup and housekeeping for mature AIKB instances |
+| Mind Meld (cross-agent awareness) | 🔬 Experimental | Agents can see what neighboring agents are doing and avoid duplicate work |
+| Agent IM (cross-agent + self-messaging) | 🧪 Beta | Agents can leave notes for each other — or for their future selves — across sessions |
+| Dream cycle consolidation | 🔬 Experimental (optional extension) | Optional background summarization and consolidation layer for power users |
 
 ---
 
@@ -224,15 +230,25 @@ cd AIKB
 
 **Or manually:** click **Use this template** → name it `AIKB` → set Private → clone it.
 
-### Step 2: Run the installer
+### Step 2: Set it up
+
+**Let your agent do it.** Open the cloned repo in Claude Code or Codex CLI and say:
+
+> set up my AIKB
+
+It detects the unconfigured clone, asks which tools and secrets manager you use, runs
+the installer, and interviews you to write your profile — so you skip Step 4 entirely.
+
+**Or run the installer yourself:**
 
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-The installer will ask a few questions (most are pre-filled) and configure whichever
-AI tools you use. Takes about 3 minutes.
+It asks a few questions (most are pre-filled) and configures whichever AI tools you
+use. Takes about 3 minutes. For scripted or CI setup, it also runs non-interactively —
+see `python3 install.py --print-schema`.
 
 **Windows users:** see [docs/windows-wsl.md](docs/windows-wsl.md) first.
 
@@ -242,9 +258,14 @@ AI tools you use. Takes about 3 minutes.
 git push origin main
 ```
 
-Open Claude Code (or your preferred agent) and say:
+If you ran the installer yourself in Step 2, open your agent and say:
 
 > "I just set up AIKB — let's fill in my profile."
+
+It will ask about your background, skills, stack, and machine, then write
+`personal/profile.md` and `personal/dev-environment/[hostname].md` directly from the
+conversation. No manual editing required. (If you used the agent path in Step 2, this
+already happened.)
 
 From there, AIKB is meant to feel natural:
 - agents pick up on phrases like "remember that..."
@@ -252,9 +273,13 @@ From there, AIKB is meant to feel natural:
 - stop hooks and closeout automation run behind the scenes once configured
 - "Let's wrap up" is the one phrase worth remembering when you want to be sure a session closes out cleanly before ending, clearing, or switching contexts
 
-The agent will ask about your background, skills, stack, and machine — and write `personal/profile.md` and `personal/dev-environment/[hostname].md` directly from the conversation. No manual editing required.
-
 Once done, agents should stop asking "what's your stack?" or "what machine are you on?" unless something is missing, stale, or ambiguous.
+
+**Not sure whether setup finished?**
+```bash
+python3 _tools/memory-pipeline/doctor.py --onboarding
+```
+Every incomplete item comes with the exact command or action that fixes it.
 
 ---
 

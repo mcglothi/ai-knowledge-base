@@ -1,0 +1,4 @@
+# Raw runtime event logs are local working memory by default.
+# This file exists so the directory ships with the template — the pipeline
+# and `doctor.py` expect it to be present on a fresh clone.
+*.ndjson

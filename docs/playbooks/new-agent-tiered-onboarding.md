@@ -71,5 +71,6 @@ Run in fresh session:
 ## Guardrails
 - Do not delete original monolith until gate passes.
 - Always backup runtime target before swap.
-- Preserve exact security rules (BW_SESSION and no-secrets mandates).
+- Preserve exact security rules (credential-handling and no-secrets mandates).
+- Carry `{{SECRETS_MANAGER}}` / `{{SECRETS_RETRIEVE}}` through verbatim — never hardcode a vendor into an agent file.
 - Keep L0/L1 line budgets intact; push detail into L2.

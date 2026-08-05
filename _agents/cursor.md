@@ -19,7 +19,7 @@ All projects documented in your AIKB repo. Use `@file` to reference specific doc
    git -C {{LOCAL_PATH}} add . && git -C {{LOCAL_PATH}} commit -m "AI Checkpoint: [file] — [summary]" && git -C {{LOCAL_PATH}} push origin main
    ```
 5. **State:** Use `⚠️ IN PROGRESS` for partial tasks; `✅` when complete.
-6. **Security:** Secrets → `[Stored in Vaultwarden: <Item Name>]`.
+6. **Security:** Secrets → `[Stored in {{SECRETS_MANAGER}}: <Item Name>]`.
 7. **Maintenance:** Update AIKB files in place.
 8. **Capture Quality:** Before context-heavy transitions or ending a phase, capture reasoning:
    ```bash

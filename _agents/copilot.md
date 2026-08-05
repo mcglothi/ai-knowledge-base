@@ -3,7 +3,7 @@ Config: `.github/copilot-instructions.md` in each repository
 
 ## AIKB
 Repo: `{{GITHUB_USERNAME}}/AIKB` · Local: `{{LOCAL_PATH}}/`
-Use AIKB as advisory context. Prefer repo files first, then AIKB references when the task involves personal projects, home lab, side gigs, infrastructure, or cross-agent continuity.
+Use AIKB as advisory context. Prefer repo files first, then AIKB references when the task involves your projects, work, infrastructure, or cross-agent continuity.
 
 ## Loading
 Start with `_index.md` and `_state.yaml` only when the task needs AIKB context.
@@ -17,7 +17,7 @@ If editing AIKB docs:
 - Update `Last Updated` on touched markdown.
 - Update `_index.md` on project/domain status changes.
 - Update `_state.yaml` for incidents, SSL cert changes, or pending items.
-- Keep secrets as `[Stored in Vaultwarden: <Item Name>]`.
+- Keep secrets as `[Stored in {{SECRETS_MANAGER}}: <Item Name>]`.
 
 ## Git
 Small text/doc fixes may go to `main`. Use a branch for features, assets, public rewrites, or anything hard to reverse.

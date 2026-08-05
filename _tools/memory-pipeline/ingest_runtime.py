@@ -5,14 +5,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redaction import HINT_WORDS as SECRET_HINTS  # noqa: E402  (back-compat name)
+from redaction import redact_text  # noqa: E402
+
 EVENT_TYPES = {"decision", "blocker", "change", "observation"}
 SENSITIVITY = {"normal", "restricted"}
 PROMOTE_HINT = {"candidate", "ignore"}
-SECRET_HINTS = ("password", "api_key", "apikey", "token", "secret", "private key")
+
+# Free-text event fields that pass through redaction before being logged.
+TEXT_FIELDS = ("summary", "rejected", "assumptions", "invariants", "next_step")
 
 
 def parse_args() -> argparse.Namespace:
@@ -34,8 +41,36 @@ def parse_args() -> argparse.Namespace:
 
 
 def looks_sensitive(text: str) -> bool:
+    """Deprecated: advisory only. Kept for callers that still import it."""
     lowered = text.lower()
     return any(hint in lowered for hint in SECRET_HINTS)
+
+
+def apply_redaction(args: argparse.Namespace) -> tuple[list[str], list[str]]:
+    """Redact credential shapes in free-text fields, in place.
+
+    Returns (redaction_names, hint_words). Redactions mean a credential shape
+    was found and replaced — capture proceeds with the redacted text. Hints are
+    advisory words that merit a warning but never block capture.
+    """
+    redactions: list[str] = []
+    hints: list[str] = []
+    for field_name in TEXT_FIELDS:
+        value = getattr(args, field_name, None)
+        if not value:
+            continue
+        result = redact_text(value)
+        setattr(args, field_name, result.text)
+        redactions.extend(r for r in result.redactions if r not in redactions)
+        hints.extend(h for h in result.hints if h not in hints)
+    if getattr(args, "evidence", None):
+        cleaned = []
+        for item in args.evidence:
+            result = redact_text(item)
+            cleaned.append(result.text)
+            redactions.extend(r for r in result.redactions if r not in redactions)
+        args.evidence = cleaned
+    return redactions, hints
 
 
 def build_event(args: argparse.Namespace) -> dict:
@@ -67,9 +102,18 @@ def build_event(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     args = parse_args()
-    if looks_sensitive(args.summary):
-        raise SystemExit(
-            "Refusing to log potential secret in summary. Use Vaultwarden reference instead."
+    redactions, hints = apply_redaction(args)
+    if redactions:
+        print(
+            f"Warning: redacted credential-shaped content ({', '.join(redactions)}). "
+            "Store the secret in the password manager and reference it by name.",
+            file=sys.stderr,
+        )
+    elif hints:
+        print(
+            f"Note: summary mentions {', '.join(hints)} — fine if it's just prose, "
+            "but never log actual credential values.",
+            file=sys.stderr,
         )
 
     date_str = args.date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -77,6 +121,8 @@ def main() -> int:
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
     event = build_event(args)
+    if redactions:
+        event["redactions"] = redactions
     with out_file.open("a", encoding="utf-8") as f:
         f.write(json.dumps(event, ensure_ascii=True) + "\n")
 

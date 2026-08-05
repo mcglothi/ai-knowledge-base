@@ -95,17 +95,19 @@ echo ""
 echo "What secrets manager do you use? (used only to tailor comments in generated files)"
 echo "  1) 1Password"
 echo "  2) Bitwarden / Vaultwarden"
-echo "  3) macOS Keychain"
-echo "  4) Environment variables (.env / shell profile)"
-echo "  5) Other / skip"
-read -rp "Choice [5]: " SECRETS_CHOICE
-SECRETS_CHOICE="${SECRETS_CHOICE:-5}"
+echo "  3) Delinea Secret Server"
+echo "  4) macOS Keychain"
+echo "  5) Environment variables (.env / shell profile)"
+echo "  6) Other / skip"
+read -rp "Choice [6]: " SECRETS_CHOICE
+SECRETS_CHOICE="${SECRETS_CHOICE:-6}"
 
 case "$SECRETS_CHOICE" in
   1) SECRETS_MANAGER="1Password" ; SECRETS_RETRIEVE='op read "op://Private/ITEM_NAME/credential"' ;;
   2) SECRETS_MANAGER="Bitwarden"  ; SECRETS_RETRIEVE='bw get password "PAT/<Service>/<Name>" --session "$BW_SESSION"' ;;
-  3) SECRETS_MANAGER="macOS Keychain" ; SECRETS_RETRIEVE='security find-generic-password -w -a "$USER" -s "ITEM_NAME"' ;;
-  4) SECRETS_MANAGER="Environment variables" ; SECRETS_RETRIEVE='echo "$MY_SECRET_VAR"' ;;
+  3) SECRETS_MANAGER="Delinea Secret Server" ; SECRETS_RETRIEVE='tss secret --secret <id> --field password  # id via personal/vaults/delinea.yaml' ;;
+  4) SECRETS_MANAGER="macOS Keychain" ; SECRETS_RETRIEVE='security find-generic-password -w -a "$USER" -s "ITEM_NAME"' ;;
+  5) SECRETS_MANAGER="Environment variables" ; SECRETS_RETRIEVE='echo "$MY_SECRET_VAR"' ;;
   *) SECRETS_MANAGER="your secrets manager" ; SECRETS_RETRIEVE="[see your secrets manager documentation]" ;;
 esac
 
@@ -157,17 +159,26 @@ apply_substitutions() {
     "$src" > "$dest"
 }
 
-for tmpl in "$AGENTS_DIR"/*.md; do
-  fname=$(basename "$tmpl")
-  out="$TMP_DIR/$fname"
+# Recursive: v2 overlays and shared L1 files live in _agents/v2/ and
+# _agents/shared/. Relative paths are flattened for the temp file so
+# same-named files in different subdirectories cannot collide.
+while IFS= read -r tmpl; do
+  rel="${tmpl#"$SCRIPT_DIR/"}"
+  out="$TMP_DIR/$(printf '%s' "$rel" | tr '/' '_')"
   apply_substitutions "$tmpl" "$out"
   cp "$out" "$tmpl"
-  success "Updated _agents/$fname"
-done
+  success "Updated $rel"
+done < <(find "$AGENTS_DIR" -type f -name '*.md' | sort)
 
 apply_substitutions "$SCRIPT_DIR/AGENTS.md" "$TMP_DIR/AGENTS.md"
 cp "$TMP_DIR/AGENTS.md" "$SCRIPT_DIR/AGENTS.md"
 success "Updated AGENTS.md"
+
+if [[ -f "$SCRIPT_DIR/.github/copilot-instructions.md" ]]; then
+  apply_substitutions "$SCRIPT_DIR/.github/copilot-instructions.md" "$TMP_DIR/copilot-instructions.md"
+  cp "$TMP_DIR/copilot-instructions.md" "$SCRIPT_DIR/.github/copilot-instructions.md"
+  success "Updated .github/copilot-instructions.md"
+fi
 
 # ── Update _index.md placeholder ─────────────────────────────────────────────
 if grep -q "{{GITHUB_USERNAME}}" "$SCRIPT_DIR/_index.md" 2>/dev/null; then

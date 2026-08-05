@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Ambient Context Injector for CLI Agents
 # Usage: ./ambient_ask.sh <agent> "Your prompt here"
-# Example: ./ambient_ask.sh gemini "What is the IP of turing?"
+# Example: ./ambient_ask.sh gemini "What is the IP of the build server?"
 
 set -euo pipefail
 
 if [ $# -lt 2 ]; then
   echo "Usage: $0 <agent_command> <prompt>"
-  echo "Example: $0 gemini \"How do I connect to turing?\""
+  echo "Example: $0 gemini \"How do I connect to the build server?\""
   exit 1
 fi
 
