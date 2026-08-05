@@ -26,11 +26,11 @@
 
 ---
 
-## 🏠 Home Lab
+## 📓 Runbooks
 
 | Topic | Status | Tags | Details |
 |-------|--------|------|---------|
-| Operator intents | ⬜ Optional | runbooks, operator-intents, shortcuts, automation, workflows | [`home-lab/runbooks/operator-intents.md`](home-lab/runbooks/operator-intents.md) |
+| Operator intents | ⬜ Optional | runbooks, operator-intents, shortcuts, automation, workflows | [`runbooks/operator-intents.md`](runbooks/operator-intents.md) |
 
 ---
 

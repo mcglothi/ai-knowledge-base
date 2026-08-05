@@ -160,7 +160,7 @@ echo ""
 echo -e "  Best companion docs:"
 echo -e "  ${DIM}    docs/operator-loop.md${RESET}"
 echo -e "  ${DIM}    docs/search-setup.md${RESET}"
-echo -e "  ${DIM}    home-lab/runbooks/operator-intents.md${RESET}"
+echo -e "  ${DIM}    runbooks/operator-intents.md${RESET}"
 echo ""
 echo -e "  ${BOLD}${GREEN}Teach the workflow, not just the files.${RESET}"
 

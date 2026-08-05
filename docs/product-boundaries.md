@@ -133,13 +133,24 @@ Design rule:
 - clearly labeled
 - physically separated enough that new users do not confuse them with the core product
 
-#### Public template decision: `home-lab/`
-`home-lab/` should move out of the public template surface.
+#### Public template decision: `home-lab/` — DONE
+`home-lab/` has been removed from the public template surface.
 
 Reason:
 - it is highly personal
 - it does not represent the generic AIKB product
 - it confuses new users about whether AIKB is a memory platform or a homelab operating environment
+
+What changed:
+- `home-lab/README.md` removed
+- `home-lab/runbooks/operator-intents.md` → `runbooks/operator-intents.md` (operator
+  intents are a generic feature and were not tied to homelab use)
+- `home-lab/` path assumptions removed from `memory_search.py`, `indexer.py`, and
+  `validate_memory_metadata.py`; `_index.md` now lists a `Runbooks` domain
+- `_tools/validation/check_codex_homelab_mcp.sh` removed (unreferenced, environment-specific)
+
+Existing private instances are unaffected: `sync.sh` only overwrites `FRAMEWORK_PATHS`,
+which never included `home-lab/`, so a user's own `home-lab/` survives template sync.
 
 ---
 
@@ -238,7 +249,7 @@ It should not lead with:
 Highest confusion-to-value items to move out of the default surface first:
 1. dream cycle / temporal graph
 2. approvals / dashboard / operator-heavy extras
-3. homelab-specific content in the public-facing path
+3. ~~homelab-specific content in the public-facing path~~ (done)
 4. platform or environment-specific extras that are not required for first use
 5. legacy setup surface
 
@@ -250,7 +261,7 @@ The following decisions are now treated as the working plan for Phase A:
 - Mind Meld is core
 - `runtime_cli.py` is explicit core surface
 - `aikb-search` is core, even if configured just after initial install
-- `home-lab/` should move out of the public template surface
+- `home-lab/` has moved out of the public template surface (done)
 - `sidecar.py` is experimental, not extension
 - `eval_memory_search.py` is experimental, not extension
 
