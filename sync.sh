@@ -34,10 +34,13 @@ header()  { echo -e "\n${BOLD}$*${RESET}"; }
 
 usage() {
   cat <<'EOF'
-Usage: ./sync.sh [--check] [--yes] [--help]
+Usage: ./sync.sh [--check] [--yes] [--force-overwrite-local] [--help]
 
   --check   Check for upstream framework updates and refresh local sync state.
   --yes     Apply updates without confirmation.
+  --force-overwrite-local
+            With --yes, proceed even when local files are ahead of upstream.
+            Discards the local-only lines. Rarely what you want.
   --help    Show this help text.
 
 The check-only mode is safe for agents to run periodically. It updates the
@@ -47,11 +50,13 @@ EOF
 
 CHECK_ONLY=0
 AUTO_YES=0
+FORCE_OVERWRITE_LOCAL=0
 
 for arg in "$@"; do
   case "$arg" in
     --check) CHECK_ONLY=1 ;;
     --yes) AUTO_YES=1 ;;
+    --force-overwrite-local) FORCE_OVERWRITE_LOCAL=1 ;;
     --help|-h)
       usage
       exit 0
@@ -323,6 +328,94 @@ fi
 for path in "${CHANGED[@]}"; do
   echo "  • $path"
 done
+
+# ---------------------------------------------------------------------------
+# Local-work preflight.
+#
+# `git checkout upstream/main -- <path>` overwrites every file that exists in
+# both trees. Files only present locally are left alone, but any local file
+# that has diverged loses whatever upstream does not have -- silently, because
+# the summary above lists coarse paths like "_tools" and reassures the operator
+# only about their personal content.
+#
+# That is not hypothetical. An upstream commit once replaced a developed
+# 1347-line tool with a 336-line prototype; every downstream repo that had
+# improved it locally had those improvements applied away on the next sync,
+# and nobody noticed for five months.
+#
+# This lists, per file, the lines local has that upstream does not -- exactly
+# what the checkout would discard.
+# ---------------------------------------------------------------------------
+AT_RISK_FILES=()
+AT_RISK_LINES=()
+DIRTY_FILES=()
+
+for path in "${CHANGED[@]}"; do
+  while IFS= read -r file; do
+    [[ -z "$file" ]] && continue
+    # Only files present in BOTH trees can be overwritten.
+    git cat-file -e "${UPSTREAM_REMOTE}/main:${file}" 2>/dev/null || continue
+    # Measure against the last synced point, not against upstream/main.
+    # Diffing upstream/main..HEAD also counts content upstream has since
+    # rewritten, so a downstream sitting on an OLD version gets warned about
+    # lines it never wrote. What matters is only what this repo changed since
+    # it last took a sync -- that is the local work a checkout would destroy.
+    added=$(git diff --numstat "$SYNC_BASE_SHA" HEAD -- "$file" 2>/dev/null | awk '{print $1}')
+    if [[ -n "$added" && "$added" != "-" && "$added" -gt 0 ]]; then
+      AT_RISK_FILES+=("$file")
+      AT_RISK_LINES+=("$added")
+    fi
+    # Uncommitted edits are unrecoverable after checkout; committed ones are not.
+    if ! git diff --quiet HEAD -- "$file" 2>/dev/null; then
+      DIRTY_FILES+=("$file")
+    fi
+  done < <(git ls-tree -r --name-only HEAD -- "$path" 2>/dev/null)
+done
+
+if [[ ${#DIRTY_FILES[@]} -gt 0 ]]; then
+  echo ""
+  error "Uncommitted changes in framework files -- these CANNOT be recovered:"
+  for f in "${DIRTY_FILES[@]}"; do
+    echo "      $f"
+  done
+  echo ""
+  echo "  Commit or stash them first. Aborting."
+  write_sync_state "$NOW_UTC" "$UPSTREAM_SHA" "${LAST_APPLIED_SHA:-}" "$CHECK_INTERVAL_DAYS"
+  exit 1
+fi
+
+if [[ ${#AT_RISK_FILES[@]} -gt 0 ]]; then
+  echo ""
+  warn "These local files are AHEAD of upstream. Syncing DISCARDS the difference:"
+  echo ""
+  for i in "${!AT_RISK_FILES[@]}"; do
+    printf "      %-52s -%s lines\n" "${AT_RISK_FILES[$i]}" "${AT_RISK_LINES[$i]}"
+  done
+  echo ""
+  echo "  Inspect any of them with:"
+  echo "      git diff ${SYNC_BASE_SHA:0:12} HEAD -- <file>"
+  echo ""
+  echo "  If the local version is the one you want, contribute it upstream BEFORE"
+  echo "  syncing. This is committed work, so it is recoverable either way:"
+  echo "      git checkout HEAD -- <file>"
+  echo ""
+  if [[ "$AUTO_YES" -eq 1 ]]; then
+    if [[ "${FORCE_OVERWRITE_LOCAL:-0}" -ne 1 ]]; then
+      error "Refusing to discard local work under --yes."
+      echo "  Re-run without --yes to review, or pass --force-overwrite-local to proceed."
+      write_sync_state "$NOW_UTC" "$UPSTREAM_SHA" "${LAST_APPLIED_SHA:-}" "$CHECK_INTERVAL_DAYS"
+      exit 1
+    fi
+    warn "--force-overwrite-local given; discarding the local versions."
+  else
+    read -rp "Type 'discard' to overwrite the local versions, anything else to abort: " DISCARD_CONFIRM
+    if [[ "$DISCARD_CONFIRM" != "discard" ]]; then
+      info "Aborted; nothing was changed."
+      write_sync_state "$NOW_UTC" "$UPSTREAM_SHA" "${LAST_APPLIED_SHA:-}" "$CHECK_INTERVAL_DAYS"
+      exit 0
+    fi
+  fi
+fi
 
 echo ""
 echo "  Your personal dirs (personal/, projects/, work/, _index.md,"
