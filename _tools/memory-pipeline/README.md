@@ -108,6 +108,7 @@ systemctl status aikb-shutdown-finalize.service --no-pager
   - `export AIKB_PROMPT_ENABLE=1`
   - optional: `export AIKB_PROMPT_MODE=rprompt` or `export AIKB_PROMPT_MODE=prompt`
 - `build_candidates.py` now includes automated user preference fact extraction unless `--no-fact-extraction` is passed.
+- `noise_filters.py` holds one definition of what is not a memory: `TELEMETRY_TYPES` (event types that carry no knowledge), `unwrap_summary` (strips the `closeout` envelope's session counters, keeping the operator's `note=`), and `looks_like_structured_payload` (rejects serialized machine state — tool-result envelopes, file-history snapshots, dict/list reprs — which was otherwise filed as durable facts and procedures). `dream_cycle.py` applies all three at intake.
 - `dream_cycle.py` emits non-canonical nightly memory artifacts in `_runtime/dreams/`, including a markdown summary plus JSONL files for facts, procedures, preferences, and rejected/noisy items.
 - `dream_cycle.py` can ingest live Memory Core proposals by status, fall back to local proposal fixtures when the API is unavailable, and writes contradiction snapshots to `_runtime/conflicts/dream-YYYY-MM-DD.json`.
 - `dream_cycle.py` now applies a lightweight canonical signal score so durable project/domain docs outrank repo-maintenance churn when summarizing recent canonical git changes.
