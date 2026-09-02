@@ -355,12 +355,24 @@ for path in "${CHANGED[@]}"; do
     [[ -z "$file" ]] && continue
     # Only files present in BOTH trees can be overwritten.
     git cat-file -e "${UPSTREAM_REMOTE}/main:${file}" 2>/dev/null || continue
-    # Measure against the last synced point, not against upstream/main.
-    # Diffing upstream/main..HEAD also counts content upstream has since
-    # rewritten, so a downstream sitting on an OLD version gets warned about
-    # lines it never wrote. What matters is only what this repo changed since
-    # it last took a sync -- that is the local work a checkout would destroy.
-    added=$(git diff --numstat "$SYNC_BASE_SHA" HEAD -- "$file" 2>/dev/null | awk '{print $1}')
+    # Two conditions, because either alone gives a false positive.
+    #
+    #   lost      = lines HEAD has that upstream/main lacks. This is literally
+    #               what the checkout discards. Alone it also flags content
+    #               upstream has since rewritten -- lines this repo never wrote.
+    #   authored  = the file changed since the last sync. Alone it stays loud
+    #               after that work has been contributed upstream and the two
+    #               copies are identical, which is the good case and must be
+    #               silent, or the warning trains you to type "discard" without
+    #               reading it.
+    #
+    # Warn only when both hold: this repo wrote it, and upstream does not have it.
+    lost=$(git diff --numstat "${UPSTREAM_REMOTE}/main" HEAD -- "$file" 2>/dev/null | awk '{print $1}')
+    authored=$(git diff --numstat "$SYNC_BASE_SHA" HEAD -- "$file" 2>/dev/null | awk '{print $1}')
+    added=""
+    if [[ -n "$lost" && "$lost" != "-" && "$lost" -gt 0 && -n "$authored" && "$authored" != "-" && "$authored" -gt 0 ]]; then
+      added="$lost"
+    fi
     if [[ -n "$added" && "$added" != "-" && "$added" -gt 0 ]]; then
       AT_RISK_FILES+=("$file")
       AT_RISK_LINES+=("$added")
@@ -393,7 +405,7 @@ if [[ ${#AT_RISK_FILES[@]} -gt 0 ]]; then
   done
   echo ""
   echo "  Inspect any of them with:"
-  echo "      git diff ${SYNC_BASE_SHA:0:12} HEAD -- <file>"
+  echo "      git diff ${UPSTREAM_REMOTE}/main HEAD -- <file>"
   echo ""
   echo "  If the local version is the one you want, contribute it upstream BEFORE"
   echo "  syncing. This is committed work, so it is recoverable either way:"
