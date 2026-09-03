@@ -58,12 +58,20 @@ section{max-width:900px;margin:0 auto;padding:3.5rem 2rem}
 .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0.75rem}
 .feature-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.2rem}
 .feature-icon{font-size:1.25rem;margin-bottom:0.6rem}
-.feature-name{font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap}
+.feature-name{font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.3rem}
 .feature-desc{font-size:0.8rem;color:var(--muted);line-height:1.5}
-.mat-badge{font-size:0.6rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:0.12rem 0.45rem;border-radius:20px}
-.mat-exp{background:var(--amber-d);color:var(--amber);border:1px solid rgba(240,180,41,0.25)}
 
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:2rem}
+.tier-block{margin-bottom:2.25rem}
+.tier-block:last-child{margin-bottom:0}
+.tier-head{display:flex;align-items:baseline;gap:0.6rem;margin-bottom:0.85rem;flex-wrap:wrap}
+.tier-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;position:relative;top:-1px}
+.tier-dot-stable{background:var(--green);box-shadow:0 0 10px rgba(61,214,140,0.5)}
+.tier-dot-beta{background:var(--amber);box-shadow:0 0 10px rgba(240,180,41,0.45)}
+.tier-dot-exp{background:var(--purple);box-shadow:0 0 10px rgba(167,139,250,0.5)}
+.tier-name{font-size:0.85rem;font-weight:700;color:#fff;letter-spacing:0.01em}
+.tier-desc{font-size:0.78rem;color:var(--muted)}
+
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:2.5rem}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem}
 .stat-val{font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:0.2rem}
 .stat-desc{font-size:0.78rem;color:var(--muted)}
@@ -119,12 +127,12 @@ footer a:hover{color:var(--muted)}
 </nav>
 
 <div class="hero">
-  <span class="hero-eyebrow">🧠 Open source · Any LLM · Git-backed</span>
-  <h1>Your agents should not<br><em>start from zero</em></h1>
+  <span class="hero-eyebrow">🧠 Open source · Multi-agent · Git-backed</span>
+  <h1>One memory.<br><em>Every agent.</em></h1>
   <p class="hero-sub">
-    File-based persistent memory for AI agents. Runtime event log,
-    temporal search, dream cycle compression, and session handoff —
-    so context survives across conversations, agents, and tools.
+    AIKB gives every AI tool you use the same persistent memory — plus Mind Meld
+    and Agent IM so multiple agents coordinate instead of quietly duplicating
+    each other's work. Local-first, Git-backed, fully inspectable.
   </p>
   <div class="hero-actions">
     <a href="#get-started" class="btn-primary">Get started</a>
@@ -144,11 +152,11 @@ footer a:hover{color:var(--muted)}
 <div><span class="t-prompt">&gt;</span> <span class="t-amber">"what was I working on last time?"</span></div>
 <div class="t-out">reading recent events and active projects ...</div>
 <div class="t-grn">✓ 3 active projects · 1 open incident · 2 pending items</div>
-<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"remember — switched auth to JWT, session tokens rejected"</span></div>
-<div class="t-grn">✓ decision captured to session memory</div>
-<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"what was decided about auth?"</span></div>
-<div class="t-out">2026-04-18  decision: switched auth to JWT</div>
-<div class="t-out">             rejected: session tokens — don't work across services</div>
+<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"check what Gemini was doing on the API refactor"</span></div>
+<div class="t-out">reading shared runtime event log ...</div>
+<div class="t-grn">✓ Gemini closed out 40 min ago — migration script done, tests pending</div>
+<div style="margin-top:0.4rem"><span class="t-prompt">&gt;</span> <span class="t-amber">"good — pick up the tests, and leave Codex a note when you're done"</span></div>
+<div class="t-out">✓ picking up from Gemini's handoff · will notify Codex on completion</div>
     </div>
   </div>
 </div>
@@ -190,7 +198,8 @@ footer a:hover{color:var(--muted)}
 
 <section id="features">
   <div class="section-label">Features</div>
-  <div class="section-title">What it gives your agents</div>
+  <div class="section-title">What's stable, what's still forming</div>
+  <p class="section-sub">Core memory and retrieval are settled and used daily. Cross-agent coordination is newer — shown here at the maturity it's actually at, not further along than it is.</p>
 
   <div class="stat-row">
     <div class="stat-card">
@@ -207,46 +216,73 @@ footer a:hover{color:var(--muted)}
     </div>
   </div>
 
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="feature-icon">📋</div>
-      <div class="feature-name">Runtime event log</div>
-      <div class="feature-desc">Append-only NDJSON log of agent decisions, findings, and session events. Survives compaction, tool resets, and model switches.</div>
+  <div class="tier-block">
+    <div class="tier-head">
+      <span class="tier-dot tier-dot-stable"></span>
+      <span class="tier-name">Stable</span>
+      <span class="tier-desc">— used daily across agents, behavior is settled</span>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔍</div>
-      <div class="feature-name">Temporal search</div>
-      <div class="feature-desc">Query across sessions — "what was decided about X last week?" — without re-reading entire conversation histories.</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-name">Runtime event log</div>
+        <div class="feature-desc">Append-only NDJSON log of agent decisions, findings, and session events. Survives compaction, tool resets, and model switches.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-name">Temporal search</div>
+        <div class="feature-desc">Query across sessions — "what was decided about X last week?" — without re-reading entire conversation histories.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <div class="feature-name">Session handoff</div>
+        <div class="feature-desc">Structured closeout events so a fresh agent picks up exactly where the last one stopped — no re-reading required.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔌</div>
+        <div class="feature-name">MCP server</div>
+        <div class="feature-desc">Optional MCP integration exposes <code>aikb_search</code> and <code>aikb_remember</code> directly to any MCP-capable client.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗂</div>
+        <div class="feature-name">Canonical docs</div>
+        <div class="feature-desc">Human-readable Markdown for projects, infrastructure, and decisions. Git-tracked and readable without any tooling.</div>
+      </div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">💤</div>
-      <div class="feature-name">Dream cycle</div>
-      <div class="feature-desc">Background compression that promotes high-signal events to long-term canonical docs. Keeps the runtime log lean.</div>
+  </div>
+
+  <div class="tier-block">
+    <div class="tier-head">
+      <span class="tier-dot tier-dot-beta"></span>
+      <span class="tier-name">Beta</span>
+      <span class="tier-desc">— works and is in regular use, integration details still vary by agent</span>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🤝</div>
-      <div class="feature-name">Session handoff</div>
-      <div class="feature-desc">Structured closeout events so a fresh agent picks up exactly where the last one stopped — no re-reading required.</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <div class="feature-name">Agent IM inbox</div>
+        <div class="feature-desc">File-based inbox + archive so models can leave each other — or themselves — quick notes, review requests, and resume hints. Unread messages surface automatically at the next wake-up.</div>
+      </div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔌</div>
-      <div class="feature-name">MCP server</div>
-      <div class="feature-desc">Optional MCP integration exposes <code>aikb_search</code> and <code>aikb_remember</code> directly to any MCP-capable client.</div>
+  </div>
+
+  <div class="tier-block">
+    <div class="tier-head">
+      <span class="tier-dot tier-dot-exp"></span>
+      <span class="tier-name">Experimental</span>
+      <span class="tier-desc">— functional reference implementation, expect rough edges</span>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🗂</div>
-      <div class="feature-name">Canonical docs</div>
-      <div class="feature-desc">Human-readable Markdown for projects, infrastructure, and decisions. Git-tracked and readable without any tooling.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">👀</div>
-      <div class="feature-name">Mind Meld <span class="mat-badge mat-exp">Experimental</span></div>
-      <div class="feature-desc">Agents read the shared runtime event log to see what other agents are doing right now — no extra infrastructure required.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💬</div>
-      <div class="feature-name">Agent IM inbox</div>
-      <div class="feature-desc">File-based inbox + archive so models can leave each other — or themselves — quick notes, review requests, and resume hints. Unread messages surface automatically at the next wake-up.</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">👀</div>
+        <div class="feature-name">Mind Meld</div>
+        <div class="feature-desc">Agents read the shared runtime event log to see what other agents are doing right now — no extra infrastructure required.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💤</div>
+        <div class="feature-name">Dream cycle</div>
+        <div class="feature-desc">Background compression that promotes high-signal events to long-term canonical docs. Keeps the runtime log lean.</div>
+      </div>
     </div>
   </div>
 </section>
