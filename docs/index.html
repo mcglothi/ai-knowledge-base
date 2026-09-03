@@ -58,8 +58,10 @@ section{max-width:900px;margin:0 auto;padding:3.5rem 2rem}
 .feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0.75rem}
 .feature-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.2rem}
 .feature-icon{font-size:1.25rem;margin-bottom:0.6rem}
-.feature-name{font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.3rem}
+.feature-name{font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap}
 .feature-desc{font-size:0.8rem;color:var(--muted);line-height:1.5}
+.mat-badge{font-size:0.6rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:0.12rem 0.45rem;border-radius:20px}
+.mat-exp{background:var(--amber-d);color:var(--amber);border:1px solid rgba(240,180,41,0.25)}
 
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:2rem}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem}
@@ -235,6 +237,11 @@ footer a:hover{color:var(--muted)}
       <div class="feature-icon">🗂</div>
       <div class="feature-name">Canonical docs</div>
       <div class="feature-desc">Human-readable Markdown for projects, infrastructure, and decisions. Git-tracked and readable without any tooling.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👀</div>
+      <div class="feature-name">Mind Meld <span class="mat-badge mat-exp">Experimental</span></div>
+      <div class="feature-desc">Agents read the shared runtime event log to see what other agents are doing right now — no extra infrastructure required.</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon">💬</div>
