@@ -69,6 +69,19 @@ section{max-width:900px;margin:0 auto;padding:3.5rem 2rem}
 .layout-diagram{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem;font-family:monospace;font-size:0.78rem;color:var(--muted);line-height:1.9;overflow-x:auto;white-space:pre}
 .hi{color:#a78bfa}.hi2{color:#3dd68c}.hi3{color:#4d9fff}.dim-c{color:var(--dim)}
 
+.flow-row{display:flex;align-items:stretch;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.flow-card{flex:1;min-width:200px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.2rem}
+.flow-step{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--purple-d);color:var(--purple);font-size:0.72rem;font-weight:700;margin-bottom:0.6rem}
+.flow-title{font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.35rem}
+.flow-desc{font-size:0.8rem;color:var(--muted);line-height:1.55}
+.flow-desc code{color:var(--blue);font-size:0.78rem}
+.flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:1.1rem;padding:0 0.25rem}
+.demo-frame{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.demo-frame img{display:block;width:100%;height:auto}
+.demo-caption{padding:0.85rem 1.1rem;font-size:0.78rem;color:var(--muted);border-top:1px solid var(--border)}
+.demo-caption code{color:var(--blue)}
+@media(max-width:700px){.flow-row{flex-direction:column}.flow-arrow{transform:rotate(90deg);padding:0.25rem 0}}
+
 .install-block{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .install-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface)}
 .install-tab{padding:0.55rem 1rem;font-size:0.78rem;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .12s}
@@ -95,10 +108,10 @@ footer a:hover{color:var(--muted)}
   <a class="nav-back" href="https://mcglothi.github.io">← All projects</a>
   <span class="nav-brand">AI Knowledge Base</span>
   <div class="nav-links">
+    <a href="#how-it-works">How it works</a>
     <a href="#features">Features</a>
     <a href="#structure">Structure</a>
     <a href="#get-started">Get started</a>
-    <a href="https://github.com/mcglothi/ai-knowledge-base/blob/main/docs/agent-im.md" target="_blank">Agent IM</a>
     <a href="https://github.com/mcglothi/ai-knowledge-base" target="_blank">GitHub</a>
   </div>
 </nav>
@@ -138,6 +151,39 @@ footer a:hover{color:var(--muted)}
     </div>
   </div>
 </div>
+
+<hr class="divider">
+
+<section id="how-it-works">
+  <div class="section-label">How it works</div>
+  <div class="section-title">The loop your agents run every session</div>
+  <p class="section-sub">No daemon, no database. Every step below is your agent reading and writing plain files in the repo you already have open.</p>
+
+  <div class="flow-row">
+    <div class="flow-card">
+      <div class="flow-step">1</div>
+      <div class="flow-title">Session starts</div>
+      <div class="flow-desc">Agent runs <code>wake-up</code> — or reads <code>_index.md</code> + <code>_state.yaml</code> directly — for a compact briefing instead of the whole repo.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-card">
+      <div class="flow-step">2</div>
+      <div class="flow-title">Agent works</div>
+      <div class="flow-desc">Loads specific project files only when the task needs them, and captures decisions or gotchas as it goes via <code>aikb_remember</code> or the runtime event log.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-card">
+      <div class="flow-step">3</div>
+      <div class="flow-title">Session ends</div>
+      <div class="flow-desc">A Stop hook — or manual closeout — commits the updates, so the next session's wake-up already knows what changed.</div>
+    </div>
+  </div>
+
+  <div class="demo-frame">
+    <img src="assets/demo-wakeup.gif" alt="AIKB wake-up briefing in a terminal session" loading="lazy">
+    <div class="demo-caption">A real wake-up call — the agent orienting itself from <code>_runtime/events/</code> and <code>_state.yaml</code> before doing any work.</div>
+  </div>
+</section>
 
 <hr class="divider">
 
