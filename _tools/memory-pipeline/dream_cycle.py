@@ -335,12 +335,20 @@ def resolve_api_key(arg_api_key: str) -> str:
         return ""
 
     item_name = os.environ.get("MMC_API_KEY_ITEM", "PAT/AIKB Memory Core/API Key")
-    res = subprocess.run(
-        ["bw", "get", "password", item_name, "--session", bw_session],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        res = subprocess.run(
+            ["bw", "get", "password", item_name, "--session", bw_session],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+    except (FileNotFoundError, OSError, subprocess.SubprocessError):
+        # No secrets manager on PATH is the unconfigured case, not an error.
+        # Schedulers (launchd, cron, systemd) run with a minimal PATH that does
+        # not include Homebrew or /usr/local, so a bare `bw` raises
+        # FileNotFoundError there while working fine in an interactive shell.
+        return ""
     if res.returncode != 0:
         return ""
     return res.stdout.strip()
