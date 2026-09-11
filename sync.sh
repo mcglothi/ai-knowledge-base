@@ -11,7 +11,7 @@
 #
 # What gets updated (framework dirs — safe to overwrite):
 #   AGENTS.md  _agents/  _templates/  _tools/  docs/  _pending_approvals.md
-#   CLAUDE.md  .github/copilot-instructions.md  sync.sh  sync-agents.sh  install.sh  .gitignore
+#   .github/copilot-instructions.md  sync.sh  sync-agents.sh  install.sh  .gitignore
 #
 # What is never touched (your personal content):
 #   _index.md  _state.yaml  personal/  projects/  work/  and any other dirs
@@ -77,7 +77,6 @@ UPSTREAM_URL="https://github.com/mcglothi/ai-knowledge-base.git"
 DEFAULT_CHECK_INTERVAL_DAYS="${AIKB_TEMPLATE_CHECK_DAYS:-7}"
 FRAMEWORK_PATHS=(
   "AGENTS.md"
-  "CLAUDE.md"
   ".github/copilot-instructions.md"
   "_agents"
   "_templates"
@@ -452,7 +451,6 @@ done
 
 header "Re-applying your personal configuration..."
 apply_substitutions "$SCRIPT_DIR/AGENTS.md"
-[[ -f "$SCRIPT_DIR/CLAUDE.md" ]] && apply_substitutions "$SCRIPT_DIR/CLAUDE.md"
 success "Personalized AGENTS.md"
 
 apply_substitutions "$SCRIPT_DIR/.github/copilot-instructions.md"
