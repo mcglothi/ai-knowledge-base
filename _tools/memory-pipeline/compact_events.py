@@ -11,6 +11,8 @@ from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from noise_filters import TELEMETRY_TYPES
+
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
@@ -138,12 +140,25 @@ def main() -> int:
 
     for f in targets:
         events = []
+        telemetry_dropped = 0
         for line in f.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if not line:
                 continue
             try:
-                events.append(json.loads(line))
+                evt = json.loads(line)
+                if isinstance(evt, dict) and evt.get("type") in TELEMETRY_TYPES:
+                    # Telemetry is not knowledge. quota_snapshot alone is 97% of
+                    # the event stream (25,398 of 25,931); left in, it dominates
+                    # the compacted highlights and every consumer downstream --
+                    # the temporal graph re-linked the same three vendor names
+                    # thousands of times per day. build_candidates, dream_cycle
+                    # and the search indexer each learned this separately;
+                    # compaction was the stage that never got wired to the
+                    # shared definition in noise_filters.
+                    telemetry_dropped += 1
+                    continue
+                events.append(evt)
             except json.JSONDecodeError:
                 continue
 
@@ -164,6 +179,7 @@ def main() -> int:
             "source_file": str(f.relative_to(root)),
             "compacted_at_utc": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
             "event_count": len(events),
+            "telemetry_dropped": telemetry_dropped,
             "projects": dict(by_project),
             "types": dict(by_type),
             "highlights": dict(highlights),
