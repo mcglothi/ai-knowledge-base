@@ -14,6 +14,11 @@ LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 UPDATED_RE = re.compile(r"\*\*Last Updated:\*\*\s*(\d{4}-\d{2}-\d{2})")
 FRONTMATTER_UPDATED_RE = re.compile(r"(?im)^last_updated:\s*(\d{4}-\d{2}-\d{2})\b")
 TITLE_RE = re.compile(r"^#\s+(.+)$", re.MULTILINE)
+# Directories excluded from the graph. These are either machine-local tooling
+# (.claude, .venv, node_modules) or our own source, none of which is knowledge.
+# Including them made the graph depend on which host ran the build.
+SKIP_DIRS = {".git", "_tools", ".claude", ".codex", ".venv", "node_modules", ".pytest_cache"}
+
 IP_RE = re.compile(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b")
 
 def extract_entities(text: str) -> list[str]:
@@ -24,7 +29,10 @@ def extract_entities(text: str) -> list[str]:
     for c in caps:
         if len(c) > 3 and c not in {"This", "The", "When", "What", "How", "If"}:
             entities.add(c)
-    return list(entities)
+    # Sorted, not list(set): set iteration order varies per process (hash
+    # randomization), which made every rebuild reorder the whole file and
+    # produce enormous meaningless diffs even when nothing had changed.
+    return sorted(entities)
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
@@ -49,7 +57,7 @@ def main() -> int:
 
     for f in sorted(root.rglob("*.md")):
         parts = set(f.parts)
-        if ".git" in parts or "_tools" in parts:
+        if parts & SKIP_DIRS:
             continue
         rel = str(f.relative_to(root))
         text = f.read_text(encoding="utf-8", errors="ignore")
@@ -94,55 +102,76 @@ def main() -> int:
                 }
             )
 
-    # Runtime event -> project edges
-    events_dir = root / "_runtime" / "events"
-    if events_dir.exists():
-        for ev_file in sorted(events_dir.glob("*.ndjson")):
-            for line in ev_file.read_text(encoding="utf-8").splitlines():
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    evt = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                event_id = evt.get("id") or f"event:{ev_file.stem}"
-                event_node = f"event:{event_id}"
-                nodes[event_node] = {
-                    "id": event_node,
-                    "kind": "event",
-                    "title": evt.get("summary", "event"),
-                    "last_updated": (evt.get("ts_utc", "")[:10] or ev_file.stem),
-                    "event_type": evt.get("type", "unknown"),
-                }
-                project = evt.get("project", "").strip()
-                if project:
-                    if project not in nodes:
-                        nodes[project] = {
-                            "id": project,
-                            "kind": "doc",
-                            "title": project,
-                            "last_updated": ev_file.stem,
-                        }
-                    edges.append(
-                        {
-                            "source": event_node,
-                            "target": project,
-                            "relation": "mentions_project",
-                            "ts": (evt.get("ts_utc", "")[:10] or ev_file.stem),
-                        }
-                    )
+    # Runtime event -> project edges.
+    #
+    # Read the TRACKED compacted summaries, not the raw _runtime/events/*.ndjson.
+    # Those raw files are gitignored (.gitignore: _runtime/events/*.ndjson), so a
+    # machine with 138 of them produced a ~107k-edge graph while a fresh clone with
+    # 5 produced ~18k. Same code, same commit, different answer. Building from
+    # tracked inputs makes the graph reproducible on any host.
+    compacted_dir = root / "_runtime" / "events" / "compacted"
+    if compacted_dir.exists():
+        for ev_file in sorted(compacted_dir.glob("*.json")):
+            try:
+                payload = json.loads(ev_file.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(payload, dict):
+                continue
+            day = ev_file.stem
+            event_node = f"event:{day}"
+            types = payload.get("types") or {}
+            nodes[event_node] = {
+                "id": event_node,
+                "kind": "event",
+                "title": f"{payload.get('event_count', 0)} events on {day}",
+                "last_updated": day,
+                "event_type": (max(types, key=types.get) if types else "unknown"),
+            }
 
-                # Extract entities from event summary
-                evt_entities = extract_entities(evt.get("summary", ""))
-                for ent in evt_entities:
+            for project in (payload.get("projects") or {}):
+                project = str(project).strip()
+                if not project or project == "unknown":
+                    continue
+                # A project label is whatever the event recorded — sometimes an
+                # absolute path from another host. It is not a document, so do not
+                # label it "doc" and let it masquerade as one in the graph.
+                if project not in nodes:
+                    nodes[project] = {
+                        "id": project,
+                        "kind": "project",
+                        "title": Path(project).name or project,
+                        "last_updated": day,
+                    }
+                edges.append({
+                    "source": event_node,
+                    "target": project,
+                    "relation": "mentions_project",
+                    "ts": day,
+                })
+
+            highlights = payload.get("highlights") or {}
+            summaries: list[str] = []
+            if isinstance(highlights, dict):
+                for group in highlights.values():
+                    if isinstance(group, list):
+                        summaries.extend(str(x) for x in group)
+            elif isinstance(highlights, list):
+                summaries.extend(str(x) for x in highlights)
+
+            seen_ents: set[str] = set()
+            for summary in summaries:
+                for ent in extract_entities(summary):
+                    if ent in seen_ents:
+                        continue
+                    seen_ents.add(ent)
                     if ent not in nodes:
-                        nodes[ent] = {"id": ent, "kind": "entity", "title": ent, "last_updated": ev_file.stem}
+                        nodes[ent] = {"id": ent, "kind": "entity", "title": ent, "last_updated": day}
                     edges.append({
                         "source": event_node,
                         "target": ent,
                         "relation": "mentions_entity",
-                        "ts": (evt.get("ts_utc", "")[:10] or ev_file.stem),
+                        "ts": day,
                     })
 
     out = Path(args.out) if args.out else (root / "_runtime" / "graphs" / "temporal-knowledge-graph.json")
