@@ -13,6 +13,7 @@ On first call, auto-builds the index if the DB doesn't exist yet.
 """
 
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -28,6 +29,7 @@ from fastmcp import FastMCP
 from indexer import DB_PATH, build_index
 from redaction import redact_text
 from search import format_results, search
+from code_search import code_search, format_code_results
 
 AIKB_ROOT = Path(__file__).resolve().parents[2]
 EVENTS_DIR = AIKB_ROOT / "_runtime" / "events"
@@ -60,6 +62,7 @@ def aikb_search(
     domain: str = "",
     project: str = "",
     kind: str = "",
+    include_code: bool = True,
 ) -> str:
     """
     Search the AIKB knowledge base using hybrid BM25 + semantic retrieval,
@@ -79,6 +82,9 @@ def aikb_search(
         domain: Filter by top-level directory (e.g. "projects", "personal").
         project: Filter by project name in file path or tags.
         kind: Filter by content type: doc, event, script, state, candidate.
+        include_code: Also list the best code hits from repos GitNexus has indexed on this
+                      machine (a "## Code (GitNexus)" section after the notes). Skipped when a
+                      date, domain, project or kind filter is set, or when GitNexus isn't running.
     """
     top_k = min(max(1, top_k), 10)
 
@@ -108,7 +114,10 @@ def aikb_search(
             kind=kind,
         )
         _log_telemetry(query, top_k, include_related, {"domain": domain, "project": project, "kind": kind, "as_of": as_of, "before": before, "after": after}, results)
-        return format_results(results)
+        text = format_results(results)
+        if include_code and not any((as_of, before, after, domain, project, kind)):
+            text += format_code_results(code_search(query))
+        return text
     except FileNotFoundError:
         return _build_and_search(query, top_k, include_related, as_of, before, after, domain, project, kind)
 
@@ -370,7 +379,8 @@ def _append_suppression(entry: dict):
 
 def _log_telemetry(query: str, top_k: int, include_related: bool, filters: dict, results: list):
     try:
-        telemetry_dir = AIKB_ROOT / "_runtime" / "telemetry" / "aikb-search"
+        # AIKB_TELEMETRY_DIR: read-only mirrors log outside the repo so their git pull never conflicts
+        telemetry_dir = Path(os.environ.get("AIKB_TELEMETRY_DIR") or AIKB_ROOT / "_runtime" / "telemetry" / "aikb-search")
         telemetry_dir.mkdir(parents=True, exist_ok=True)
         now = datetime.now(timezone.utc)
         out_file = telemetry_dir / f"{now.strftime('%Y-%m-%d')}.ndjson"

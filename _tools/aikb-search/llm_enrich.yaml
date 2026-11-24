@@ -1,19 +1,42 @@
 # Optional local-LLM entity enrichment config.
+# Last Updated: 2026-09-08
 # The enrichment pass probes these endpoints in order and uses the first one
 # that answers; if none do, llm_enrich.py exits 0 and the deterministic
-# baseline stands alone. No local LLM? No changes needed — this is optional.
+# baseline stands alone. Platform users without local LLMs need no changes.
 
+# Dedicated inference host first -- keeps nightly work off your workstation.
 endpoints:
+  - name: inference-host
+    url: "http://inference-host.example.com:11434/v1"
   - name: lm-studio
     url: "http://localhost:1234/v1"
   - name: ollama
     url: "http://localhost:11434/v1"
-  # Add a remote box on your LAN if you have one:
-  # - name: gpu-server
-  #   url: "http://192.168.1.50:11434/v1"
 
 # First available model from this list is used; falls back to the endpoint's
 # first listed model if none match.
-model_preference: []
+#
+# Order is set by the promotion-gate benchmark in
+# _runtime/benchmarks/promotion-gate-eval.json (see eval_promotion_gate.py).
+# Dense Gemma models scored highest; MoE variants scored worst by a wide
+# margin. gemma-4-26b-a4b in particular is a near-rubber-stamp (67%
+# keep-precision) and also degenerates into repetition loops on free-text
+# fields, so it is deliberately LAST rather than first.
+model_preference:
+  - "gemma3:12b"
+  - "google/gemma-4-31b"
+  - "gemma4:31b"
+  - "gemma3:12b-it-qat"
+  - "google/gemma-4-26b-a4b"
 
 max_chunks_per_run: 200
+
+# A nightly step must not run for an hour. Serial extraction at 4-15s per chunk
+# blew well past that on a 200-chunk budget; fan out and stop at a wall clock.
+workers: 4
+max_seconds: 600
+
+# Generous probe: an idle inference host answers /models in ~20ms, but a nightly runs
+# when it is loaded, and a lost probe race silently relocates the batch to the
+# laptop with nothing in the log to say so.
+probe_timeout_seconds: 8

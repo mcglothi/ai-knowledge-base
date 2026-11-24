@@ -66,7 +66,18 @@ python3 _tools/memory-pipeline/dream_cycle.py --date 2026-03-21
 python3 _tools/memory-pipeline/nightly_maintenance.py
 ```
 
+## Nightly Working-Tree Backup (macOS launchd)
+
+Long-lived cmux tabs mean SessionEnd rarely fires and canonical edits sit uncommitted. `aikb-nightly-backup.sh` (01:30 nightly) snapshots the full working tree to `origin/backup/<host>` without touching main, the index, or open sessions. It then pushes `_runtime/` and sends an IM plus a macOS notification for files left uncommitted for 1+ day.
+
+    bash _tools/memory-pipeline/install_nightly_backup_launchd.sh
+    git show backup/<host>:<path>      # restore a file
+
+Claude Code hooks: `Stop` -> `aikb-session-stop.sh --turn` (every reply; keeps the claim). `SessionEnd` -> full closeout plus release.
+
 ## Scheduler Hook (macOS launchd)
+
+> **Retired 2026-10-06.** A single nightly host is the writer of derived artifacts. Running this on a workstation too causes add/add conflicts that block the session-stop push. Do not install it.
 
 ```bash
 bash _tools/memory-pipeline/install_nightly_launchd.sh

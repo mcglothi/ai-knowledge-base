@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Last Updated: 2026-09-08
 """
 AIKB Semantic Indexer
 
@@ -196,7 +197,7 @@ def _host_re() -> re.Pattern:
     return _host_re_cache
 _IP_RE = re.compile(r"\b((?:\d{1,3}\.){3}\d{1,3})\b")
 _PATH_RE = re.compile(
-    r"\b((?:_tools|_runtime|_agents|_templates|docs|runbooks|projects|personal[\w-]*|work)"
+    r"\b((?:_tools|_runtime|_agents|_templates|docs|home-lab|side-gigs|projects|personal[\w-]*)"
     r"(?:/[\w.-]+)*/[\w.-]+\.(?:py|sh|md|ya?ml|json))\b"
 )
 _BACKTICK_RE = re.compile(r"`([A-Za-z0-9_./:-]{3,40})`")
@@ -526,6 +527,12 @@ def insert_chunks(conn: sqlite3.Connection, chunks: list[dict], embeddings: list
         )
 
 
+# Event types carrying no retrievable knowledge. Mirrors
+# _tools/memory-pipeline/build_candidates.TELEMETRY_TYPES; kept as a literal so
+# the indexer has no dependency on the memory-pipeline package.
+INDEX_SKIP_EVENT_TYPES = {"quota_snapshot", "heartbeat", "context_meter"}
+
+
 def index_events(conn: sqlite3.Connection, force: bool = False, verbose: bool = True):
     """
     Index _runtime/events/YYYY-MM-DD.ndjson files.
@@ -593,6 +600,14 @@ def index_events(conn: sqlite3.Connection, force: bool = False, verbose: bool = 
                         summary = event.get("summary", "")
                         agent   = event.get("agent", "unknown")
                         etype   = event.get("type", "event")
+                        # Telemetry is not knowledge and must not be embedded.
+                        # quota_snapshot alone was 12,898 of 15,344 chunks --
+                        # 84% of the whole index, and 50 MB of the DB. It never
+                        # surfaced in results (it does not match a real
+                        # question semantically), so this is a size and
+                        # reindex-time win, not a ranking fix.
+                        if etype in INDEX_SKIP_EVENT_TYPES:
+                            continue
                         project = event.get("project", "")
                         rejected = event.get("rejected", "")
                         assumptions = event.get("assumptions", "")

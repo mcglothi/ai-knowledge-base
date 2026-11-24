@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Last Updated: 2026-09-08
 """
 Aggregate usage signals into aikb_index.db for ranking.
 
@@ -20,6 +21,7 @@ Run standalone (nightly maintenance) or via build_index() after indexing:
 """
 
 import json
+import os
 import sqlite3
 import sys
 from datetime import datetime, timedelta, timezone
@@ -28,7 +30,7 @@ from pathlib import Path
 TOOL_DIR = Path(__file__).parent
 AIKB_ROOT = TOOL_DIR.parent.parent
 DB_PATH = TOOL_DIR / "aikb_index.db"
-TELEMETRY_DIR = AIKB_ROOT / "_runtime" / "telemetry" / "aikb-search"
+TELEMETRY_DIR = Path(os.environ.get("AIKB_TELEMETRY_DIR") or AIKB_ROOT / "_runtime" / "telemetry" / "aikb-search")
 EVENTS_DIR = AIKB_ROOT / "_runtime" / "events"
 
 SCHEMA = """
@@ -159,6 +161,10 @@ def main():
     if not DB_PATH.exists():
         print(f"Index not found at {DB_PATH}; run indexer.py first.")
         sys.exit(0)  # not an error: nightly runs on hosts without an index
+    # indexer pulls numpy/fastembed; import lazily so the DB-absent path above
+    # stays cheap on hosts with no index and no venv.
+    from indexer import connect_db
+
     conn = connect_db()
     try:
         n_access = refresh_usage_stats(conn)
