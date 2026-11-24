@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Last Updated: 2026-09-08
 """Build nightly dream artifacts from runtime memory surfaces."""
 
 from __future__ import annotations
@@ -256,20 +257,8 @@ def parse_candidate_yaml(path: Path) -> list[dict[str, Any]]:
 
 
 def load_events(root: Path, date_str: str) -> list[dict[str, Any]]:
-    path = root / "_runtime" / "events" / f"{date_str}.ndjson"
-    if not path.exists():
-        return []
-    events: list[dict[str, Any]] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        try:
-            item = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(item, dict):
-            events.append(item)
-    return events
+    from event_inputs import load_events as load_shared_events
+    return load_shared_events(root, date_str)
 
 
 def load_compacted_summary(root: Path, date_str: str) -> dict[str, Any]:

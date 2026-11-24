@@ -11,15 +11,20 @@ Replace `{{LOCAL_PATH}}` with your AIKB path (e.g. `~/code/AIKB`).
 {
   "hooks": {
     "Stop": [
+      {"matcher": "", "hooks": [{"type": "command", "command": "bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh --turn"}]}
+    ],
+    "SessionEnd": [
       {"matcher": "", "hooks": [{"type": "command", "command": "bash {{LOCAL_PATH}}/_tools/memory-pipeline/aikb-session-stop.sh"}]}
     ]
   }
 }
 ```
-Merge `hooks` key if file already exists.
+Merge `hooks` key if file already exists. `Stop` fires after every reply, so it must
+carry `--turn` (no closeout, no claim release); the full closeout belongs on `SessionEnd`.
+The script also downgrades an unflagged `Stop`/`SubagentStop` payload to `--turn`.
 
 ## Gemini CLI — `~/.gemini/settings.json`
-Same JSON shape as Claude Code above. Merge `hooks` key if file exists.
+Register only `SessionEnd` (no flag), same JSON shape as above. Merge `hooks` key if file exists.
 
 ## Codex CLI — no native hook
 Add to `~/.zshrc` or `~/.bashrc`:
